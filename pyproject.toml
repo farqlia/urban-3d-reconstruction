@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "urb3d"
+version = "0.0.1"
+description = "Codebase for urban 3d reconstruction"
+requires-python = ">=3.8,<3.13"
+dependencies = [
+    "jupyter~=1.1.1",
+    "numpy~=2.1.1",
+    "pycolmap==0.6.1",
+    "matplotlib==3.9.2",
+    "notebook==7.2.2",
+    "pytorch==2.4.1",
+    "open3d==0.18.0",
+    "scipy==1.14.1",
+    "scikit-learn==1.5.2"
+]
+
+dev = ["urb3d"]
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.ruff]
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # pyflakes
+    "I", # isort
+    "C", # flake8-comprehensions
+    "B", # flake8-bugbear
+    # "UP",  # pyupgrade
+]
+line-length = 120
+ignore = [
+    # "E501", # line too long, handled by black
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
+    "W191", # indentation contains tabs
+]
+extend-exclude = [".venv/", "build/", "dist/", "docs/"]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+
+[tool.ruff.lint.isort]
+order-by-type = true
+lines-between-types = 1
+combine-as-imports = true
+# known_first_party = "common"
+
+ignore = [
+    "I001",
+]
+
+[tool.setuptools.dynamic]
+readme = {file = ['README.md']}
