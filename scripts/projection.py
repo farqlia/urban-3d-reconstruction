@@ -5,7 +5,7 @@ import matplotlib.image as mpimg
 import argparse
 from pathlib import Path
 
-def project_image(reconstruction_path, img_id, cam_id):
+def project_image(reconstruction_path, img_id, cam_id, znear, zfar):
     reconstruction = pycolmap.Reconstruction(reconstruction_path)
     img = reconstruction.images[img_id]
 
@@ -15,7 +15,6 @@ def project_image(reconstruction_path, img_id, cam_id):
     extrinsic_matrix = get_extrinsic_params(img.cam_from_world)
     f, _, _ = reconstruction.cameras[cam_id].params
     width, height = reconstruction.cameras[cam_id].width, reconstruction.cameras[cam_id].height
-    znear, zfar = 1, 5
     intrinsic_matrix = get_intrinsic_opengl_params(f, f, height, width, zfar=zfar, znear=znear)
 
     homogeneous_points = convert_to_homogenous(points)
@@ -45,9 +44,12 @@ if __name__=="__main__":
     parser.add_argument('--images_path', type=str, required=True, help='Path to the folder of input images.')
     parser.add_argument('--img_id', type=int, required=True, help='Image ID for projection.')
     parser.add_argument('--cam_id', type=int, default=1, help='Camera ID (default is 1).')
+    parser.add_argument('--znear', type=float, default=1.0, help='Near clipping plane (minimum visible distance from camera).')
+    parser.add_argument('--zfar', type=float, default=5.0, help='Far clipping plane (maximum visible distance from camera).')
     
     args = parser.parse_args()
     
-    screen_coordinates, colors, img = project_image(args.reconstruction_path, args.img_id, args.cam_id)
+    screen_coordinates, colors, img = project_image(args.reconstruction_path, args.img_id, args.cam_id,
+                                                     args.znear, args.zfar)
     
     show_projection(Path(args.images_path), img, screen_coordinates, colors)
