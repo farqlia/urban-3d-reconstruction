@@ -252,3 +252,67 @@ for tile in tile_coords(tile_size, tile_size, tile_size):
 
         print(running_loss)
         running_loss = 0
+
+
+class GaussianSplatting:
+
+    def __init__(self, scene_folder, output_path, images_folder):
+        self.scene_folder = scene_folder
+        self.output_path = output_path
+        self.images_folder = images_folder
+
+    def initialize_parameters(self):
+        self.pcd = o3d.io.read_point_cloud(str(scene_folder / 'sparse.ply'))
+
+        self.points = torch.tensor(np.asarray(self.pcd.points), device=device, requires_grad=requires_grad, dtype=torch.float32)
+        self.colors = torch.tensor(np.asarray(self.pcd.colors), device=device, requires_grad=requires_grad,
+                              dtype=torch.float32)  # colors should also be sigmoid exponents to have range [0, 1]
+        self.covariances = torch.tensor(init_from_uniform(points.shape[0], low=0.2, high=0.5), device=device,
+                                   dtype=torch.float32)
+        self.alphas_exponents_pt = torch.tensor(np.log(np.random.uniform(low=0.1, high=0.3, size=points.shape[0])),
+                                           requires_grad=requires_grad, device=device, dtype=torch.float32)
+
+    def read_reconstruction(self):
+        pass
+
+    def train_from_perspective(self, image_id, cam_id):
+
+        pass
+
+    def initialize_parameters_from_camera_perspective(self):
+        extrinsic_matrix = get_extrinsic_params(img.cam_from_world)
+        f, cx, cy = reconstruction.cameras[cam_id].params
+        f_pt = torch.scalar_tensor(f, device=device, dtype=torch.float32)
+        width, height = reconstruction.cameras[cam_id].width, reconstruction.cameras[cam_id].height
+        znear, zfar = 1, 3
+        intrinsic_matrix = get_intrinsic_opengl_params(f, f, height, width, zfar=zfar, znear=znear)
+        W = torch.tensor(extrinsic_matrix[:3, :3].T, device=device, dtype=torch.float32)  # viewing transformation
+
+        extrinsic_matrix_pt = torch.tensor(extrinsic_matrix, device=device, dtype=torch.float32)
+        intrinsic_matrix_pt = torch.tensor(intrinsic_matrix, device=device, dtype=torch.float32)
+
+        image_pt = torch.tensor(image / 255.0, device=device)
+
+        eigenvalues, eigenvectors = torch.linalg.eig(covariances)
+        rot = eigenvectors.real.requires_grad_(requires_grad)
+
+        diagonal = np.array([[1.0, 0, 0], [0, 1.0, 0], [0, 0, 1.0]])
+
+        # Similarly to alphas we'll actually optimize exponents
+        scale = torch.sqrt(torch.abs(eigenvalues.real[:, np.newaxis])) * torch.repeat_interleave(
+            torch.tensor(diagonal[np.newaxis, ...], device=device), len(points), axis=0)
+        scale_exponents = torch.log(scale).requires_grad_(requires_grad)
+
+
+    def train(self):
+        pass
+
+    def render(self):
+        pass
+
+    def _render_tile(self):
+        pass
+
+
+def render_tile(tile_coords, points, rot, scale_exponents, colors, alphas_exponents_pt):
+
