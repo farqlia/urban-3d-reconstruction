@@ -14,5 +14,6 @@ gaussian_splatting.train()
 gaussian_splatting.render()
 
 plt.imshow(gaussian_splatting.ground_truth_image)
+plt.show()
 plt.imshow(gaussian_splatting.rendered_image)
 plt.show()

@@ -1,4 +1,6 @@
 from pathlib import Path
+
+import numpy as np
 import torch
 
 from src.geometry.point_transformation import *
@@ -170,7 +172,7 @@ class GaussianSplatting:
         self.optimizer = torch.optim.Adam([self.points, self.rot, self.scale_exponents,
                                            self.color_exponents, self.alphas_exponents_pt], lr=0.1)
         self.iterations = 2
-        self.tile_size = 16
+        self.tile_size = 64
 
     def _train_tile(self, tile_coords):
 
@@ -220,7 +222,7 @@ class GaussianSplatting:
 
 
     def render(self):
-        self.rendered_image = np.zeros((self.width, self.height, 3))
+        self.rendered_image = np.ones((self.height, self.width, 3))
         self._render_tile([200, 400])
 
     def render_pixel(self, pixel, splat_z_indexes, point_ids, camera_coordinates, screen_coordinates):
