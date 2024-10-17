@@ -17,3 +17,5 @@ plt.imshow(gaussian_splatting.ground_truth_image)
 plt.show()
 plt.imshow(gaussian_splatting.rendered_image)
 plt.show()
+
+gaussian_splatting.gradient_measure.plot_gradient_stats()

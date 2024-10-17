@@ -3,6 +3,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
+from src.gaussian_splatting.gradient_measures import GradientMeasure
 from src.geometry.point_transformation import *
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -144,8 +145,10 @@ class GaussianSplatting:
         self.ground_truth_image = mpimg.imread(self.images_folder / f'{self.img_rec.name}')
 
         self.initialize_parameters_from_camera_perspective()
+        self.gradient_measure = GradientMeasure(self.points, self.rot, self.scale_exponents,
+                                                self.color_exponents, self.alphas_exponents_pt)
 
-        self._train_tile([200, 400])
+        self._train_tile([400, 150])
 
     def initialize_parameters_from_camera_perspective(self):
         extrinsic_matrix = get_extrinsic_params(self.img_rec.cam_from_world)
@@ -174,6 +177,27 @@ class GaussianSplatting:
         self.iterations = 2
         self.tile_size = 64
 
+    def to_2d_perspective_and_filter(self, tile_left_lower, tile_upper_right):
+        homogeneous_points = convert_to_homogenous(self.points)
+        camera_coordinates = homogeneous_points @ self.extrinsic_matrix_pt.T
+        clip_coordinates = camera_coordinates @ self.intrinsic_matrix_pt.T
+        point_ids = cull_coordinates_ids(clip_coordinates, camera_coordinates, zfar=self.zfar, znear=self.znear)
+        ndc_coordinates = to_ndc_coordinates(clip_coordinates[point_ids])
+        screen_coordinates = to_screen_coordinates(ndc_coordinates, self.width, self.height, self.zfar, self.znear)
+
+        ids = (screen_coordinates[:, 0] > tile_left_lower[0]) & (
+                screen_coordinates[:, 1] > tile_left_lower[1]) & (
+                      screen_coordinates[:, 0] < tile_upper_right[0]) & (
+                      screen_coordinates[:, 1] < tile_upper_right[1])
+        splat_indexes = torch.where(ids == True)[0]
+
+        # Gaussians depths may also change so we need to sort it again
+        z_sorted = screen_coordinates[splat_indexes, 2].sort()
+        z_indices = z_sorted.indices.type(torch.int)
+        splat_z_indexes = splat_indexes[z_indices]
+
+        return splat_z_indexes, point_ids, camera_coordinates, screen_coordinates
+
     def _train_tile(self, tile_coords):
 
         tile_pixels = torch.tensor(
@@ -187,33 +211,23 @@ class GaussianSplatting:
         running_loss = 0
 
         for pixel in tile_pixels:
+
+            self.gradient_measure.add_pixel_gradient()
+
             for i in range(self.iterations):
                 self.optimizer.zero_grad()
 
-                # points are optimized so we need to refresh calculations
-                homogeneous_points = convert_to_homogenous(self.points)
-                camera_coordinates = homogeneous_points @ self.extrinsic_matrix_pt.T
-                clip_coordinates = camera_coordinates @ self.intrinsic_matrix_pt.T
-                point_ids = cull_coordinates_ids(clip_coordinates, camera_coordinates, zfar=self.zfar, znear=self.znear)
-                ndc_coordinates = to_ndc_coordinates(clip_coordinates[point_ids])
-                screen_coordinates = to_screen_coordinates(ndc_coordinates, self.width, self.height, self.zfar, self.znear)
-
-                ids = (screen_coordinates[:, 0] > tile_left_lower[0]) & (
-                            screen_coordinates[:, 1] > tile_left_lower[1]) & (
-                              screen_coordinates[:, 0] < tile_upper_right[0]) & (
-                                  screen_coordinates[:, 1] < tile_upper_right[1])
-                splat_indexes = torch.where(ids == True)[0]
-
-                # Gaussians depths may also change so we need to sort it again
-                z_sorted = screen_coordinates[splat_indexes, 2].sort()
-                z_indices = z_sorted.indices.type(torch.int)
-                splat_z_indexes = splat_indexes[z_indices]
+                splat_z_indexes, point_ids, camera_coordinates, screen_coordinates = self.to_2d_perspective_and_filter(
+                    tile_left_lower, tile_upper_right
+                )
 
                 color = self.render_pixel(pixel, splat_z_indexes, point_ids, camera_coordinates, screen_coordinates)
 
                 loss = torch.sum(torch.abs(color - self.image_pt[pixel[0], pixel[1]]))
 
                 loss.backward()
+
+                self.gradient_measure.accumulate_pixel_gradient(point_ids)
 
                 running_loss += loss.item()
 
@@ -278,24 +292,9 @@ class GaussianSplatting:
 
             with torch.no_grad():
 
-                # points are optimized so we need to refresh calculations
-                homogeneous_points = convert_to_homogenous(self.points)
-                camera_coordinates = homogeneous_points @ self.extrinsic_matrix_pt.T
-                clip_coordinates = camera_coordinates @ self.intrinsic_matrix_pt.T
-                point_ids = cull_coordinates_ids(clip_coordinates, camera_coordinates, zfar=self.zfar, znear=self.znear)
-                ndc_coordinates = to_ndc_coordinates(clip_coordinates[point_ids])
-                screen_coordinates = to_screen_coordinates(ndc_coordinates, self.width, self.height, self.zfar, self.znear)
-
-                ids = (screen_coordinates[:, 0] > tile_left_lower[0]) & (
-                            screen_coordinates[:, 1] > tile_left_lower[1]) & (
-                              screen_coordinates[:, 0] < tile_upper_right[0]) & (
-                                  screen_coordinates[:, 1] < tile_upper_right[1])
-                splat_indexes = torch.where(ids == True)[0]
-
-                # Gaussians depths may also change so we need to sort it again
-                z_sorted = screen_coordinates[splat_indexes, 2].sort()
-                z_indices = z_sorted.indices.type(torch.int)
-                splat_z_indexes = splat_indexes[z_indices]
+                splat_z_indexes, point_ids, camera_coordinates, screen_coordinates = self.to_2d_perspective_and_filter(
+                    tile_left_lower, tile_upper_right
+                )
 
                 color = self.render_pixel(pixel, splat_z_indexes, point_ids, camera_coordinates, screen_coordinates)
                 self.rendered_image[pixel[0], pixel[1], :] = color.cpu()
