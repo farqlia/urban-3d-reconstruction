@@ -109,8 +109,14 @@ class GaussianSplatting:
 
         self.points = torch.tensor(np.asarray(self.pcd.points), device=device, requires_grad=requires_grad,
                                    dtype=torch.float32)
-        self.colors = torch.tensor(np.asarray(self.pcd.colors), device=device, requires_grad=requires_grad,
+
+        # torch.log(colors[0]) - torch.log(1 - colors[0])
+
+        self.colors = torch.tensor(np.asarray(self.pcd.colors), device=device,
                                    dtype=torch.float32)  # colors should also be sigmoid exponents to have range [0, 1]
+
+        self.color_exponents = (torch.log(self.colors) - torch.log(1 - self.colors)).requires_grad_(requires_grad)
+
         self.covariances = torch.tensor(init_from_uniform(self.points.shape[0], low=0.2, high=0.5), device=device,
                                         dtype=torch.float32)
         self.alphas_exponents_pt = torch.tensor(np.log(np.random.uniform(low=0.1, high=0.3, size=self.points.shape[0])),
@@ -162,7 +168,7 @@ class GaussianSplatting:
 
     def set_training_params(self):
         self.optimizer = torch.optim.Adam([self.points, self.rot, self.scale_exponents,
-                                           self.colors, self.alphas_exponents_pt], lr=0.1)
+                                           self.color_exponents, self.alphas_exponents_pt], lr=0.1)
         self.iterations = 2
         self.tile_size = 16
 
@@ -209,12 +215,12 @@ class GaussianSplatting:
 
                 running_loss += loss.item()
 
-            print(running_loss)
+            # print(running_loss)
             running_loss = 0
 
 
     def render(self):
-        self.rendered_image = np.zeros(self.width, self.height)
+        self.rendered_image = np.zeros((self.width, self.height, 3))
         self._render_tile([200, 400])
 
     def render_pixel(self, pixel, splat_z_indexes, point_ids, camera_coordinates, screen_coordinates):
@@ -250,7 +256,7 @@ class GaussianSplatting:
         g_vals = torch.exp(-1 / 2 * torch.bmm(H, diff)).reshape(len(splat_indexes_f))
 
         weights = alphas[:saturation_depth] * g_vals
-        color = weights.reshape(1, saturation_depth) @ self.colors[point_ids][splat_indexes_f]
+        color = weights.reshape(1, saturation_depth) @ torch.sigmoid(self.color_exponents[point_ids][splat_indexes_f])
 
         return color
 
@@ -290,5 +296,5 @@ class GaussianSplatting:
                 splat_z_indexes = splat_indexes[z_indices]
 
                 color = self.render_pixel(pixel, splat_z_indexes, point_ids, camera_coordinates, screen_coordinates)
-                self.rendered_image[pixel[0], pixel[1]] = color
+                self.rendered_image[pixel[0], pixel[1], :] = color.cpu()
 
