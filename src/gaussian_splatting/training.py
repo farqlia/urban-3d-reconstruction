@@ -1,11 +1,6 @@
 from pathlib import Path
-from typing import Any
-
-import numpy as np
-import pandas as pd
 import torch
 
-from scripts.training import running_loss
 from src.geometry.point_transformation import *
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -106,6 +101,9 @@ class GaussianSplatting:
         self.output_path = output_path
         self.images_folder = images_folder
 
+        self.read_reconstruction()
+        self.initialize_parameters()
+
     def initialize_parameters(self):
         self.pcd = o3d.io.read_point_cloud(str(self.scene_folder / 'sparse.ply'))
 
@@ -118,13 +116,28 @@ class GaussianSplatting:
         self.alphas_exponents_pt = torch.tensor(np.log(np.random.uniform(low=0.1, high=0.3, size=self.points.shape[0])),
                                                 requires_grad=requires_grad, device=device, dtype=torch.float32)
 
+        eigenvalues, eigenvectors = torch.linalg.eig(self.covariances)
+        self.rot = eigenvectors.real.requires_grad_(requires_grad)
+
+        diagonal = np.array([[1.0, 0, 0], [0, 1.0, 0], [0, 0, 1.0]])
+
+        # Similarly to alphas we'll actually optimize exponents
+        scale = torch.sqrt(torch.abs(eigenvalues.real[:, np.newaxis])) * torch.repeat_interleave(
+            torch.tensor(diagonal[np.newaxis, ...], device=device), len(self.points), axis=0)
+        self.scale_exponents = torch.log(scale).requires_grad_(requires_grad)
+
+
     def read_reconstruction(self):
         self.reconstruction = pycolmap.Reconstruction(self.output_path / 'sparse')
 
     def train_from_perspective(self, image_id, cam_id):
-        self.img_rec = self.reconstruction[image_id]
+        self.img_rec = self.reconstruction.images[image_id]
         self.cam_id = cam_id
         self.ground_truth_image = mpimg.imread(self.images_folder / f'{self.img_rec.name}')
+
+        self.initialize_parameters_from_camera_perspective()
+
+        self._train_tile([200, 400])
 
     def initialize_parameters_from_camera_perspective(self):
         extrinsic_matrix = get_extrinsic_params(self.img_rec.cam_from_world)
@@ -140,23 +153,17 @@ class GaussianSplatting:
 
         self.image_pt = torch.tensor(self.ground_truth_image / 255.0, device=device)
 
-        eigenvalues, eigenvectors = torch.linalg.eig(self.covariances)
-        self.rot = eigenvectors.real.requires_grad_(requires_grad)
-
-        diagonal = np.array([[1.0, 0, 0], [0, 1.0, 0], [0, 0, 1.0]])
-
-        # Similarly to alphas we'll actually optimize exponents
-        scale = torch.sqrt(torch.abs(eigenvalues.real[:, np.newaxis])) * torch.repeat_interleave(
-            torch.tensor(diagonal[np.newaxis, ...], device=device), len(self.points), axis=0)
-        self.scale_exponents = torch.log(scale).requires_grad_(requires_grad)
 
     def train(self):
-        pass
+
+        self.set_training_params()
+        self.train_from_perspective(1, 1)
+
 
     def set_training_params(self):
         self.optimizer = torch.optim.Adam([self.points, self.rot, self.scale_exponents,
                                            self.colors, self.alphas_exponents_pt], lr=0.1)
-        self.iterations = 50
+        self.iterations = 2
         self.tile_size = 16
 
     def _train_tile(self, tile_coords):
@@ -205,8 +212,10 @@ class GaussianSplatting:
             print(running_loss)
             running_loss = 0
 
+
     def render(self):
-        self.rendered_colors = np.zeros(self.width, self.height)
+        self.rendered_image = np.zeros(self.width, self.height)
+        self._render_tile([200, 400])
 
     def render_pixel(self, pixel, splat_z_indexes, point_ids, camera_coordinates, screen_coordinates):
 
@@ -245,6 +254,7 @@ class GaussianSplatting:
 
         return color
 
+
     def _render_tile(self, tile_coords):
 
         tile_pixels = torch.tensor(
@@ -258,25 +268,27 @@ class GaussianSplatting:
 
         for pixel in tile_pixels:
 
-            # points are optimized so we need to refresh calculations
-            homogeneous_points = convert_to_homogenous(self.points)
-            camera_coordinates = homogeneous_points @ self.extrinsic_matrix_pt.T
-            clip_coordinates = camera_coordinates @ self.intrinsic_matrix_pt.T
-            point_ids = cull_coordinates_ids(clip_coordinates, camera_coordinates, zfar=self.zfar, znear=self.znear)
-            ndc_coordinates = to_ndc_coordinates(clip_coordinates[point_ids])
-            screen_coordinates = to_screen_coordinates(ndc_coordinates, self.width, self.height, self.zfar, self.znear)
+            with torch.no_grad():
 
-            ids = (screen_coordinates[:, 0] > tile_left_lower[0]) & (
-                        screen_coordinates[:, 1] > tile_left_lower[1]) & (
-                          screen_coordinates[:, 0] < tile_upper_right[0]) & (
-                              screen_coordinates[:, 1] < tile_upper_right[1])
-            splat_indexes = torch.where(ids == True)[0]
+                # points are optimized so we need to refresh calculations
+                homogeneous_points = convert_to_homogenous(self.points)
+                camera_coordinates = homogeneous_points @ self.extrinsic_matrix_pt.T
+                clip_coordinates = camera_coordinates @ self.intrinsic_matrix_pt.T
+                point_ids = cull_coordinates_ids(clip_coordinates, camera_coordinates, zfar=self.zfar, znear=self.znear)
+                ndc_coordinates = to_ndc_coordinates(clip_coordinates[point_ids])
+                screen_coordinates = to_screen_coordinates(ndc_coordinates, self.width, self.height, self.zfar, self.znear)
 
-            # Gaussians depths may also change so we need to sort it again
-            z_sorted = screen_coordinates[splat_indexes, 2].sort()
-            z_indices = z_sorted.indices.type(torch.int)
-            splat_z_indexes = splat_indexes[z_indices]
+                ids = (screen_coordinates[:, 0] > tile_left_lower[0]) & (
+                            screen_coordinates[:, 1] > tile_left_lower[1]) & (
+                              screen_coordinates[:, 0] < tile_upper_right[0]) & (
+                                  screen_coordinates[:, 1] < tile_upper_right[1])
+                splat_indexes = torch.where(ids == True)[0]
 
-            color = self.render_pixel(pixel, splat_z_indexes, point_ids, camera_coordinates, screen_coordinates)
-            self.rendered_colors[pixel[0], pixel[1]] = color
+                # Gaussians depths may also change so we need to sort it again
+                z_sorted = screen_coordinates[splat_indexes, 2].sort()
+                z_indices = z_sorted.indices.type(torch.int)
+                splat_z_indexes = splat_indexes[z_indices]
+
+                color = self.render_pixel(pixel, splat_z_indexes, point_ids, camera_coordinates, screen_coordinates)
+                self.rendered_image[pixel[0], pixel[1]] = color
 
