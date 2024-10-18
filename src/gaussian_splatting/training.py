@@ -214,6 +214,10 @@ class GaussianSplatting:
                 tile_left_lower, tile_upper_right
             )
 
+            out_of_screen = ((screen_coordinates[:, 0] > self.height) | (screen_coordinates[:, 1] > self.width))
+
+            print(f"# Out of screen = {torch.sum(out_of_screen).cpu().item()}")
+
             plot_colored_tile(screen_coordinates.clone().detach().cpu().numpy(),
                               torch.sigmoid(self.color_exponents[point_ids]).clone().detach().cpu().numpy(), [200, 400], 32)
 
@@ -228,7 +232,7 @@ class GaussianSplatting:
         self.optimizer = torch.optim.Adam([self.points, self.rot, self.scale_exponents,
                                            self.color_exponents, self.alphas_exponents_pt], lr=0.01)
         self.iterations = 2
-        self.tile_size = 64
+        self.tile_size = 32
 
     def to_2d_perspective_and_filter(self, tile_left_lower, tile_upper_right):
         homogeneous_points = convert_to_homogenous(self.points)
@@ -259,6 +263,13 @@ class GaussianSplatting:
         )
 
         tile_left_lower, tile_upper_right = tile_coords, np.array([tile_coords[0] + self.tile_size, tile_coords[1] + self.tile_size])
+
+        splat_z_indexes, *_ = self.to_2d_perspective_and_filter(
+            tile_left_lower, tile_upper_right
+        )
+
+        print(f"# {len(splat_z_indexes)} points")
+
 
         print(f"Tile: {tile_coords}")
         running_loss = 0
