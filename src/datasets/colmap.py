@@ -61,22 +61,21 @@ class Parser:
         params_dict = dict()
         imsize_dict = dict()  # width, height
         mask_dict = dict()
-        bottom = np.array([0, 0, 0, 1]).reshape(1, 4)
+        bottom = np.array([[0, 0, 0, 1]])
         for k in imdata:
-            im = imdata[k]
-            rot = im.R()
-            trans = im.tvec.reshape(3, 1)
-            w2c = np.concatenate([np.concatenate([rot, trans], 1), bottom], axis=0)
+            img_cam = imdata[k].cam_from_world
+            # w2c = np.concatenate([np.concatenate([rot, trans], 1), bottom], axis=0)
+            w2c = np.concatenate([img_cam.matrix(), bottom])
             w2c_mats.append(w2c)
 
             # support different camera intrinsics
-            camera_id = im.camera_id
+            camera_id = imdata[k].camera_id
             camera_ids.append(camera_id)
 
             # camera intrinsics
             cam = manager.cameras[camera_id]
-            fx, fy, cx, cy = cam.fx, cam.fy, cam.cx, cam.cy
-            K = np.array([[fx, 0, cx], [0, fy, cy], [0, 0, 1]])
+            f, cx, cy = cam.fx, cam.cx, cam.cy
+            K = np.array([[f, 0, cx], [0, f, cy], [0, 0, 1]])
             K[:2, :] /= factor
             Ks_dict[camera_id] = K
 

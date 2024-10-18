@@ -51,7 +51,7 @@ class Config:
     # Path to the Mip-NeRF 360 dataset
     data_dir: str = str(Path("../data/south-building-d4x"))
     # Downsample factor for the dataset
-    data_factor: int = 4
+    data_factor: int = 1
     # Directory to save results
     result_dir: str = str(Path("../results"))
     # Every N images there is a test image
