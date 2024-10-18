@@ -195,7 +195,8 @@ class GaussianSplatting:
         )
 
         plot_colored_tile(screen_coordinates.clone().detach().cpu().numpy(),
-                          torch.sigmoid(self.color_exponents[point_ids]).clone().detach().cpu().numpy(), [200, 400], 32)
+                          torch.sigmoid(self.color_exponents[point_ids]).clone().detach().cpu().numpy(),
+                          tile_coords, self.tile_size)
 
 
         epochs = 5
