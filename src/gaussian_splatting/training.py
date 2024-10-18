@@ -190,6 +190,14 @@ class GaussianSplatting:
 
         tile_left_lower, tile_upper_right = tile_coords, np.array([tile_coords[0] + self.tile_size, tile_coords[1] + self.tile_size])
 
+        splat_z_indexes, splat_indexes, point_ids, camera_coordinates, screen_coordinates = self.to_2d_perspective_and_filter(
+            tile_left_lower, tile_upper_right
+        )
+
+        plot_colored_tile(screen_coordinates.clone().detach().cpu().numpy(),
+                          torch.sigmoid(self.color_exponents[point_ids]).clone().detach().cpu().numpy(), [200, 400], 32)
+
+
         epochs = 5
         self.epoch_losses = []
         for epoch in range(epochs):
@@ -233,8 +241,11 @@ class GaussianSplatting:
 
 
     def set_training_params(self):
-        self.optimizer = torch.optim.Adam([self.points, self.rot, self.scale_exponents,
-                                           self.color_exponents, self.alphas_exponents_pt], lr=0.01)
+        self.optimizer = torch.optim.Adam(
+            [{'params': self.points, 'lr': 1e-10},
+            {'params': [self.rot, self.scale_exponents,
+                                           self.color_exponents, self.alphas_exponents_pt]}],
+            lr=0.01)
         self.iterations = 2
         self.tile_size = 32
 
