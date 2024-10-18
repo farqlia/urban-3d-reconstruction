@@ -166,9 +166,20 @@ class GaussianSplatting:
 
 
     def train(self):
+        pass
 
+
+    def test_train(self, tile_coords, image_id=1, cam_id=1):
         self.set_training_params()
-        self.train_from_perspective(1, 1)
+        self.img_rec = self.reconstruction.images[image_id]
+        self.cam_id = cam_id
+        self.ground_truth_image = mpimg.imread(self.images_folder / f'{self.img_rec.name}')
+
+        self.initialize_parameters_from_camera_perspective()
+        self.gradient_measure = GradientMeasure(self.points, self.rot, self.scale_exponents,
+                                                self.color_exponents, self.alphas_exponents_pt)
+
+        self._train_tile(tile_coords)
 
 
     def set_training_params(self):
@@ -236,8 +247,11 @@ class GaussianSplatting:
 
 
     def render(self):
+        pass
+
+    def test_render(self, tile_coords):
         self.rendered_image = np.ones((self.height, self.width, 3))
-        self._render_tile([200, 400])
+        self._render_tile(tile_coords)
 
     def render_pixel(self, pixel, splat_z_indexes, point_ids, camera_coordinates, screen_coordinates):
 

@@ -9,9 +9,10 @@ output_path = scene_folder / 'undistorted_images'
 images_folder = scene_folder / 'images'
 
 gaussian_splatting = GaussianSplatting(scene_folder, output_path, images_folder)
-gaussian_splatting.train()
+tile_coords = [400, 150]
+gaussian_splatting.test_train(tile_coords)
 
-gaussian_splatting.render()
+gaussian_splatting.test_render(tile_coords)
 
 plt.imshow(gaussian_splatting.ground_truth_image)
 plt.show()
