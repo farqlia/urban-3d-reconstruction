@@ -173,10 +173,10 @@ class Parser:
         point_indices = dict()
 
         image_id_to_name = {v: k for k, v in manager.name_to_image_id.items()}
-        for point_id, data in manager.point3D_id_to_images.items():
-            for image_id, _ in data:
+        for point_id, images in manager.point3D_id_to_images.items():
+            point_idx = manager.point3D_id_to_point3D_idx[point_id] # 0-n mapped to colmap indexes
+            for image_id in images:
                 image_name = image_id_to_name[image_id]
-                point_idx = manager.point3D_id_to_point3D_idx[point_id]
                 point_indices.setdefault(image_name, []).append(point_idx)
         point_indices = {
             k: np.array(v).astype(np.int32) for k, v in point_indices.items()

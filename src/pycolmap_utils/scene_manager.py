@@ -5,6 +5,8 @@ import numpy as np
 import os
 import struct
 
+from pycolmap import Reconstruction
+
 from collections import OrderedDict, defaultdict
 from itertools import combinations
 
@@ -28,6 +30,8 @@ class SceneManager:
 
         self.image_path = None
         self.load_colmap_project_file(image_path=image_path)
+
+        self.reconstruction = Reconstruction(colmap_results_folder)
 
         self.cameras = OrderedDict()
         self.images = OrderedDict()
@@ -83,17 +87,15 @@ class SceneManager:
 
     #---------------------------------------------------------------------------
 
-    def load_cameras(self, input_file=None):
-        if input_file is None:
-            input_file = self.folder + 'cameras.bin'
-            if os.path.exists(input_file):
-                self._load_cameras_bin(input_file)
-            else:
-                input_file = self.folder + 'cameras.txt'
-                if os.path.exists(input_file):
-                    self._load_cameras_txt(input_file)
-                else:
-                    raise IOError('no cameras file found')
+    def load_cameras(self):
+
+        for cam_id, cam in self.reconstruction.cameras.items():
+            w, h = cam.width, cam.height
+            camera_type = cam.model.name
+            params = cam.params
+            self.cameras[cam_id] = Camera(camera_type, w, h, params)
+            self.last_camera_id = max(self.last_camera_id, cam_id)
+
     
     def _load_cameras_bin(self, input_file):
         self.cameras = OrderedDict()
@@ -124,17 +126,13 @@ class SceneManager:
 
     #---------------------------------------------------------------------------
 
-    def load_images(self, input_file=None):
-        if input_file is None:
-            input_file = self.folder + 'images.bin'
-            if os.path.exists(input_file):
-                self._load_images_bin(input_file)
-            else:
-                input_file = self.folder + 'images.txt'
-                if os.path.exists(input_file):
-                    self._load_images_txt(input_file)
-                else:
-                    raise IOError('no images file found')
+    def load_images(self):
+        self.images = OrderedDict()
+        for img_id, img in self.reconstruction.images.items():
+            self.images[img_id] = img
+            self.name_to_image_id[img.name] = img_id
+
+            self.last_image_id = max(self.last_image_id, img_id)
 
     def _load_images_bin(self, input_file):
         self.images = OrderedDict()
@@ -214,17 +212,28 @@ class SceneManager:
 
     #---------------------------------------------------------------------------
 
-    def load_points3D(self, input_file=None):
-        if input_file is None:
-            input_file = self.folder + 'points3D.bin'
-            if os.path.exists(input_file):
-                self._load_points3D_bin(input_file)
-            else:
-                input_file = self.folder + 'points3D.txt'
-                if os.path.exists(input_file):
-                    self._load_points3D_txt(input_file)
-                else:
-                    raise IOError('no points3D file found')
+    def load_points3D(self):
+        num_points3D = self.reconstruction.num_points3D()
+        self.points3D = np.empty((num_points3D, 3))
+        self.point3D_ids = np.empty(num_points3D, dtype=np.uint64)
+        self.point3D_colors = np.empty((num_points3D, 3), dtype=np.uint8)
+        self.point3D_id_to_point3D_idx = dict()
+        self.point3D_id_to_images = dict()
+        self.point3D_errors = np.empty(num_points3D)
+
+        i = 0
+        for p_id, p in self.reconstruction.points3D.items():
+            self.point3D_ids[i] = p_id
+            self.points3D[i] = p.xyz
+            self.point3D_colors[i] = p.color
+            self.point3D_errors[i] = p.error
+
+            self.point3D_id_to_point3D_idx[self.point3D_ids[i]] = i
+
+            self.point3D_id_to_images[self.point3D_ids[i]] = \
+                [t.image_id for t in p.track.elements]
+            i += 1
+
 
     def _load_points3D_bin(self, input_file):
         with open(input_file, 'rb') as f:
