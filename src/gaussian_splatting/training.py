@@ -190,10 +190,12 @@ class GaussianSplatting:
 
         tile_left_lower, tile_upper_right = tile_coords, np.array([tile_coords[0] + self.tile_size, tile_coords[1] + self.tile_size])
 
-
         epochs = 5
         self.epoch_losses = []
         for epoch in range(epochs):
+
+            points_before = self.points.clone().detach()
+
             self._train_tile(tile_coords)
             self.test_render(tile_coords)
 
@@ -216,7 +218,9 @@ class GaussianSplatting:
 
             out_of_screen = ((screen_coordinates[:, 0] > self.height) | (screen_coordinates[:, 1] > self.width))
 
-            print(f"# Out of screen = {torch.sum(out_of_screen).cpu().item()}")
+            coords_diff = torch.mean(torch.abs(points_before - self.points))
+
+            print(f"# Out of screen = {torch.sum(out_of_screen).cpu().item()} | coords diff = {coords_diff}")
 
             plot_colored_tile(screen_coordinates.clone().detach().cpu().numpy(),
                               torch.sigmoid(self.color_exponents[point_ids]).clone().detach().cpu().numpy(), [200, 400], 32)
