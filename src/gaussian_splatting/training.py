@@ -97,6 +97,15 @@ def get_tile_coords(width, height, tile_size):
     return list(itertools.product(h_coords, w_coords))
 
 
+def plot_colored_tile(screen_coordinates, colors, tile_coords, tile_size):
+    tile_left_lower = tile_coords
+    tile_right_upper = (tile_coords[0] + tile_size, tile_coords[1] + tile_size)
+    ids = (screen_coordinates[:, 0] > tile_left_lower[0]) & (screen_coordinates[:, 1] > tile_left_lower[1]) & (screen_coordinates[:, 0] < tile_right_upper[0]) & (screen_coordinates[:, 1] < tile_right_upper[1])
+    print(f"# points = {np.sum(ids)}")
+    plt.scatter(screen_coordinates[~ids, 0], screen_coordinates[~ids, 1], c=colors[~ids], s=2)
+    plt.scatter(screen_coordinates[ids, 0], screen_coordinates[ids, 1], c='red', s=2)
+
+
 class GaussianSplatting:
 
     def __init__(self, scene_folder, output_path, images_folder):
@@ -179,12 +188,45 @@ class GaussianSplatting:
         self.gradient_measure = GradientMeasure(self.points, self.rot, self.scale_exponents,
                                                 self.color_exponents, self.alphas_exponents_pt)
 
-        self._train_tile(tile_coords)
+        tile_left_lower, tile_upper_right = tile_coords, np.array([tile_coords[0] + self.tile_size, tile_coords[1] + self.tile_size])
+
+
+        epochs = 5
+        self.epoch_losses = []
+        for epoch in range(epochs):
+            self._train_tile(tile_coords)
+            self.test_render(tile_coords)
+
+            # plt.imshow(self.rendered_image)
+            # plt.show()
+
+            print(np.mean(np.abs(self.rendered_image[tile_coords[0]:tile_coords[0] + self.tile_size,
+                   tile_coords[1]:tile_coords[1] + self.tile_size, :])))
+            diff = np.sum(np.abs((self.rendered_image - self.image_pt.clone().detach().cpu().numpy())[tile_coords[0]:tile_coords[0] + self.tile_size,
+                   tile_coords[1]:tile_coords[1] + self.tile_size, :]))
+            self.epoch_losses.append(diff)
+            print(f"[{epoch + 1}/{epochs}] Mean loss = {diff}")
+
+            plt.hist(self.rendered_image[tile_coords[0]:tile_coords[0] + self.tile_size,
+                   tile_coords[1]:tile_coords[1] + self.tile_size, :].flatten())
+
+            splat_z_indexes, splat_indexes, point_ids, camera_coordinates, screen_coordinates = self.to_2d_perspective_and_filter(
+                tile_left_lower, tile_upper_right
+            )
+
+            plot_colored_tile(screen_coordinates.clone().detach().cpu().numpy(),
+                              torch.sigmoid(self.color_exponents[point_ids]).clone().detach().cpu().numpy(), [200, 400], 32)
+
+            self.gradient_measure.plot_gradient_stats()
+            self.gradient_measure.zero_stats()
+
+        plt.plot(range(epochs), self.epoch_losses)
+        plt.show()
 
 
     def set_training_params(self):
         self.optimizer = torch.optim.Adam([self.points, self.rot, self.scale_exponents,
-                                           self.color_exponents, self.alphas_exponents_pt], lr=0.1)
+                                           self.color_exponents, self.alphas_exponents_pt], lr=0.01)
         self.iterations = 2
         self.tile_size = 64
 
@@ -207,7 +249,7 @@ class GaussianSplatting:
         z_indices = z_sorted.indices.type(torch.int)
         splat_z_indexes = splat_indexes[z_indices]
 
-        return splat_z_indexes, point_ids, camera_coordinates, screen_coordinates
+        return splat_z_indexes, splat_indexes, point_ids, camera_coordinates, screen_coordinates
 
     def _train_tile(self, tile_coords):
 
@@ -226,9 +268,8 @@ class GaussianSplatting:
             self.gradient_measure.add_pixel_gradient()
 
             for i in range(self.iterations):
-                self.optimizer.zero_grad()
 
-                splat_z_indexes, point_ids, camera_coordinates, screen_coordinates = self.to_2d_perspective_and_filter(
+                splat_z_indexes, splat_indexes, point_ids, camera_coordinates, screen_coordinates = self.to_2d_perspective_and_filter(
                     tile_left_lower, tile_upper_right
                 )
 
@@ -238,7 +279,11 @@ class GaussianSplatting:
 
                 loss.backward()
 
-                self.gradient_measure.accumulate_pixel_gradient(point_ids)
+                self.gradient_measure.accumulate_pixel_gradient(splat_indexes)
+
+                self.optimizer.step()
+
+                self.optimizer.zero_grad()
 
                 running_loss += loss.item()
 
@@ -250,7 +295,7 @@ class GaussianSplatting:
         pass
 
     def test_render(self, tile_coords):
-        self.rendered_image = np.ones((self.height, self.width, 3))
+        self.rendered_image = np.zeros((self.height, self.width, 3))
         self._render_tile(tile_coords)
 
     def render_pixel(self, pixel, splat_z_indexes, point_ids, camera_coordinates, screen_coordinates):
@@ -271,7 +316,7 @@ class GaussianSplatting:
         splat_covs = torch.bmm(splat_rs, splat_rs.transpose(1, 2))
 
         Js = JacobianOps.apply
-        jacobians = Js(camera_coordinates[splat_indexes_f], self.f_pt)
+        jacobians = Js(camera_coordinates[point_ids][splat_indexes_f], self.f_pt)
 
         W_splats = torch.repeat_interleave(self.W[torch.newaxis, ...], repeats=len(splat_indexes_f), dim=0)
         M = torch.bmm(jacobians, W_splats)
@@ -306,7 +351,7 @@ class GaussianSplatting:
 
             with torch.no_grad():
 
-                splat_z_indexes, point_ids, camera_coordinates, screen_coordinates = self.to_2d_perspective_and_filter(
+                splat_z_indexes, _, point_ids, camera_coordinates, screen_coordinates = self.to_2d_perspective_and_filter(
                     tile_left_lower, tile_upper_right
                 )
 

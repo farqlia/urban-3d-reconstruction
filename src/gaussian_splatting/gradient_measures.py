@@ -34,13 +34,21 @@ class GradientMeasure:
 
     def agg_gradient_stats(self):
         # maybe mean? avg? min-max??
-        point_grads = [np.mean(grads) for grads in self.point_gradients]
-        rot_grads = [np.mean(grads) for grads in self.rot_gradients]
-        scale_exp_grads = [np.mean(grads) for grads in self.scale_exp_gradients]
-        color_exp_grads = [np.mean(grads) for grads in self.color_exp_gradients]
-        alpha_exp_grads = [np.mean(grads) for grads in self.alpha_exp_gradients]
+        agg = np.sum
+        point_grads = [agg(np.abs(grads)) for grads in self.point_gradients]
+        rot_grads = [agg(np.abs(grads)) for grads in self.rot_gradients]
+        scale_exp_grads = [agg(np.abs(grads)) for grads in self.scale_exp_gradients]
+        color_exp_grads = [agg(np.abs(grads)) for grads in self.color_exp_gradients]
+        alpha_exp_grads = [agg(np.abs(grads)) for grads in self.alpha_exp_gradients]
 
         return point_grads, rot_grads, scale_exp_grads, color_exp_grads, alpha_exp_grads
+
+    def zero_stats(self):
+        self.point_gradients = []
+        self.rot_gradients = []
+        self.scale_exp_gradients = []
+        self.color_exp_gradients = []
+        self.alpha_exp_gradients = []
 
     def plot_gradient_stats(self):
         point_grads, rot_grads, scale_exp_grads, color_exp_grads, alpha_exp_grads = self.agg_gradient_stats()
