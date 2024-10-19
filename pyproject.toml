@@ -34,6 +34,13 @@ classifiers = [
 
 [project.optional-dependencies]
 gui = ["PyQt5"]
+notebooks = [
+    'pandas',
+    'pyntcloud',
+    'pyvista',
+    'seaborn',
+    'pytorch_lightning'
+]
 
 [tool.setuptools]
 packages = ["src"]
