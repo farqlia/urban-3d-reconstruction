@@ -49,11 +49,11 @@ class Config:
     render_traj_path: str = "interp"
 
     # Path to the Mip-NeRF 360 dataset
-    data_dir: str = str(Path("../data/truck"))
+    data_dir: str = str(Path("../data/small_city_road_outside-d4x"))
     # Downsample factor for the dataset
     data_factor: int = 1
     # Directory to save results
-    result_dir: str = str(Path("../results/truck"))
+    result_dir: str = str(Path("../results/small_city_road_outside-d4x/epochs_100_000"))
     # Every N images there is a test image
     test_every: int = 8
     # Random crop size for training  (experimental)
@@ -74,11 +74,11 @@ class Config:
     steps_scaler: float = 1.0
 
     # Number of training steps
-    max_steps: int = 30_000
+    max_steps: int = 100_000
     # Steps to evaluate the model
-    eval_steps: List[int] = field(default_factory=lambda: [2_000, 10_000, 30_000])
+    eval_steps: List[int] = field(default_factory=lambda: [2_000, 10_000, 30_000, 50_000, 75_000])
     # Steps to save the model
-    save_steps: List[int] = field(default_factory=lambda: [2_000, 10_000, 30_000])
+    save_steps: List[int] = field(default_factory=lambda: [2_000, 10_000, 30_000, 50_000, 75_000])
 
     # Initialization strategy
     init_type: str = "sfm"
