@@ -6,11 +6,11 @@ from skimage.transform import downscale_local_mean, resize
 from pathlib import Path
 
 input_folder = Path("../data/small_city_road_outside/images")
-output_folder = Path("../data/small_city_road_outside-d4x/images")
+output_folder = Path("../data/small_city_road_outside-d2x/images")
 
 os.makedirs(output_folder, exist_ok=True)
 
-factor = 4
+factor = 2
 
 for img_path in input_folder.iterdir():
     img = mpimg.imread(img_path)
