@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="scene-recon" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="geo" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="scene-recon" project-jdk-type="Python SDK" />
 </project>

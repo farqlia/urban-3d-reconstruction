@@ -49,11 +49,11 @@ class Config:
     render_traj_path: str = "interp"
 
     # Path to the Mip-NeRF 360 dataset
-    data_dir: str = str(Path("../data/small_city_road_outside-d4x"))
+    data_dir: str = str(Path("../data/small_city_road_down_test"))
     # Downsample factor for the dataset
     data_factor: int = 1
     # Directory to save results
-    result_dir: str = str(Path("../results/small_city_road_outside-d4x/epochs_100_000"))
+    result_dir: str = str(Path("../results/small_city_road_down_test/epochs_200_000"))
     # Every N images there is a test image
     test_every: int = 8
     # Random crop size for training  (experimental)
@@ -74,11 +74,11 @@ class Config:
     steps_scaler: float = 1.0
 
     # Number of training steps
-    max_steps: int = 100_000
+    max_steps: int = 200_000
     # Steps to evaluate the model
-    eval_steps: List[int] = field(default_factory=lambda: [2_000, 10_000, 30_000, 50_000, 75_000])
+    eval_steps: List[int] = field(default_factory=lambda: [30_000, 50_000, 75_000, 100_000, 150_000, 200_000])
     # Steps to save the model
-    save_steps: List[int] = field(default_factory=lambda: [2_000, 10_000, 30_000, 50_000, 75_000])
+    save_steps: List[int] = field(default_factory=lambda: [30_000, 50_000, 75_000, 100_000, 150_000, 200_000])
 
     # Initialization strategy
     init_type: str = "sfm"
@@ -89,7 +89,7 @@ class Config:
     # Degree of spherical harmonics
     sh_degree: int = 3
     # Turn on another SH degree every this steps
-    sh_degree_interval: int = 1000
+    sh_degree_interval: int = 5_000
     # Initial opacity of GS
     init_opa: float = 0.1
     # Initial scale of GS
@@ -1044,6 +1044,7 @@ if __name__ == "__main__":
             ),
         ),
     }
+    # MCMC is used!!!
     cfg = configs['default'][1] # tyro.extras.overridable_config_cli(configs)
     cfg.adjust_steps(cfg.steps_scaler)
 
