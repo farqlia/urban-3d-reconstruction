@@ -5,16 +5,25 @@ from gsplat import rasterization, DefaultStrategy
 from torch import Tensor
 from pyntcloud import PyntCloud
 
+from datasets.colmap import Parser
+
+
 class Rasterizer:
 
     # assume that we read model params from .ply file
     # training configuration??
-    def __init__(self, model_path, world_rank, cfg):
+    def __init__(self, model_path, cfg, world_rank=0):
 
-        self.splats = torch.load(model_path, map_location="cpu", weights_only=True)
+        self.splats = torch.load(model_path, map_location="cuda:0", weights_only=True)["splats"]
         self.cfg = cfg
         self.world_size = world_rank
 
+        self.parser = Parser(
+            data_dir=cfg.data_dir,
+            factor=cfg.data_factor,
+            normalize=cfg.normalize_world_space,
+            test_every=cfg.test_every,
+        )
 
 
     def rasterize_splats(
@@ -33,9 +42,8 @@ class Rasterizer:
         scales = torch.exp(self.splats["scales"])  # [N, 3]
         opacities = torch.sigmoid(self.splats["opacities"])  # [N,]
 
-        image_ids = kwargs.pop("image_ids", None)
-
         colors = torch.cat([self.splats["sh0"], self.splats["shN"]], 1)  # [N, K, 3]
+        # colors = colors.reshape(colors.shape[2], colors.shape[0], colors.shape[1])
 
         rasterize_mode = "antialiased" if self.cfg.antialiased else "classic"
 
@@ -55,6 +63,7 @@ class Rasterizer:
                 if isinstance(self.cfg.strategy, DefaultStrategy)
                 else False
             ),
+            sh_degree=3,
             sparse_grad=self.cfg.sparse_grad,
             rasterize_mode=rasterize_mode,
             distributed=self.world_size > 1,
