@@ -10,9 +10,10 @@ def run_reconstruction(input_images_path, output_path, database_path, camera_mod
         pycolmap.match_exhaustive(database_path)
         maps = pycolmap.incremental_mapping(database_path, input_images_path, output_path)
         maps[0].write(output_path)
-        pycolmap.undistort_images(output_path=str(output_path / 'undistorted_images'), 
+        undistorted_path = output_path / 'undistorted_images'
+        pycolmap.undistort_images(output_path=str(undistorted_path), 
                                   image_path=str(input_images_path), input_path= output_path / '0')
-    return pycolmap.Reconstruction(output_path)
+    return pycolmap.Reconstruction(undistorted_path / 'sparse')
 
 
 if __name__=="__main__":
