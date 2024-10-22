@@ -1,15 +1,19 @@
 from typing import Optional, Tuple, Dict
 
 import torch
-from gsplat import rasterization
+from gsplat import rasterization, DefaultStrategy
 from torch import Tensor
-
+from pyntcloud import PyntCloud
 
 class Rasterizer:
 
     # assume that we read model params from .ply file
-    def __init__(self, model_path):
-        self.splats = None
+    # training configuration??
+    def __init__(self, model_path, world_rank, cfg):
+
+        self.splats = torch.load(model_path, map_location="cpu", weights_only=True)
+        self.cfg = cfg
+        self.world_size = world_rank
 
 
 
@@ -30,19 +34,11 @@ class Rasterizer:
         opacities = torch.sigmoid(self.splats["opacities"])  # [N,]
 
         image_ids = kwargs.pop("image_ids", None)
-        if self.cfg.app_opt:
-            colors = self.app_module(
-                features=self.splats["features"],
-                embed_ids=image_ids,
-                dirs=means[None, :, :] - camtoworlds[:, None, :3, 3],
-                sh_degree=kwargs.pop("sh_degree", self.cfg.sh_degree),
-            )
-            colors = colors + self.splats["colors"]
-            colors = torch.sigmoid(colors)
-        else:
-            colors = torch.cat([self.splats["sh0"], self.splats["shN"]], 1)  # [N, K, 3]
+
+        colors = torch.cat([self.splats["sh0"], self.splats["shN"]], 1)  # [N, K, 3]
 
         rasterize_mode = "antialiased" if self.cfg.antialiased else "classic"
+
         render_colors, render_alphas, info = rasterization(
             means=means,
             quats=quats,
