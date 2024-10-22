@@ -25,7 +25,7 @@ def project_image(reconstruction_path, img_id, cam_id, znear, zfar):
     ndc_coordinates = to_ndc_coordinates(clip_coordinates[point_ids])  
     selected_colors = colors[point_ids]
     screen_coordinates = to_screen_coordinates(ndc_coordinates, width, height, zfar, znear)
-
+    screen_coordinates[:, 1] = height - screen_coordinates[:, 1]
     return screen_coordinates, selected_colors, img
 
 def show_projection(images_path, img, screen_coordinates, colors):
@@ -48,7 +48,6 @@ if __name__=="__main__":
     parser.add_argument('--zfar', type=float, default=5.0, help='Far clipping plane (maximum visible distance from camera).')
     
     args = parser.parse_args()
-    
     screen_coordinates, colors, img = project_image(args.reconstruction_path, args.img_id, args.cam_id,
                                                      args.znear, args.zfar)
     
