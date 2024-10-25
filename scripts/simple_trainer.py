@@ -53,23 +53,22 @@ if __name__ == "__main__":
 
     """
 
-    init_type = "random"
-    strategy = "mcmc"
-    max_steps: int = 100_000
+    data_dir = "../data/DRON 1/c7"
+    data_factor = 1
+    result_dir = f"../results/c7/whale"
+    init_type = "sfm"
+    strategy = "default"
+    max_steps: int = 400_000
 
     init_num_pts: int = 100_000 # only for random
 
-    data_dir = "../data/small_city_road_down_test"
-    result_dir = f"../results/small_city_road_down_test/{init_type}/{strategy}/epochs_{max_steps}"
-
-    eval_steps_mapping = {
-        100_000: [2000, 10_000, 30_000, 50_000, 60_000, 75_000, 100_000]
-    }
+    delta_steps = 25_000
+    eval_steps = [i for i in range(delta_steps, max_steps + delta_steps, delta_steps)]
 
     # Steps to evaluate the model
-    eval_steps: List[int] = eval_steps_mapping[max_steps]
+    eval_steps: List[int] = eval_steps
     # Steps to save the model
-    save_steps: List[int] = eval_steps_mapping[max_steps]
+    save_steps: List[int] = eval_steps
 
     # Config objects we can choose between.
     # Each is a tuple of (CLI description, config object).
@@ -84,6 +83,7 @@ if __name__ == "__main__":
                 eval_steps=eval_steps,
                 init_num_pts=init_num_pts,
                 save_steps=save_steps,
+                scale_reg=0.0,
                 strategy=DefaultStrategy(verbose=True),
             ),
         ),
