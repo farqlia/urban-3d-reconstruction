@@ -5,10 +5,27 @@ from pathlib import Path
 
 def run_reconstruction(input_images_path, output_path, database_path, camera_model='SIMPLE_PINHOLE'):
     os.makedirs(output_path, exist_ok=True)
+    ba_global_images_ratio = 1.1
+    ba_global_images_freq = 500
+    ba_global_max_refinement_change = 0.0005
+    ba_global_max_refinements = 5
+    ba_global_points_freq = 250000
+    ba_global_points_ratio = 1.1
+    ba_local_max_refinement_change = 0.001
+    incremental_pipeline_options = pycolmap.IncrementalPipelineOptions(
+        ba_global_images_ratio=ba_global_images_ratio,
+        ba_global_images_freq=ba_global_images_freq,
+        ba_global_max_refinement_change=ba_global_max_refinement_change,
+        ba_global_max_refinements=ba_global_max_refinements,
+        ba_global_points_ratio=ba_global_points_ratio,
+        ba_global_points_freq=ba_global_points_freq,
+        ba_local_max_refinement_change=ba_local_max_refinement_change,
+    )
     if not os.path.exists(output_path / '0'):
         pycolmap.extract_features(database_path, input_images_path, camera_model=camera_model)
         pycolmap.match_exhaustive(database_path)
-        maps = pycolmap.incremental_mapping(database_path, input_images_path, output_path)
+        maps = pycolmap.incremental_mapping(database_path, input_images_path, output_path,
+                                            options=incremental_pipeline_options)
         maps[0].write(output_path)
         undistorted_path = output_path / 'undistorted_images'
         pycolmap.undistort_images(output_path=str(undistorted_path), 
