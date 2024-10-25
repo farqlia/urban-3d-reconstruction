@@ -5,6 +5,10 @@ from pathlib import Path
 
 def run_reconstruction(input_images_path, output_path, database_path, camera_model='SIMPLE_PINHOLE'):
     os.makedirs(output_path, exist_ok=True)
+    ba_global_images_ratio = 1.1
+    ba_global_max_refinement_change = 0.0005
+    ba_global_max_refinements = 5
+    ba_global_points_ratio = 1.1
     if not os.path.exists(output_path / '0'):
         pycolmap.extract_features(database_path, input_images_path, camera_model=camera_model)
         pycolmap.match_exhaustive(database_path)

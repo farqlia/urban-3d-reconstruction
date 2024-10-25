@@ -53,16 +53,16 @@ if __name__ == "__main__":
 
     """
 
-    data_dir = "../data/DRON 1/c7"
+    data_dir = "../data/DRON 1/sks"
     data_factor = 1
-    result_dir = f"../results/c7/whale"
+    result_dir = f"../results/sks/bee"
     init_type = "sfm"
     strategy = "default"
-    max_steps: int = 400_000
+    max_steps: int = 100_000
 
-    init_num_pts: int = 100_000 # only for random
+    init_num_pts: int = 300_000 # only for random
 
-    delta_steps = 25_000
+    delta_steps = 10_000
     eval_steps = [i for i in range(delta_steps, max_steps + delta_steps, delta_steps)]
 
     # Steps to evaluate the model
