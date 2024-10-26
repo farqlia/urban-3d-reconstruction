@@ -53,22 +53,24 @@ if __name__ == "__main__":
 
     """
 
-    data_dir = "../data/DRON 1/sks"
+    data_dir = "../data/DRON 1/c5/sparse/undistorted_images"
     data_factor = 1
-    result_dir = f"../results/sks/bee"
+    result_dir = f"../results/c5/mouse"
     init_type = "sfm"
     strategy = "default"
     max_steps: int = 100_000
 
     init_num_pts: int = 300_000 # only for random
 
-    delta_steps = 10_000
+    delta_steps = 2_500
     eval_steps = [i for i in range(delta_steps, max_steps + delta_steps, delta_steps)]
 
     # Steps to evaluate the model
     eval_steps: List[int] = eval_steps
     # Steps to save the model
     save_steps: List[int] = eval_steps
+
+    # ckpt = ["../results/sks/bee/ckpts/ckpt_19999_rank0.pt"]
 
     # Config objects we can choose between.
     # Each is a tuple of (CLI description, config object).
