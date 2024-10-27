@@ -54,13 +54,14 @@ if __name__=="__main__":
     
     parser.add_argument('--input', type=str, required=True, help='Path to the input folder of images.')
     parser.add_argument('--output', type=str, required=True, help='Path to the output directory.')
+    parser.add_argument('--database_path', type=str, required=False, help='Path to the colmap database (optional).')
     #parser.add_argument('--cam_model', type=str, required=False, default='SIMPLE_PINHOLE', help='Camera model (default is SIMPLE_PINHOLE).')
 
     args = parser.parse_args()
 
     input_images_path = Path(args.input)
     output_path = Path(args.output)
-    database_path = Path(args.output + '/database.db')
+    database_path = Path(args.database_path) if args.database_path else output_path / 'database.db'
 
     reconstruction = run_reconstruction(input_images_path, output_path, database_path)
     reconstruction.export_PLY(output_path / 'sparse.ply')
