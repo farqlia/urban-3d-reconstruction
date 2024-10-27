@@ -53,16 +53,16 @@ if __name__ == "__main__":
 
     """
 
-    data_dir = "../data/DRON 1/c5/sparse/undistorted_images"
+    data_dir = "../data/small_city_road_outside-d2x/sparse/undistorted_images_1"
     data_factor = 1
-    result_dir = f"../results/c5/mouse"
+    result_dir = f"../results/small_city_road_outside-d2x/cat"
     init_type = "sfm"
-    strategy = "default"
-    max_steps: int = 100_000
+    strategy = "mcmc"
+    max_steps: int = 300_000
 
     init_num_pts: int = 300_000 # only for random
 
-    delta_steps = 2_500
+    delta_steps = 10_000
     eval_steps = [i for i in range(delta_steps, max_steps + delta_steps, delta_steps)]
 
     # Steps to evaluate the model
