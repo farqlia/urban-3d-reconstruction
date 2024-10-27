@@ -33,20 +33,33 @@ def run_reconstruction(input_images_path, output_path, database_path, camera_mod
         ba_local_max_refinement_change=ba_local_max_refinement_change,
         ba_local_max_refinements=ba_local_max_refinements
     )
-    print(incremental_pipeline_options)
-    if not os.path.exists(output_path / '0'):
 
-        if not os.path.exists(database_path):
-            pycolmap.extract_features(database_path, input_images_path, camera_model=camera_model)
-            pycolmap.match_exhaustive(database_path)
+    if not os.path.exists(database_path):
+        pycolmap.extract_features(database_path, input_images_path, camera_model=camera_model)
+        
+    pycolmap.match_exhaustive(database_path)
 
-        maps = pycolmap.incremental_mapping(database_path, input_images_path, output_path,
+    maps = pycolmap.incremental_mapping(database_path, input_images_path, output_path,
                                             options=incremental_pipeline_options)
-        maps[0].write(output_path)
-        undistorted_path = output_path / 'undistorted_images'
-        pycolmap.undistort_images(output_path=str(undistorted_path), 
-                                  image_path=str(input_images_path), input_path= output_path / '0')
-    return pycolmap.Reconstruction(undistorted_path / 'sparse')
+    
+    reconstructions = []
+
+    for i in range(len(maps)):
+        model_path = output_path / str(i)
+        maps[i].write(model_path)
+
+        undistorted_path = output_path / f'undistorted_images_{i}'
+        pycolmap.undistort_images(output_path=str(undistorted_path), image_path=str(input_images_path), 
+                                  input_path=model_path)
+        reconstruction = pycolmap.Reconstruction(undistorted_path / 'sparse')
+        reconstructions.append(reconstruction)
+       
+    return reconstructions
+
+def export_reconstructions_to_ply(reconstructions):
+    for i, reconstruction in enumerate(reconstructions):
+            ply_output_path = output_path / f'sparse_model_{i}.ply'
+            reconstruction.export_PLY(ply_output_path)
 
 
 if __name__=="__main__":
@@ -63,5 +76,6 @@ if __name__=="__main__":
     output_path = Path(args.output)
     database_path = Path(args.database_path) if args.database_path else output_path / 'database.db'
 
-    reconstruction = run_reconstruction(input_images_path, output_path, database_path)
-    reconstruction.export_PLY(output_path / 'sparse.ply')
+    if not os.path.exists(output_path / '0'):
+        reconstructions = run_reconstruction(input_images_path, output_path, database_path)
+        export_reconstructions_to_ply(reconstructions)
