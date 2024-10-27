@@ -53,22 +53,25 @@ if __name__ == "__main__":
 
     """
 
-    data_dir = "../data/small_city_road_outside-d2x/sparse/undistorted_images_1"
+    data_dir = "../data/small_city_road_outside-d2x/sparse/undistorted_images_2"
     data_factor = 1
-    result_dir = f"../results/small_city_road_outside-d2x/cat"
+    result_dir = f"../results/small_city_road_outside-d2x/elephant"
     init_type = "sfm"
     strategy = "mcmc"
     max_steps: int = 300_000
 
     init_num_pts: int = 300_000 # only for random
 
-    delta_steps = 10_000
-    eval_steps = [i for i in range(delta_steps, max_steps + delta_steps, delta_steps)]
+    delta_steps = 25_000
+    eval_steps = [i for i in range(10_000, max_steps + delta_steps, delta_steps)]
 
     # Steps to evaluate the model
     eval_steps: List[int] = eval_steps
     # Steps to save the model
     save_steps: List[int] = eval_steps
+
+    scale_reg = 0.01
+    cap_max = 3_000_000 # max gaussians for mcmc
 
     # ckpt = ["../results/sks/bee/ckpts/ckpt_19999_rank0.pt"]
 
@@ -85,7 +88,7 @@ if __name__ == "__main__":
                 eval_steps=eval_steps,
                 init_num_pts=init_num_pts,
                 save_steps=save_steps,
-                scale_reg=0.0,
+                scale_reg=scale_reg,
                 strategy=DefaultStrategy(verbose=True),
             ),
         ),
@@ -102,8 +105,8 @@ if __name__ == "__main__":
                 init_opa=0.5,
                 init_scale=0.1,
                 opacity_reg=0.01,
-                scale_reg=0.01,
-                strategy=MCMCStrategy(verbose=True),
+                scale_reg=scale_reg,
+                strategy=MCMCStrategy(verbose=True, cap_max=cap_max),
             ),
         ),
     }
