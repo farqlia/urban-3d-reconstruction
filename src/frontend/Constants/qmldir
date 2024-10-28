@@ -1,0 +1,5 @@
+module Constants
+singleton ColorConst 1.0 ColorConst.qml
+singleton RoundButtonConst 1.0 RoundButtonConst.qml
+singleton FormatConst 1.0 FormatConst.qml
+singleton TitleCardConst 1.0 TitleCardConst.qml
