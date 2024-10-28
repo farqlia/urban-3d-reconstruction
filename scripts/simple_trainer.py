@@ -8,6 +8,8 @@ from gsplat.strategy import DefaultStrategy, MCMCStrategy
 
 from src.splats.config import Config
 from src.splats.training import Runner
+import argparse
+from typing import List
 
 
 def main(local_rank: int, world_rank, world_size: int, cfg: Config):
@@ -53,27 +55,53 @@ if __name__ == "__main__":
 
     """
 
-    data_dir = "../data/small_city_road_outside-d2x/sparse/undistorted_images_2"
-    data_factor = 1
-    result_dir = f"../results/small_city_road_outside-d2x/elephant"
-    init_type = "sfm"
-    strategy = "mcmc"
-    max_steps: int = 300_000
+    parser = argparse.ArgumentParser(description="Script to run model training with configurable parameters.")
 
-    init_num_pts: int = 300_000 # only for random
+    # Define command-line arguments for each parameter except eval_steps and save_steps
+    parser.add_argument("--data_dir", type=str, help="Path to the data directory.", required=True)
+    parser.add_argument("--result_dir", type=str, help="Path to the results directory.", required=True)
+    parser.add_argument("--data_factor", type=int, default=1, help="Data factor.")
+    parser.add_argument("--init_type", type=str, default="sfm", help="Initialization type.", choices=["sfm", "random"])
+    parser.add_argument("--strategy", type=str, default="default", help="Strategy type.", choices=["default", "mcmc"])
+    parser.add_argument("--max_steps", type=int, default=300_000, help="Maximum number of steps.")
+    parser.add_argument("--init_num_pts", type=int, default=300_000, help="Initial number of points (only for random).")
+    parser.add_argument("--delta_steps", type=int, default=2_500, help="Delta steps for evaluation and saving.")
+    parser.add_argument("--scale_reg", type=float, default=0.01, help="Scale regularization value.")
+    parser.add_argument("--opacity_reg", type=float, default=0.01, help="Opacity regularization value.")
+    parser.add_argument("--cap_max", type=int, default=3_000_000, help="Maximum cap for MCMC gaussians.")
+    parser.add_argument("--refine_every", type=int, default=1_000, help="Refine frequency (iterations).") # tune?
+    parser.add_argument("--refine_start_iter", type=int, default=1_000, help="Refinement start iteration.")
+    parser.add_argument("--sh_degree_interval", type=int, default=10_000, help="Add spherical harmonics degree interval.")
+    parser.add_argument("--min_opacity", type=float, default=0.005, help="Minimum opacity.")
+    parser.add_argument("--init_scale", type=float, default=0.1, help="Initial scale.")
+    parser.add_argument("--init_opa", type=float, default=0.5, help="Initial opacity.")
 
-    delta_steps = 25_000
-    eval_steps = [i for i in range(10_000, max_steps + delta_steps, delta_steps)]
+    # Parse arguments
+    args = parser.parse_args()
 
-    # Steps to evaluate the model
-    eval_steps: List[int] = eval_steps
-    # Steps to save the model
-    save_steps: List[int] = eval_steps
+    # Use parsed arguments in the script
+    data_dir = args.data_dir
+    data_factor = args.data_factor
+    result_dir = args.result_dir
+    init_type = args.init_type
+    strategy = args.strategy
+    max_steps = args.max_steps
+    init_num_pts = args.init_num_pts
+    delta_steps = args.delta_steps
+    scale_reg = args.scale_reg
+    cap_max = args.cap_max
+    refine_every = args.refine_every
+    refine_start_iter = args.refine_start_iter
+    refine_stop_iter = int(0.75 * max_steps)
+    min_opacity = args.min_opacity
+    opacity_reg = args.opacity_reg
+    init_scale = args.init_scale
+    init_opa = args.init_opa
+    sh_degree_interval = args.sh_degree_interval
 
-    scale_reg = 0.01
-    cap_max = 3_000_000 # max gaussians for mcmc
-
-    # ckpt = ["../results/sks/bee/ckpts/ckpt_19999_rank0.pt"]
+    # Define eval_steps and save_steps based on the values of max_steps and delta_steps
+    eval_steps: List[int] = [i for i in range(10_000, max_steps + delta_steps, delta_steps)]
+    save_steps: List[int] = [i for i in range(10_000, max_steps + delta_steps, delta_steps)]
 
     # Config objects we can choose between.
     # Each is a tuple of (CLI description, config object).
@@ -89,6 +117,7 @@ if __name__ == "__main__":
                 init_num_pts=init_num_pts,
                 save_steps=save_steps,
                 scale_reg=scale_reg,
+                sh_degree_interval=sh_degree_interval,
                 strategy=DefaultStrategy(verbose=True),
             ),
         ),
@@ -102,11 +131,14 @@ if __name__ == "__main__":
                 save_steps=save_steps,
                 max_steps=max_steps,
                 init_num_pts=init_num_pts,
-                init_opa=0.5,
-                init_scale=0.1,
-                opacity_reg=0.01,
+                init_opa=init_opa,
+                init_scale=init_scale,
+                opacity_reg=opacity_reg,
                 scale_reg=scale_reg,
-                strategy=MCMCStrategy(verbose=True, cap_max=cap_max),
+                sh_degree_interval=sh_degree_interval,
+                strategy=MCMCStrategy(verbose=True, cap_max=cap_max, refine_every=refine_every,
+                                      refine_start_iter=refine_start_iter, refine_stop_iter=refine_stop_iter,
+                                      min_opacity=min_opacity),
             ),
         ),
     }
