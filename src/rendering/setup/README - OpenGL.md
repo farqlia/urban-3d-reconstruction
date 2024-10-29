@@ -1,5 +1,8 @@
 # Installation
 
+## For windows 
+https://medium.com/swlh/setting-opengl-for-windows-d0b45062caf
+
 ## Core utility
 
 - ***libglfw3***, ***libglfw3-dev*** - GLFW libraries for managing OpenGL
