@@ -26,8 +26,8 @@ if __name__ == '__main__':
                         help="Choose the outlier removal method: 'statistical' or 'radius'.")
     parser.add_argument('--nb_neighbors', type=int, default=20, help="Number of neighbors (for statistical method).")
     parser.add_argument('--std_ratio', type=float, default=1.0, help="Standard deviation ratio (for statistical method).")
-    parser.add_argument('--nb_points', type=int, default=16, help="Minimum number of points (for radius method).")
-    parser.add_argument('--radius', type=float, default=0.05, help="Radius (for radius method).")
+    parser.add_argument('--nb_points', type=int, default=2, help="Minimum number of points (for radius method).")
+    parser.add_argument('--radius', type=float, default=0.2, help="Radius (for radius method).")
     parser.add_argument('--output', type=str, help='Path to save the point cloud without outliers (optional).')
 
     args = parser.parse_args()
