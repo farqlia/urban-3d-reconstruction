@@ -15,6 +15,10 @@ def get_outliers_and_inliers_pcds(pcd, inlier_indices):
 
 if __name__ == '__main__':
 
+    # Usage examples:
+    # python scripts\point_cloud_filtering.py --input "path_to_file.ply" --method statistical --nb_neighbors 50 --std_ratio 0.5
+    # python scripts\point_cloud_filtering.py --input "path_to_file.ply" --method radius --output "filtered_pcd.ply"
+
     parser = argparse.ArgumentParser(description="Remove outliers from point cloud and visualize the results.")
     
     parser.add_argument('--input', type=str, required=True, help='Path to the point cloud file')
