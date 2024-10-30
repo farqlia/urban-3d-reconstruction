@@ -1,11 +1,12 @@
-import configparser
 import json
+import json
+import os
 from collections import defaultdict
-from datetime import time
 from pathlib import Path
 
 import imageio
 import numpy as np
+import pandas as pd
 import torch
 from gsplat import DefaultStrategy, MCMCStrategy
 from torchmetrics.image import StructuralSimilarityIndexMeasure, PeakSignalNoiseRatio, \
@@ -14,7 +15,7 @@ from torchmetrics.image import StructuralSimilarityIndexMeasure, PeakSignalNoise
 from src.datasets.colmap import Dataset
 from src.splats.config import Config
 from src.splats.rasterization import Rasterizer
-import pandas as pd
+
 
 def open_cfg(cfg_path, root_data_dir):
     config = pd.read_csv(cfg_path)
@@ -40,6 +41,8 @@ class Evaluator:
     def __init__(self, model_path, cfg_path, root_data_dir):
         self.cfg = open_cfg(cfg_path, Path(root_data_dir))
         self.experiment_path = Path(model_path).parents[1]
+        self.render_dir = self.experiment_path / 'eval_renders'
+        os.makedirs(self.render_dir, exist_ok=True)
         self.scene_name = Path(model_path).parents[1].name
         self.rasterizer = Rasterizer(model_path, self.cfg)
         self.device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -77,6 +80,14 @@ class Evaluator:
             torch.cuda.synchronize()
 
             colors = torch.clamp(colors, 0.0, 1.0)
+            canvas_list = [pixels, colors]
+
+            canvas = torch.cat(canvas_list, dim=2).squeeze(0).cpu().numpy()
+            canvas = (canvas * 255).astype(np.uint8)
+            imageio.imwrite(
+                f"{self.render_dir}/eval_{i:04d}.png",
+                canvas,
+            )
 
             pixels_p = pixels.permute(0, 3, 1, 2)  # [1, 3, H, W]
             colors_p = colors.permute(0, 3, 1, 2)  # [1, 3, H, W]
