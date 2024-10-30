@@ -2,7 +2,7 @@ import argparse
 from src.models.evaluation import Evaluator
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Convert Gaussian Splatting torch model to .ply format")
+    parser = argparse.ArgumentParser(description="Evaluate Gaussian Splatting model on validation dataset")
 
     root_data_dir = "C:\\Users\\julia\\PycharmProjects\\urban-3d-reconstruction\\data"
 

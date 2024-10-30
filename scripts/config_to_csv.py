@@ -15,7 +15,7 @@ def main(yaml_file, csv_file):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Script to merge model configs.")
+    parser = argparse.ArgumentParser(description="Merge model configs.")
     parser.add_argument("--model_names", type=str, nargs="+", help="space separated model names")
     parser.add_argument("--input_dir", type=str, help="path to results directory")
     parser.add_argument("--output_file", type=str, help="output csv file")
