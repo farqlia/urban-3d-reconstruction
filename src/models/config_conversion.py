@@ -1,7 +1,6 @@
 import csv
 import os
 import re
-import sys
 from pathlib import Path
 from typing import List
 
@@ -28,6 +27,11 @@ def parse_yaml_text(yaml_file):
         "result_dir": r"^result_dir:\s*(.+)$",
         "scale_reg": r"^scale_reg:\s*(.+)$",
         "sh_degree": r"^sh_degree:\s*(.+)$",
+        "normalize_world_space": r"normalize_world_space:\s*(.+)$",
+        "test_every": r"test_every:\s*(.+)$",
+        "packed": r"^packed:\s*(.+)$",
+        "sparse_grad": r"^sparse_grad:\s*(.+)$",
+        "camera_model": r"^camera_model:\s*(.+)$",
         "sh_degree_interval": r"^sh_degree_interval:\s*(.+)$"
     }
 
@@ -57,6 +61,8 @@ def parse_yaml_text(yaml_file):
                 match = re.match(pattern, line)
                 if match:
                     extracted_data[key] = match.group(1).strip()
+                    if key in ("normalize_world_space", "packed", "sparse_grad"):
+                        extracted_data[key] = True if extracted_data[key].lower() == "true" else False
                     break
 
             # Check if we encounter a strategy definition

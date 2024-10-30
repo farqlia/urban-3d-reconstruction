@@ -1,10 +1,8 @@
 import argparse
-import sys
 from pathlib import Path
-from typing import List
 
-from src.models.utils import (parse_yaml_text, save_to_csv,
-                              collect_cfgs, merge_csv_files)
+from src.models.config_conversion import (parse_yaml_text, save_to_csv,
+                                          collect_cfgs, merge_csv_files)
 
 def main(yaml_file, csv_file):
     # Parse the YAML-like file
