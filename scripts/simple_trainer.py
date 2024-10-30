@@ -60,6 +60,7 @@ if __name__ == "__main__":
     # Define command-line arguments for each parameter except eval_steps and save_steps
     parser.add_argument("--data_dir", type=str, help="Path to the data directory.", required=True)
     parser.add_argument("--result_dir", type=str, help="Path to the results directory.", required=True)
+
     parser.add_argument("--data_factor", type=int, default=1, help="Data factor.")
     parser.add_argument("--init_type", type=str, default="sfm", help="Initialization type.", choices=["sfm", "random"])
     parser.add_argument("--strategy", type=str, default="default", help="Strategy type.", choices=["default", "mcmc"])
@@ -68,14 +69,21 @@ if __name__ == "__main__":
     parser.add_argument("--delta_steps", type=int, default=2_500, help="Delta steps for evaluation and saving.")
     parser.add_argument("--scale_reg", type=float, default=0.01, help="Scale regularization value.")
     parser.add_argument("--opacity_reg", type=float, default=0.01, help="Opacity regularization value.")
-    parser.add_argument("--cap_max", type=int, default=3_000_000, help="Maximum cap for MCMC gaussians.")
+
+    # For default & MCMC strategies
     parser.add_argument("--refine_every", type=int, default=1_000, help="Refine frequency (iterations).") # tune?
     parser.add_argument("--refine_start_iter", type=int, default=1_000, help="Refinement start iteration.")
     parser.add_argument("--reset_every", type=int, default=3_000, help="Reset opacities every this steps.")
-    parser.add_argument("--sh_degree_interval", type=int, default=10_000, help="Add spherical harmonics degree interval.")
+
+    # Only for MCMC
+    parser.add_argument("--cap_max", type=int, default=3_000_000, help="Maximum cap for MCMC gaussians.")
     parser.add_argument("--min_opacity", type=float, default=0.005, help="Minimum opacity.")
+
+    parser.add_argument("--sh_degree_interval", type=int, default=10_000, help="Add spherical harmonics degree interval.")
     parser.add_argument("--init_scale", type=float, default=0.1, help="Initial scale.")
     parser.add_argument("--init_opa", type=float, default=0.5, help="Initial opacity.")
+
+    # Set below to true to have optimized rasterization that can make training more efficient
     parser.add_argument("--packed", type=bool, default=False, help="Use packed mode for rasterization.")
     parser.add_argument("--sparse_grad", type=bool, default=False, help="Use sparse gradients for optimization.")
 
