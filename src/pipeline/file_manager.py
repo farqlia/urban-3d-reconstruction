@@ -1,14 +1,10 @@
-from dotenv import load_dotenv
-import os
 import shutil
 from pathlib import Path
-from typing import List
 from tqdm import tqdm
 from config import INPUT_DATA_FOLDER
 
 class FileManager:
     def __init__(self):
-        load_dotenv()
         self.destination_folder = INPUT_DATA_FOLDER
         self.destination_folder.mkdir(parents=True, exist_ok=True)
 
