@@ -1,11 +1,12 @@
 import shutil
 from pathlib import Path
 from tqdm import tqdm
-from config import INPUT_DATA_FOLDER
+from config import INPUT_DATA_FOLDER, GAUSSIAN_MODEL_PLY
 
 class FileManager:
     def __init__(self):
         self.destination_folder = INPUT_DATA_FOLDER
+        self.model_path = GAUSSIAN_MODEL_PLY
         self.destination_folder.mkdir(parents=True, exist_ok=True)
 
     def upload_folder(self, source_folder: str) -> None:
@@ -31,3 +32,11 @@ class FileManager:
             shutil.copy(image_file, self.destination_folder)
         else:
             raise FileNotFoundError(f"Image '{image_path}' does not exist.")
+        
+    def save_model(self, destination_path: str) -> None:
+        destination_file = Path(destination_path)
+        
+        if not self.model_path.exists() or not self.model_path.is_file():
+            raise FileNotFoundError(f"Model file '{self.model_path}' does not exist.")
+        
+        shutil.copy(self.model_path, destination_file)
