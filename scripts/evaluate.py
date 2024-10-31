@@ -18,5 +18,6 @@ if __name__ == "__main__":
 
     evaluator = Evaluator(model_path, cfg_path, project_dir)
     evaluator.evaluate()
+    evaluator.save_model_description()
 
 

@@ -73,6 +73,8 @@ if __name__ == "__main__":
     # For default & MCMC strategies
     parser.add_argument("--refine_every", type=int, default=1_000, help="Refine frequency (iterations).") # tune?
     parser.add_argument("--refine_start_iter", type=int, default=1_000, help="Refinement start iteration.")
+
+    #
     parser.add_argument("--reset_every", type=int, default=3_000, help="Reset opacities every this steps.")
 
     # Only for MCMC
@@ -102,6 +104,7 @@ if __name__ == "__main__":
     scale_reg = args.scale_reg
     cap_max = args.cap_max
     refine_every = args.refine_every
+    reset_every = args.reset_every
     refine_start_iter = args.refine_start_iter
     refine_stop_iter = int(0.75 * max_steps)
     min_opacity = args.min_opacity
@@ -134,7 +137,8 @@ if __name__ == "__main__":
                 sparse_grad=sparse_grad,
                 sh_degree_interval=sh_degree_interval,
                 strategy=DefaultStrategy(verbose=True, refine_start_iter=refine_start_iter,
-                                         refine_every=refine_every, refine_stop_iter=refine_stop_iter),
+                                         refine_every=refine_every, refine_stop_iter=refine_stop_iter,
+                                         reset_every=reset_every),
             ),
         ),
         "mcmc": (

@@ -1,23 +1,40 @@
 import argparse
 import os
+import shutil
 from pathlib import Path
+import pandas as pd
 
-from src.models.ckpts_cleanup import remove_ckpts
+from src.models.cleanup import remove_ckpts
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Clean experiment directories.")
-    parser.add_argument("--model_names", type=str, nargs="+", help="space separated model names")
-    parser.add_argument("--input_dir", type=str, help="path to results directory")
+    parser = argparse.ArgumentParser(description="Clean experiment directory.")
+    parser.add_argument("--input_dir", type=str, help="Path to model/experiment")
 
     args = parser.parse_args()
 
-    models_names = args.model_names
-    input_dir = Path(args.input_dir)
+    experiment_path = Path(args.input_dir)
 
-    for model in models_names:
-        model_path = input_dir / model
-        for experiment_name in os.listdir(model_path):
-            experiment_path = Path(model_path) / experiment_name
-            if os.path.exists(experiment_path / 'ckpts'):
-                print(f"Removing {experiment_path / 'ckpts'} directory")
-                remove_ckpts(experiment_path / 'ckpts')
+    if os.path.exists(experiment_path / 'ckpts'):
+        print(f"Removing {experiment_path / 'ckpts'} directory")
+        iteration = remove_ckpts(experiment_path / 'ckpts')
+
+        if os.path.exists(experiment_path / "description.csv"):
+            file = experiment_path / 'description.csv'
+        else:
+            file = experiment_path / 'cfg.csv'
+
+        df = pd.read_csv(file)
+        df['iteration'] = iteration
+        df.to_csv(file, index=False)
+
+    if os.path.exists(experiment_path / 'stats'):
+        print(f"Removing {experiment_path / 'stats'} directory")
+        shutil.rmtree(experiment_path / "stats", ignore_errors=True)
+
+    if os.path.exists(experiment_path / 'renders'):
+        print(f"Removing {experiment_path / 'renders'} directory")
+        shutil.rmtree(experiment_path / "renders", ignore_errors=True)
+
+    if os.path.exists(experiment_path / 'videos'):
+        print(f"Removing {experiment_path / 'videos'} directory")
+        shutil.rmtree(experiment_path / "videos", ignore_errors=True)

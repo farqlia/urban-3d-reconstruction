@@ -39,6 +39,7 @@ class Evaluator:
 
     # cfg_path: already as csv file
     def __init__(self, model_path, cfg_path, root_data_dir):
+        self.cfg_path = cfg_path
         self.cfg = open_cfg(cfg_path, Path(root_data_dir))
         self.experiment_path = Path(model_path).parents[1]
         self.render_dir = self.experiment_path / 'eval_renders'
@@ -53,6 +54,20 @@ class Evaluator:
             net_type="alex", normalize=True
         ).to(self.device)
         self.valset = Dataset(self.rasterizer.parser, split="val")
+
+    def save_model_description(self):
+        stat_file = f"{self.experiment_path}/final_eval.json"
+        with open(stat_file) as f:
+            stats = json.load(f)
+            stats_df = pd.DataFrame(stats, index=[0])
+
+        config = pd.read_csv(self.cfg_path)
+        config['experiment'] = self.experiment_path.name
+        description = pd.concat((config, stats_df), axis=1)
+        file = self.experiment_path / 'description.csv'
+        print(f"Save model description to {file}")
+        description.to_csv(file, index=False)
+
 
     def evaluate(self):
         print("Running evaluation...")
