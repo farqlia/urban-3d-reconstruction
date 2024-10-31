@@ -78,4 +78,5 @@ if __name__=="__main__":
 
     if not os.path.exists(output_path / '0'):
         reconstructions = run_reconstruction(input_images_path, output_path, database_path)
-        export_reconstructions_to_ply(reconstructions)
+        #export_reconstructions_to_ply(reconstructions)
+        reconstructions[0].export_PLY(output_path / 'sparse.ply')
