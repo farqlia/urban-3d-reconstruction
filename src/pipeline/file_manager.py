@@ -4,13 +4,12 @@ import shutil
 from pathlib import Path
 from typing import List
 from tqdm import tqdm
-
-BASE_DIR = Path(__file__).resolve().parents[2]
+from config import INPUT_DATA_FOLDER
 
 class FileManager:
     def __init__(self):
         load_dotenv()
-        self.destination_folder = BASE_DIR / os.getenv("INPUT_DATA_FOLDER")
+        self.destination_folder = INPUT_DATA_FOLDER
         self.destination_folder.mkdir(parents=True, exist_ok=True)
 
     def upload_folder(self, source_folder: str) -> None:
