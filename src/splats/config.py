@@ -17,7 +17,7 @@ class Config:
     # Render trajectory path
     render_traj_path: str = "interp"
 
-    # Path to the Mip-NeRF 360 dataset
+    # Path to the dataset
     data_dir: str = str(Path("../data/south-building/undistorted_images"))
     # Downsample factor for the dataset
     data_factor: int = 1
@@ -38,7 +38,7 @@ class Config:
     port: int = 8080
 
     # Batch size for training. Learning rates are scaled automatically
-    batch_size: int = 1
+    batch_size: int = 1 # must be one
     # A global factor to scale the number of training steps
     steps_scaler: float = 1.0
 

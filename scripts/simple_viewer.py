@@ -211,7 +211,7 @@ if __name__ == "__main__":
         --ckpt results/garden/ckpts/ckpt_3499_rank0.pt results/garden/ckpts/ckpt_3499_rank1.pt \
         --port 8081
     """
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Train Gaussian Splatting algorithm for scene model")
     parser.add_argument(
         "--output_dir", type=str, default="results/", help="where to dump outputs"
     )
