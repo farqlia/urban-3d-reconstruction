@@ -4,8 +4,6 @@ import shutil
 from pathlib import Path
 import pandas as pd
 
-from src.models.cleanup import remove_ckpts
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Clean experiment directory.")
     parser.add_argument("--input_dir", type=str, help="Path to model/experiment")
@@ -16,16 +14,7 @@ if __name__ == "__main__":
 
     if os.path.exists(experiment_path / 'ckpts'):
         print(f"Removing {experiment_path / 'ckpts'} directory")
-        iteration = remove_ckpts(experiment_path / 'ckpts')
-
-        if os.path.exists(experiment_path / "description.csv"):
-            file = experiment_path / 'description.csv'
-        else:
-            file = experiment_path / 'cfg.csv'
-
-        df = pd.read_csv(file)
-        df['iteration'] = iteration
-        df.to_csv(file, index=False)
+        shutil.rmtree(experiment_path / 'ckpts')
 
     if os.path.exists(experiment_path / 'stats'):
         print(f"Removing {experiment_path / 'stats'} directory")

@@ -16,6 +16,26 @@ from src.datasets.colmap import Dataset
 from src.splats.config import Config
 from src.splats.rasterization import Rasterizer
 
+import os
+import shutil
+from pathlib import Path
+
+
+def save_ckpt(ckpt_path) -> int:
+    '''
+    Saves the model from the last checkpoint and removes all other checkpoints
+    :param ckpt_path: path to checkpoint directories
+    :return iteration at which the checkpoint was saved
+    '''
+    ckpts = os.listdir(ckpt_path)
+    assert str(ckpt_path).endswith("ckpts")
+    iter_to_ckpt = {
+        int(name.split("_")[1]): name for name in ckpts
+    }
+    final_model = iter_to_ckpt[max(iter_to_ckpt.keys())]
+    shutil.copy(ckpt_path / final_model, ckpt_path.parent / 'model.pt')
+    print(f"...Saving model {final_model}")
+    return max(iter_to_ckpt.keys())
 
 def open_cfg(cfg_path, root_data_dir):
     config = pd.read_csv(cfg_path)
@@ -38,10 +58,12 @@ def open_cfg(cfg_path, root_data_dir):
 class Evaluator:
 
     # cfg_path: already as csv file
-    def __init__(self, model_path, cfg_path, root_data_dir):
-        self.cfg_path = cfg_path
-        self.cfg = open_cfg(cfg_path, Path(root_data_dir))
-        self.experiment_path = Path(model_path).parents[1]
+    def __init__(self, exp_path, root_data_dir):
+        self.experiment_path = exp_path
+        self.cfg_path = exp_path / 'cfg.csv'
+        self._max_iter = save_ckpt(exp_path / 'ckpts')
+        model_path = exp_path / 'model.pt'
+        self.cfg = open_cfg(self.cfg_path, Path(root_data_dir))
         self.render_dir = self.experiment_path / 'eval_renders'
         os.makedirs(self.render_dir, exist_ok=True)
         self.scene_name = Path(model_path).parents[1].name
@@ -63,6 +85,7 @@ class Evaluator:
 
         config = pd.read_csv(self.cfg_path)
         config['experiment'] = self.experiment_path.name
+        config['iteration'] = self._max_iter
         description = pd.concat((config, stats_df), axis=1)
         file = self.experiment_path / 'description.csv'
         print(f"Save model description to {file}")
@@ -129,7 +152,7 @@ class Evaluator:
 
 
 if __name__ == "__main__":
-    evaluator = Evaluator("../../results/c5/monkey/ckpts/ckpt_34999_rank0.pt",
+    evaluator = Evaluator("../../results/c5/monkey",
                           "../../results/c5/monkey/cfg.csv",
                           "C:\\Users\\julia\\PycharmProjects\\urban-3d-reconstruction")
 
