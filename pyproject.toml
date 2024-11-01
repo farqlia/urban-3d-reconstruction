@@ -13,7 +13,7 @@ dependencies = [
     "pycolmap==0.6.1",
     "matplotlib==3.9.2",
     "notebook==7.2.2",
-    "torch",
+    "torch==2.5.0",
     "open3d==0.18.0",
     "scipy==1.14.1",
     "scikit-learn==1.5.2"
@@ -33,7 +33,10 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-gui = ["PyQt5"]
+# tutaj proszę oddawać swoje pakiety, najlepiej z wersjami
+gui =[
+    "PyQt5"
+]
 notebooks = [
     'pandas',
     'pyntcloud',
