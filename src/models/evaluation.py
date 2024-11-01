@@ -12,6 +12,7 @@ from gsplat import DefaultStrategy, MCMCStrategy
 from torchmetrics.image import StructuralSimilarityIndexMeasure, PeakSignalNoiseRatio, \
     LearnedPerceptualImagePatchSimilarity
 
+from models.save_model import save_ckpt
 from src.datasets.colmap import Dataset
 from src.splats.config import Config
 from src.splats.rasterization import Rasterizer
@@ -21,29 +22,13 @@ import shutil
 from pathlib import Path
 
 
-def save_ckpt(ckpt_path) -> int:
-    '''
-    Saves the model from the last checkpoint and removes all other checkpoints
-    :param ckpt_path: path to checkpoint directories
-    :return iteration at which the checkpoint was saved
-    '''
-    ckpts = os.listdir(ckpt_path)
-    assert str(ckpt_path).endswith("ckpts")
-    iter_to_ckpt = {
-        int(name.split("_")[1]): name for name in ckpts
-    }
-    final_model = iter_to_ckpt[max(iter_to_ckpt.keys())]
-    shutil.copy(ckpt_path / final_model, ckpt_path.parent / 'model.pt')
-    print(f"...Saving model {final_model}")
-    return max(iter_to_ckpt.keys())
-
 def open_cfg(cfg_path, root_data_dir):
     config = pd.read_csv(cfg_path)
 
     strategy = DefaultStrategy() if config.loc[0, "strategy"] == "default" else MCMCStrategy()
 
     return Config(
-        data_dir=str((root_data_dir / Path(config.loc[0, "data_dir"])).resolve()),
+        data_dir=str((root_data_dir / Path(config.loc[0, "data_dir"]).resolve())),
         data_factor=config.loc[0, "data_factor"],
         normalize_world_space=config.loc[0, "normalize_world_space"],
         test_every=config.loc[0, "test_every"],

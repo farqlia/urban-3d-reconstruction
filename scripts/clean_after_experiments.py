@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     experiment_path = Path(args.input_dir)
 
-    if os.path.exists(experiment_path / 'ckpts'):
+    if os.path.exists(experiment_path / 'ckpts') and os.path.exists(experiment_path / 'model.pt'):
         print(f"Removing {experiment_path / 'ckpts'} directory")
         shutil.rmtree(experiment_path / 'ckpts')
 
