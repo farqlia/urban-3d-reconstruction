@@ -251,6 +251,8 @@ class Runner:
         world_rank = self.world_rank
         world_size = self.world_size
 
+        cfg.num_init_splats = len(self.splats["means"])
+
         # Dump cfg.
         if world_rank == 0:
             with open(f"{cfg.result_dir}/cfg.yml", "w") as f:
