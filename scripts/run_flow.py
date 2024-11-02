@@ -3,12 +3,11 @@ import subprocess
 import os
 from pathlib import Path
 
-def run_experiment(experiment_path, data_root):
+def run_experiment(experiment_path, project_dir):
     # Define paths for each step based on the experiment path
     input_dir = Path(experiment_path)
     model_input = os.path.join(input_dir, "model.pt")
     model_output = os.path.join(input_dir, "model.ply")
-    data_dir = os.path.join(data_root, "data")
 
     # Step 1: Convert config to CSV
     print("Converting config to CSV...")
@@ -22,7 +21,7 @@ def run_experiment(experiment_path, data_root):
     subprocess.run([
         "python", "./scripts/evaluate.py",
         "--exp_path", input_dir,
-        "--project_dir", data_dir
+        "--project_dir", project_dir
     ], check=True)
 
     # Step 3: Clean up
