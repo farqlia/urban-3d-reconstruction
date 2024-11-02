@@ -7,6 +7,7 @@ from PySide6.QtOpenGLWidgets import QOpenGLWidget
 from PySide6.QtWidgets import QMainWindow
 
 
+# script to run it : scripts/rendering
 class PointCloudGLWidget(QOpenGLWidget):
     def __init__(self, point_cloud=None, parent=None):
         super(PointCloudGLWidget, self).__init__(parent)
