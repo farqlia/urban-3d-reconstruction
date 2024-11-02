@@ -41,11 +41,14 @@ class PointCloudGLWidget(QOpenGLWidget):
         glRotatef(self.x_rot, 1.0, 0.0, 0.0)  # Rotate around the X-axis
         glRotatef(self.y_rot, 0.0, 1.0, 0.0)  # Rotate around the Y-axis
 
+        self.draw_point_cloud()
+
+    def draw_point_cloud(self):
         # Draw the point cloud
         glBegin(GL_POINTS)
-        for point in self.point_cloud:
-            glColor3f(1.0, 1.0, 1.0)
-            glVertex3f(point[0], point[1], point[2])
+        for (i, p) in self.point_cloud.iterrows():
+            glColor3f(p['red'], p['green'], p['blue'])
+            glVertex3f(p['x'], p['y'], p['z'])
         glEnd()
 
     def mousePressEvent(self, event):
@@ -108,3 +111,9 @@ class MainWindow(QMainWindow):
 def generate_random_point_cloud(num_points=1000, scale=10):
     """Generate a random point cloud for demonstration."""
     return np.random.rand(num_points, 3) * scale - (scale / 2)
+
+
+def prepare_point_cloud(point_cloud):
+    point_cloud.points['red'] = point_cloud.points['red'] / 255.0
+    point_cloud.points['green'] = point_cloud.points['green'] / 255.0
+    point_cloud.points['blue'] = point_cloud.points['blue'] / 255.0
