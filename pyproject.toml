@@ -8,13 +8,10 @@ version = "0.0.1"
 description = "Codebase for urban 3d reconstruction"
 requires-python = ">=3.8,<3.13"
 dependencies = [
-    "torch==2.5.0",
     "torchvision==0.20.0",
     "torchaudio==2.5.0",
-    "numpy>=1.23, <2.0",
-    "pycolmap==0.6.1",
+    "numpy>=1.23, <2.0",  # !!! wersja taka musi byc by u mnie zadzialalo
     "matplotlib==3.9.2",
-    "open3d==0.18.0",
     "opencv-python==4.10.0.84",
     "imageio==2.36.0",
     "tyro==0.8.13",
@@ -24,13 +21,15 @@ dependencies = [
     "nerfview==0.0.2",
     "viser==0.2.1",
     "tqdm==4.66.5",
+    "pyyaml==6.0.2",
     "gsplat @ https://github.com/nerfstudio-project/gsplat/releases/download/v1.4.0/gsplat-1.4.0%2Bpt24cu124-cp310-cp310-win_amd64.whl"
 ]
 
-[project.optional-dependencies]
-data-science = ["jupyter~=1.1.1", "notebook==7.2.2",
-    "scipy==1.14.1", "scikit-learn==1.5.2"]
 
+# we can use this to install our own package and use it
+# however we need to have restructure src folder to have : src -> urb3d -> [... modules]
+# [tool.setuptools.packages.find]
+# where = ["src"]
 
 [tool.ruff]
 select = [
