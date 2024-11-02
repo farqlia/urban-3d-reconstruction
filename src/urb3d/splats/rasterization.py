@@ -5,7 +5,7 @@ from gsplat import rasterization, DefaultStrategy
 from torch import Tensor
 from pyntcloud import PyntCloud
 
-from src.datasets.colmap import Parser
+from datasets.colmap import Parser
 
 
 class Rasterizer:

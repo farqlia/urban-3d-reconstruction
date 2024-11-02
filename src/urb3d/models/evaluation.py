@@ -13,9 +13,9 @@ from torchmetrics.image import StructuralSimilarityIndexMeasure, PeakSignalNoise
     LearnedPerceptualImagePatchSimilarity
 
 from models.save_model import save_ckpt
-from src.datasets.colmap import Dataset
-from src.splats.config import Config
-from src.splats.rasterization import Rasterizer
+from datasets.colmap import Dataset
+from splats.config import Config
+from splats.rasterization import Rasterizer
 
 import os
 import shutil
