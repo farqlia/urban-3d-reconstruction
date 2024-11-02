@@ -1,9 +1,10 @@
 import numpy as np
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from PySide6.QtWidgets import QMainWindow, QVBoxLayout, QWidget
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QFont, QPainter
 from PySide6.QtOpenGLWidgets import QOpenGLWidget
+from PySide6.QtWidgets import QMainWindow
 
 
 class PointCloudGLWidget(QOpenGLWidget):
@@ -42,6 +43,15 @@ class PointCloudGLWidget(QOpenGLWidget):
         glRotatef(self.y_rot, 0.0, 1.0, 0.0)  # Rotate around the Y-axis
 
         self.draw_point_cloud()
+        self.render_text(f"{len(self.point_cloud)} points", (10, 30))
+
+    def render_text(self, text, pos):
+        # Render text on the screen
+        painter = QPainter(self)
+        painter.setPen(Qt.white)
+        painter.setFont(QFont("Helvetica", 16))
+        painter.drawText(*pos, text)
+        painter.end()
 
     def draw_point_cloud(self):
         # Draw the point cloud
@@ -62,9 +72,10 @@ class PointCloudGLWidget(QOpenGLWidget):
             dx = event.position().x() - self.last_mouse_pos.x()
             dy = event.position().y() - self.last_mouse_pos.y()
 
+            rot_scale = .5
             # Update rotation angles: modify the scale to control sensitivity
-            self.x_rot += dy * 0.5
-            self.y_rot += dx * 0.5
+            self.x_rot += dy * rot_scale
+            self.y_rot += dx * rot_scale
 
             # Save the new mouse position
             self.last_mouse_pos = event.position()
