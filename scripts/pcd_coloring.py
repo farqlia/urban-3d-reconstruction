@@ -1,0 +1,48 @@
+from pyntcloud import PyntCloud
+import numpy as np
+import pandas as pd
+import argparse
+import open3d as o3d
+
+# to be moved
+COLOR_MAP = {
+    1: (150, 75, 0),       # ground, brown
+    2: (34, 139, 34),      # vegetation, dark green
+    3: (169, 169, 169),    # building, gray
+    4: (61, 61, 61),       # wall, dark gray 
+    5: (0, 255, 255),      # bridge, cyan
+    6: (255, 255, 0),      # parking, yellow
+    7: (128, 0, 128),      # rail, purple
+    8: (25, 255, 0),       # traffic road, green
+    9: (255, 20, 147),     # street furniture, pink
+    10: (255, 0, 0),       # car, red
+    11: (255, 130, 0),     # footpath, orange 
+    12: (22, 0, 130),      # bike, navy
+    13: (0, 166, 255)      # water, blue
+}
+
+def set_color_based_on_class_labels(input_ply_path, output_ply_path, color_map):
+    cloud = PyntCloud.from_file(input_ply_path)
+    data = cloud.points
+
+    colors = np.array([color_map[label] for label in data['class_label']])
+    data['red'], data['green'], data['blue'] = colors.T
+
+    colors = colors / 255.0  
+    pcd = o3d.io.read_point_cloud(input_ply_path)
+    pcd.colors = o3d.utility.Vector3dVector(colors)
+
+    o3d.io.write_point_cloud(output_ply_path, pcd)
+    
+    #o3d_cloud = o3d.io.read_point_cloud(output_ply_path)
+    #o3d.visualization.draw_geometries([o3d_cloud])
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Changes colors of points in a .ply file based on class labels.")
+    parser.add_argument("--input", type=str, help="Path to the input .ply file with class labels.")
+    parser.add_argument("--output", type=str, help="Path to save the modified .ply file with colors.")
+    args = parser.parse_args()
+
+    set_color_based_on_class_labels(args.input, args.output, COLOR_MAP)
+
+
