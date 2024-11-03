@@ -12,19 +12,15 @@ from gsplat import DefaultStrategy, MCMCStrategy
 from torchmetrics.image import StructuralSimilarityIndexMeasure, PeakSignalNoiseRatio, \
     LearnedPerceptualImagePatchSimilarity
 
-from src.models.save_model import save_ckpt
-from src.datasets.colmap import Dataset
-from src.splats.config import Config
-from src.splats.rasterization import Rasterizer
+from models.save_model import save_ckpt
+from datasets.colmap import Dataset
+from splats.config import Config
+from splats.rasterization import Rasterizer
 
 import os
 import shutil
 from pathlib import Path
 
-
-def data_path(data_dir, root_data_dir):
-    p = "/".join([part for part in Path(data_dir).parts if part != ".."])
-    return os.path.join(root_data_dir, p)
 
 def open_cfg(cfg_path, root_data_dir):
     config = pd.read_csv(cfg_path)
@@ -32,7 +28,7 @@ def open_cfg(cfg_path, root_data_dir):
     strategy = DefaultStrategy() if config.loc[0, "strategy"] == "default" else MCMCStrategy()
 
     return Config(
-        data_dir=str(data_path(config.loc[0, "data_dir"], root_data_dir)),
+        data_dir=str((root_data_dir / Path(config.loc[0, "data_dir"]).resolve())),
         data_factor=config.loc[0, "data_factor"],
         normalize_world_space=config.loc[0, "normalize_world_space"],
         test_every=config.loc[0, "test_every"],

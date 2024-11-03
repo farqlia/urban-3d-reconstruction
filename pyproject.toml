@@ -4,57 +4,73 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "urb3d"
-version = "0.0.1"
-description = "Codebase for urban 3d reconstruction"
-requires-python = ">=3.8,<3.13"
+version = "1"
+description = "Urban 3D reconstruction and segmentation"
+requires-python = ">=3.8"
 dependencies = [
     "jupyter~=1.1.1",
-    "numpy~=2.1.1",
+    "numpy>=1.23, <2.0",  # wersja taka musi byc by u mnie zeby zadzialalo
     "pycolmap==0.6.1",
     "matplotlib==3.9.2",
     "notebook==7.2.2",
-    "torch==2.4.1",
+    "torch==2.4.1",  # wersja torch zmniejszona z 2.5.0
     "open3d==0.18.0",
     "scipy==1.14.1",
-    "scikit-learn==1.5.2"
+    "scikit-learn==1.5.2",
+]
+authors = [
+  {name = "Julia Farganus", email = "266564@student.pwr.edu.pl"},
+  {name = "Katarzyna Wochal", email = "266529@student.pwr.edu.pl"},
+  {name = "Daniel Borkowski", email = "266593@student.pwr.edu.pl"},
+  {name = "Rafał Mielniczuk", email = "266508@student.pwr.edu.pl"},
+]
+readme='README.md'
+license = {file='LICENSE.txt'}
+keywords = ['photogrammetry', '3d', 'reconstruction', 'segmentation', 'urban', 'city', 'cuda']
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Programming Language :: Python'
+]
+
+[project.optional-dependencies]
+gui = ["PyQt5"]
+notebooks = [
+    'pandas==2.2.3',
+    'pyntcloud==0.3.1',
+    'pyvista==0.44.1',
+    'seaborn==0.13.2',
+    'pytorch_lightning==2.4.0'
+]
+splat = [
+    "torchvision==0.19.1",
+    "torchaudio==2.4.1",
+    "matplotlib==3.9.2",
+    "opencv-python==4.10.0.84",
+    "imageio==2.36.0",
+    "tyro==0.8.13",
+    "torchmetrics==1.5.0",
+    "nerfview==0.0.2",
+    "viser==0.2.1",
+    "tqdm==4.66.5",
+    "pyyaml==6.0.2",
+    "tensorboard==2.18.0"
+]
+# wheels for specific cuda python & versions
+# https://download.pytorch.org/whl/torchaudio/
+# https://download.pytorch.org/whl/torchvision/
+# https://download.pytorch.org/whl/torch/
+cuda = [
+    "torch @ https://download.pytorch.org/whl/cu124/torch-2.4.1%2Bcu124-cp310-cp310-win_amd64.whl",
+    "torchvision @ https://download.pytorch.org/whl/cu124/torchvision-0.19.1%2Bcu124-cp310-cp310-win_amd64.whl",
+    "torchaudio @ https://download.pytorch.org/whl/cu124/torchaudio-2.4.1%2Bcu124-cp310-cp310-win_amd64.whl",
+    "gsplat @ https://github.com/nerfstudio-project/gsplat/releases/download/v1.4.0/gsplat-1.4.0+pt24cu124-cp310-cp310-win_amd64.whl",
+    "fused-ssim @ git+https://github.com/rahul-goel/fused-ssim/"
 ]
 
 
-[tool.setuptools]
-packages = ["src"]
-
-[tool.ruff]
-select = [
-    "E", # pycodestyle errors
-    "W", # pycodestyle warnings
-    "F", # pyflakes
-    "I", # isort
-    "C", # flake8-comprehensions
-    "B", # flake8-bugbear
-    # "UP",  # pyupgrade
-]
-line-length = 120
-ignore = [
-    # "E501", # line too long, handled by black
-    "B008", # do not perform function calls in argument defaults
-    "C901", # too complex
-    "W191", # indentation contains tabs
-]
-extend-exclude = [".venv/", "build/", "dist/", "docs/"]
-
-[tool.ruff.format]
-quote-style = "single"
-indent-style = "space"
-
-[tool.ruff.lint.isort]
-order-by-type = true
-lines-between-types = 1
-combine-as-imports = true
-# known_first_party = "common"
-
-ignore = [
-    "I001",
-]
-
-[tool.setuptools.dynamic]
-readme = {file = ['README.md']}
+# [tool.setuptools]
+# packages = ["src"]
+# zamiast tego mozna to co nizej
+[tool.setuptools.packages.find]
+where = ["src"]
+# tyle ze struktura src musi byc taka: src -> urb3d -> [... modules]
