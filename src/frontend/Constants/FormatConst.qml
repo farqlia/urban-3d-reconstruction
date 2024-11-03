@@ -18,4 +18,6 @@ QtObject {
     readonly property int headerButtonSize: 60
     readonly property int headerTitleCardWidth: 260
     readonly property int headerTitleCardHeight: 80
+    readonly property int listEntryImageSize: 25
+    readonly property int defaultRadius: 10
 }

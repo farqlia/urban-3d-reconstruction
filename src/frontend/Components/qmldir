@@ -5,3 +5,5 @@ TitleCard_ 1.0 TitleCard.qml
 Spacer_ 1.0 Spacer.qml
 RoundComboBox_ 1.0 RoundComboBox.qml
 LoadingPopup_ 1.0 LoadingPopup.qml
+ListEntry_ 1.0 ListEntry.qml
+ListInputEntry_ 1.0 ListInputEntry.qml

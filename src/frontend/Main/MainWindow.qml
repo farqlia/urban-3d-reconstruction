@@ -1,6 +1,8 @@
 import QtQuick
+import QtCore
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Dialogs
 
 import Components
 import Constants
@@ -95,13 +97,19 @@ ApplicationWindow {
                     Layout.rightMargin: FormatConst.defaultMargin
                     width: 260
 
-                    ColumnLayout {
+                    StackLayout {
                         id: leftMainLayout
                         anchors.fill: parent
+                        currentIndex: 0
 
                         LayoutItemProxy {
-                            id: leftMainView
                             target: loadingImagesView
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                        }
+
+                        LayoutItemProxy {
+                            target: settingParametersView
                             Layout.fillWidth: true
                             Layout.fillHeight: true
                         }
@@ -297,10 +305,7 @@ ApplicationWindow {
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
         onClicked: {
-            settingParametersView.visible = false
-            leftMainView.target = null
-            loadingImagesView.visible = true
-            leftMainView.target = loadingImagesView
+            leftMainLayout.currentIndex = 0
         }
     }
     RoundButton_ {
@@ -309,15 +314,12 @@ ApplicationWindow {
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
         onClicked: {
-            loadingImagesView.visible = false
-            leftMainView.target = null
-            settingParametersView.visible = true
-            leftMainView.target = settingParametersView
+            leftMainLayout.currentIndex = 1
         }
     }
     RoundComboBox_ {
         id: optionBuildMode
-        model: ["Generate splats", "Generate categories"]
+        model: [LangConst.comboBoxPointCloud, LangConst.comboBoxSplats, LangConst.comboBoxCategorization]
     }
     RoundButton_ {
         id: buttonRun
@@ -325,7 +327,20 @@ ApplicationWindow {
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
         background: null
-        onClicked: loadingWindow.open()
+        onClicked: {
+            switch (optionBuildMode.currentText) {
+                case LangConst.comboBoxPointCloud:
+                    backend.generatePointCloud()
+                    break;
+                case LangConst.comboBoxSplats:
+                    backend.generateSplats()
+                    break;
+                case LangConst.comboBoxCategorization:
+                    backend.categorize()
+                    break;
+            }
+            loadingWindow.open()
+        }
     }
     TitleCard_ {
         id: titleCard
@@ -379,6 +394,15 @@ ApplicationWindow {
         icon.source: "../icons/magnifier.png"
         icon.width: RoundButtonConst.renderingModeImageRadius
         icon.height: RoundButtonConst.renderingModeImageRadius
+    }
+    RoundButton_ {
+        id: buttonOpenDialogWindow
+        icon.source: "../icons/folder-click.png"
+        icon.width: 35
+        icon.height: 35
+        onClicked: {
+            fileDialog.open()
+        }
     }
     Text {
         id: textCoordsX
@@ -439,18 +463,40 @@ ApplicationWindow {
         id: loadingImagesView
         color: "transparent"
         border.color: "transparent"
-        visible: false
 
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: FormatConst.defaultMargin
 
-            Text {
-                text: "Uploaded images"
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                color: ColorConst.secondaryColor
-                font.pointSize: FormatConst.defaultFontSize
-                font.bold: true
+            RowLayout {
+                Layout.fillWidth: true
+
+                Text {
+                    text: "Uploaded images"
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                    color: ColorConst.secondaryColor
+                    font.pointSize: FormatConst.defaultFontSize
+                    font.bold: true
+                }
+
+                LayoutItemProxy {
+                    target: buttonOpenDialogWindow
+                    width: 50
+                    height: 50
+                    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                }
+            }
+
+            ListView {
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                model: backend ? backend.fileList : []
+                spacing: FormatConst.smallPadding
+
+                delegate: ListEntry_ {
+                    text: modelData
+                }
             }
         }
     }
@@ -458,7 +504,6 @@ ApplicationWindow {
         id: settingParametersView
         color: "transparent"
         border.color: "transparent"
-        visible: false
 
         ColumnLayout {
             anchors.fill: parent
@@ -472,6 +517,22 @@ ApplicationWindow {
                 font.pointSize: FormatConst.defaultFontSize
                 font.bold: true
             }
+
+            ListView {
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                model: optionBuildMode.currentText === LangConst.comboBoxSplats ? [LangConst.paramSplatCount] : []
+
+                delegate: ListInputEntry_ {
+                    labelText: modelData
+                }
+            }
         }
+    }
+    FolderDialog {
+        id: fileDialog
+        currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
+        onAccepted: backend.directoryPath = selectedFolder
     }
 }
