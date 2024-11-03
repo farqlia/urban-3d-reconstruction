@@ -3,6 +3,58 @@
 Czy my tu musimy dać diagramy wymagań? :O
 \subsection{Architektura}
 Projekt architektury, zastosowane wzorce projektowe???
+
+\subsubsection{Struktura plikowa projektu}
+
+% millon opcji https://tex.stackexchange.com/questions/5073/making-a-simple-directory-tree
+\begin{forest}
+  for tree={
+    grow'=0,
+    child anchor=west,
+    parent anchor=south,
+    anchor=west,
+    calign=first,
+    edge path={
+      \noexpand\path [draw, \forestoption{edge}] (!u.south west) ++(3pt,0) -- +(-3pt,0) |- (.child anchor)\forestoption{edge label};
+    },
+    before typesetting nodes={
+      if n=1
+        {insert before={[,phantom]}}
+        {}
+    },
+    fit=band,
+    before computing xy={l=15pt},
+  }
+[project
+  [src
+    [main.py]
+    [utils.py]
+  ]
+  [docs
+    [manual.pdf]
+    [readme.txt]
+  ]
+  [config
+    [config.json]
+  ]
+  [data
+  [city\_model
+        [images]
+        [sparse
+            [images.bin]
+            [cameras.bin]
+            [points.bin]
+        ]
+    ]
+  ]
+  [results
+    [city\_model
+        [model.pt]
+    ]
+  ]
+]
+\end{forest}
+
 \subsection{Implementacja}
 Opis zastosowanych technologii i dokumentów
 
@@ -10,7 +62,7 @@ Opis zastosowanych technologii i dokumentów
 W celu uruchomienia algorytmu Gaussian Splatting korzystamy z gotowej implementacji którą 
 zapewnia biblioteka \href{https://docs.gsplat.studio/main/index.html}{\textit{gsplat}} \cite{ye2024gsplatopensourcelibrarygaussian}. Znajdują się w niej metody które odzwierciedlają wykonywane kroki w teoretycznym opisie algorytmu (np. \textit{rasterization}) a także dodatkowe elementy oparte na nowszych badaniach które usprawniają proces trenowania i renderowania (np. \textit{sparse gradient}, \textit{absgrad}, itp.). Dodatkowym plusem biblioteki jest wsparcie do renderowania dużych scen. Jej użycie wymaga posiadania karty graficznej CUDA.  
 
-Naszą kontrybucją jest dostosowanie istniejącego skryptu trenującego \href{https://github.com/nerfstudio-project/gsplat/blob/main/examples/simple_trainer.py}{simple\_trainer} tak aby działał on poprawnie i zgodnie z naszymi wymaganiami. Przyjmuje on następujące argumenty:
+Jedną z naszych kontrybucji jest dostosowanie istniejącego skryptu trenującego \href{https://github.com/nerfstudio-project/gsplat/blob/main/examples/simple_trainer.py}{simple\_trainer} tak aby działał on poprawnie i zgodnie z naszymi wymaganiami. Przyjmuje on następujące argumenty:
 
 % change style to not highlight python specific words
 \lstset{style=basicstyle}
@@ -60,4 +112,5 @@ options:
 
 \lstset{style=pythonstyle}
 
-Z których obowiązkowe to \textit{--data\_dir} - ścieżka do folderu z rekonstrukcją i zdjęciami i \textit{--result\_dir} - ścieżka gdzie zostaną zapisane wyniki. 
+Z których obowiązkowe to \textit{data\_dir} - ścieżka do folderu z rekonstrukcją i zdjęciami i \textit{result\_dir} - ścieżka gdzie zostaną zapisane wyniki. 
+
