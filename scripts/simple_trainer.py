@@ -82,7 +82,7 @@ if __name__ == "__main__":
     parser.add_argument("--cap_max", type=int, default=3_000_000, help="Maximum cap for MCMC gaussians.")
     parser.add_argument("--min_opacity", type=float, default=0.005, help="Minimum opacity.")
 
-    parser.add_argument("--sh_degree_interval", type=int, default=10_000, help="Add spherical harmonics degree interval.")
+    parser.add_argument("--sh_degree_interval", type=int, default=5_000, help="Add spherical harmonics degree interval.")
     parser.add_argument("--init_scale", type=float, default=0.1, help="Initial scale.")
     parser.add_argument("--init_opa", type=float, default=0.5, help="Initial opacity.")
 
@@ -118,8 +118,8 @@ if __name__ == "__main__":
     sparse_grad = args.sparse_grad
 
     # Define eval_steps and save_steps based on the values of max_steps and delta_steps
-    eval_steps: List[int] = [i for i in range(10_000, max_steps + delta_steps, delta_steps)]
-    save_steps: List[int] = [i for i in range(10_000, max_steps + delta_steps, delta_steps)]
+    eval_steps: List[int] = [i for i in range(2_000, max_steps + delta_steps, delta_steps)]
+    save_steps: List[int] = [i for i in range(2_000, max_steps + delta_steps, delta_steps)]
 
     # Config objects we can choose between.
     # Each is a tuple of (CLI description, config object).
