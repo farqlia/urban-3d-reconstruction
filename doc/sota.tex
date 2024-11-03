@@ -39,18 +39,22 @@ Splat (tłum. punkt rozmyty) jest rozszerzeniem punktu i posiada atrybuty
     \item macierz kowariancji (koduje rotację i skalę)
 \end{itemize}
 
+Najlepszy zbiór splatów opisujący scenę jest znajdowany w procesie optymalizacji opisanym poniżej schematem \ref{fig:splatting_algorithm}
+
 \begin{figure}[!htb]
     \includegraphics[width=\linewidth]{img/gaussian_splatting_flow.png}
-    \caption{Optymalizacja zbioru splatów}
+    \caption{Optymalizacja zbioru splatów}\label{fig:splatting_algorithm}
 \end{figure}
 
 \begin{enumerate}
     \item Wykorzystanie chmury punktów z rekonstrukcji do inicjalizacji zbioru splatów
-    \item Rzutowanie perspektywiczne 3-wymiarowych gaussianów na obraz widziany z danej kamery 
+    \item Rzutowanie perspektywiczne 3-wymiarowych gaussianów na obraz widziany z danej kamery, czego wynikiem jest zbiór dysków
     \item Renderowanie polegające na akumulowaniu dla każdego piksela wkładu od różnych nachodzących dysków 
     \item Obliczanie funkcji straty - porównanie z prawdziwym obrazkiem z danej kamery
-    \item Adaptacja gęstości gaussianów - klonowanie, dzielenie lub usuwanie
+    \item Adaptacja gęstości gaussianów - klonowanie, dzielenie lub usuwanie wg. kryteriów zależnych od strategii
 \end{enumerate}
+
+Niestety metoda ta nie pozostaje bez wad. W przypadku dużych zbiorów danych zużycie pamięci może wynieść nawet parę GB, co wymaga dobrej jakości karty graficznej. Inną kwestią jest duża liczba hiperparametrów, które często wymagają ręcznego dostosowania do danej sceny. 
 
 \subsection{Segmentacja}
 Warto nadmienić, że nie jest to segmentacja \cite{pointnet}.
