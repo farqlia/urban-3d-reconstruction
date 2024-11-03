@@ -10,13 +10,18 @@ Popup {
     focus: true
     anchors.centerIn: parent
 
-    contentItem: Rectangle {
+    closePolicy: Popup.NoAutoClose
+
+    property real progressValue: 0.0
+    property bool buildCanceled: false
+
+    onProgressValueChanged: {
+        progressBar.value = progressValue
+    }
+
+    contentItem: Border {
         width: parent.width
         height: parent.height
-        color: ColorConst.primaryColor
-        border.color: ColorConst.secondaryColor
-        border.width: FormatConst.defaultBorderWeight
-        radius: 10
 
         ColumnLayout {
             anchors.fill: parent
@@ -37,8 +42,15 @@ Popup {
                 Layout.rightMargin: FormatConst.smallMargin
                 from: 0
                 to: 100
-                value: 50
+                value: progressValue
                 padding: 2
+
+                onValueChanged: {
+                    if (value === 0) {
+                        // Display Success Popup
+                        popup.close()
+                    }
+                }
 
                 background: Rectangle {
                     implicitWidth: parent.width
@@ -63,7 +75,10 @@ Popup {
 
             Button {
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: popup.close()
+                onClicked: {
+                    popup.buildCanceled = true
+                    popup.close()
+                }
                 background: Rectangle {
                     color: ColorConst.secondaryColor
                     radius: 10
