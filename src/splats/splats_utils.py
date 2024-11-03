@@ -25,9 +25,10 @@ def pixels_within_bb_ids(pixels, mu, cov, extent=3.0):
     ids = (pixels_coords[:, 0] < x_max) & (pixels_coords[:, 0] > x_min) & (pixels_coords[:, 1] < y_max) & (pixels_coords[:, 1] > y_min)
     return ids
 
-def init_from_uniform(low, high, n):
-    upper_ones = np.array([[1, 1, 1], [0, 1, 1], [0, 0, 1]])
-    upper_ones = np.repeat(upper_ones[np.newaxis, :], n, axis=0)
-    covs = np.random.uniform(low=low, high=high, size=(n, 3, 3)) @ upper_ones
-    covs = covs + covs.transpose(0, 2, 1)
+def init_from_uniform(n, low=0.1, high=0.3):
+    covs = np.zeros((n, 3, 3), dtype=np.float32)
+    vals = np.random.uniform(low=low, high=high, size=n)
+    covs[:, 0, 0] = vals
+    covs[:, 1, 1] = vals
+    covs[:, 2, 2] = vals
     return covs
