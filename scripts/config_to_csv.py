@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from src.models.config_conversion import (parse_yaml_text, save_to_csv,
+from urb3d.models.config_conversion import (parse_yaml_text, save_to_csv,
                                           collect_cfgs, merge_csv_files)
 
 def main(yaml_file, csv_file):

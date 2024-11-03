@@ -1,5 +1,5 @@
 import pycolmap
-from src.geometry.point_transformation import *
+from urb3d.geometry.point_transformation import *
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import argparse
