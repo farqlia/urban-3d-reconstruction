@@ -71,19 +71,19 @@ if __name__ == "__main__":
     parser.add_argument("--opacity_reg", type=float, default=0.01, help="Opacity regularization value.")
 
     # For default & MCMC strategies
+    parser.add_argument("--min_opacity", type=float, default=0.005, help="Minimum opacity.")
     parser.add_argument("--refine_every", type=int, default=100, help="Refine frequency (iterations).") # tune?
     parser.add_argument("--refine_start_iter", type=int, default=100, help="Refinement start iteration.")
 
     # Only for default
-    parser.add_argument("--reset_every", type=int, default=3_000, help="Reset opacities every this steps.")
-    parser.add_argument("--pause_refine_after_reset", type=int, default=0, help="Pause refining GSs until this number of steps after reset.")
+    parser.add_argument("--reset_every", type=int, default=3_000, help="Reset opacities every this steps. [strategy=default]")
+    parser.add_argument("--pause_refine_after_reset", type=int, default=0, help="Pause refining GSs until this number of steps after reset. [strategy=default]")
 
     # Only for MCMC
-    parser.add_argument("--cap_max", type=int, default=3_000_000, help="Maximum cap for MCMC gaussians.")
-    parser.add_argument("--min_opacity", type=float, default=0.005, help="Minimum opacity.")
+    parser.add_argument("--cap_max", type=int, default=3_000_000, help="Maximum cap for MCMC gaussians. [strategy=mcmc]")
 
     parser.add_argument("--sh_degree_interval", type=int, default=5_000, help="Add spherical harmonics degree interval.")
-    parser.add_argument("--init_scale", type=float, default=0.1, help="Initial scale.")
+    parser.add_argument("--init_scale", type=float, default=1.0, help="Initial scale.")
     parser.add_argument("--init_opa", type=float, default=0.5, help="Initial opacity.")
 
     # Set below to true to have optimized rasterization that can make training more efficient
@@ -140,7 +140,8 @@ if __name__ == "__main__":
                 sh_degree_interval=sh_degree_interval,
                 strategy=DefaultStrategy(verbose=True, refine_start_iter=refine_start_iter,
                                          refine_every=refine_every, refine_stop_iter=refine_stop_iter,
-                                         reset_every=reset_every, pause_refine_after_reset=pause_refine_after_reset),
+                                         reset_every=reset_every, pause_refine_after_reset=pause_refine_after_reset,
+                                         prune_opa=min_opacity),
             ),
         ),
         "mcmc": (

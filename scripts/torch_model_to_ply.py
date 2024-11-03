@@ -1,5 +1,5 @@
 import argparse
-from src.models.model_conversion import convert
+from urb3d.models.model_conversion import convert
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert Gaussian Splatting torch model to .ply format")
