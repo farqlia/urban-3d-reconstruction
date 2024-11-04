@@ -72,6 +72,7 @@ if __name__ == "__main__":
 
     # For default & MCMC strategies
     parser.add_argument("--min_opacity", type=float, default=0.005, help="Minimum opacity.")
+    parser.add_argument("--refine_stop_iter", type=int, default=0, help="Refinement stop iteration.")
     parser.add_argument("--refine_every", type=int, default=100, help="Refine frequency (iterations).") # tune?
     parser.add_argument("--refine_start_iter", type=int, default=100, help="Refinement start iteration.")
 
@@ -108,7 +109,7 @@ if __name__ == "__main__":
     reset_every = args.reset_every
     refine_start_iter = args.refine_start_iter
     pause_refine_after_reset = args.pause_refine_after_reset
-    refine_stop_iter = int(0.75 * max_steps)
+    refine_stop_iter = int(0.75 * max_steps) if args.refine_stop_iter == 0 else args.refine_stop_iter
     min_opacity = args.min_opacity
     opacity_reg = args.opacity_reg
     init_scale = args.init_scale

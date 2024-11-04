@@ -3,8 +3,8 @@ from typing import Dict, Optional, Tuple
 
 import torch
 
-from datasets.colmap import Parser
-from splats.utils import knn, rgb_to_sh
+from urb3d.datasets.colmap import Parser
+from urb3d.splats.utils import knn, rgb_to_sh
 
 
 def create_splats_with_optimizers(

@@ -33,7 +33,8 @@ def parse_yaml_text(yaml_file):
         "sparse_grad": r"^sparse_grad:\s*(.+)$",
         "camera_model": r"^camera_model:\s*(.+)$",
         "sh_degree_interval": r"^sh_degree_interval:\s*(.+)$",
-        "num_init_splats": r"^num_init_splats:\s*(.+)$"
+        "num_init_splats": r"^num_init_splats:\s*(.+)$",
+        "time": r"^time:\s*(.+)$",
     }
 
     strategy_patterns = {

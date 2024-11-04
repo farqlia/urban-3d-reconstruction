@@ -8,9 +8,9 @@ import cv2
 import imageio.v2 as imageio
 import numpy as np
 import torch
-from pycolmap_utils.scene_manager import SceneManager
+from urb3d.pycolmap_utils.scene_manager import SceneManager
 
-from datasets.normalize import (
+from urb3d.datasets.normalize import (
     align_principle_axes,
     similarity_from_cameras,
     transform_cameras,

@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     if os.path.exists(experiment_path / 'stats'):
         print(f"Removing {experiment_path / 'stats'} directory")
-        shutil.rmtree(experiment_path / "stats", ignore_errors=True)
+        # shutil.rmtree(experiment_path / "stats", ignore_errors=True)
 
     if os.path.exists(experiment_path / 'renders'):
         print(f"Removing {experiment_path / 'renders'} directory")

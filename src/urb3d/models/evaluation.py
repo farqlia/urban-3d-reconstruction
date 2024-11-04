@@ -12,15 +12,25 @@ from gsplat import DefaultStrategy, MCMCStrategy
 from torchmetrics.image import StructuralSimilarityIndexMeasure, PeakSignalNoiseRatio, \
     LearnedPerceptualImagePatchSimilarity
 
-from models.save_model import save_ckpt
-from datasets.colmap import Dataset
-from splats.config import Config
-from splats.rasterization import Rasterizer
+from urb3d.models.save_model import save_ckpt
+from urb3d.datasets.colmap import Dataset
+from urb3d.splats.config import Config
+from urb3d.splats.rasterization import Rasterizer
 
 import os
 import shutil
 from pathlib import Path
 
+
+def read_training_time(stats_path):
+    stats = os.listdir(stats_path)
+    iter_to_ckpt = {
+        int(name.split("_")[1][4:]): name for name in stats if name.startswith("train")
+    }
+    final_stat = iter_to_ckpt[max(iter_to_ckpt.keys())]
+    with open(stats_path / final_stat) as f:
+        stat_json = json.load(f)
+    return stat_json["ellipse_time"]
 
 def open_cfg(cfg_path, root_data_dir):
     config = pd.read_csv(cfg_path)
@@ -46,7 +56,10 @@ class Evaluator:
     def __init__(self, exp_path, root_data_dir):
         self.experiment_path = exp_path
         self.cfg_path = exp_path / 'cfg.csv'
-        self._max_iter = save_ckpt(exp_path / 'ckpts')
+
+        if os.path.exists(self.cfg_path / 'ckpts'):
+            self._max_iter = save_ckpt(exp_path / 'ckpts')
+
         model_path = exp_path / 'model.pt'
         self.cfg = open_cfg(self.cfg_path, Path(root_data_dir))
         self.render_dir = self.experiment_path / 'eval_renders'
@@ -125,6 +138,9 @@ class Evaluator:
                 "num_GS": len(self.rasterizer.splats["means"]),
             }
         )
+        stats.update({
+            "time": read_training_time(self.experiment_path / "stats")
+        })
         print(
             f"PSNR: {stats['psnr']:.3f}, SSIM: {stats['ssim']:.4f}, LPIPS: {stats['lpips']:.3f} "
             f"Number of GS: {stats['num_GS']}"
