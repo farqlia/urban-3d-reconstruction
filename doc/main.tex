@@ -1,0 +1,52 @@
+% Document class and language
+\documentclass{article}
+\usepackage{polski}
+\usepackage{hyperref}
+\usepackage{biblatex}
+
+\addbibresource{literatura.bib}
+% Setting geometry
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{csvsimple}
+\usepackage{graphicx}
+
+
+\setcounter{secnumdepth}{2}
+
+
+\title{Metoda trójwymiarowego modelowania obszarów urbanistycznych z wykorzystaniem metod fotogrametrii}
+
+\author{
+    \small Daniel Borkowski\\
+    \and
+    \small Julia Farganus\\
+    \and
+    \small Rafał Mielniczuk\\
+    \and
+    \small Katarzyna Wochal\\
+}
+\date{12.2024}
+\renewcommand\refname{Źródła}
+
+\begin{document}
+
+
+\input{tytul.tex}
+
+\tableofcontents
+
+\input{wstep.tex}
+
+\input{sota.tex}
+
+\input{projekt.tex}
+
+\input{wyniki.tex}
+
+\input{zakonczenie.tex}
+
+\printbibliography
+
+\end{document}
