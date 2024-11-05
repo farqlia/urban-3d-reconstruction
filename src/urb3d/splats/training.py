@@ -24,15 +24,15 @@ from torchmetrics.image import PeakSignalNoiseRatio, StructuralSimilarityIndexMe
 from torchmetrics.image.lpip import LearnedPerceptualImagePatchSimilarity
 from typing_extensions import assert_never
 
-from src.datasets.colmap import Dataset, Parser
-from src.datasets.traj import (
+from datasets.colmap import Dataset, Parser
+from datasets.traj import (
     generate_interpolated_path,
     generate_ellipse_path_z,
     generate_spiral_path,
 )
-from src.splats.config import Config
-from src.splats.initialize import create_splats_with_optimizers
-from src.splats.utils import AppearanceOptModule, CameraOptModule, set_random_seed
+from splats.config import Config
+from splats.initialize import create_splats_with_optimizers
+from splats.utils import AppearanceOptModule, CameraOptModule, set_random_seed
 
 
 class Runner:
@@ -250,6 +250,8 @@ class Runner:
         device = self.device
         world_rank = self.world_rank
         world_size = self.world_size
+
+        cfg.num_init_splats = len(self.splats["means"])
 
         # Dump cfg.
         if world_rank == 0:

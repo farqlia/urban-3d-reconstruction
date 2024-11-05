@@ -6,8 +6,8 @@ import torch
 from gsplat.distributed import cli
 from gsplat.strategy import DefaultStrategy, MCMCStrategy
 
-from src.splats.config import Config
-from src.splats.training import Runner
+from urb3d.splats.config import Config
+from urb3d.splats.training import Runner
 import argparse
 from typing import List
 
@@ -64,23 +64,26 @@ if __name__ == "__main__":
     parser.add_argument("--data_factor", type=int, default=1, help="Data factor.")
     parser.add_argument("--init_type", type=str, default="sfm", help="Initialization type.", choices=["sfm", "random"])
     parser.add_argument("--strategy", type=str, default="default", help="Strategy type.", choices=["default", "mcmc"])
-    parser.add_argument("--max_steps", type=int, default=300_000, help="Maximum number of steps.")
+    parser.add_argument("--max_steps", type=int, default=100_000, help="Maximum number of steps.")
     parser.add_argument("--init_num_pts", type=int, default=300_000, help="Initial number of points (only for random).")
     parser.add_argument("--delta_steps", type=int, default=2_500, help="Delta steps for evaluation and saving.")
     parser.add_argument("--scale_reg", type=float, default=0.01, help="Scale regularization value.")
     parser.add_argument("--opacity_reg", type=float, default=0.01, help="Opacity regularization value.")
 
     # For default & MCMC strategies
-    parser.add_argument("--refine_every", type=int, default=1_000, help="Refine frequency (iterations).") # tune?
-    parser.add_argument("--refine_start_iter", type=int, default=1_000, help="Refinement start iteration.")
-    parser.add_argument("--reset_every", type=int, default=3_000, help="Reset opacities every this steps.")
+    parser.add_argument("--min_opacity", type=float, default=0.005, help="Minimum opacity.")
+    parser.add_argument("--refine_every", type=int, default=100, help="Refine frequency (iterations).") # tune?
+    parser.add_argument("--refine_start_iter", type=int, default=100, help="Refinement start iteration.")
+
+    # Only for default
+    parser.add_argument("--reset_every", type=int, default=3_000, help="Reset opacities every this steps. [strategy=default]")
+    parser.add_argument("--pause_refine_after_reset", type=int, default=0, help="Pause refining GSs until this number of steps after reset. [strategy=default]")
 
     # Only for MCMC
-    parser.add_argument("--cap_max", type=int, default=3_000_000, help="Maximum cap for MCMC gaussians.")
-    parser.add_argument("--min_opacity", type=float, default=0.005, help="Minimum opacity.")
+    parser.add_argument("--cap_max", type=int, default=3_000_000, help="Maximum cap for MCMC gaussians. [strategy=mcmc]")
 
-    parser.add_argument("--sh_degree_interval", type=int, default=10_000, help="Add spherical harmonics degree interval.")
-    parser.add_argument("--init_scale", type=float, default=0.1, help="Initial scale.")
+    parser.add_argument("--sh_degree_interval", type=int, default=5_000, help="Add spherical harmonics degree interval.")
+    parser.add_argument("--init_scale", type=float, default=1.0, help="Initial scale.")
     parser.add_argument("--init_opa", type=float, default=0.5, help="Initial opacity.")
 
     # Set below to true to have optimized rasterization that can make training more efficient
@@ -102,7 +105,9 @@ if __name__ == "__main__":
     scale_reg = args.scale_reg
     cap_max = args.cap_max
     refine_every = args.refine_every
+    reset_every = args.reset_every
     refine_start_iter = args.refine_start_iter
+    pause_refine_after_reset = args.pause_refine_after_reset
     refine_stop_iter = int(0.75 * max_steps)
     min_opacity = args.min_opacity
     opacity_reg = args.opacity_reg
@@ -113,8 +118,8 @@ if __name__ == "__main__":
     sparse_grad = args.sparse_grad
 
     # Define eval_steps and save_steps based on the values of max_steps and delta_steps
-    eval_steps: List[int] = [i for i in range(10_000, max_steps + delta_steps, delta_steps)]
-    save_steps: List[int] = [i for i in range(10_000, max_steps + delta_steps, delta_steps)]
+    eval_steps: List[int] = [i for i in range(2_000, max_steps + delta_steps, delta_steps)]
+    save_steps: List[int] = [i for i in range(2_000, max_steps + delta_steps, delta_steps)]
 
     # Config objects we can choose between.
     # Each is a tuple of (CLI description, config object).
@@ -134,7 +139,9 @@ if __name__ == "__main__":
                 sparse_grad=sparse_grad,
                 sh_degree_interval=sh_degree_interval,
                 strategy=DefaultStrategy(verbose=True, refine_start_iter=refine_start_iter,
-                                         refine_every=refine_every, refine_stop_iter=refine_stop_iter),
+                                         refine_every=refine_every, refine_stop_iter=refine_stop_iter,
+                                         reset_every=reset_every, pause_refine_after_reset=pause_refine_after_reset,
+                                         prune_opa=min_opacity),
             ),
         ),
         "mcmc": (

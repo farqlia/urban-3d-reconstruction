@@ -1,5 +1,6 @@
 import os
 import json
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 from typing_extensions import assert_never
 
@@ -7,9 +8,9 @@ import cv2
 import imageio.v2 as imageio
 import numpy as np
 import torch
-from src.pycolmap_utils.scene_manager import SceneManager
+from pycolmap_utils.scene_manager import SceneManager
 
-from .normalize import (
+from datasets.normalize import (
     align_principle_axes,
     similarity_from_cameras,
     transform_cameras,
@@ -384,7 +385,7 @@ class Dataset:
         return data
 
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     import argparse
 
     import imageio.v2 as imageio
@@ -410,4 +411,7 @@ if __name__ == "__main__":
         for x, y in points:
             cv2.circle(image, (int(x), int(y)), 2, (255, 0, 0), -1)
         writer.append_data(image)
-    writer.close()
+    writer.close()"""
+
+if __name__ == "__main__":
+    parser = Parser(data_dir=r"C:\Users\julia\PycharmProjects\urban-3d-reconstruction\data\DRON 1\c7_dron_n_ground")
