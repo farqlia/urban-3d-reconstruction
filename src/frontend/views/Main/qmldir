@@ -1,0 +1,6 @@
+module Main
+Body_ 1.0 Body.qml
+BodyLeftPane_ 1.0 BodyLeftPane.qml
+BodyRightPane_ 1.0 BodyRightPane.qml
+Footer_ 1.0 Footer.qml
+Header_ 1.0 Header.qml
