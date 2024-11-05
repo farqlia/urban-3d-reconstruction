@@ -59,6 +59,8 @@ class Evaluator:
 
         if os.path.exists(self.cfg_path / 'ckpts'):
             self._max_iter = save_ckpt(exp_path / 'ckpts')
+        else:
+            self._max_iter = 0
 
         model_path = exp_path / 'model.pt'
         self.cfg = open_cfg(self.cfg_path, Path(root_data_dir))

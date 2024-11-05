@@ -134,6 +134,8 @@ if __name__ == "__main__":
                 max_steps=max_steps,
                 eval_steps=eval_steps,
                 init_num_pts=init_num_pts,
+                init_opa=init_opa,
+                init_scale=init_scale,
                 save_steps=save_steps,
                 scale_reg=scale_reg,
                 packed=packed,
