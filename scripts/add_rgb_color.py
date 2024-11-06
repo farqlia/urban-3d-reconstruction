@@ -14,5 +14,6 @@ if __name__ == "__main__":
 
     ptcld = PyntCloud.from_file(input_path)
     normals = compute_normals(input_path)
-    enrich(ptcld, normals)
+    colors = sh_to_rgb(ptcld.points, normals)
+    enrich(ptcld, colors)
     ptcld.to_file(input_path)
