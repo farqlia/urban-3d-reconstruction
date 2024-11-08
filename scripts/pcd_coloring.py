@@ -1,24 +1,22 @@
 from pyntcloud import PyntCloud
 import numpy as np
-import pandas as pd
 import argparse
 import open3d as o3d
 
-# to be moved
 COLOR_MAP = {
-    1: (150, 75, 0),       # ground, brown
-    2: (34, 139, 34),      # vegetation, dark green
-    3: (169, 169, 169),    # building, gray
-    4: (61, 61, 61),       # wall, dark gray 
-    5: (0, 255, 255),      # bridge, cyan
-    6: (255, 255, 0),      # parking, yellow
-    7: (128, 0, 128),      # rail, purple
-    8: (25, 255, 0),       # traffic road, green
-    9: (255, 20, 147),     # street furniture, pink
-    10: (255, 0, 0),       # car, red
-    11: (255, 130, 0),     # footpath, orange 
-    12: (22, 0, 130),      # bike, navy
-    13: (0, 166, 255)      # water, blue
+    0: (150, 75, 0),       # ground, brown
+    1: (34, 139, 34),      # vegetation, dark green
+    2: (169, 169, 169),    # building, gray
+    3: (61, 61, 61),       # wall, dark gray
+    4: (0, 255, 255),      # bridge, cyan
+    5: (255, 255, 0),      # parking, yellow
+    6: (128, 0, 128),      # rail, purple
+    7: (25, 255, 0),       # traffic road, green
+    8: (255, 20, 147),     # street furniture, pink
+    9: (255, 0, 0),        # car, red
+    10: (255, 130, 0),     # footpath, orange
+    11: (22, 0, 130),      # bike, navy
+    12: (0, 166, 255)      # water, blue
 }
 
 def set_color_based_on_class_labels(input_ply_path, output_ply_path, color_map):
