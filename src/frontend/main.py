@@ -97,6 +97,7 @@ class MainWindow(QMainWindow):
         dir_path = QUrl(dialog).toLocalFile()
         if dir_path:
             self.backend.file_list.data = [f for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))]
+            self.backend.directory_path.data = dir_path
         else:
             self.backend.file_list.data = []
         
@@ -145,7 +146,12 @@ class Backend:
         self._selected_tab = BasicModelInt()
         self._open_dialog = BasicModelBool()
         self._build_script = BasicModelBool()
+        self._directory_path = BasicModelStr()
         self._reconstruction = BasicModelFunc(self.reconstruction_func)
+
+    @property
+    def directory_path(self):
+        return self._directory_path
     
     @property
     def file_list(self):
@@ -165,15 +171,17 @@ class Backend:
 
     def reconstruction_func(self):
         # ADD REQUIRED ARGS like this -> (--input,INPUT,--output,OUTPUT) etc
-        self.run_script("scripts/colmap_reconstruction.py")
+        self.run_script("scripts/colmap_reconstruction.py", "--input", self.directory_path.data, "--output", "/home/frafau/Pictures")
     
     def run_script(self, script_path, *args):
         self._build_script.data = True # we trigger progress bar, should be numeric value for progress or something
         self.handle_exec_script(script_path, *args)
     
     async def async_execute_script(self, script_path, *args):
+        return "", "", 0
+
         try:
-            _args = ' '.join(map(str, args))
+            _args = ' '.join(args)
             # HERE CHANGE TO SOME COMMON SOURCE
             command = ["bash", "-c", f"source venv-frontend/bin/activate && python {script_path} {_args}"]
             result = subprocess.run(command, capture_output=True, text=True, check=True)
@@ -210,6 +218,7 @@ class Backend:
         # do sth, this for now
         stdout, stderr, returncode = result
         if (returncode == 0):
+            # Here callback to window to stop progress bar etc
             print(f"Success: {stdout}")
         else:
             print(f"Error: {stderr}")

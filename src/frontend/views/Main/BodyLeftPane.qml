@@ -20,7 +20,7 @@ Rectangle {
         StackLayout {
             id: stackLayout
             anchors.fill: parent
-            currentIndex: selectedTab.data
+            currentIndex: selectedTab ? selectedTab.data : 0
 
             LayoutItemProxy {
                 target: loadedImagesTab
