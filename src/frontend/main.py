@@ -1,13 +1,14 @@
 import sys
 import os
-import asyncio
+import time
 import subprocess
 from PySide6.QtQml import QQmlEngine
-from PySide6.QtCore import QObject, QUrl, Qt
+from PySide6.QtCore import QObject, QUrl, Qt, QThreadPool
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QApplication, QLabel, QHBoxLayout, QStackedLayout, QFileDialog
 from PySide6.QtQuickWidgets import QQuickWidget
 from PySide6.QtQuick import QQuickWindow, QSGRendererInterface
 from models.basic_model import BasicModelStr, BasicModelList, BasicModelInt, BasicModelBool, BasicModelFunc
+from models.basic_thread import BasicThreadScript
 from pyntcloud import PyntCloud
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -177,9 +178,7 @@ class Backend:
         self._build_script.data = True # we trigger progress bar, should be numeric value for progress or something
         self.handle_exec_script(script_path, *args)
     
-    async def async_execute_script(self, script_path, *args):
-        return "", "", 0
-
+    def async_execute_script(self, script_path, *args):
         try:
             _args = ' '.join(args)
             # HERE CHANGE TO SOME COMMON SOURCE
@@ -208,21 +207,14 @@ class Backend:
             func()
 
     def handle_exec_script(self, script_path, *args):
-        event_loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(event_loop)
-        task = event_loop.create_task(self.async_execute_script(script_path, *args))
-        task.add_done_callback(lambda callback: self.process_script_result(callback.result(), event_loop))
-        event_loop.run_forever()
+        async_script = BasicThreadScript(self.async_execute_script, self.process_script_result, script_path, *args)
+        QThreadPool.globalInstance().start(async_script)
 
-    def process_script_result(self, result, event_loop):
-        # do sth, this for now
-        stdout, stderr, returncode = result
-        if (returncode == 0):
-            # Here callback to window to stop progress bar etc
-            print(f"Success: {stdout}")
-        else:
-            print(f"Error: {stderr}")
-        event_loop.stop()
+    def process_script_result(self, result):
+        _, _, x = result
+        print(f"{x}")
+        # with open("test.txt", "w") as f:
+        #     f.write(f"XDDD {result}")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
