@@ -11,16 +11,7 @@ Rectangle {
     id: bodyLeftPane
     color: ColorConst.primaryColor
 
-    property int currentTabIndex: 0
     property string currentBuildMode: LangConst.comboBoxPointCloud
-
-    onCurrentTabIndexChanged: {
-        stackLayout.currentIndex = currentTabIndex
-    }
-
-    onCurrentBuildModeChanged: {
-
-    }
 
     Border_{
         anchors.fill: parent
@@ -29,7 +20,7 @@ Rectangle {
         StackLayout {
             id: stackLayout
             anchors.fill: parent
-            currentIndex: currentTabIndex
+            currentIndex: selectedTab.data
 
             LayoutItemProxy {
                 target: loadedImagesTab
@@ -45,12 +36,15 @@ Rectangle {
         }
     }
 
-    Tab_ {
+    Border_ {
         id: loadedImagesTab
 
-        model: fileList ? fileList.data : []
-        placeholder: Item {
+        color: "transparent"
+        border.color: "transparent"
+
+        ColumnLayout {
             anchors.fill: parent
+            anchors.margins: FormatConst.defaultMargin
 
             RowLayout {
                 Layout.fillWidth: true
@@ -62,6 +56,7 @@ Rectangle {
                     font.pointSize: FormatConst.defaultFontSize
                     font.bold: true
                 }
+
                 LayoutItemProxy {
                     target: buttonOpenDialogWindow
                     width: 50
@@ -69,36 +64,72 @@ Rectangle {
                     Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 }
             }
+
+            ListView {
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                model: fileList ? fileList.data : []
+                spacing: FormatConst.smallPadding
+
+                delegate: ListEntry_ {
+                    text: modelData
+                }
+            }
         }
     }
-    Tab_ {
-        id: settingParametersTab
-        model: bodyLeftPane.currentBuildMode === LangConst.comboBoxSplats ? [LangConst.paramSplatCount] : []
-        placeholder: Item {
-            anchors.fill: parent
 
-            Text {
-                // TODO: Repair text formatting xdd
-                text: "           Setting\nparameters images"
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                color: ColorConst.secondaryColor
-                font.pointSize: FormatConst.defaultFontSize
-                font.bold: true
+
+    Border_ {
+        id: settingParametersTab
+
+        color: "transparent"
+        border.color: "transparent"
+
+        ColumnLayout {
+            anchors.fill: parent
+            anchors.margins: FormatConst.defaultMargin
+
+            ColumnLayout {
+                Layout.fillWidth: true
+
+                Text {
+                    text: "Setting"
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                    color: ColorConst.secondaryColor
+                    font.pointSize: FormatConst.defaultFontSize
+                    font.bold: true
+                }
+
+                Text {
+                    text: "parameters"
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                    color: ColorConst.secondaryColor
+                    font.pointSize: FormatConst.defaultFontSize
+                    font.bold: true
+                }
+            }
+
+            ListView {
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                model: []
+                spacing: FormatConst.smallPadding
+
+                delegate: ListEntry_ {
+                    text: modelData
+                }
             }
         }
     }
     RoundButton_ {
         id: buttonOpenDialogWindow
         icon.source: "../icons/folder-click.png"
-        icon.width: 40
-        icon.height: 40
+        icon.width: 35
+        icon.height: 35
         onClicked: {
-            fileDialog.open()
+            openDialog.data = true
         }
-    }
-    FolderDialog {
-        id: fileDialog
-        currentFolder: "/home/frafau/Pictures"
-        onAccepted: directoryPath.data = selectedFolder
     }
 }

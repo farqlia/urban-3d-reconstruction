@@ -51,3 +51,29 @@ class BasicModelInt(QObject):
         if self._data != value:
             self._data = value
             self.dataChanged.emit()
+
+class BasicModelBool(QObject):
+    dataChanged = Signal()
+
+    def __init__(self):
+        super().__init__()
+        self._data = False
+
+    @Property(bool, notify=dataChanged)
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, value):
+        if self._data != value:
+            self._data = value
+            self.dataChanged.emit()
+
+class BasicModelFunc(QObject):
+    def __init__(self, func):
+        super().__init__()
+        self.func = func
+    
+    @Slot()
+    def func(self):
+        func()

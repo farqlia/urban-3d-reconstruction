@@ -69,7 +69,7 @@ Rectangle {
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
         onClicked: {
-            backend.selectedTab = 0
+            selectedTab.data = 0
         }
     }
     RoundButton_ {
@@ -78,7 +78,7 @@ Rectangle {
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
         onClicked: {
-            backend.selectedTab = 1
+            selectedTab.data = 1
         }
     }
     RoundComboBox_ {
@@ -92,18 +92,15 @@ Rectangle {
         icon.height: RoundButtonConst.headerImageRadius
         background: null
         onClicked: {
-            // switch (optionBuildMode.currentText) {
-            //     case LangConst.comboBoxPointCloud:
-            //         backend.generatePointCloud()
-            //         break;
-            //     case LangConst.comboBoxSplats:
-            //         backend.generateSplats()
-            //         break;
-            //     case LangConst.comboBoxCategorization:
-            //         backend.categorize()
-            //         break;
-            // }
-            // loadingWindow.open()
+            switch (optionBuildMode.currentText) {
+                case LangConst.comboBoxPointCloud:
+                    buildRunReconstruction.func()
+                    break;
+                case LangConst.comboBoxSplats:
+                    break;
+                case LangConst.comboBoxCategorization:
+                    break;
+            }
         }
     }
     TitleCard_ {
