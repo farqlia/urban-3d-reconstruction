@@ -42,6 +42,7 @@ def parse_yaml_text(yaml_file):
             "refine_every": r"^\s*refine_every:\s*(.+)$",
             "refine_start_iter": r"^\s*refine_start_iter:\s*(.+)$",
             "refine_stop_iter": r"^\s*refine_stop_iter:\s*(.+)$",
+            "min_opacity": r"^\s*prune_opa:\s*(.+)$",
             "reset_every": r"^\s*reset_every:\s*(.+)$"
         },
         "mcmc": {

@@ -1,8 +1,5 @@
 import json
-import json
-import os
 from collections import defaultdict
-from pathlib import Path
 
 import imageio
 import numpy as np
@@ -18,7 +15,6 @@ from urb3d.splats.config import Config
 from urb3d.splats.rasterization import Rasterizer
 
 import os
-import shutil
 from pathlib import Path
 
 
@@ -57,16 +53,15 @@ class Evaluator:
         self.experiment_path = exp_path
         self.cfg_path = exp_path / 'cfg.csv'
 
-        if os.path.exists(self.cfg_path / 'ckpts'):
+        if os.path.exists(self.experiment_path / 'ckpts'):
             self._max_iter = save_ckpt(exp_path / 'ckpts')
         else:
             self._max_iter = 0
 
         model_path = exp_path / 'model.pt'
         self.cfg = open_cfg(self.cfg_path, Path(root_data_dir))
-        self.render_dir = self.experiment_path / 'eval_renders'
-        os.makedirs(self.render_dir, exist_ok=True)
         self.scene_name = Path(model_path).parents[1].name
+        self.scene_path = Path(model_path).parents[1]
         self.rasterizer = Rasterizer(model_path, self.cfg)
         self.device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -76,9 +71,10 @@ class Evaluator:
             net_type="alex", normalize=True
         ).to(self.device)
         self.valset = Dataset(self.rasterizer.parser, split="val")
+        self.trainset = Dataset(self.rasterizer.parser, split="train")
 
-    def save_model_description(self):
-        stat_file = f"{self.experiment_path}/final_eval.json"
+    def save_model_description(self, split="val"):
+        stat_file = f"{self.experiment_path}/eval_{split}.json"
         with open(stat_file) as f:
             stats = json.load(f)
             stats_df = pd.DataFrame(stats, index=[0])
@@ -92,15 +88,42 @@ class Evaluator:
         description.to_csv(file, index=False)
 
 
-    def evaluate(self):
+    def save_true_img(self, pixels, i):
+        pixels = pixels.squeeze(0).cpu().numpy()
+        pixels = (pixels * 255).astype(np.uint8)
+        imageio.imwrite(
+            f"{self.render_true_dir}/img_{i:04d}.png",
+            pixels,
+        )
+
+    def save_render_img(self, colors, i):
+        colors = colors.squeeze(0).cpu().numpy()
+        colors = (colors * 255).astype(np.uint8)
+        imageio.imwrite(
+            f"{self.render_eval_dir}/eval_{i:04d}.png",
+            colors,
+        )
+
+    def evaluate(self, split="val"):
         print("Running evaluation...")
         device = self.device
 
-        valloader = torch.utils.data.DataLoader(
-            self.valset, batch_size=1, shuffle=False, num_workers=1
-        )
+        self.render_eval_dir = self.experiment_path / f'renders_{split}'
+        self.render_true_dir = self.scene_path / f'images_{split}'
+        os.makedirs(self.render_eval_dir, exist_ok=True)
+        os.makedirs(self.render_true_dir, exist_ok=True)
+
+        if split == "val":
+            loader = torch.utils.data.DataLoader(
+                self.valset, batch_size=1, shuffle=False, num_workers=1
+            )
+        else:
+            loader = torch.utils.data.DataLoader(
+                self.trainset, batch_size=1, shuffle=False, num_workers=1
+            )
+
         metrics = defaultdict(list)
-        for i, data in enumerate(valloader):
+        for i, data in enumerate(loader):
             camtoworlds = data["camtoworld"].to(device)
             Ks = data["K"].to(device)
             pixels = data["image"].to(device) / 255.0
@@ -118,14 +141,19 @@ class Evaluator:
             torch.cuda.synchronize()
 
             colors = torch.clamp(colors, 0.0, 1.0)
-            canvas_list = [pixels, colors]
 
+            self.save_true_img(pixels, i)
+            self.save_render_img(colors, i)
+
+            '''
+            canvas_list = [pixels, colors]
             canvas = torch.cat(canvas_list, dim=2).squeeze(0).cpu().numpy()
             canvas = (canvas * 255).astype(np.uint8)
             imageio.imwrite(
-                f"{self.render_dir}/eval_{i:04d}.png",
+                f"{self.render_eval_dir}/eval_{i:04d}.png",
                 canvas,
             )
+            '''
 
             pixels_p = pixels.permute(0, 3, 1, 2)  # [1, 3, H, W]
             colors_p = colors.permute(0, 3, 1, 2)  # [1, 3, H, W]
@@ -148,15 +176,7 @@ class Evaluator:
             f"Number of GS: {stats['num_GS']}"
         )
         # save stats as json
-        stat_file = f"{self.experiment_path}/final_eval.json"
+        stat_file = f"{self.experiment_path}/eval_{split}.json"
         with open(stat_file, "w") as f:
             print(f"Stats for {self.scene_name} are saved to {stat_file}")
             json.dump(stats, f)
-
-
-if __name__ == "__main__":
-    evaluator = Evaluator("../../results/c5/monkey",
-                          "../../results/c5/monkey/cfg.csv",
-                          "C:\\Users\\julia\\PycharmProjects\\urban-3d-reconstruction")
-
-    evaluator.evaluate()

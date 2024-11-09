@@ -39,6 +39,12 @@ def run_experiment(experiment_path, project_dir):
         "--output", model_output
     ], check=True)
 
+    print("Adding rgb color...")
+    subprocess.run([
+        "python", "./scripts/add_rgb_color.py",
+        "--input", model_output,
+    ], check=True)
+
     print("All steps completed successfully.")
 
 
