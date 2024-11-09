@@ -2,9 +2,19 @@
 \subsection{Specyfikacja wymagań na produkt programowy}
 Czy my tu musimy dać diagramy wymagań? :O
 Diagram przypadków użycia
+
+\begin{figure}[!htb]
+  \includegraphics[width=\linewidth]{img/use_case_zpi.png}
+  \caption{Diagram przypadków użycia}\label{fig:use_case_diagram}
+\end{figure}
+
 \subsection{Architektura}
 Projekt architektury, zastosowane wzorce projektowe???
 Jakiś język graficzny tutaj
+
+\subsection{Implementacja}
+Opis zastosowanych technologii i dokumentów
+
 \subsubsection{Struktura plikowa projektu}
 
 to wrzucić pod implementację
@@ -30,11 +40,15 @@ to wrzucić pod implementację
   }
 [project
   [src
-    [main.py]
-    [utils.py]
+    [urb3d
+      [rendering]
+      [geometry]
+      [models]
+      [splats]
+    ]
   ]
   [docs
-    [manual.pdf]
+    [main.pdf]
     [readme.txt]
   ]
   [config
@@ -52,14 +66,13 @@ to wrzucić pod implementację
   ]
   [results
     [city\_model
+      [experiment\_1
         [model.pt]
+      ]
     ]
   ]
 ]
 \end{forest}
-
-\subsection{Implementacja}
-Opis zastosowanych technologii i dokumentów
 
 \subsubsection{Gaussian Splatting}
 W celu uruchomienia algorytmu Gaussian Splatting korzystamy z gotowej implementacji którą 
@@ -117,3 +130,24 @@ options:
 
 Z których obowiązkowe to \textit{data\_dir} - ścieżka do folderu z rekonstrukcją i zdjęciami i \textit{result\_dir} - ścieżka gdzie zostaną zapisane wyniki. 
 
+\textbf{Opis parametrów}
+\begin{itemize}
+  \item \textit{data\_dir} - obowiązkowy; ścieżka do folderu z rekonstrukcją i zdjęciami
+  \item \textit{result\_dir} - obowiązkowy; ścieżka gdzie zostaną zapisane wyniki
+  \item init\_type - sposób inicjalizacji chmury punktów, losowy (random) lub z rekonstrukcji sfm (sfm)
+  \item strategy - strategia zagęszczania gaussianów
+  \item max\_steps - maksymalna liczba iteracji
+  \item init\_num\_pts - początkowa liczba punktów dla sposobu inicjalizacji random
+  \item delta\_steps - liczba iteracji po którch dokonywać ewaluacji oraz zapisu checkpointa
+  \item scale\_reg - współczynnik regularyzacji skali gaussianów
+  \item opacity\_reg - współczynnik regularyzacji przeźroczystości gaussianów
+  \item min\_opacity - prog przeźroczystości poniżej którego splaty są odrzucane
+  \item refine\_every - liczba iteracji po których następuje ulepszanie gaussianów wg. wybranej strategii 
+  \item refine\_start\_iter - liczba iteracji od początku trenowania po której zachodzi pierwszy raz ulepszanie
+  \item reset\_every - liczba iteracji po której zachodzi wyzerowanie przeźroczystości jeśli strategią jest \textit{default}
+  \item pause\_refine\_after\_reset - liczba iteracji po wyzerowaniu które należy odczekać aby zaszedł krok doskonalenia gaussianów jeśli strategią jest \textit{default}
+  \item cap\_max - maksymalna liczba gaussianów jeśli strategią jest \textit{mcmc}
+  \item sh\_degree\_interval - liczba iteracji po której dodawany jest kolejny stopień zmiennych harmonicznych 
+  \item init\_scale - początkowa skala gaussianów 
+  \item init\_opa - początkowa przeźroczystość gaussianów
+\end{itemize}
