@@ -84,6 +84,7 @@ if __name__ == "__main__":
     parser.add_argument("--cap_max", type=int, default=3_000_000, help="Maximum cap for MCMC gaussians. [strategy=mcmc]")
 
     parser.add_argument("--sh_degree_interval", type=int, default=5_000, help="Add spherical harmonics degree interval.")
+    parser.add_argument("--sh_degree", type=int, default=3, choices=[1, 2, 3], help="Degree of spherical harmonics.")
     parser.add_argument("--init_scale", type=float, default=1.0, help="Initial scale.")
     parser.add_argument("--init_opa", type=float, default=0.5, help="Initial opacity.")
 
@@ -117,6 +118,7 @@ if __name__ == "__main__":
     sh_degree_interval = args.sh_degree_interval
     packed = args.packed
     sparse_grad = args.sparse_grad
+    sh_degree = args.sh_degree
 
     # Define eval_steps and save_steps based on the values of max_steps and delta_steps
     eval_steps: List[int] = [i for i in range(2_000, max_steps + delta_steps, delta_steps)]
@@ -140,6 +142,7 @@ if __name__ == "__main__":
                 scale_reg=scale_reg,
                 packed=packed,
                 sparse_grad=sparse_grad,
+                sh_degree=sh_degree,
                 sh_degree_interval=sh_degree_interval,
                 strategy=DefaultStrategy(verbose=True, refine_start_iter=refine_start_iter,
                                          refine_every=refine_every, refine_stop_iter=refine_stop_iter,
@@ -163,6 +166,7 @@ if __name__ == "__main__":
                 scale_reg=scale_reg,
                 packed=packed,
                 sparse_grad=sparse_grad,
+                sh_degree=sh_degree,
                 sh_degree_interval=sh_degree_interval,
                 strategy=MCMCStrategy(verbose=True, cap_max=cap_max, refine_every=refine_every,
                                       refine_start_iter=refine_start_iter, refine_stop_iter=refine_stop_iter,

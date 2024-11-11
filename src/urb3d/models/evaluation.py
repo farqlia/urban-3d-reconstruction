@@ -40,6 +40,7 @@ def open_cfg(cfg_path, root_data_dir):
         test_every=config.loc[0, "test_every"],
         antialiased=False,
         strategy=strategy,
+        sh_degree=config.loc[0, 'sh_degree'],
         packed=config.loc[0, "packed"],
         sparse_grad=config.loc[0, "sparse_grad"],
         camera_model=config.loc[0, "camera_model"],
