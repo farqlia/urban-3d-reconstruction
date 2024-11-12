@@ -2,6 +2,7 @@ import os
 from .handlers.build_handler import BuildHandler
 from .handlers.dialog_handler import DialogHandler
 from .handlers.tab_handler import TabHandler
+from .handlers.renderer_handler import RendererHandler
 
 class Controller:
     def __init__(self, backend):
@@ -10,6 +11,7 @@ class Controller:
         self._categorization_handler = BuildHandler(lambda: None, lambda: None)
         self._dialog_handler = DialogHandler()
         self._tab_handler = TabHandler()
+        self._renderer_handler = RendererHandler()
 
     def cancel_build(self, info):
         self._point_cloud_build_handler.is_build_open.data = False
@@ -24,6 +26,9 @@ class Controller:
         self._point_cloud_build_handler.configure_handler(func)
         self._splats_build_handler.configure_handler(func)
         self._categorization_handler.configure_handler(func)
+
+    def configure_renderer_handler(self, func):
+        self._renderer_handler.configure_handler(func)
 
     def get_file_list_qml(self):
         return self._dialog_handler.file_list

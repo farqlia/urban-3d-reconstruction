@@ -1,12 +1,14 @@
+import os
 from PySide6.QtCore import QObject, QUrl, Qt
-from PySide6.QtWidgets import QWidget
+from PySide6.QtWidgets import QWidget, QFileDialog
 from PySide6.QtQuick import QQuickWindow, QSGRendererInterface
 from PySide6.QtQuickWidgets import QQuickWidget
+from pyntcloud import PyntCloud
 
 from .views.main_window import MainWindow
 from .views.loading_window import LoadingWindow
 from .view_engine_manager import EngineManager
-from src.rendering.render_point_cloud import PointCloudGLWidget
+from src.rendering.render_point_cloud import PointCloudGLWidget, prepare_point_cloud
 
 class View:
     def __init__(self, controller):
@@ -25,6 +27,7 @@ class View:
     def _configure_handlers(self):
         self._controller.configure_dialog_handler(self._open_dialog)
         self._controller.configure_build_run_handler(self._open_progress_bar)
+        self._controller.configure_renderer_handler(self._create_renderer)
 
     def _configure_engine_properties(self):
         self._engine_manager.set_qml_property("fileList", self._controller.get_file_list_qml())
@@ -41,7 +44,18 @@ class View:
         # prepare_point_cloud(point_cloud)
 
         # renderer = PointCloudGLWidget(point_cloud.points)
-        renderer = QWidget()
+        renderer = None
+
+        if "DATA_FOLDER" in os.environ and os.environ["DATA_FOLDER"] != "":
+            pc_file = os.environ["DATA_FOLDER"] + "/sparse.ply"
+            if (os.path.exists(pc_file)):
+                pc = PyntCloud.from_file(pc_file)
+                prepare_point_cloud(pc)
+                renderer = PointCloudGLWidget(pc.points)
+        
+        if renderer is None:
+            renderer = QWidget()
+
         self._main_view.configure_renderer(renderer)
 
     def _open_dialog(self):

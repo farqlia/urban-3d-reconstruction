@@ -20,7 +20,7 @@ class BuildHandler:
         self.is_build_open.dataChanged.connect(lambda: self._handle(func))
 
     def _handle(self, func):
-        if self.is_build_open:
+        if self.is_build_open.data:
             # self.is_build_open.data = False
             func()
 

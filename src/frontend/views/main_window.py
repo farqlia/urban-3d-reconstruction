@@ -24,7 +24,7 @@ class MainWindow(QMainWindow):
         header = self._create_header(central_widget)
         footer = self._create_footer(central_widget)
         body = QWidget(central_widget)
-        # body_container.setWindowModality(Qt.WindowModality.ApplicationModal)
+        # body.setWindowModality(Qt.WindowModality.ApplicationModal)
         body_layout = QHBoxLayout(body)
 
         header.setMaximumHeight(100)
