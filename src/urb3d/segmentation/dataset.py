@@ -20,6 +20,7 @@ class PointCloudSegmentationDataset(Dataset):
     def __init__(self, point_cloud_path, subsample_size=None, point_sampler=None, ds_size=None):
         self.point_sampler = point_sampler if point_sampler else MockPointSampler()
         self.pt = PyntCloud.from_file(point_cloud_path)
+        self.pt.points['scalar_class'] = -1  ## temp
         self.ds_size = ds_size
         self.subsample_size = subsample_size if subsample_size else len(self.pt.points)
         x, y, z = min_max_standardize(self.pt.points[['x', 'y', 'z']])
