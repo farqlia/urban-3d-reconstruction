@@ -23,7 +23,7 @@ def set_color_based_on_class_labels(input_ply_path, output_ply_path, color_map):
     cloud = PyntCloud.from_file(input_ply_path)
     data = cloud.points
 
-    colors = np.array([color_map[label] for label in data['class_label']])
+    colors = np.array([color_map.get(label, [0, 0, 0]) for label in data['class_label']])
     data['red'], data['green'], data['blue'] = colors.T
 
     colors = colors / 255.0  
