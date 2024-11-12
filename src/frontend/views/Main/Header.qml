@@ -94,11 +94,13 @@ Rectangle {
         onClicked: {
             switch (optionBuildMode.currentText) {
                 case LangConst.comboBoxPointCloud:
-                    buildRunReconstruction.func()
+                    buildRunCloud.func()
                     break;
                 case LangConst.comboBoxSplats:
+                    buildRunSplats.func()
                     break;
                 case LangConst.comboBoxCategorization:
+                    buildRunCategorization.func()
                     break;
             }
         }

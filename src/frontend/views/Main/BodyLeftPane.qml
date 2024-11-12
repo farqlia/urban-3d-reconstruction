@@ -95,7 +95,8 @@ Rectangle {
 
                 Text {
                     text: "Setting"
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                    Layout.fillWidth: true
+                    horizontalAlignment: Text.AlignHCenter
                     color: ColorConst.secondaryColor
                     font.pointSize: FormatConst.defaultFontSize
                     font.bold: true
@@ -103,7 +104,8 @@ Rectangle {
 
                 Text {
                     text: "parameters"
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                    Layout.fillWidth: true
+                    horizontalAlignment: Text.AlignHCenter
                     color: ColorConst.secondaryColor
                     font.pointSize: FormatConst.defaultFontSize
                     font.bold: true
@@ -129,7 +131,7 @@ Rectangle {
         icon.width: 35
         icon.height: 35
         onClicked: {
-            openDialog.data = true
+            isOpenDialog.data = true
         }
     }
 }
