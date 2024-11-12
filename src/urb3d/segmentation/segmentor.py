@@ -21,7 +21,7 @@ def segmentation_loss(outputs, labels, m3x3, m64x64, alpha=0.001):
     return criterion(outputs, labels) + alpha * (torch.norm(diff3x3)+torch.norm(diff64x64)) / float(bs)
 
 class PointNetSegmentor(pl.LightningModule):
-    def __init__(self, classes=10):
+    def __init__(self, classes=13):
         super().__init__()
         self.precision = Precision(task="multiclass", average='macro', num_classes=classes)
         self.recall = Recall(task="multiclass", average='macro', num_classes=classes)
