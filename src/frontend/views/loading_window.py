@@ -1,11 +1,16 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QUrl
 from PySide6.QtGui import QMovie
 from PySide6.QtQuickWidgets import QQuickWidget
 
+from ..config import LOADING_WINDOW_FILE
+
 class LoadingWindow(QQuickWidget):
-    def __init__(self, parent):
-        super().__init__(self)
+    def __init__(self, engine_manager, parent):
+        super().__init__(engine_manager, parent)
+        self.setSource(QUrl.fromLocalFile(LOADING_WINDOW_FILE))
+        self.setResizeMode(QQuickWidget.SizeRootObjectToView)
+        
 
 # class LoadingWindow(QWidget):
 #     def __init__(self, parent):

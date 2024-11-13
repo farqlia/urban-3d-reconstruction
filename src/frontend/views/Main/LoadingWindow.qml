@@ -2,24 +2,19 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import Components
 import Constants
 
-Popup {
-    id: popup
-    modal: true
-    focus: true
-    anchors.centerIn: parent
+Rectangle {
+    id: loadingWindow
+    color: ColorConst.primaryColor
+    // border.color: ColorConst.secondaryColor
+    // border.width: FormatConst.defaultBorderWeight
 
-    closePolicy: Popup.NoAutoClose
+    width: 700
+    height: 250
 
-    property real progressValue: 0.0
-    property bool buildCanceled: false
-
-    onProgressValueChanged: {
-        progressBar.value = progressValue
-    }
-
-    contentItem: Border {
+    Border_ {
         width: parent.width
         height: parent.height
 
@@ -42,15 +37,22 @@ Popup {
                 Layout.rightMargin: FormatConst.smallMargin
                 from: 0
                 to: 100
-                value: progressValue
+                value: 0
                 padding: 2
 
-                onValueChanged: {
-                    if (value === 0) {
-                        // Display Success Popup
-                        popup.close()
-                    }
+                NumberAnimation on value {
+                    from: 0
+                    to: 100
+                    duration: 1500
+                    loops: Animation.Infinite
                 }
+
+                // onValueChanged: {
+                //     if (value === 0) {
+                //         // Display Success Popup
+                //         popup.close()
+                //     }
+                // }
 
                 background: Rectangle {
                     implicitWidth: parent.width
@@ -76,8 +78,7 @@ Popup {
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: {
-                    popup.buildCanceled = true
-                    popup.close()
+                    isBuildFail.data = true
                 }
                 background: Rectangle {
                     color: ColorConst.secondaryColor
@@ -94,4 +95,22 @@ Popup {
             }
         }
     }
+
+    // Popup {
+    //     id: popup
+    //     modal: true
+    //     focus: true
+    //     anchors.centerIn: parent
+
+    //     closePolicy: Popup.NoAutoClose
+
+    //     property real progressValue: 0.0
+    //     property bool buildCanceled: false
+
+    //     onProgressValueChanged: {
+    //         progressBar.value = progressValue
+    //     }
+
+    //     contentItem: Border 
+    // }
 }

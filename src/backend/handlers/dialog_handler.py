@@ -2,13 +2,13 @@ from ..models.basic_model import BasicModelBool, BasicModelStr, BasicModelList
 
 class DialogHandler:
     def __init__(self):
-        self._is_open_dialog = BasicModelBool()
+        self._is_dialog_open = BasicModelBool()
         self._directory_path = BasicModelStr()
         self._file_list = BasicModelList()
 
     @property
-    def is_open_dialog(self):
-        return self._is_open_dialog
+    def is_dialog_open(self):
+        return self._is_dialog_open
 
     @property
     def directory_path(self):
@@ -19,9 +19,9 @@ class DialogHandler:
         return self._file_list
 
     def configure_handler(self, func):
-        self.is_open_dialog.dataChanged.connect(lambda: self._handle(func))
+        self.is_dialog_open.dataChanged.connect(lambda: self._handle(func))
 
     def _handle(self, func):
-        if self.is_open_dialog.data:
-            self.is_open_dialog.data = False
+        if self.is_dialog_open.data:
+            self.is_dialog_open.data = False
             func()

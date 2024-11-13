@@ -115,6 +115,9 @@ Rectangle {
         icon.source: "../icons/cog.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
+        onClicked: {
+            isSettingsOpen.data = true
+        }
     }
     RoundButton_ {
         id: buttonInfo
