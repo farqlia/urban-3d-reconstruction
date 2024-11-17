@@ -1,13 +1,19 @@
 \section{Wyniki i analiza badań}
 To co wyszło i jak
 
-\subsection{Rekonstrukcja}
+\subsection{Rekonstrukcja - Gaussian Splatting}
 
-\subsubsection{Gaussian Splatting}
+\subsubsection{Wstęp}
 Jak już wcześniej zostało wspomniane, algorytm posiada wiele hiperparametrów które mogą mieć różne optymalne wartości w zależności od sceny. Ogólnym więc zaleceniem jest uruchomienie algorytmu dla różnych wartości, a za pomoc mogą posłużyć poniższe wyniki naszych badań. 
 
 Uwaga: do renderowania została użyta funkcjonalność biblioteki gsplat, więc wyniki mogą się różnić dla naszego własnego renderowania. 
 
+\textbf{Przyjęte metryki}
+\begin{enumerate}
+    \item SSIM (ang. Structural Similarity Index Measure) - miara podobieństwa zdjęć, która bierze pod uwagę percepcyjne zjawiska np. związane z jasnością. Zakres wartości wynosi [-1, 1] wyższa wartość oznacza lepszą jakość. 
+    \item PSNR (ang. Peak Signal-to-Noise Ratio) - stosunek maksymalnej mocy sygnału do mocy szumu zakłócającego ten sygnał, wyrażany w decybelach . Zakres wartości wynosi od 0 do $\infty$, wyższa wartość oznacza lepszą jakość. 
+    \item LPIPS (ang. Learned Perceptual Image Patch Similarity) - metryka oparta na badaniach związanych z sieciami neuronowymi. Niższa wartość oznacza lepszą jakość. 
+\end{enumerate}
 
 \textbf{Eksperymenty dla sceny SKS}
 
@@ -77,12 +83,22 @@ W powyższej tabeli \ref{table:tab_conf_sks} uwzględnione są najważniejsze hi
     \label{table:tab_res_sks}
 \end{table}
 
+
+
+\subsubsection{Zależność wyników od wartości hiperparametrów}
+
+\textbf{Liczba Gaussianów}
+
 \begin{figure}[!h]
-    \includegraphics[width=\linewidth]{img/metrics_1.png}
+    \includegraphics[width=\linewidth]{img/numGS_metrics.png}
     \caption{B}\label{fig:metrics_1}
 \end{figure}
+
+
 
 \begin{figure}[!h]
     \includegraphics[width=\linewidth]{img/res_imgs/eval_with_metrics_0010_14.png}
     \caption{A}\label{fig:eval_14}
 \end{figure}
+
+\subsubsection{Wnioski i zalecenia}
