@@ -20,4 +20,6 @@ QtObject {
     readonly property int headerTitleCardHeight: 80
     readonly property int listEntryImageSize: 25
     readonly property int defaultRadius: 10
+    readonly property int popupWidth: 700
+    readonly property int popupHeight: 250
 }

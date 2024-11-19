@@ -1,4 +1,3 @@
-
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -141,10 +140,5 @@ Rectangle {
         icon.source: "../icons/magnifier.png"
         icon.width: RoundButtonConst.renderingModeImageRadius
         icon.height: RoundButtonConst.renderingModeImageRadius
-    }
-    LoadingPopup_ {
-        id: loadingWindow
-        width: 500
-        height: 200
     }
 }

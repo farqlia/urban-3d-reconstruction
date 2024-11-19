@@ -4,17 +4,14 @@ import QtQuick.Layouts
 
 import Constants
 
-Popup {
-    id: popup
-    modal: true
-    focus: true
-    anchors.centerIn: parent
+Rectangle {
+    id: errorWindow
+    color: ColorConst.primaryColor
+    
+    width: FormatConst.popupWidth
+    height: FormatConst.popupHeight
 
-    closePolicy: Popup.NoAutoClose
-
-    property string text: ""
-
-    contentItem: Border {
+    Border_ {
         width: parent.width
         height: parent.height
 
@@ -29,7 +26,7 @@ Popup {
             }
 
             Text {
-                text: popup.text
+                text: ""
                 color: ColorConst.secondaryColor
                 font.bold: true
                 Layout.alignment: Qt.AlignHCenter
@@ -37,7 +34,9 @@ Popup {
 
             Button {
                 Layout.alignment: At.AlignHCenter
-                onClicked: popup.close()
+                onClicked: {
+                    isErrorWindow.data = false
+                }
                 background: Rectangle {
                     color: ColorConst.secondaryColor
                     radius: FormatConst.defaultRadius

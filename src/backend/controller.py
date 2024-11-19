@@ -5,6 +5,7 @@ from .handlers.tab_handler import TabHandler
 from .handlers.renderer_handler import RendererHandler
 from .handlers.build_info_handler import BuildInfoHandler
 from .handlers.settings_handler import SettingsHandler
+from src.pipeline.config import INPUT_DATA_FOLDER, DATA_FOLDER, COLMAP_RECONSTRUCTION_DIR, GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_PT
 
 class Controller:
     def __init__(self, backend):
@@ -45,7 +46,20 @@ class Controller:
         self._renderer_handler.configure_handler(func)
 
     def configure_settings_handler(self, func):
-        self._settings_handler.configure_handler(func)
+        self._settings_handler.configure_open_handler(func)
+
+    def configure_settings_status_handler(self, func):
+        n, v = self._dynamic_var_setter(INPUT_DATA_FOLDER)
+        self._settings_handler.configure_env_var(n, v)
+        n, v = self._dynamic_var_setter(DATA_FOLDER)
+        self._settings_handler.configure_env_var(n, v)
+        n, v = self._dynamic_var_setter(COLMAP_RECONSTRUCTION_DIR)
+        self._settings_handler.configure_env_var(n, v)
+        n, v = self._dynamic_var_setter(GAUSSIAN_MODEL_PLY)
+        self._settings_handler.configure_env_var(n, v)
+        n, v = self._dynamic_var_setter(GAUSSIAN_MODEL_PT)
+        self._settings_handler.configure_env_var(n, v)
+        self._settings_handler.configure_status_handler(func)
 
     def get_file_list_qml(self):
         return self._dialog_handler.file_list
@@ -68,6 +82,12 @@ class Controller:
     def get_is_settings_open_qml(self):
         return self._settings_handler.is_settings_open
 
+    def get_status_settings_open_qml(self):
+        return self._settings_handler.status
+
+    def get_vars_settings_open_qml(self):
+        return self._settings_handler.env_vars
+
     def get_build_run_cloud_qml(self):
         return self._point_cloud_build_handler.func
 
@@ -82,4 +102,8 @@ class Controller:
             self._dialog_handler.file_list.data = [f for f in  os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))]
             self._dialog_handler.directory_path.data = dir_path
             os.environ["INPUT_DATA_FOLDER"] = dir_path
-
+    
+    def _dynamic_var_setter(self, var):
+        for name, value in globals().items():
+            if value is var:
+                return name, str(var)

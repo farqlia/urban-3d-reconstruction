@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QHBoxLayout, QS
 from pyntcloud import PyntCloud
 from src.rendering.render_point_cloud import PointCloudGLWidget, prepare_point_cloud
 
-from ..config import HEADER_FILE, FOOTER_FILE, LEFT_PANE_FILE
+from ..config import HEADER_FILE, FOOTER_FILE, LEFT_PANE_FILE, RIGHT_PANE_LB_FILE, RIGHT_PANE_LT_FILE, RIGHT_PANE_RB_FILE, RIGHT_PANE_RT_FILE
 
 class MainWindow(QMainWindow):
     def __init__(self, engine_manager):
@@ -62,7 +62,19 @@ class MainWindow(QMainWindow):
     
     def _create_left_pane(self, parent):
         return self._engine_manager.load_component(LEFT_PANE_FILE, parent)
+
+    def _create_right_pane_lt(self, parent):
+        return self._engine_manager.load_component(RIGHT_PANE_LT_FILE, parent)
     
+    def _create_right_pane_lb(self, parent):
+        return self._engine_manager.load_component(RIGHT_PANE_LB_FILE, parent)
+
+    def _create_right_pane_rt(self, parent):
+        return self._engine_manager.load_component(RIGHT_PANE_RT_FILE, parent)
+
+    def _create_right_pane_rb(self, parent):
+        return self._engine_manager.load_component(RIGHT_PANE_RB_FILE, parent)
+
     def configure_renderer(self, renderer):
         # For now
         if self._renderer is not None:
@@ -83,10 +95,16 @@ class MainWindow(QMainWindow):
 
         if self._renderer is not None:
             self._renderer_layout.addWidget(self._renderer, 0, 0, 2, 2)
-        
-        for row in range(2):
-            for col in range(2):
-                cell_widget = QLabel(f"r: {row}, c: {col}", self._renderer_cont)
-                cell_widget.setStyleSheet("background: transparent")
-                self._renderer_layout.addWidget(cell_widget, row, col)
-        
+
+        lt = self._create_right_pane_lt(self._renderer_cont)
+        rt = self._create_right_pane_rt(self._renderer_cont)
+        lb = self._create_right_pane_lb(self._renderer_cont)
+        rb = self._create_right_pane_rb(self._renderer_cont)
+        lt.setFixedSize(200, 70)
+        rt.setFixedSize(70, 140)
+        lb.setFixedSize(200, 140)
+        rb.setFixedSize(210, 70)
+        self._renderer_layout.addWidget(lt, 0, 0, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
+        self._renderer_layout.addWidget(rt, 0, 1, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignTop)
+        self._renderer_layout.addWidget(lb, 1, 0, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
+        self._renderer_layout.addWidget(rb, 1, 1, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignBottom)

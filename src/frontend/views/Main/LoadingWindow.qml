@@ -11,8 +11,8 @@ Rectangle {
     // border.color: ColorConst.secondaryColor
     // border.width: FormatConst.defaultBorderWeight
 
-    width: 700
-    height: 250
+    width: FormatConst.popupWidth
+    height: FormatConst.popupHeight
 
     Border_ {
         width: parent.width
