@@ -29,8 +29,8 @@ def main(local_rank: int, world_rank, world_size: int, cfg: Config):
         for k in runner.splats.keys():
             runner.splats[k].data = torch.cat([ckpt["splats"][k] for ckpt in ckpts])
         step = ckpts[0]["step"]
-        runner.eval(step=step)
-        runner.render_traj(step=step)
+        runner.eval(step)
+        runner.render_traj(step)
         if cfg.compression is not None:
             runner.run_compression(step=step)
     else:
@@ -91,6 +91,7 @@ if __name__ == "__main__":
     # Set below to true to have optimized rasterization that can make training more efficient
     parser.add_argument("--packed", type=bool, default=False, help="Use packed mode for rasterization.")
     parser.add_argument("--sparse_grad", type=bool, default=False, help="Use sparse gradients for optimization.")
+    parser.add_argument("--ckpt", type=str, default=None, help="Ckpt path, only for evaluation purposes.")
 
     # Parse arguments
     args = parser.parse_args()
@@ -119,6 +120,7 @@ if __name__ == "__main__":
     packed = args.packed
     sparse_grad = args.sparse_grad
     sh_degree = args.sh_degree
+    ckpt = [args.ckpt] if args.ckpt is not None else None
 
     # Define eval_steps and save_steps based on the values of max_steps and delta_steps
     eval_steps: List[int] = [i for i in range(2_000, max_steps + delta_steps, delta_steps)]
@@ -144,6 +146,7 @@ if __name__ == "__main__":
                 sparse_grad=sparse_grad,
                 sh_degree=sh_degree,
                 sh_degree_interval=sh_degree_interval,
+                ckpt=ckpt,
                 strategy=DefaultStrategy(verbose=True, refine_start_iter=refine_start_iter,
                                          refine_every=refine_every, refine_stop_iter=refine_stop_iter,
                                          reset_every=reset_every, pause_refine_after_reset=pause_refine_after_reset,
@@ -167,6 +170,7 @@ if __name__ == "__main__":
                 packed=packed,
                 sparse_grad=sparse_grad,
                 sh_degree=sh_degree,
+                ckpt=ckpt,
                 sh_degree_interval=sh_degree_interval,
                 strategy=MCMCStrategy(verbose=True, cap_max=cap_max, refine_every=refine_every,
                                       refine_start_iter=refine_start_iter, refine_stop_iter=refine_stop_iter,
