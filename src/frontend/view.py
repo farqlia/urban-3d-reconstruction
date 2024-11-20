@@ -6,7 +6,7 @@ from PySide6.QtQuickWidgets import QQuickWidget
 from pyntcloud import PyntCloud
 
 from .config import LOADING_WINDOW_FILE, FAIL_WINDOW_FILE, SUCC_WINDOW_FILE, SETTINGS_WINDOW
-from src.pipeline.config import DATA_FOLDER
+from src.pipeline.config import DATA_FOLDER, GAUSSIAN_MODEL_PLY
 from .views.main_window import MainWindow
 from .view_engine_manager import EngineManager
 from src.rendering.render_point_cloud import PointCloudGLWidget, prepare_point_cloud
@@ -22,7 +22,7 @@ class View:
         self._main_view = MainWindow(self._engine_manager)
 
     def run(self):
-        # self._create_renderer()
+        self._create_renderer()
         self._main_view.show()
 
     def _configure_handlers(self):
@@ -48,10 +48,11 @@ class View:
         self._engine_manager.set_qml_property("buildRunSplats", self._controller.get_build_run_splats_qml())
         self._engine_manager.set_qml_property("buildRunCategorization", self._controller.get_build_run_categorization_qml())
 
+
     def _create_renderer(self):
         renderer = None
 
-        pc_file = str(DATA_FOLDER) + "/sparse.ply"
+        pc_file = str(GAUSSIAN_MODEL_PLY)
         if (os.path.exists(pc_file)):
             pc = PyntCloud.from_file(pc_file)
             prepare_point_cloud(pc)

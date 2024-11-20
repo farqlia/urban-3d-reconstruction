@@ -1,5 +1,5 @@
-from config import INPUT_DATA_FOLDER, DATA_FOLDER, COLMAP_RECONSTRUCTION_DIR, GAUSSIAN_MODEL_PT, GAUSSIAN_MODEL_PLY
-from utils import run_script
+from src.pipeline.config import INPUT_DATA_FOLDER, DATA_FOLDER, COLMAP_RECONSTRUCTION_DIR, GAUSSIAN_MODEL_PT, GAUSSIAN_MODEL_PLY
+from src.pipeline.utils import run_script
 
 class ModelProcessor():
 

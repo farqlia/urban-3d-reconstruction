@@ -6,11 +6,20 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QApplication, Q
 from PySide6.QtQuickWidgets import QQuickWidget
 from PySide6.QtQuick import QQuickWindow, QSGRendererInterface
 
+from src.backend.controller import Controller
+from src.frontend.view import View
+from src.pipeline.model_processor import ModelProcessor
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    backend = Backend()
-    engine_manager = EngineManager(backend)
+    backend = ModelProcessor()
+    controller = Controller(backend)
+    view = View(controller)
 
+    view.run()
+    sys.exit(app.exec())
+
+    '''
     QQuickWindow.setGraphicsApi(QSGRendererInterface.GraphicsApi.OpenGL)
 
     point_cloud_file = "data/360_v2/room/sparse/sparse.ply"
@@ -24,4 +33,4 @@ if __name__ == '__main__':
     window = MainWindow(backend, engine_manager, opengl_widget)
     window.show()
 
-    sys.exit(app.exec())
+    sys.exit(app.exec())'''
