@@ -9,14 +9,14 @@ def run_experiment(experiment_path, project_dir):
     model_input = os.path.join(input_dir, "model.pt")
     model_output = os.path.join(input_dir, "model.ply")
 
-    # Step 1: Convert config to CSV
+
     print("Converting config to CSV...")
     subprocess.run([
         "python", "./scripts/config_to_csv.py",
         "--input_dir", input_dir
     ], check=True)
 
-    # Step 2: Evaluate
+
     print("Running evaluation...")
     subprocess.run([
         "python", "./scripts/evaluate.py",
@@ -24,14 +24,7 @@ def run_experiment(experiment_path, project_dir):
         "--project_dir", project_dir
     ], check=True)
 
-    # Step 3: Clean up
-    print("Cleaning up...")
-    subprocess.run([
-        "python", "./scripts/clean_after_experiments.py",
-        "--input_dir", input_dir
-    ], check=True)
 
-    # Step 4: Convert to cloud format (PLY)
     print("Converting model to PLY format...")
     subprocess.run([
         "python", "./scripts/torch_model_to_ply.py",
@@ -43,6 +36,21 @@ def run_experiment(experiment_path, project_dir):
     subprocess.run([
         "python", "./scripts/add_rgb_color.py",
         "--input", model_output,
+    ], check=True)
+
+    print("Compute image evaluation metrics...")
+    subprocess.run([
+        "python", "./scripts/compute_metrics.py",
+        "--render_dir", input_dir / 'renders_val',
+        "--real_dir", input_dir.parent / 'images_val',
+        "--output_dir", input_dir / 'renders_val_'
+    ], check=True)
+
+
+    print("Cleaning up...")
+    subprocess.run([
+        "python", "./scripts/clean_after_experiments.py",
+        "--input_dir", input_dir
     ], check=True)
 
     print("All steps completed successfully.")
