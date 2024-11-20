@@ -5,6 +5,8 @@ import pytorch_lightning as pl
 from urb3d.segmentation.segmentor import PointNetSegmentor
 from urb3d.segmentation.dataset import PointCloudSegmentationDataset
 import numpy as np
+import warnings
+warnings.filterwarnings('ignore')
 
 def run(segmentor_ckpt_path, input_ply_path, output_ply_path):
     model = PointNetSegmentor.load_from_checkpoint(segmentor_ckpt_path)
@@ -24,10 +26,20 @@ def save_class_labels_in_ply(cloud, output_ply_path, class_labels):
         raise ValueError("Number of class labels must match the number of points in the .ply file.")
 
     class_labels = np.array(class_labels, dtype=np.int32)
+    data.drop('scalar_class', axis=1, inplace=True)
     data['class_label'] = class_labels
-
+    #new_cloud = PyntCloud.from_file(args.input)
     new_cloud = PyntCloud(data)
+    # print(type(new_cloud))
+    # print(new_cloud)
+    # print(new_cloud.points[:3])
+    # print(new_cloud.points.dtypes)
     new_cloud.to_file(output_ply_path)
+    # from_file_cloud = PyntCloud.from_file(args.output)
+    # print(from_file_cloud.points[:3])
+    # print(from_file_cloud.points.dtypes)
+    # print(type(from_file_cloud))
+    # print(from_file_cloud)
 
 if __name__=="__main__":
 
@@ -40,5 +52,4 @@ if __name__=="__main__":
 
     run(args.ckpt, args.input, args.output)
 
-    cloud = PyntCloud.from_file(args.output)                             ##
-    print(cloud.points)                                                  ##
+    cloud = PyntCloud.from_file(args.output)                           ##

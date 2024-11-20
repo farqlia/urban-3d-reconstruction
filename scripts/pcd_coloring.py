@@ -32,8 +32,8 @@ def set_color_based_on_class_labels(input_ply_path, output_ply_path, color_map):
 
     o3d.io.write_point_cloud(output_ply_path, pcd)
     
-    #o3d_cloud = o3d.io.read_point_cloud(output_ply_path)
-    #o3d.visualization.draw_geometries([o3d_cloud])
+    o3d_cloud = o3d.io.read_point_cloud(output_ply_path)
+    o3d.visualization.draw_geometries([o3d_cloud])
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Changes colors of points in a .ply file based on class labels.")
