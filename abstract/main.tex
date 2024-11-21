@@ -1,12 +1,29 @@
 % Document class and language
 \documentclass{article}
-\usepackage{polski}
-\usepackage{hyperref}
+
+\usepackage{mib}
+
+% inspiration: https://www.overleaf.com/project/673f933029a56f1eca2314c4
+
+\usepackage{lmodern}
+\usepackage[T2A]{fontenc}
+\usepackage{color}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage[english, polski]{babel}
 \usepackage{biblatex}
 
-\addbibresource{literature.bib}
-
-\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+% \usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 
 % Useful packages
 \usepackage{csvsimple}
@@ -14,34 +31,40 @@
 \usepackage{subcaption}
 \usepackage{forest}
 \usepackage{listings}
+%\PassOptionsToPackage{silent}{fontspec}
+%\graphicspath{ {./images/} }
+\setcounter{page}{1}
+% \addbibresource{literature.bib}
 
 \title{Metoda trójwymiarowego modelowania obszarów urbanistycznych z wykorzystaniem metod fotogrametrii}
 
 \author{
-    \small Daniel Borkowski\\
+    Daniel Borkowski\\
     \And
-    \small Julia Farganus\\
+    Julia Farganus\\
     \And
-    \small Rafał Mielniczuk\\
+    Rafał Mielniczuk\\
     \And
-    \small Katarzyna Wochal\\
+    Katarzyna Wochal\\
+    \And 
+    Opiekun pracy\\
+    dr hab. inż. Marek Krótkiewicz, prof. PWr \\
+    \small Politechnika Wrocławska\\
+    \small Wydział Informatyki i Telekomunikacji\\
 }
 
-
-
 \date{12.2024}
-\renewcommand\refname{Źródła}
 
 \begin{document}
 
-\input{section_A.tex}
+\maketitle
 
-\tableofcontents
+\input{section_A.tex}
 
 \input{section_B.tex}
 
 \input{section_C.tex}
 
-\printbibliography
+% \printbibliography
 
 \end{document}
