@@ -1,0 +1,14 @@
+# Ignore everything
+*
+
+# Allow only .tex files
+!*.tex
+
+# Allow .gitignore itself
+!.gitignore
+
+# Allow literature itself
+!literature.bib
+
+# Allow images
+!img
