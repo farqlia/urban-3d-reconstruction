@@ -28,7 +28,7 @@ if __name__=="__main__":
     inliers, outliers = filter_by_distance(cloud, args.max_distance)
 
     cloud.points = inliers
-    cloud.to_file(args.output)
+    cloud.to_file(args.output, as_text=True)
 
     #inliers = o3d.io.read_point_cloud(args.output)
     #o3d.visualization.draw_geometries([inliers])

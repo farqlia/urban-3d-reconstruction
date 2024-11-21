@@ -56,11 +56,11 @@ def load_and_filter_cloud(file_path, output_path, method, alpha, threshold, outl
         inliers, outliers = filter_outliers_zscore(points, threshold)
 
     cloud.points = inliers
-    cloud.to_file(output_path)
+    cloud.to_file(output_path, as_text=True)
 
     if outliers_path is not None:
         cloud.points = outliers
-        cloud.to_file(outliers_path)
+        cloud.to_file(outliers_path, as_text=True)
 
 if __name__=="__main__":
     # usage:
@@ -84,8 +84,8 @@ if __name__=="__main__":
 
     load_and_filter_cloud(args.input, args.output, args.method, args.alpha, args.threshold)
 
-    inliers = o3d.io.read_point_cloud(args.output)
-    o3d.visualization.draw_geometries([inliers])
+    #inliers = o3d.io.read_point_cloud(args.output)
+    #o3d.visualization.draw_geometries([inliers])
 
     #outliers = o3d.io.read_point_cloud(outliers_path)
     #o3d.visualization.draw_geometries([outliers])
