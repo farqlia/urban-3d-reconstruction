@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.10.19)  18 NOV 2024 18:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.10.19)  21 NOV 2024 22:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/julia/PycharmProjects/urb3drecon/doc/main.tex
-(c:/Users/julia/PycharmProjects/urb3drecon/doc/main.tex
+**c:/Users/julia/PycharmProjects/substitutive-urb3d/doc/main.tex
+(c:/Users/julia/PycharmProjects/substitutive-urb3d/doc/main.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -940,28 +940,28 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
                    \relax 
 l.10 
       [1]
-<img/city3dmesh.jpg, id=128, 127.97812pt x 110.66344pt>
+<img/city3dmesh.jpg, id=133, 127.97812pt x 110.66344pt>
 File: img/city3dmesh.jpg Graphic file (type jpg)
 <use img/city3dmesh.jpg>
 Package pdftex.def Info: img/city3dmesh.jpg  used on input line 21.
 (pdftex.def)             Requested size: 136.57635pt x 118.10643pt.
-<img/nerfobject.jpg, id=129, 124.96687pt x 110.66344pt>
+<img/nerfobject.jpg, id=134, 124.96687pt x 110.66344pt>
 File: img/nerfobject.jpg Graphic file (type jpg)
 <use img/nerfobject.jpg>
 Package pdftex.def Info: img/nerfobject.jpg  used on input line 25.
 (pdftex.def)             Requested size: 136.57635pt x 120.95676pt.
-<img/gaussiansplattingobject.jpg, id=130, 147.55125pt x 110.66344pt>
+<img/gaussiansplattingobject.jpg, id=135, 147.55125pt x 110.66344pt>
 File: img/gaussiansplattingobject.jpg Graphic file (type jpg)
 <use img/gaussiansplattingobject.jpg>
 Package pdftex.def Info: img/gaussiansplattingobject.jpg  used on input line 29.
 (pdftex.def)             Requested size: 136.57635pt x 102.43466pt.
-<img/gaussian_splatting_flow.png, id=131, 694.09312pt x 185.94469pt>
+<img/gaussian_splatting_flow.png, id=136, 694.09312pt x 185.94469pt>
 File: img/gaussian_splatting_flow.png Graphic file (type png)
 <use img/gaussian_splatting_flow.png>
 Package pdftex.def Info: img/gaussian_splatting_flow.png  used on input line 45.
 (pdftex.def)             Requested size: 426.79135pt x 114.33968pt.
  [2 <./img/city3dmesh.jpg> <./img/nerfobject.jpg> <./img/gaussiansplattingobject.jpg> <./img/gaussian_splatting_flow.png>]) (projekt.tex
-<img/diagram_pu_2.png, id=145, 563.85657pt x 403.5075pt>
+<img/diagram_pu_2.png, id=150, 563.85657pt x 403.5075pt>
 File: img/diagram_pu_2.png Graphic file (type png)
 <use img/diagram_pu_2.png>
 Package pdftex.def Info: img/diagram_pu_2.png  used on input line 7.
@@ -983,17 +983,17 @@ Overfull \hbox (61.89845pt too wide) in paragraph at lines 24--55
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [6{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plms.enc}]
-<img/numGS_metrics.png, id=228, 1063.0917pt x 338.2236pt>
+<img/numGS_metrics.png, id=233, 1063.0917pt x 338.2236pt>
 File: img/numGS_metrics.png Graphic file (type png)
 <use img/numGS_metrics.png>
 Package pdftex.def Info: img/numGS_metrics.png  used on input line 105.
 (pdftex.def)             Requested size: 426.79135pt x 135.78249pt.
-<img/iterations_metrics.png, id=229, 1065.2598pt x 338.2236pt>
+<img/iterations_metrics.png, id=234, 1065.2598pt x 338.2236pt>
 File: img/iterations_metrics.png Graphic file (type png)
 <use img/iterations_metrics.png>
 Package pdftex.def Info: img/iterations_metrics.png  used on input line 119.
 (pdftex.def)             Requested size: 426.79135pt x 135.5038pt.
-<img/training_time_iter.png, id=230, 346.1733pt x 323.7696pt>
+<img/training_time_iter.png, id=235, 346.1733pt x 323.7696pt>
 File: img/training_time_iter.png Graphic file (type png)
 <use img/training_time_iter.png>
 Package pdftex.def Info: img/training_time_iter.png  used on input line 128.
@@ -1003,45 +1003,78 @@ Package pdftex.def Info: img/training_time_iter.png  used on input line 128.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [7 <./img/numGS_metrics.png> <./img/iterations_metrics.png>]
-<img/refine_every_metrics.png, id=242, 1063.0917pt x 338.2236pt>
+<img/refine_every_metrics.png, id=247, 1063.0917pt x 338.2236pt>
 File: img/refine_every_metrics.png Graphic file (type png)
 <use img/refine_every_metrics.png>
 Package pdftex.def Info: img/refine_every_metrics.png  used on input line 138.
 (pdftex.def)             Requested size: 426.79135pt x 135.78249pt.
  [8 <./img/training_time_iter.png> <./img/refine_every_metrics.png>]
-<img/res_imgs/eval_with_metrics_0010_5.png, id=253, 1927.2pt x 1084.05pt>
+<img/res_imgs/eval_with_metrics_0010_5.png, id=258, 1927.2pt x 1084.05pt>
 File: img/res_imgs/eval_with_metrics_0010_5.png Graphic file (type png)
 <use img/res_imgs/eval_with_metrics_0010_5.png>
 Package pdftex.def Info: img/res_imgs/eval_with_metrics_0010_5.png  used on input line 158.
 (pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
-<img/res_imgs/eval_with_metrics_0010_1.png, id=254, 1927.2pt x 1084.05pt>
+<img/res_imgs/eval_with_metrics_0010_1.png, id=259, 1927.2pt x 1084.05pt>
 File: img/res_imgs/eval_with_metrics_0010_1.png Graphic file (type png)
 <use img/res_imgs/eval_with_metrics_0010_1.png>
 Package pdftex.def Info: img/res_imgs/eval_with_metrics_0010_1.png  used on input line 164.
 (pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
-) (zakonczenie.tex) [9 <./img/res_imgs/eval_with_metrics_0010_5.png (PNG copy)> <./img/res_imgs/eval_with_metrics_0010_1.png (PNG copy)>] [10] (main.aux)
+<img/res_imgs/rendered_c5_0001.png, id=260, 1927.2pt x 1084.05pt>
+File: img/res_imgs/rendered_c5_0001.png Graphic file (type png)
+<use img/res_imgs/rendered_c5_0001.png>
+Package pdftex.def Info: img/res_imgs/rendered_c5_0001.png  used on input line 174.
+(pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/res_imgs/img_0001.png, id=261, 1927.2pt x 1084.05pt>
+File: img/res_imgs/img_0001.png Graphic file (type png)
+<use img/res_imgs/img_0001.png>
+Package pdftex.def Info: img/res_imgs/img_0001.png  used on input line 180.
+(pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/res_imgs/rendered_c7_12.png, id=262, 1927.2pt x 1084.05pt>
+File: img/res_imgs/rendered_c7_12.png Graphic file (type png)
+<use img/res_imgs/rendered_c7_12.png>
+Package pdftex.def Info: img/res_imgs/rendered_c7_12.png  used on input line 186.
+(pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/res_imgs/img_0012.png, id=263, 1927.2pt x 1084.05pt>
+File: img/res_imgs/img_0012.png Graphic file (type png)
+<use img/res_imgs/img_0012.png>
+Package pdftex.def Info: img/res_imgs/img_0012.png  used on input line 192.
+(pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[9 <./img/res_imgs/eval_with_metrics_0010_5.png (PNG copy)> <./img/res_imgs/eval_with_metrics_0010_1.png (PNG copy)>]) (zakonczenie.tex [10 <./img/res_imgs/rendered_c5_0001.png (PNG copy)> <./img/res_imgs/img_0001.png (PNG copy)> <./img/res_imgs/rendered_c7_12.png (PNG copy)>]) [11 <./img/res_imgs/img_0012.png (PNG copy)>] (main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 9E3201E3639BBACA97B7343995832C80;3442.
+(rerunfilecheck)             Checksum: EFBF1C4EFD63ED0275D45EA375D8BF5D;3657.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43557 strings out of 474486
- 933604 string characters out of 5743754
+ 43596 strings out of 474486
+ 934893 string characters out of 5743754
  2286542 words of memory out of 5000000
- 65222 multiletter control sequences out of 15000+600000
+ 65255 multiletter control sequences out of 15000+600000
  569212 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 144i,9n,133p,1647b,3160s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 144i,9n,133p,1655b,3160s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\julia\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plbx10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plbx12.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plcsc10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr12.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr17.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr5.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plsy10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plti10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/pltt10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/pltt8.pfb>
-Output written on main.pdf (11 pages, 6559884 bytes).
+Output written on main.pdf (12 pages, 17482938 bytes).
 PDF statistics:
- 357 PDF objects out of 1000 (max. 8388607)
- 106 named destinations out of 1000 (max. 500000)
- 236 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 376 PDF objects out of 1000 (max. 8388607)
+ 112 named destinations out of 1000 (max. 500000)
+ 264 words of extra memory for PDF output out of 10000 (max. 10000000)
 
