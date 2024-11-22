@@ -126,6 +126,21 @@ def generate_random_point_cloud(num_points=1000, scale=10):
 
 
 def prepare_point_cloud(point_cloud):
-    point_cloud.points['red'] = point_cloud.points['red'] / 255.0
-    point_cloud.points['green'] = point_cloud.points['green'] / 255.0
-    point_cloud.points['blue'] = point_cloud.points['blue'] / 255.0
+    perc = np.percentile(point_cloud.points[['red', 'green', 'blue']], 95, 0)
+
+    if any(perc) > 1.0:
+
+        point_cloud.points['red'] = point_cloud.points['red'] / 255.0
+        point_cloud.points['green'] = point_cloud.points['green'] / 255.0
+        point_cloud.points['blue'] = point_cloud.points['blue'] / 255.0
+
+    if 'a' in point_cloud.points or  'scalar_a' in point_cloud.points:
+        key = 'a' if 'a' in point_cloud.points else 'scalar_a'
+        point_cloud.points['opacity'] = 1 / (1 + np.exp(-point_cloud.points[key]))
+
+    if 'scale_x' in point_cloud.points:
+        point_cloud.points['scale_x'] = np.exp(point_cloud.points['s0'])
+        point_cloud.points['scale_y'] = np.exp(point_cloud.points['s1'])
+        point_cloud.points['scale_z'] = np.exp(point_cloud.points['s2'])
+
+    point_cloud.points.astype(np.float32)

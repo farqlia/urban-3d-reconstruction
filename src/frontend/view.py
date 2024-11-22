@@ -10,6 +10,8 @@ from src.pipeline.config import DATA_FOLDER, GAUSSIAN_MODEL_PLY
 from .views.main_window import MainWindow
 from .view_engine_manager import EngineManager
 from src.rendering.render_point_cloud import PointCloudGLWidget, prepare_point_cloud
+from ..rendering.vispy_point_cloud import PointCloudWidget
+
 
 class View:
     def __init__(self, controller):
@@ -56,7 +58,7 @@ class View:
         if (os.path.exists(pc_file)):
             pc = PyntCloud.from_file(pc_file)
             prepare_point_cloud(pc)
-            renderer = PointCloudGLWidget(pc.points)
+            renderer = PointCloudWidget(pc.points)
         
         if renderer is None:
             renderer = QWidget()
