@@ -22,6 +22,7 @@ class View:
         self._configure_handlers()
 
         self._main_view = MainWindow(self._engine_manager)
+        self._loading_window = None
 
     def run(self):
         self._create_renderer()
@@ -54,7 +55,8 @@ class View:
     def _create_renderer(self):
         renderer = None
 
-        pc_file = str(GAUSSIAN_MODEL_PLY)
+        pc_file = str(self._controller.ply_path)
+        print(f"Rendering: {pc_file}")
         if (os.path.exists(pc_file)):
             pc = PyntCloud.from_file(pc_file)
             prepare_point_cloud(pc, flip=True)

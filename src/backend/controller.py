@@ -12,11 +12,13 @@ class Controller:
         self._build_info_handler = BuildInfoHandler()
         self._point_cloud_build_handler = BuildHandler(backend._reconstruct_point_cloud, self.complete_build)
         self._splats_build_handler = BuildHandler(backend._create_gaussian_model, self.complete_build)
-        self._categorization_handler = BuildHandler(lambda: None, lambda: None)
+        self._categorization_handler = BuildHandler(backend._segment, self.complete_build)
         self._dialog_handler = DialogHandler()
         self._tab_handler = TabHandler()
         self._renderer_handler = RendererHandler()
         self._settings_handler = SettingsHandler()
+        self.ply_path = backend.gaussian_ply_path
+        self.backend = backend
 
     def complete_build(self, info):
         if info is not None: # idk, if something returns then error
@@ -24,6 +26,7 @@ class Controller:
         else:
             self._build_info_handler.is_build_fail.data = True
         self._renderer_handler.is_model.data = True
+        self.ply_path = self.backend.gaussian_ply_path
         print(info)
 
     def cancel_build(self, info):

@@ -125,10 +125,10 @@ def generate_random_point_cloud(num_points=1000, scale=10):
     return np.random.rand(num_points, 3) * scale - (scale / 2)
 
 
-def prepare_point_cloud(point_cloud, flip=False):
+def prepare_point_cloud(point_cloud, flip=False, normalize_colors=False):
     perc = np.percentile(point_cloud.points[['red', 'green', 'blue']], 95, 0)
 
-    if np.max(perc) > 1.0:
+    if normalize_colors:
 
         point_cloud.points['red'] = point_cloud.points['red'] / 255.0
         point_cloud.points['green'] = point_cloud.points['green'] / 255.0
