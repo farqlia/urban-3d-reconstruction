@@ -169,9 +169,16 @@ class Evaluator:
                 "num_GS": len(self.rasterizer.splats["means"]),
             }
         )
-        stats.update({
-            "time": read_training_time(self.experiment_path / "stats")
-        })
+
+        if os.path.exists(self.experiment_path / "stats"):
+            stats.update({
+                "time": read_training_time(self.experiment_path / "stats")
+            })
+        else:
+            stats.update({
+                "time": 0.0
+            })
+
         print(
             f"PSNR: {stats['psnr']:.3f}, SSIM: {stats['ssim']:.4f}, LPIPS: {stats['lpips']:.3f} "
             f"Number of GS: {stats['num_GS']}"
