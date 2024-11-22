@@ -11,7 +11,7 @@ from PySide6.QtWidgets import QMainWindow
 class PointCloudGLWidget(QOpenGLWidget):
     def __init__(self, point_cloud=None, parent=None):
         super(PointCloudGLWidget, self).__init__(parent)
-        self.point_cloud = point_cloud if point_cloud is not None else np.zeros((0, 3))
+        self.point_cloud = point_cloud.points if point_cloud is not None else np.zeros((0, 3))
 
         # Initial camera rotation and zoom values
         self.x_rot = 0

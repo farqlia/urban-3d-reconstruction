@@ -13,7 +13,7 @@ from vispy import app
 
 class PointCloudCanvas:
 
-    def __init__(self, points):
+    def __init__(self, points, centroid):
         self.point_cloud = points
 
         self.canvas = vispy.scene.SceneCanvas(keys='interactive', show=True)
@@ -29,6 +29,7 @@ class PointCloudCanvas:
         view.add(scatter)
 
         view.camera = 'turntable'  # or try 'arcball'
+        view.camera.center = centroid
 
         # add a colored 3D axis for orientation
         self.axis = visuals.XYZAxis(parent=view.scene)
@@ -41,7 +42,7 @@ class PointCloudWidget(QWidget):
 
         main_layout = QVBoxLayout()
 
-        self.canvas = PointCloudCanvas(point_cloud)
+        self.canvas = PointCloudCanvas(point_cloud.points, point_cloud.centroid)
         self.canvas.canvas.show()
 
         main_layout.addWidget(self.canvas.canvas.native)

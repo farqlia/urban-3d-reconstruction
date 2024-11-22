@@ -58,7 +58,7 @@ class View:
         if (os.path.exists(pc_file)):
             pc = PyntCloud.from_file(pc_file)
             prepare_point_cloud(pc)
-            renderer = PointCloudWidget(pc.points)
+            renderer = PointCloudWidget(pc)
         
         if renderer is None:
             renderer = QWidget()
