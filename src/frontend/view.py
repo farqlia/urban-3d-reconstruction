@@ -57,7 +57,7 @@ class View:
         pc_file = str(GAUSSIAN_MODEL_PLY)
         if (os.path.exists(pc_file)):
             pc = PyntCloud.from_file(pc_file)
-            prepare_point_cloud(pc)
+            prepare_point_cloud(pc, flip=True)
             renderer = PointCloudWidget(pc)
         
         if renderer is None:

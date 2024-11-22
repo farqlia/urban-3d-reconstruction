@@ -23,7 +23,7 @@ class ModelProcessor():
                 
             run_script("torch_model_to_ply.py", "--input", str(self.gaussian_pt_path), 
                        "--output", str(self.gaussian_ply_path))
-        
+
     def run_full_reconstruction(self):
         self._reconstruct_point_cloud()
         self._create_gaussian_model()

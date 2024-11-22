@@ -20,7 +20,12 @@ class PointCloudCanvas:
         view = self.canvas.central_widget.add_view()
 
         pos = self.point_cloud[['x', 'y', 'z']].values
-        colarr = ColorArray(color=self.point_cloud[['red', 'green', 'blue', 'opacity']].values, clip=True)
+
+        colors_columns = ['red', 'green', 'blue']
+        if 'opacity' in self.point_cloud:
+            colors_columns.append('opacity')
+
+        colarr = ColorArray(color=self.point_cloud[colors_columns].values, clip=True)
 
         # create scatter object and fill in the data
         scatter = visuals.Markers()
@@ -47,3 +52,4 @@ class PointCloudWidget(QWidget):
 
         main_layout.addWidget(self.canvas.canvas.native)
         self.setLayout(main_layout)
+
