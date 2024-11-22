@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.10.19)  21 NOV 2024 22:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.10.19)  22 NOV 2024 20:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -961,17 +961,17 @@ File: img/gaussian_splatting_flow.png Graphic file (type png)
 Package pdftex.def Info: img/gaussian_splatting_flow.png  used on input line 45.
 (pdftex.def)             Requested size: 426.79135pt x 114.33968pt.
  [2 <./img/city3dmesh.jpg> <./img/nerfobject.jpg> <./img/gaussiansplattingobject.jpg> <./img/gaussian_splatting_flow.png>]) (projekt.tex
-<img/diagram_pu_2.png, id=150, 563.85657pt x 403.5075pt>
-File: img/diagram_pu_2.png Graphic file (type png)
-<use img/diagram_pu_2.png>
-Package pdftex.def Info: img/diagram_pu_2.png  used on input line 7.
-(pdftex.def)             Requested size: 426.79135pt x 305.42517pt.
- [3 <./img/diagram_pu_2.png>] (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+<img/diagram_pu_3.png, id=150, 606.01407pt x 400.49625pt>
+File: img/diagram_pu_3.png Graphic file (type png)
+<use img/diagram_pu_3.png>
+Package pdftex.def Info: img/diagram_pu_3.png  used on input line 7.
+(pdftex.def)             Requested size: 426.79135pt x 282.05656pt.
+ [3 <./img/diagram_pu_3.png>] (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
 File: lstlang2.sty 2023/02/27 1.9 listings language file
 )
-LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line 85.
+LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line 81.
  (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/polski\ot4cmtt.fd
 File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 ) [4{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plit.enc}{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plsc.enc}{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/pltt.enc}] [5]) (wyniki.tex
@@ -1064,15 +1064,15 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43596 strings out of 474486
- 934893 string characters out of 5743754
- 2286542 words of memory out of 5000000
- 65255 multiletter control sequences out of 15000+600000
+ 43289 strings out of 474486
+ 929174 string characters out of 5743754
+ 2281542 words of memory out of 5000000
+ 64948 multiletter control sequences out of 15000+600000
  569212 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 144i,9n,133p,1655b,3160s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 144i,9n,133p,1655b,2893s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\julia\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plbx10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plbx12.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plcsc10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr12.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr17.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr5.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plsy10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plti10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/pltt10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/pltt8.pfb>
-Output written on main.pdf (12 pages, 17482938 bytes).
+Output written on main.pdf (12 pages, 17493481 bytes).
 PDF statistics:
  376 PDF objects out of 1000 (max. 8388607)
  112 named destinations out of 1000 (max. 500000)
