@@ -1,16 +1,11 @@
-import os
-from PySide6.QtCore import QObject, QUrl, Qt
-from PySide6.QtWidgets import QWidget, QFileDialog
+from PySide6.QtCore import QUrl
+from PySide6.QtWidgets import QFileDialog
 from PySide6.QtQuick import QQuickWindow, QSGRendererInterface
-from PySide6.QtQuickWidgets import QQuickWidget
-from pyntcloud import PyntCloud
-
+from src.pipeline.config import PNG_RENDERS_FOLDER
 from .config import LOADING_WINDOW_FILE, FAIL_WINDOW_FILE, SUCC_WINDOW_FILE, SETTINGS_WINDOW
-from src.pipeline.config import DATA_FOLDER, GAUSSIAN_MODEL_PLY
 from .views.main_window import MainWindow
 from .view_engine_manager import EngineManager
-from src.rendering.render_point_cloud import PointCloudGLWidget, prepare_point_cloud
-from ..rendering.vispy_point_cloud import PointCloudWidget
+from rendering.slideshow import SlideshowWidget
 
 
 class View:
@@ -52,17 +47,7 @@ class View:
 
 
     def _create_renderer(self):
-        renderer = None
-
-        pc_file = str(GAUSSIAN_MODEL_PLY)
-        if (os.path.exists(pc_file)):
-            pc = PyntCloud.from_file(pc_file)
-            prepare_point_cloud(pc)
-            renderer = PointCloudWidget(pc.points)
-        
-        if renderer is None:
-            renderer = QWidget()
-
+        renderer = SlideshowWidget(PNG_RENDERS_FOLDER)
         self._main_view.configure_renderer(renderer)
 
     def _open_dialog(self):
