@@ -30,9 +30,13 @@ class ModelProcessor:
 
             run_script("add_rgb_color.py", "--input", str(self.output_folder / 'model.ply'))
 
+        run_script(r"gs_viewer.py", "--model_path",
+                   self.gaussian_ply_path)
+
 
     def _segment(self):
         print("_segment")
+
         self.gaussian_ply_path = GAUSSIAN_MODEL_SEG_PLY
 
     def run_full_reconstruction(self):
