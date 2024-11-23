@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QPushButton, QHBoxLayout
+from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QPushButton, QHBoxLayout, QSizePolicy
 from PySide6.QtCore import QTimer, Qt
 from PySide6.QtGui import QPixmap
 import os
@@ -13,9 +13,12 @@ class SlideshowWidget(QWidget):
 
         self.image_label = QLabel(self)
         self.image_label.setAlignment(Qt.AlignCenter)
-        self.image_label.setFixedSize(800, 600)
-        self.image_label.setStyleSheet("border: 1px solid black;")
+        self.image_label.setMinimumSize(600,450)
+        self.image_label.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
+        )
 
+        self.image_label.setStyleSheet("border: 1px solid black;")
         self.prev_button = QPushButton("Previous", self)
         self.next_button = QPushButton("Next", self)
         self.play_button = QPushButton("Play", self)
