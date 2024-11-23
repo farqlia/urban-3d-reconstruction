@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
                 widget.setParent(None)
 
         if self._renderer is not None:
-            self._renderer_layout.addWidget(self._renderer, 0, 0, 2, 2)
+            self._renderer_layout.addWidget(self._renderer, 0, 0, 2, 2,  alignment=Qt.AlignmentFlag.AlignCenter)
 
         lt = self._create_right_pane_lt(self._renderer_cont)
         rt = self._create_right_pane_rt(self._renderer_cont)
