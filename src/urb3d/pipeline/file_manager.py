@@ -48,3 +48,16 @@ class FileManager:
             raise FileNotFoundError(f"Model file '{to_save_path}' does not exist.")
 
         shutil.copy(to_save_path, destination_file)
+
+    def upload_gaussian_model(self, src_path: str) -> None:
+        self._upload_file(src_path, self.model_path)
+
+    def _upload_file(self, src_path: str, destination_path: Path) -> None:
+        src_file = Path(src_path)
+
+        if not src_file.exists() or not src_file.is_file():
+            raise FileNotFoundError(f"Source file '{src_path}' does not exist or is not a file.")
+
+        destination_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(src_file, destination_path)
+
