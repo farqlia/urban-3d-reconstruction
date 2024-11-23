@@ -9,8 +9,7 @@ from .config import LOADING_WINDOW_FILE, FAIL_WINDOW_FILE, SUCC_WINDOW_FILE, SET
 from src.pipeline.config import DATA_FOLDER, GAUSSIAN_MODEL_PLY
 from .views.main_window import MainWindow
 from .view_engine_manager import EngineManager
-from src.rendering.render_point_cloud import PointCloudGLWidget, prepare_point_cloud
-from ..rendering.vispy_point_cloud import PointCloudWidget
+from src.rendering.render_point_cloud import prepare_point_cloud, PointCloudWidget
 
 
 class View:

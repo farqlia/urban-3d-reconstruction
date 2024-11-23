@@ -1,7 +1,7 @@
 from src.pipeline.config import INPUT_DATA_FOLDER, DATA_FOLDER, COLMAP_RECONSTRUCTION_DIR, GAUSSIAN_MODEL_PT, GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_SEG_PLY
 from src.pipeline.utils import run_script
 
-class ModelProcessor():
+class ModelProcessor:
 
     def __init__(self):
         self.input_folder = INPUT_DATA_FOLDER
@@ -15,7 +15,7 @@ class ModelProcessor():
         if not self.reconstruction_folder.exists():
             run_script("colmap_reconstruction.py", "--input", str(self.input_folder),
                  "--output", str(self.output_folder))
-        # self.gaussian_ply_path = GAUSSIAN_MODEL_PLY
+        self.gaussian_ply_path = GAUSSIAN_MODEL_PLY
 
     def _create_gaussian_model(self): 
         if not self.gaussian_ply_path.exists():

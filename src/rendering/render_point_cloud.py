@@ -1,134 +1,59 @@
 import numpy as np
-from OpenGL.GL import *
-from OpenGL.GLU import *
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont, QPainter
-from PySide6.QtOpenGLWidgets import QOpenGLWidget
-from PySide6.QtWidgets import QMainWindow
+import vispy.scene
+from PySide6.QtWidgets import QWidget, QVBoxLayout
+from vispy.color import ColorArray
+from vispy.scene import visuals
 
 
-# script to run it : scripts/rendering
-class PointCloudGLWidget(QOpenGLWidget):
-    def __init__(self, point_cloud=None, parent=None):
-        super(PointCloudGLWidget, self).__init__(parent)
-        self.point_cloud = point_cloud.points if point_cloud is not None else np.zeros((0, 3))
+class PointCloudCanvas:
 
-        # Initial camera rotation and zoom values
-        self.x_rot = 0
-        self.y_rot = 0
-        self.zoom = -10  # Initial zoom level (distance from the object)
-        self.last_mouse_pos = None  # Track the last mouse position for dragging
+    def __init__(self, points, centroid):
+        self.point_cloud = points
 
-    def initializeGL(self):
-        """Initialize OpenGL settings."""
-        glEnable(GL_DEPTH_TEST)
-        glPointSize(3)
-        glClearColor(0.1, 0.1, 0.1, 1.0)
+        self.canvas = vispy.scene.SceneCanvas(keys='interactive', show=True)
+        view = self.canvas.central_widget.add_view()
 
-    def resizeGL(self, width, height):
-        """Handle resizing of the OpenGL window."""
-        glViewport(0, 0, width, height)
-        glMatrixMode(GL_PROJECTION)
-        glLoadIdentity()
-        gluPerspective(45, width / height, 0.1, 100.0)
-        glMatrixMode(GL_MODELVIEW)
+        pos = self.point_cloud[['x', 'y', 'z']].values
 
-    def paintGL(self):
-        """Render the point cloud."""
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-        glLoadIdentity()
-        glTranslatef(0.0, 0.0, self.zoom)  # Apply the zoom (camera distance)
+        colors_columns = ['red', 'green', 'blue']
+        if 'opacity' in self.point_cloud:
+            colors_columns.append('opacity')
 
-        # Apply rotations based on mouse interactions
-        glRotatef(self.x_rot, 1.0, 0.0, 0.0)  # Rotate around the X-axis
-        glRotatef(self.y_rot, 0.0, 1.0, 0.0)  # Rotate around the Y-axis
+        colarr = ColorArray(color=self.point_cloud[colors_columns].values, clip=True)
 
-        self.draw_point_cloud()
-        self.render_text(f"{len(self.point_cloud)} points", (10, 30))
+        # create scatter object and fill in the data
+        scatter = visuals.Markers()
+        scatter.set_data(pos, edge_width=0, face_color=colarr, size=3)
 
-    def render_text(self, text, pos):
-        # Render text on the screen
-        painter = QPainter(self)
-        painter.setPen(Qt.white)
-        painter.setFont(QFont("Helvetica", 16))
-        painter.drawText(*pos, text)
-        painter.end()
+        view.add(scatter)
 
-    def draw_point_cloud(self):
-        # Draw the point cloud
-        glBegin(GL_POINTS)
-        for (i, p) in self.point_cloud.iterrows():
-            glColor3f(p['red'], p['green'], p['blue'])
-            glVertex3f(p['x'], p['y'], p['z'])
-        glEnd()
+        view.camera = 'turntable'  # or try 'arcball'
+        view.camera.center = centroid
 
-    def mousePressEvent(self, event):
-        """Capture the initial mouse position when the mouse button is pressed."""
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.last_mouse_pos = event.position()
-
-    def mouseMoveEvent(self, event):
-        """Update rotation angles based on mouse movement."""
-        if self.last_mouse_pos is not None:
-            dx = event.position().x() - self.last_mouse_pos.x()
-            dy = event.position().y() - self.last_mouse_pos.y()
-
-            rot_scale = .5
-            # Update rotation angles: modify the scale to control sensitivity
-            self.x_rot += dy * rot_scale
-            self.y_rot += dx * rot_scale
-
-            # Save the new mouse position
-            self.last_mouse_pos = event.position()
-
-            # Trigger a redraw
-            self.update()
-
-    def mouseReleaseEvent(self, event):
-        """Clear the last mouse position when the mouse button is released."""
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.last_mouse_pos = None
-
-    def wheelEvent(self, event):
-        """Handle mouse wheel events for zooming."""
-        delta = event.angleDelta().y()
-        zoom_step = 0.2  # Adjust zoom speed here
-
-        # Increase zoom (move closer) if scrolling up, and decrease (move away) if scrolling down
-        if delta > 0:
-            self.zoom += zoom_step
-        else:
-            self.zoom -= zoom_step
-
-        # Trigger a redraw
-        self.update()
-
-    def setPointCloud(self, point_cloud):
-        """Update the point cloud data."""
-        self.point_cloud = point_cloud
-        self.update()
+        # add a colored 3D axis for orientation
+        self.axis = visuals.XYZAxis(parent=view.scene)
 
 
-class MainWindow(QMainWindow):
+class PointCloudWidget(QWidget):
+
     def __init__(self, point_cloud):
-        super(MainWindow, self).__init__()
-        self.setWindowTitle("3D Point Cloud Viewer")
-        self.setGeometry(100, 100, 800, 600)
+        super().__init__()
 
-        # Instantiate PointCloudGLWidget and set it as the central widget
-        self.gl_widget = PointCloudGLWidget(point_cloud)
-        self.setCentralWidget(self.gl_widget)
+        main_layout = QVBoxLayout()
 
+        self.canvas = PointCloudCanvas(point_cloud.points, point_cloud.centroid)
+        self.canvas.canvas.show()
 
-def generate_random_point_cloud(num_points=1000, scale=10):
-    """Generate a random point cloud for demonstration."""
-    return np.random.rand(num_points, 3) * scale - (scale / 2)
+        main_layout.addWidget(self.canvas.canvas.native)
+        self.setLayout(main_layout)
 
 
 def prepare_point_cloud(point_cloud, flip=False, normalize_colors=False):
-    perc = np.percentile(point_cloud.points[['red', 'green', 'blue']], 95, 0)
+    perc = np.percentile(point_cloud.points[['red', 'green', 'blue']], 99, 0)
 
-    if normalize_colors:
+    if any(perc) > 1.0:
+
+        print("Normalize colors")
 
         point_cloud.points['red'] = point_cloud.points['red'] / 255.0
         point_cloud.points['green'] = point_cloud.points['green'] / 255.0
