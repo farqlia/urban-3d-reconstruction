@@ -3,13 +3,14 @@ from PySide6.QtWidgets import (QWidget, QLabel, QVBoxLayout, QPushButton,
 from PySide6.QtCore import QTimer, Qt, QSize
 from PySide6.QtGui import QPixmap, QIcon
 import os
+import re
 
 
 class SlideshowWidget(QWidget):
     def __init__(self, folder_path, parent=None):
         super().__init__(parent)
         self.folder_path = folder_path
-        self.image_files = self._get_image_files(folder_path)
+        self.image_files = self._get_image_files()
         self.current_index = 0
 
         self.image_label = QLabel(self)
@@ -59,8 +60,26 @@ class SlideshowWidget(QWidget):
 
         self.show_image(0)
 
-    def _get_image_files(self, folder):
-        return [f for f in os.listdir(folder) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif'))]
+    def _get_image_files(self):
+        if not self.folder_path.exists() or not self.folder_path.is_dir():
+            return []
+
+        step_pattern = re.compile(r"val_step(\d+)_\d+\.png")
+
+        images = []
+        max_step = -1
+
+        for file in self.folder_path.glob("val_step*_*.png"):
+            match = step_pattern.match(file.name)
+            if match:
+                step = int(match.group(1))
+                if step > max_step:
+                    max_step = step
+                    images = [file]
+                elif step == max_step:
+                    images.append(file)
+
+        return sorted(images)
 
     def show_image(self, index):
         if self.image_files:
