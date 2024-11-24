@@ -1,6 +1,7 @@
-from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QPushButton, QHBoxLayout, QSizePolicy
-from PySide6.QtCore import QTimer, Qt
-from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import (QWidget, QLabel, QVBoxLayout, QPushButton,
+                               QHBoxLayout, QSizePolicy)
+from PySide6.QtCore import QTimer, Qt, QSize
+from PySide6.QtGui import QPixmap, QIcon
 import os
 
 
@@ -18,11 +19,25 @@ class SlideshowWidget(QWidget):
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
         )
 
-        self.image_label.setStyleSheet("border: 1px solid black;")
-        self.prev_button = QPushButton("Previous", self)
-        self.next_button = QPushButton("Next", self)
-        self.play_button = QPushButton("Play", self)
-        self.stop_button = QPushButton("Stop", self)
+        self.prev_button = QPushButton(self)
+        self.prev_button.setIcon(QIcon("../frontend/views/icons/previous.png"))
+        self.prev_button.setIconSize(QSize(40, 40))
+        self.prev_button.setStyleSheet("border: none;")
+
+        self.next_button = QPushButton(self)
+        self.next_button.setIcon(QIcon("../frontend/views/icons/next.png"))
+        self.next_button.setIconSize(QSize(40, 40))
+        self.next_button.setStyleSheet("border: none;")
+
+        self.play_button = QPushButton(self)
+        self.play_button.setIcon(QIcon("../frontend/views/icons/play.png"))
+        self.play_button.setIconSize(QSize(40, 40))
+        self.play_button.setStyleSheet("border: none;")
+
+        self.stop_button = QPushButton(self)
+        self.stop_button.setIcon(QIcon("../frontend/views/icons/stop.png"))
+        self.stop_button.setIconSize(QSize(40, 40))
+        self.stop_button.setStyleSheet("border: none;")
 
         self.prev_button.clicked.connect(self.show_previous_image)
         self.next_button.clicked.connect(self.show_next_image)
@@ -69,7 +84,7 @@ class SlideshowWidget(QWidget):
             self.show_image(self.current_index)
 
     def start_slideshow(self):
-        self.timer.start(2000)
+        self.timer.start(1000)
 
     def stop_slideshow(self):
         self.timer.stop()
