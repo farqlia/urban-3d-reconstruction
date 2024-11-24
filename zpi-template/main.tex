@@ -1,0 +1,43 @@
+\documentclass[polish,edition=2024]{zpiday}
+\usepackage{csvsimple}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{forest}
+\usepackage{listings}
+
+\usepackage{lipsum}
+\title{Metoda trójwymiarowego modelowania obszarów urbanistycznych z wykorzystaniem metod fotogrametrii}
+\acronym{URB3D}
+\supervisor{dr hab. inż. Marek Krótkiewicz, prof. PWr}
+\members{Daniel Borkowski \and Julia Farganus \and Rafał Mielniczuk \and Katarzyna Wochal}
+
+\projectLogo{images/logo_white.png}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    Celem pracy jest wykonanie aplikacji, która wykorzystuje metody fotogrametrii do modelowania miejskich scen 3D. Dane wejściowe stanowią zdjęcia obszarów miejskich, które są przetwarzane w celu stworzenia modelu 3D, a następnie segmentowane na obiekty przestrzeni miejskiej, takie jak budynki, tereny zielone, itp.. Aplikacja będzie wizualizować model oraz wyniki segmentacji semantycznej.
+
+    Innowacyjność tego projektu polega na połączeniu, adaptacji i udoskonaleniu najlepszych dostępnych rozwiązań, takich jak Gaussian Splatting i PointNet, aby stworzyć nowy, kompleksowy produkt.
+
+    Przetwarzanie dużych scen miejskich jest wyzwaniem dla obecnie istniejących rozwiązań, które skupiają się głównie na pojedynczych obiektach lub zamkniętych scenach. Typowa scena miejska natomiast może obejmować setki zdjęć, a powstała chmura może zawierać miliony punktów. Dodatkowym wyzwaniem jest niezbalansowana reprezentacja kategorii semantycznych. Nasze rozwiązanie ma na celu efektywne przetwarzanie dużych zbiorów danych przy rozsądnym zużyciu zasobów czasowych i pamięciowych.
+
+    Zastosowania biznesowe otrzymywanych w ten sposób modeli 3D są szerokie: od gier wideo, przez architekturę, robotykę, pojazdy autonomiczne, po modelowanie urbanistyczne.
+\end{abstract}
+
+\input{rozwiniecie_wstep.tex}
+
+\input{stan_nauki.tex}
+
+\input{wyniki.tex}
+
+\input{podsumowanie.tex}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+
+\end{document}

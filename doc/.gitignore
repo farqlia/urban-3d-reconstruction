@@ -8,7 +8,8 @@
 !.gitignore
 
 # Allow .gitignore itself
-!img
+# Nie no chyba zdjecia warto dodawac nie?
+# !img
 
 # Allow .gitignore itself
 !literatura.bib
