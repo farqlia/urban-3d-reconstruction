@@ -1,5 +1,13 @@
 # Fdb version 4
-["pdflatex"] 1732310944.57172 "c:/Users/julia/PycharmProjects/substitutive-urb3d/zpi-template/main.tex" "main.pdf" "main" 1732310946.37981 0
+["bibtex main"] 1732482250.17257 "main.aux" "main.bbl" "main" 1732482253.09679 0
+  "./references.bib" 1732481180 2803 6e6528a26398d370e4a6c5e38bdb5899 ""
+  "C:/Users/julia/AppData/Local/Programs/MiKTeX/bibtex/bst/bibtex/plain.bst" 1291864736 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
+  "main.aux" 1732482252 2560 df35ef8619b5b5dc92b881ebcb881a2a "pdflatex"
+  (generated)
+  "main.bbl"
+  "main.blg"
+  (rewritten before read)
+["pdflatex"] 1732482250.49482 "c:/Users/julia/PycharmProjects/substitutive-urb3d/zpi-template/main.tex" "main.pdf" "main" 1732482253.09763 0
   "C:/Users/julia/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1732300048 224935 8febe6bf4449ba19894032416258d59f ""
   "C:/Users/julia/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1729316665 24225047 90bf4ecf3c436d80c3ac0c55507dd78b ""
   "C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fira/fir_d67aat.enc" 1570720075 3385 21a7e8c8dac3c39de5acda2c56e7bd7e ""
@@ -196,17 +204,25 @@
   "C:/Users/julia/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/julia/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
   "C:/Users/julia/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656233319 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
-  "c:/Users/julia/PycharmProjects/substitutive-urb3d/zpi-template/main.tex" 1732300624 2026 3c00dd074b3608562c2b573c557283e7 ""
+  "c:/Users/julia/PycharmProjects/substitutive-urb3d/zpi-template/main.tex" 1732482096 2022 d927c64dc4b3171df7d33bddfd09db67 ""
   "images/ZPI-Day-cmyk.pdf" 1732297117 104058 bb1410c99ff22a479b96b684cf110e68 ""
+  "images/c5_mouse_0001.png" 1732479654 5559539 0617e52b3852dfa2e70f860333330db4 ""
+  "images/c7_gepard_0006.png" 1732479351 5366149 151aca08de5aad3cd13d14b772e4ce6f ""
   "images/logo_white.png" 1732287641 1841123 f0a01021574486865cd09f3e756cbf13 ""
   "images/sks_viper_0008.png" 1732310662 7097437 08a9d8fcc762abf20b226fa8d2a5b824 ""
-  "main.aux" 1732310946 1186 07b902896460348fd373f5ae46dc44f9 "pdflatex"
-  "main.out" 1732310946 530 028191635c6138be1273e4e7aa62b4bb "pdflatex"
-  "main.tex" 1732300624 2026 3c00dd074b3608562c2b573c557283e7 ""
+  "main.aux" 1732482252 2560 df35ef8619b5b5dc92b881ebcb881a2a "pdflatex"
+  "main.bbl" 1732482250 1755 50ec987e102b50d37fe6c9d75e1f3821 "bibtex main"
+  "main.out" 1732482252 1021 4af60c0a5b91c17fc630926b40a4e1fd "pdflatex"
+  "main.tex" 1732482096 2022 d927c64dc4b3171df7d33bddfd09db67 ""
   "podsumowanie.tex" 1732308175 33 566e500c58104f8111eb30af1cf2136b ""
   "rozwiniecie_wstep.tex" 1732300624 1440 917548303816befb0800addc42abc750 ""
-  "stan_nauki.tex" 1732309335 1804 5a430f03af2640c82e2276ebce2e3abe ""
-  "wyniki.tex" 1732310942 1543 64b9eac783f3e9025973303286584d0d ""
+  "stan_nauki.tex" 1732481091 1921 1f834130ab77a54bf2c5eb460cd24fa8 ""
+  "wyniki.tex" 1732480331 332 c9c49c8cf38142c16c71912f307060ae ""
+  "wyniki/akwizycja.tex" 1732480272 29 fb1ebb2296de0268d4c6009b724f95ab ""
+  "wyniki/gaussian_splatting.tex" 1732482247 2852 e05237ff0700a150cbe296608266c1bf ""
+  "wyniki/rekonstrukcja.tex" 1732480272 26 ad1b2f532b5e45e8f9d46361439ff750 ""
+  "wyniki/renderowanie.tex" 1732480272 25 0934ab252b16838bdd26d792e4e82655 ""
+  "wyniki/segmentacja.tex" 1732480415 24 5e4bf90c93b22492102a400c9bc9a6b9 ""
   "zpiday.cls" 1732297099 4301 319e2ea3fabfb53bdddc54ac3ebe1cb9 ""
   (generated)
   "main.aux"

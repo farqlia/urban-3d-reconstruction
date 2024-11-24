@@ -2,14 +2,11 @@
 
 Unikalność naszego projektu wynika z połączenia wielu rozwiązań które istnieją samodzielnie na rynku. Alogrytm Structure-from-Motion jest popularną fotogrametryczną techniką otrzymywania chmury punktów ze zbioru zdjęć i jego implementacja oferowana jest m. in. przez oprogramowanie COLMAP. 
 
-W przypadku modelu 3D często stosowaną techniką są siatki, jednak ich wadą jest niekompatybilność z algorytmami sztucznej inteligencji. Popularne są też rozwiązania wykorzystujące sieci neuronowe jak np. NeRF, ale długi czas trenowania jest nieefektywny. Z tego powodu zdecydowaliśmy się na wykorzystanie algorytmu Gaussian Splatting, który buduje model sceny z tzw. gaussianów, które można interpretować jako punkty rozmyte. Można napotkać różne adaptacje tego algorytmu, jak np. CityGaussian.
+W przypadku modelu 3D często stosowaną techniką są siatki, jednak ich wadą jest niekompatybilność z algorytmami sztucznej inteligencji. Popularne są też rozwiązania wykorzystujące sieci neuronowe jak np. NeRF\cite{mildenhall2020nerfrepresentingscenesneural}, ale długi czas trenowania jest nieefektywny. Z tego powodu zdecydowaliśmy się na wykorzystanie algorytmu Gaussian Splatting\cite{kerbl3Dgaussians}, który buduje model sceny z tzw. gaussianów, które można interpretować jako punkty rozmyte. Można napotkać różne adaptacje tego algorytmu, jak np. CityGaussian\cite{liu2024citygaussian}.
 
 Ważnym krokiem jest również filtracja chmury punktów w celu usunięcia odstających punktów lub tych nieistotnych dla wyników klasyfikacji. W tym obszarze znajdują się np. techniki statystyczne czy oparte na sąsiedztwie. 
 
-Istniejące architektury sieci neuronowych dla zadania segmentacji są głównie przeznaczone dla scen zamkniętych lub pojedynczych obiektów. Popularnym rozwiązaniem jest PointNet oraz jego następnik PointNet++ oparte na wielowarstwowym perceptronie, jak i również bardziej skomplikowane rozwiązania jak KPConv wykorzystujące konwolucje. Wyzwaniem dla naszego projektu będzie dostosowanie takich architektur do chmury punktów o wielkości rzędu milionów punktów.  
+Istniejące architektury sieci neuronowych dla zadania segmentacji są głównie przeznaczone dla scen zamkniętych lub pojedynczych obiektów. Popularnym rozwiązaniem jest PointNet\cite{qi2016pointnet} oraz jego następnik PointNet++\cite{qi2017pointnetdeephierarchicalfeature} oparte na wielowarstwowym perceptronie, jak i również bardziej skomplikowane rozwiązania jak KPConv\cite{thomas2019kpconvflexibledeformableconvolution} wykorzystujące konwolucje. Wyzwaniem dla naszego projektu będzie dostosowanie takich architektur do chmury punktów o wielkości rzędu milionów punktów.  
 
 W przypadku renderowania istnieją rozwiązania przeznaczone zarówno do chmur punktów, jak i do splatów, jednak wyzwaniem jest ...
 
-\textbf{Wykorzystane oprogramowanie}
-
-Głównymi językami programowania są C/C++ oraz Python. 

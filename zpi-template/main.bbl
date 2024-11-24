@@ -1,3 +1,40 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{kerbl3Dgaussians}
+Bernhard Kerbl, Georgios Kopanas, Thomas Leimk{\"u}hler, and George Drettakis.
+\newblock 3d gaussian splatting for real-time radiance field rendering.
+\newblock {\em ACM Transactions on Graphics}, 42(4), July 2023.
+
+\bibitem{liu2024citygaussian}
+Yang Liu, He~Guan, Chuanchen Luo, Lue Fan, Junran Peng, and Zhaoxiang Zhang.
+\newblock Citygaussian: Real-time high-quality large-scale scene rendering with
+  gaussians, 2024.
+
+\bibitem{mildenhall2020nerfrepresentingscenesneural}
+Ben Mildenhall, Pratul~P. Srinivasan, Matthew Tancik, Jonathan~T. Barron, Ravi
+  Ramamoorthi, and Ren Ng.
+\newblock Nerf: Representing scenes as neural radiance fields for view
+  synthesis, 2020.
+
+\bibitem{qi2016pointnet}
+Charles~R. Qi, Hao Su, Kaichun Mo, and Leonidas~J. Guibas.
+\newblock Pointnet: Deep learning on point sets for 3d classification and
+  segmentation, 2016.
+
+\bibitem{qi2017pointnetdeephierarchicalfeature}
+Charles~R. Qi, Li~Yi, Hao Su, and Leonidas~J. Guibas.
+\newblock Pointnet++: Deep hierarchical feature learning on point sets in a
+  metric space, 2017.
+
+\bibitem{thomas2019kpconvflexibledeformableconvolution}
+Hugues Thomas, Charles~R. Qi, Jean-Emmanuel Deschaud, Beatriz Marcotegui,
+  François Goulette, and Leonidas~J. Guibas.
+\newblock Kpconv: Flexible and deformable convolution for point clouds, 2019.
+
+\bibitem{ye2024gsplatopensourcelibrarygaussian}
+Vickie Ye, Ruilong Li, Justin Kerr, Matias Turkulainen, Brent Yi, Zhuoyang Pan,
+  Otto Seiskari, Jianbo Ye, Jeffrey Hu, Matthew Tancik, and Angjoo Kanazawa.
+\newblock gsplat: An open-source library for {Gaussian} splatting.
+\newblock {\em arXiv preprint arXiv:2409.06765}, 2024.
 
 \end{thebibliography}
