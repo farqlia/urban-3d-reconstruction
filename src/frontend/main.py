@@ -8,7 +8,7 @@ from PySide6.QtQuick import QQuickWindow, QSGRendererInterface
 
 from src.backend.controller import Controller
 from src.frontend.view import View
-from src.pipeline.model_processor import ModelProcessor
+from src.urb3d.pipeline.model_processor import ModelProcessor
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -1,7 +1,7 @@
 from PySide6.QtCore import QObject, QUrl, Qt 
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QHBoxLayout, QStackedLayout, QFileDialog, QGridLayout, QLabel
 from pyntcloud import PyntCloud
-from src.rendering.render_point_cloud import prepare_point_cloud
+from src.urb3d.rendering.render_point_cloud import prepare_point_cloud
 
 from ..config import HEADER_FILE, FOOTER_FILE, LEFT_PANE_FILE, RIGHT_PANE_LB_FILE, RIGHT_PANE_LT_FILE, RIGHT_PANE_RB_FILE, RIGHT_PANE_RT_FILE
 

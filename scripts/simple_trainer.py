@@ -6,8 +6,8 @@ import torch
 from gsplat.distributed import cli
 from gsplat.strategy import DefaultStrategy, MCMCStrategy
 
-from src.splats.config import Config
-from src.splats.training import Runner
+from urb3d.splats.config import Config
+from urb3d.splats.training import Runner
 import argparse
 from typing import List
 

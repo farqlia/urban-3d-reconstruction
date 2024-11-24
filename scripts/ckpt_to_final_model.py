@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from src.models.save_model import save_ckpt
+from urb3d.models.save_model import save_ckpt
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert Gaussian Splatting torch model to .ply format")

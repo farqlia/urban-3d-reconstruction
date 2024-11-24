@@ -1,5 +1,5 @@
 import argparse
-from src.models.evaluation import Evaluator
+from urb3d.models.evaluation import Evaluator
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate Gaussian Splatting model on validation dataset")

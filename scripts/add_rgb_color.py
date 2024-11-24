@@ -1,7 +1,7 @@
 import argparse
 from pyntcloud import PyntCloud
 
-from src.rendering.rendering_utils import *
+from urb3d.rendering.rendering_utils import *
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Enrich .ply model with rgb colors computed from spherical harmonics")

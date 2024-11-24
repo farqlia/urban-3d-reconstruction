@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QApplication
 from pathlib import Path
 from pyntcloud import PyntCloud
 
-from src.rendering.render_point_cloud import MainWindow, prepare_point_cloud
+from urb3d.rendering.render_point_cloud import MainWindow, prepare_point_cloud
 
 if __name__ == "__main__":
 

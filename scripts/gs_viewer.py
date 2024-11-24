@@ -3,14 +3,14 @@ import OpenGL.GL as gl
 from imgui.integrations.glfw import GlfwRenderer
 import imgui
 import numpy as np
-import src.rendering.gs.util as util
+import urb3d.rendering.gs.util as util
 import imageio
-import src.rendering.gs.util_gau as util_gau
+import urb3d.rendering.gs.util_gau as util_gau
 import tkinter as tk
 import os
 import sys
 import argparse
-from src.rendering.gs.renderer_ogl import OpenGLRenderer, GaussianRenderBase
+from urb3d.rendering.gs.renderer_ogl import OpenGLRenderer, GaussianRenderBase
 
 
 

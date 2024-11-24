@@ -5,7 +5,7 @@ from .handlers.tab_handler import TabHandler
 from .handlers.renderer_handler import RendererHandler
 from .handlers.build_info_handler import BuildInfoHandler
 from .handlers.settings_handler import SettingsHandler
-from src.pipeline.config import INPUT_DATA_FOLDER, DATA_FOLDER, COLMAP_RECONSTRUCTION_DIR, GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_PT
+from src.urb3d.pipeline.config import INPUT_DATA_FOLDER, DATA_FOLDER, SCENE_FOLDER, GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_PT
 
 class Controller:
     def __init__(self, backend):
@@ -56,7 +56,7 @@ class Controller:
         self._settings_handler.configure_env_var(n, v)
         n, v = self._dynamic_var_setter(DATA_FOLDER)
         self._settings_handler.configure_env_var(n, v)
-        n, v = self._dynamic_var_setter(COLMAP_RECONSTRUCTION_DIR)
+        n, v = self._dynamic_var_setter(SCENE_FOLDER)
         self._settings_handler.configure_env_var(n, v)
         n, v = self._dynamic_var_setter(GAUSSIAN_MODEL_PLY)
         self._settings_handler.configure_env_var(n, v)

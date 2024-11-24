@@ -83,9 +83,9 @@ cuda = [
     "fused-ssim @ git+https://github.com/rahul-goel/fused-ssim/"
 ]
 
-[tool.setuptools]
-packages = ["src"]
+# [tool.setuptools]
+# packages = ["src"]
 # zamiast tego mozna to co nizej
-# [tool.setuptools.packages.find]
-# where = ["src"]
+[tool.setuptools.packages.find]
+where = ["src"]
 # tyle ze struktura src musi byc taka: src -> urb3d -> [... modules]
