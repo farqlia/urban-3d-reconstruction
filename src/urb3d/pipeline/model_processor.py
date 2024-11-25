@@ -18,11 +18,15 @@ class ModelProcessor():
     def _create_gaussian_model(self): 
         if not self.gaussian_ply_path.exists():
             if not self.ckpts_path.exists():
+
                 run_script("simple_trainer.py", "--data_dir", str(self.reconstruction_folder),  #?
                            "--result_dir", str(self.output_folder), "--max_steps", "500", "--delta_steps", "250")
                 
             run_script("save_model.py", "--ckpts", str(self.ckpts_path),
                        "--output", str(GAUSSIAN_MODEL_PLY))
+
+            run_script("simple_trainer.py", "--data_dir", str(self.reconstruction_folder),  # ?
+                       "--result_dir", str(self.output_folder), "--ckpt", GAUSSIAN_MODEL_PT)
 
             run_script("add_rgb_color.py", "--input", str(GAUSSIAN_MODEL_PLY))
         

@@ -1,7 +1,7 @@
 import shutil
 from pathlib import Path
 from tqdm import tqdm
-from config import INPUT_DATA_FOLDER, GAUSSIAN_MODEL_PLY
+from .config import INPUT_DATA_FOLDER, GAUSSIAN_MODEL_PLY
 
 class FileManager:
     def __init__(self):

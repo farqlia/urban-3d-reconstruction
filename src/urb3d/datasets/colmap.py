@@ -7,7 +7,7 @@ import cv2
 import imageio.v2 as imageio
 import numpy as np
 import torch
-from src.urb3d.pycolmap_utils.scene_manager import SceneManager
+from urb3d.pycolmap_utils.scene_manager import SceneManager
 
 from .normalize import (
     align_principle_axes,

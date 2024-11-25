@@ -51,7 +51,7 @@ class PointCloudWidget(QWidget):
 def prepare_point_cloud(point_cloud, flip=False, normalize_colors=False):
     perc = np.percentile(point_cloud.points[['red', 'green', 'blue']], 99, 0)
 
-    if any(perc) > 1.0:
+    if normalize_colors:
 
         print("Normalize colors")
 

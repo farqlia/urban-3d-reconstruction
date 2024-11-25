@@ -27,6 +27,7 @@ def save_class_labels_in_ply(cloud, output_ply_path, class_labels):
     data['class_label'] = class_labels
 
     new_cloud = PyntCloud(data)
+    new_cloud.points.dropna(subset=['x', 'y', 'z'], inplace=True)
     new_cloud.to_file(output_ply_path)
 
 if __name__=="__main__":

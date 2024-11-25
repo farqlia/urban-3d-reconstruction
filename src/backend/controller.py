@@ -10,21 +10,24 @@ from urb3d.pipeline.config import INPUT_DATA_FOLDER, DATA_FOLDER, COLMAP_RECONST
 class Controller:
     def __init__(self, backend):
         self._build_info_handler = BuildInfoHandler()
-        self._point_cloud_build_handler = BuildHandler(backend._reconstruct_point_cloud, self.complete_build)
-        self._splats_build_handler = BuildHandler(backend._create_gaussian_model, self.complete_build)
-        self._categorization_handler = BuildHandler(lambda: None, lambda: None)
+        self._point_cloud_build_handler = BuildHandler(backend.reconstruct_point_cloud, lambda x: self.complete_build(x, "reconstruction"))
+        self._splats_build_handler = BuildHandler(backend.create_gaussian_model, lambda x: self.complete_build(x, "rendering"))
+        self._categorization_handler = BuildHandler(backend.run_segmentation, lambda x: self.complete_build(x, "segmentation"))
         self._dialog_handler = DialogHandler()
         self._tab_handler = TabHandler()
         self._renderer_handler = RendererHandler()
         self._settings_handler = SettingsHandler()
+        self.viz_type = None
 
-    def complete_build(self, info):
+    def complete_build(self, info, handler):
         if info is not None: # idk, if something returns then error
             self._build_info_handler.is_build_succ.data = True
         else:
             self._build_info_handler.is_build_fail.data = True
+
+        self.viz_type = handler
         self._renderer_handler.is_model.data = True
-        print(info)
+
 
     def cancel_build(self, info):
         self._build_info_handler.is_build_fail.data = True

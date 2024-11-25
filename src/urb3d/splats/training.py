@@ -24,15 +24,15 @@ from torchmetrics.image import PeakSignalNoiseRatio, StructuralSimilarityIndexMe
 from torchmetrics.image.lpip import LearnedPerceptualImagePatchSimilarity
 from typing_extensions import assert_never
 
-from src.urb3d.datasets.colmap import Dataset, Parser
-from src.urb3d.datasets.traj import (
+from urb3d.datasets.colmap import Dataset, Parser
+from urb3d.datasets.traj import (
     generate_interpolated_path,
     generate_ellipse_path_z,
     generate_spiral_path,
 )
-from src.urb3d.splats.config import Config
-from src.urb3d.splats.initialize import create_splats_with_optimizers
-from src.urb3d.splats.utils import AppearanceOptModule, CameraOptModule, set_random_seed
+from urb3d.splats.config import Config
+from urb3d.splats.initialize import create_splats_with_optimizers
+from urb3d.splats.utils import AppearanceOptModule, CameraOptModule, set_random_seed
 
 
 class Runner:
@@ -58,6 +58,7 @@ class Runner:
         self.stats_dir = f"{cfg.result_dir}/stats"
         os.makedirs(self.stats_dir, exist_ok=True)
         self.render_dir = f"{cfg.result_dir}/renders"
+        print(f"Renders dir {self.render_dir}")
         os.makedirs(self.render_dir, exist_ok=True)
 
         # Tensorboard

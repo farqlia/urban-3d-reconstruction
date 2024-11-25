@@ -1,5 +1,5 @@
-from config import SEGMENTED_PLY_PATH, COLORED_SEGMENTED_PLY_PATH, SEGMENTATION_MODEL_CKPT_PATH, GAUSSIAN_MODEL_PLY
-from utils import run_script
+from .config import SEGMENTED_PLY_PATH, COLORED_SEGMENTED_PLY_PATH, SEGMENTATION_MODEL_CKPT_PATH, GAUSSIAN_MODEL_PLY
+from .utils import run_script
 import os
 import open3d as o3d
 

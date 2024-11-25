@@ -1,17 +1,14 @@
-import os
-
 from PySide6.QtCore import QUrl
-from PySide6.QtWidgets import QFileDialog, QWidget
 from PySide6.QtQuick import QQuickWindow, QSGRendererInterface
+from PySide6.QtWidgets import QFileDialog
 from pyntcloud import PyntCloud
 
-from urb3d.pipeline.config import PNG_RENDERS_FOLDER
+from urb3d.pipeline.config import GAUSSIAN_MODEL_PLY, POINT_CLOUD_SPARSE, SEGMENTED_PLY_PATH, PNG_RENDERS_FOLDER, COLORED_SEGMENTED_PLY_PATH
 from urb3d.rendering.render_point_cloud import PointCloudWidget, prepare_point_cloud
-from .config import LOADING_WINDOW_FILE, FAIL_WINDOW_FILE, SUCC_WINDOW_FILE, SETTINGS_WINDOW
-from urb3d.pipeline.config import DATA_FOLDER, GAUSSIAN_MODEL_PLY
-from .views.main_window import MainWindow
-from .view_engine_manager import EngineManager
 from urb3d.rendering.slideshow import SlideshowWidget
+from .config import LOADING_WINDOW_FILE, FAIL_WINDOW_FILE, SUCC_WINDOW_FILE, SETTINGS_WINDOW
+from .view_engine_manager import EngineManager
+from .views.main_window import MainWindow
 
 
 class View:
@@ -55,17 +52,25 @@ class View:
 
     def _create_renderer(self):
 
-        renderer = SlideshowWidget(PNG_RENDERS_FOLDER)
-        self._main_view.configure_renderer(renderer)
+        print(self._controller.viz_type)
 
-        '''pc_file = str(self._controller.ply_path)
-        print(f"Rendering: {pc_file}")
-        if (os.path.exists(pc_file)):
-            pc = PyntCloud.from_file(pc_file)
-            prepare_point_cloud(pc, flip=True)
+        renderer = None
+        if self._controller.viz_type == "reconstruction":
+            pc = PyntCloud.from_file(str(POINT_CLOUD_SPARSE))
+            prepare_point_cloud(pc, flip=False, normalize_colors=True)
             renderer = PointCloudWidget(pc)
-            renderer.setStyleSheet("background-color: transparent")
-            self._main_view.configure_renderer(renderer)'''
+
+        elif self._controller.viz_type == "rendering":
+            renderer = SlideshowWidget(PNG_RENDERS_FOLDER)
+
+        elif self._controller.viz_type == "segmentation":
+            pc = PyntCloud.from_file(str(SEGMENTED_PLY_PATH))
+            prepare_point_cloud(pc, flip=True, normalize_colors=True)
+            renderer = PointCloudWidget(pc)
+
+        if renderer is not None:
+            print("Configure renderer")
+            self._main_view.configure_renderer(renderer)
 
 
     def _open_dialog(self):
