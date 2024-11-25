@@ -1,5 +1,5 @@
-from src.urb3d.pipeline.config import INPUT_DATA_FOLDER, DATA_FOLDER, SCENE_FOLDER, GAUSSIAN_MODEL_PT, \
-    GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_SEG_PLY, COLMAP_ENV
+from src.urb3d.config import INPUT_DATA_FOLDER, DATA_FOLDER, SCENE_FOLDER, GAUSSIAN_MODEL_PT, \
+    GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_SEG_PLY, COLMAP_ENV, CHECKPOINT_DIR
 from src.urb3d.pipeline.utils import run_script, run_script_with_env
 
 
@@ -10,16 +10,16 @@ class ModelProcessor:
         self.output_folder = DATA_FOLDER
         self.scene_folder = SCENE_FOLDER
         self.gaussian_pt_path = GAUSSIAN_MODEL_PT
+        # How to pass to controller currently viewed cloud?
         self.gaussian_ply_path = GAUSSIAN_MODEL_PLY
 
     def _reconstruct_point_cloud(self):
         if not self.output_folder.exists():
             run_script_with_env(COLMAP_ENV, "colmap_reconstruction.py", "--input", str(self.input_folder),
                  "--output", str(self.scene_folder))
-        self.gaussian_ply_path = GAUSSIAN_MODEL_PLY
 
     def _create_gaussian_model(self): 
-        if not self.gaussian_ply_path.exists():
+        if not GAUSSIAN_MODEL_PLY.exists():
             if not self.gaussian_pt_path.exists():
                 # Add arguments to trainer
                 run_script("simple_trainer.py", "--data_dir", str(self.output_folder),  #?
@@ -34,9 +34,14 @@ class ModelProcessor:
         run_script(r"gs_viewer.py", "--model_path",
                    self.gaussian_ply_path)
 
+        self.gaussian_ply_path = GAUSSIAN_MODEL_PLY
+
 
     def _segment(self):
-        print("_segment")
+        if not GAUSSIAN_MODEL_SEG_PLY.exists():
+            run_script("segmentation.py", "--ckpt", CHECKPOINT_DIR,
+                       "--input", self.gaussian_ply_path, "--output", GAUSSIAN_MODEL_SEG_PLY)
+
         self.gaussian_ply_path = GAUSSIAN_MODEL_SEG_PLY
 
     def run_full_reconstruction(self):

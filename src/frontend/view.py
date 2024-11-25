@@ -6,7 +6,7 @@ from PySide6.QtQuickWidgets import QQuickWidget
 from pyntcloud import PyntCloud
 
 from .config import LOADING_WINDOW_FILE, FAIL_WINDOW_FILE, SUCC_WINDOW_FILE, SETTINGS_WINDOW
-from src.urb3d.pipeline.config import DATA_FOLDER, GAUSSIAN_MODEL_PLY
+from src.urb3d.config import DATA_FOLDER, GAUSSIAN_MODEL_PLY
 from .views.main_window import MainWindow
 from .view_engine_manager import EngineManager
 from src.urb3d.rendering.render_point_cloud import prepare_point_cloud, PointCloudWidget
@@ -60,7 +60,9 @@ class View:
             pc = PyntCloud.from_file(pc_file)
             prepare_point_cloud(pc, flip=True)
             renderer = PointCloudWidget(pc)
-        
+            renderer.setStyleSheet("background-color: transparent")
+
+        # TODO
         if renderer is None:
             renderer = QWidget()
 

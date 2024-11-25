@@ -5,7 +5,7 @@ from .handlers.tab_handler import TabHandler
 from .handlers.renderer_handler import RendererHandler
 from .handlers.build_info_handler import BuildInfoHandler
 from .handlers.settings_handler import SettingsHandler
-from src.urb3d.pipeline.config import INPUT_DATA_FOLDER, DATA_FOLDER, SCENE_FOLDER, GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_PT
+from src.urb3d.config import INPUT_DATA_FOLDER, DATA_FOLDER, SCENE_FOLDER, GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_PT
 
 class Controller:
     def __init__(self, backend):

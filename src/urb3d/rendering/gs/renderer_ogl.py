@@ -125,8 +125,9 @@ class OpenGLRenderer(GaussianRenderBase):
         super().__init__()
         gl.glViewport(0, 0, w, h)
 
-        BASE_DIR = Path(__file__).resolve().parents[1]
+        # BASE_DIR = Path(__file__).resolve().parents[1]
 
+        BASE_DIR = Path(r"C:\Users\julia\PycharmProjects\urb3drecon\src\urb3d\rendering")
         self.program = util.load_shaders(str(BASE_DIR / 'gs/shaders/gau_vert.glsl'),
                                          str(BASE_DIR / 'gs/shaders/gau_frag.glsl'))
 

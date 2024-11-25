@@ -13,3 +13,4 @@ GAUSSIAN_MODEL_PT = BASE_DIR / os.getenv("GAUSSIAN_MODEL_PT_PATH")
 GAUSSIAN_MODEL_PLY = BASE_DIR / os.getenv("GAUSSIAN_MODEL_PLY_PATH")
 GAUSSIAN_MODEL_SEG_PLY = BASE_DIR / os.getenv("GAUSSIAN_MODEL_SEG_PLY_PATH")
 COLMAP_ENV = str(Path(os.getenv("COLMAP_ENV")))  # pycolmap must be downloaded with conda to use GPU
+CHECKPOINT_DIR = BASE_DIR / os.getenv("CHECKPOINT_DIR")
