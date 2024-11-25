@@ -5,20 +5,18 @@ from .handlers.tab_handler import TabHandler
 from .handlers.renderer_handler import RendererHandler
 from .handlers.build_info_handler import BuildInfoHandler
 from .handlers.settings_handler import SettingsHandler
-from src.urb3d.config import INPUT_DATA_FOLDER, DATA_FOLDER, SCENE_FOLDER, GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_PT
+from urb3d.pipeline.config import INPUT_DATA_FOLDER, DATA_FOLDER, COLMAP_RECONSTRUCTION_DIR, GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_PT
 
 class Controller:
     def __init__(self, backend):
         self._build_info_handler = BuildInfoHandler()
         self._point_cloud_build_handler = BuildHandler(backend._reconstruct_point_cloud, self.complete_build)
         self._splats_build_handler = BuildHandler(backend._create_gaussian_model, self.complete_build)
-        self._categorization_handler = BuildHandler(backend._segment, self.complete_build)
+        self._categorization_handler = BuildHandler(lambda: None, lambda: None)
         self._dialog_handler = DialogHandler()
         self._tab_handler = TabHandler()
         self._renderer_handler = RendererHandler()
         self._settings_handler = SettingsHandler()
-        self.ply_path = backend.gaussian_ply_path
-        self.backend = backend
 
     def complete_build(self, info):
         if info is not None: # idk, if something returns then error
@@ -26,7 +24,6 @@ class Controller:
         else:
             self._build_info_handler.is_build_fail.data = True
         self._renderer_handler.is_model.data = True
-        self.ply_path = self.backend.gaussian_ply_path
         print(info)
 
     def cancel_build(self, info):
@@ -56,7 +53,7 @@ class Controller:
         self._settings_handler.configure_env_var(n, v)
         n, v = self._dynamic_var_setter(DATA_FOLDER)
         self._settings_handler.configure_env_var(n, v)
-        n, v = self._dynamic_var_setter(SCENE_FOLDER)
+        n, v = self._dynamic_var_setter(COLMAP_RECONSTRUCTION_DIR)
         self._settings_handler.configure_env_var(n, v)
         n, v = self._dynamic_var_setter(GAUSSIAN_MODEL_PLY)
         self._settings_handler.configure_env_var(n, v)

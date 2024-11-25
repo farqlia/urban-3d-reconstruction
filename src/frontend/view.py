@@ -1,15 +1,17 @@
 import os
-from PySide6.QtCore import QObject, QUrl, Qt
-from PySide6.QtWidgets import QWidget, QFileDialog
+
+from PySide6.QtCore import QUrl
+from PySide6.QtWidgets import QFileDialog, QWidget
 from PySide6.QtQuick import QQuickWindow, QSGRendererInterface
-from PySide6.QtQuickWidgets import QQuickWidget
 from pyntcloud import PyntCloud
 
+from urb3d.pipeline.config import PNG_RENDERS_FOLDER
+from urb3d.rendering.render_point_cloud import PointCloudWidget, prepare_point_cloud
 from .config import LOADING_WINDOW_FILE, FAIL_WINDOW_FILE, SUCC_WINDOW_FILE, SETTINGS_WINDOW
-from src.urb3d.config import DATA_FOLDER, GAUSSIAN_MODEL_PLY
+from urb3d.pipeline.config import DATA_FOLDER, GAUSSIAN_MODEL_PLY
 from .views.main_window import MainWindow
 from .view_engine_manager import EngineManager
-from src.urb3d.rendering.render_point_cloud import prepare_point_cloud, PointCloudWidget
+from urb3d.rendering.slideshow import SlideshowWidget
 
 
 class View:
@@ -52,21 +54,19 @@ class View:
 
 
     def _create_renderer(self):
-        renderer = None
 
-        pc_file = str(self._controller.ply_path)
+        renderer = SlideshowWidget(PNG_RENDERS_FOLDER)
+        self._main_view.configure_renderer(renderer)
+
+        '''pc_file = str(self._controller.ply_path)
         print(f"Rendering: {pc_file}")
         if (os.path.exists(pc_file)):
             pc = PyntCloud.from_file(pc_file)
             prepare_point_cloud(pc, flip=True)
             renderer = PointCloudWidget(pc)
             renderer.setStyleSheet("background-color: transparent")
+            self._main_view.configure_renderer(renderer)'''
 
-        # TODO
-        if renderer is None:
-            renderer = QWidget()
-
-        self._main_view.configure_renderer(renderer)
 
     def _open_dialog(self):
         dialog = QFileDialog.getExistingDirectoryUrl(self._main_view, "Choose directory", "", QFileDialog.Option.ShowDirsOnly)
