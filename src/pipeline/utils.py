@@ -1,5 +1,5 @@
 from subprocess import run, CalledProcessError
-from config import SCRIPTS_DIR
+from .config import SCRIPTS_DIR
 
 def run_script(script_name, *args):
     try:

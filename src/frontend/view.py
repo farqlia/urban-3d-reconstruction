@@ -22,7 +22,7 @@ class View:
         self._main_view = MainWindow(self._engine_manager)
 
     def run(self):
-        # self._create_renderer()
+        self._create_renderer()
         self._main_view.show()
 
     def _configure_handlers(self):
@@ -56,7 +56,9 @@ class View:
             pc = PyntCloud.from_file(pc_file)
             prepare_point_cloud(pc)
             renderer = PointCloudGLWidget(pc.points)
+            print("HERE")
         
+        print("HERE")
         if renderer is None:
             renderer = QWidget()
 
