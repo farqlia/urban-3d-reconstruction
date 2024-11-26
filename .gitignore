@@ -267,3 +267,7 @@ pyrightconfig.json
 /data/
 /output
 /results/
+/.
+/lightning_logs/
+/models/
+/src/urb3d/pipeline/lightning_logs/
