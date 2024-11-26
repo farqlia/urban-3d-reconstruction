@@ -29,7 +29,7 @@ class PointSampler:  # Smarter way to sample point cloud?
 class PointCloudSegmentationDataset(Dataset):
 
     def __init__(self, point_cloud_path, subsample_size=None, point_sampler=None, ds_size=None):
-        self.point_sampler = point_sampler if point_sampler is not None else PointSampler(1024)
+        self.point_sampler = point_sampler if point_sampler else MockPointSampler()
         self.pt: PyntCloud = PyntCloud.from_file(point_cloud_path)
         # self.pt.points['scalar_class'] = -1  ## temp
         self.ds_size = ds_size
@@ -44,7 +44,7 @@ class PointCloudSegmentationDataset(Dataset):
 
     def get_pointcloud(self) -> PyntCloud:
         return self.pt
-
+    
     def __len__(self):
         # How to set the number of batches?
         return len(self.pt.points) // self.subsample_size if self.ds_size is None else self.ds_size
