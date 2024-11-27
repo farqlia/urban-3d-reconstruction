@@ -66,7 +66,7 @@ class ChunkedPointCloudDataset(Dataset):
     def __init__(self, chunk_dir, subsample_size=None, point_sampler=None):
         self.chunk_dir = chunk_dir
         self.chunk_files = sorted([os.path.join(chunk_dir, f) for f in os.listdir(chunk_dir) if f.endswith('.csv')])
-        self.subsample_size = subsample_size
+        self.subsample_size = subsample_size or 1024
         self.point_sampler = point_sampler or PointSampler(subsample_size)
 
     def __len__(self):
