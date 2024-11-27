@@ -1,3 +1,6 @@
+import os
+
+import pandas as pd
 from pyntcloud import PyntCloud
 import torch
 from torch.utils.data import Dataset
@@ -16,15 +19,16 @@ def min_max_standardize(coords):
     return x, y, z
 
 
-class PointSampler:  # Smarter way to sample point cloud?
-
+class PointSampler:
     def __init__(self, subsample_size):
         self.subsample_size = subsample_size
 
     def __call__(self, point_cloud):
-        indices = np.random.choice(point_cloud.index.values, size=self.subsample_size, replace=False)
-        sampled_points = point_cloud.loc[indices]
-        return sampled_points
+        # Work directly on tensors for efficiency
+        total_points = point_cloud.shape[0]
+        indices = torch.randperm(total_points)[:self.subsample_size]
+        return point_cloud[indices]
+
 
 class PointCloudSegmentationDataset(Dataset):
 
@@ -55,4 +59,38 @@ class PointCloudSegmentationDataset(Dataset):
         sampled_cloud = self.point_sampler(self.pt.points[['x_norm', 'y_norm', 'z_norm', self.label]])
         sampled_points = torch.tensor(sampled_cloud[['x_norm', 'y_norm', 'z_norm']].values, device=device)
         labels = torch.tensor(sampled_cloud[[self.label]].values, device=device, dtype=torch.long).flatten()
+        return sampled_points.T, labels
+
+
+class ChunkedPointCloudDataset(Dataset):
+    def __init__(self, chunk_dir, subsample_size=None, point_sampler=None):
+        self.chunk_dir = chunk_dir
+        self.chunk_files = sorted([os.path.join(chunk_dir, f) for f in os.listdir(chunk_dir) if f.endswith('.csv')])
+        self.subsample_size = subsample_size
+        self.point_sampler = point_sampler or PointSampler(subsample_size)
+
+    def __len__(self):
+        return len(self.chunk_files)
+
+    def __getitem__(self, idx):
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        # Load the specific chunk
+        chunk = pd.read_csv(self.chunk_files[idx])
+
+        # Normalize and convert to tensor
+        x, y, z = min_max_standardize(chunk[['x', 'y', 'z']])
+        points = torch.tensor(np.column_stack([x, y, z]), dtype=torch.float32)
+
+        # Handle labels
+        label_col = 'class' if 'class' in chunk.columns else 'scalar_class'
+        labels = torch.tensor(chunk[label_col].values, dtype=torch.long)
+
+        # Combine points and labels
+        point_cloud_with_labels = torch.cat([points, labels.unsqueeze(-1)], dim=-1).to(device)
+
+        # Sample the data
+        sampled_cloud = self.point_sampler(point_cloud_with_labels)
+        sampled_points = sampled_cloud[:, :3]  # Extract coordinates
+        labels = sampled_cloud[:, 3].long()  # Extract labels
+
         return sampled_points.T, labels
