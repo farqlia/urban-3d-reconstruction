@@ -87,7 +87,7 @@ Rectangle {
     }
     RoundButton_ {
         id: buttonRun
-        icon.source: "../icons/run.png"
+        icon.source: "../icons/play.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
         background: null
