@@ -75,7 +75,7 @@ ComboBox {
         background: Rectangle {
             color: ColorConst.primaryColor
             border.color: ColorConst.secondaryColor
-            border.width: 5
+            border.width: 2
             radius: 10
         }
     }
