@@ -9,4 +9,5 @@ QtObject {
     readonly property color positiveColor: "#98C379"
     readonly property color informativeColor: "#E5C07B"
     readonly property color negativeColor: "#E06C75"
+    readonly property color hoverColor: "#FFFFFF"
 }

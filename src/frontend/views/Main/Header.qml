@@ -68,6 +68,8 @@ Rectangle {
         icon.source: "../icons/folder.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
+        icon.color: buttonFiles.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
+
         onClicked: {
             selectedTab.data = 0
         }
@@ -77,6 +79,7 @@ Rectangle {
         icon.source: "../icons/equalizer.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
+        icon.color: buttonParams.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
         onClicked: {
             selectedTab.data = 1
         }
@@ -90,7 +93,8 @@ Rectangle {
         icon.source: "../icons/play.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
-        background: null
+        icon.color: buttonRun.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
+
         onClicked: {
             switch (optionBuildMode.currentText) {
                 case LangConst.comboBoxPointCloud:
@@ -115,6 +119,8 @@ Rectangle {
         icon.source: "../icons/cog.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
+        icon.color: buttonSettings.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
+
         onClicked: {
             isSettingsOpen.data = true
         }
@@ -124,5 +130,6 @@ Rectangle {
         icon.source: "../icons/info.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
+        icon.color: buttonInfo.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
     }
 }

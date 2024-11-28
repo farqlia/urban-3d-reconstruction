@@ -54,7 +54,7 @@ ComboBox {
         highlighted: comboBox.highlightedIndex == index
 
         background: Rectangle {
-            color: highlighted ? ColorConst.informativeColor : "transparent"
+            color: highlighted ? ColorConst.hoverColor : "transparent"
             radius: 10
         }
     }
