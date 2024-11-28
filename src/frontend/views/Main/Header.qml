@@ -26,7 +26,6 @@ Rectangle {
             height: FormatConst.headerButtonSize
         }
 
-        Spacer_ {}
 
         LayoutItemProxy {
             target: optionBuildMode
@@ -39,16 +38,15 @@ Rectangle {
             width: FormatConst.headerButtonSize
             height: FormatConst.headerButtonSize
         }
+        Spacer_{}
 
         LayoutItemProxy {
             target: titleCard
             width: FormatConst.headerTitleCardWidth
             height: FormatConst.headerTitleCardHeight
+            anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        Spacer_ {}
-        Spacer_ {}
-        Spacer_ {}
 
         LayoutItemProxy {
             target: buttonSettings
