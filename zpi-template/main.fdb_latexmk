@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1732739831.68469 "main.aux" "main.bbl" "main" 1732739831.98395 2
-  "./references.bib" 1732482707 2872 6e6528a26398d370e4a6c5e38bdb5899 ""
+["bibtex main"] 0 "main.aux" "main.bbl" "main" 1732829239.74536 -1
+  "./references.bib" 1732827429 2870 c7e47605e701e139994bc2a370f10b6e ""
   "C:/Users/julia/AppData/Local/Programs/MiKTeX/bibtex/bst/bibtex/plain.bst" 1291864736 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "main.aux" 1732739831 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "main.aux" 1732829238 3307 7ac87d899c7129e88ed298f0ecc30159 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1732739828.269 "c:/Users/julia/PycharmProjects/substitutive-urb3d/zpi-template/main.tex" "main.pdf" "main" 1732739831.04002 2
-  "C:/Users/julia/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1732300048 224935 8febe6bf4449ba19894032416258d59f ""
+["pdflatex"] 1732829236.73959 "c:/Users/julia/PycharmProjects/substitutive-urb3d/zpi-template/main.tex" "main.pdf" "main" 1732829239.74604 2
+  "C:/Users/julia/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1732828830 224935 8febe6bf4449ba19894032416258d59f ""
   "C:/Users/julia/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1729316665 24225047 90bf4ecf3c436d80c3ac0c55507dd78b ""
   "C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fira/fir_d67aat.enc" 1570720075 3385 21a7e8c8dac3c39de5acda2c56e7bd7e ""
   "C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fira/fir_iln36p.enc" 1570720078 3071 cfa92ee28d698dd9275559d9d1c3a233 ""
@@ -206,7 +206,7 @@
   "C:/Users/julia/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/julia/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
   "C:/Users/julia/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656233319 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
-  "c:/Users/julia/PycharmProjects/substitutive-urb3d/zpi-template/main.tex" 1732739604 2088 d501b950317c9be3bb1c81404e278849 ""
+  "c:/Users/julia/PycharmProjects/substitutive-urb3d/zpi-template/main.tex" 1732828852 2090 e3c31113848f9e629ac9d6f926c275cc ""
   "images/UI-Rendering.png" 1732739653 86486 2464998091ceae401f48a8408c12446a ""
   "images/ZPI-Day-cmyk.pdf" 1732482707 104058 bb1410c99ff22a479b96b684cf110e68 ""
   "images/c5_mouse_0001.png" 1732482707 5559539 0617e52b3852dfa2e70f860333330db4 ""
@@ -218,16 +218,16 @@
   "images/sks_dataset_3.jpg" 1732739604 670157 8066466159e882e7595911cab7a5d41e ""
   "images/sks_dataset_4.jpg" 1732739604 833568 c342bb679ed7bc54b4f6899d9818f37e ""
   "images/sks_viper_0008.png" 1732482707 7097437 08a9d8fcc762abf20b226fa8d2a5b824 ""
-  "main.aux" 1732739831 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "main.bbl" 1732739831 0 d41d8cd98f00b204e9800998ecf8427e "bibtex main"
-  "main.out" 0 -1 0 "pdflatex"
-  "main.tex" 1732739604 2088 d501b950317c9be3bb1c81404e278849 ""
+  "main.aux" 1732829238 3307 7ac87d899c7129e88ed298f0ecc30159 "pdflatex"
+  "main.bbl" 1732827677 0 d41d8cd98f00b204e9800998ecf8427e "bibtex main"
+  "main.out" 1732829238 1067 a38fe33912dcbf45c11c88978410c8c6 "pdflatex"
+  "main.tex" 1732828852 2090 e3c31113848f9e629ac9d6f926c275cc ""
   "podsumowanie.tex" 1732482707 33 566e500c58104f8111eb30af1cf2136b ""
   "rozwiniecie_wstep.tex" 1732482707 1440 917548303816befb0800addc42abc750 ""
-  "stan_nauki.tex" 1732482707 1921 1f834130ab77a54bf2c5eb460cd24fa8 ""
+  "stan_nauki.tex" 1732827675 2079 2bcc7daabd711d8479c30b3a212aeaf5 ""
   "wyniki.tex" 1732739762 332 9793072db4b932f078c55cdd656c36a7 ""
   "wyniki/akwizycja.tex" 1732739604 1841 1a908358faa67575267d3fbe66a225b4 ""
-  "wyniki/gaussian_splatting.tex" 1732739715 2852 e05237ff0700a150cbe296608266c1bf ""
+  "wyniki/gaussian_splatting.tex" 1732829232 2499 6587c6e3765073fe34bc7d4bcae40e10 ""
   "wyniki/rekonstrukcja.tex" 1732739604 1377 3044def0cd95dc7e455d570d42d5b9b3 ""
   "wyniki/segmentacja.tex" 1732482707 24 5e4bf90c93b22492102a400c9bc9a6b9 ""
   "wyniki/wizualizacja.tex" 1732739827 2393 aa1fb5fc5c49174c2a452b805d491585 ""

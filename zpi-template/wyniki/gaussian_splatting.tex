@@ -1,23 +1,14 @@
 \subsection{Gaussian Splatting}
-Przy pomocy biblioteki \textit{gsplat}\cite{ye2024gsplatopensourcelibrarygaussian} implementującej Gaussian Splatting w Pythonie wykonaliśmy eksperymenty polegające na uruchomeniu algorytmu dla różnych wartości hiperparametrów w celu znalezienia optymalnych dla nich wartości. 
-
-\textbf{Działanie algorytmu}
-
-Na wejściu otrzymywana jest chmura punktów uzyskana w procesie rekonstrukcji, która jest bazą do dalszego dzielenia i powstawania "gaussianów", a ich parametry: pozycja, kolor, skala i rotacja są optymalizowane przy pomocy metody spadku wzdłuż gradientu. 
-
-
-\textbf{Znaczenie wartości hiperparametrów}
+Przy pomocy biblioteki \textit{gsplat}\cite{ye2024gsplatopensourcelibrarygaussian} implementującej Gaussian Splatting w Pythonie wykonaliśmy eksperymenty polegające na uruchomeniu algorytmu dla różnych wartości hiperparametrów w celu znalezienia optymalnych wartości. Jest to o tyle istotne, że jego działanie może być niewydajne w kontekście czasu trenowania i wykorzystania pamięci, nawet przy wykorzystaniu GPU. 
+Na wejściu algorytmu podawana jest otrzymywana w procesie rekonstrukcji chmura punktów, która jest bazą do dalszego dzielenia i powstawania "gaussianów", a ich parametry: pozycja, kolor, skala i rotacja są optymalizowane przy pomocy metody spadku wzdłuż gradientu.
+Najważniejszymi sterującymi procesem parametrami są 
 \begin{enumerate}
     \item Liczba Gaussianów: w przypadku scen urbanistycznych w celu oddania odpowieniej szczegółowości potrzebne jest parę milionów Gaussianów, dla naszych scen było to zwykle 3 mln.
-    \item Strategia adaptacji: jej wybór jest istotny gdyż określa sposób dodawania i usuwania Gaussianów oraz wpływa na jakość sceny. Możliwe są dwa wybory: "default" i "mcmc".
-    \item Częstość adaptacji: wpływa na tempo wzrostu liczby gaussianów, wybrana wartość zależy od strategii i powinna być mniejsza niż 500 dla "mcmc" i większa niż 500 dla "default"
+    \item Strategia i częstość adaptacji: określają w jaki sposób oraz jak często dodawane i usuwane są Gaussiany.
     \item Liczba iteracji: zwykle im dłużej trenowana jest scena tym lepsze wyniki otrzymujemy, jednak zależy to również od przyjętej strategii. Liczba ta wpływa bezpośrednio na czas trenowania, powinna wynieść nie mniej niż paręnaście tysięcy.
-    \item Stopień zmiennych harmonicznych: zmienne harmoniczne wyrażają kolor, im większy stopień tym lepsza jakość sceny, ale też zwiększone zużycie pamięci.  
+    \item Stopień zmiennych harmonicznych: wyrażają one kolor, im większy stopień tym lepsza jakość sceny, ale też zwiększone zużycie pamięci.  
 \end{enumerate}
-
-\textbf{Proces optymalizacji}
-
-Głównymi metrykami przyjętymi do oceny jakości są SSIM (Structural Similarity Index Measure), PSNR (Peak Signal-to-Noise Ratio) oraz LPIPS (Learned Perceptual Image Patch Similarity). Warto podkreślić, że czas trenowania wynosi zwyklę parę godzin w zależności od przyjętych ustawień, a do procesu trenowania potrzebna jest CUDA. 
+Metrykami przyjętymi do oceny jakości są SSIM (Structural Similarity Index Measure), PSNR (Peak Signal-to-Noise Ratio) oraz LPIPS (Learned Perceptual Image Patch Similarity). 
 
 \textbf{Przykładowe wizualizacje}
 
