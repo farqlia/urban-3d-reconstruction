@@ -20,10 +20,11 @@ class Controller:
         self.viz_type = None
 
     def complete_build(self, info, handler):
-        if info is not None: # idk, if something returns then error
-            self._build_info_handler.is_build_succ.data = True
-        else:
-            self._build_info_handler.is_build_fail.data = True
+
+        # if info is not None: # idk, if something returns then error
+          #   self._build_info_handler.is_build_succ.data = True
+        # else:
+          #   self._build_info_handler.is_build_fail.data = True
 
         self.viz_type = handler
         self._renderer_handler.is_model.data = True

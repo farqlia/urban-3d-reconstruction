@@ -61,10 +61,21 @@ if __name__ == "__main__":
     parser.add_argument("--data_dir", type=str, help="Path to the data directory.", required=True)
     parser.add_argument("--result_dir", type=str, help="Path to the results directory.", required=True)
 
-    parser.add_argument("--data_factor", type=int, default=1, help="Data factor.")
-    parser.add_argument("--init_type", type=str, default="sfm", help="Initialization type.", choices=["sfm", "random"])
+    # -------------- ARGUMENTS FOR USER ----------------------
     parser.add_argument("--strategy", type=str, default="default", help="Strategy type.", choices=["default", "mcmc"])
     parser.add_argument("--max_steps", type=int, default=100_000, help="Maximum number of steps.")
+    # Only for MCMC
+    parser.add_argument("--cap_max", type=int, default=3_000_000,
+                        help="Maximum cap for MCMC gaussians. [strategy=mcmc]")
+    parser.add_argument("--refine_every", type=int, default=100, help="Refine frequency (iterations).")  # tune?
+
+    parser.add_argument("--sh_degree_interval", type=int, default=5_000,
+                        help="Add spherical harmonics degree interval.")
+
+    # -------------- END ARGUMENTS FOR USER ----------------------
+
+    parser.add_argument("--data_factor", type=int, default=1, help="Data factor.")
+    parser.add_argument("--init_type", type=str, default="sfm", help="Initialization type.", choices=["sfm", "random"])
     parser.add_argument("--init_num_pts", type=int, default=300_000, help="Initial number of points (only for random).")
     parser.add_argument("--delta_steps", type=int, default=2_500, help="Delta steps for evaluation and saving.")
     parser.add_argument("--scale_reg", type=float, default=0.01, help="Scale regularization value.")
@@ -72,17 +83,11 @@ if __name__ == "__main__":
 
     # For default & MCMC strategies
     parser.add_argument("--min_opacity", type=float, default=0.005, help="Minimum opacity.")
-    parser.add_argument("--refine_every", type=int, default=100, help="Refine frequency (iterations).") # tune?
     parser.add_argument("--refine_start_iter", type=int, default=100, help="Refinement start iteration.")
 
     # Only for default
     parser.add_argument("--reset_every", type=int, default=3_000, help="Reset opacities every this steps. [strategy=default]")
     parser.add_argument("--pause_refine_after_reset", type=int, default=0, help="Pause refining GSs until this number of steps after reset. [strategy=default]")
-
-    # Only for MCMC
-    parser.add_argument("--cap_max", type=int, default=3_000_000, help="Maximum cap for MCMC gaussians. [strategy=mcmc]")
-
-    parser.add_argument("--sh_degree_interval", type=int, default=5_000, help="Add spherical harmonics degree interval.")
     parser.add_argument("--init_scale", type=float, default=1.0, help="Initial scale.")
     parser.add_argument("--init_opa", type=float, default=0.5, help="Initial opacity.")
 
