@@ -64,8 +64,8 @@ class View:
             renderer = SlideshowWidget(PNG_RENDERS_FOLDER)
 
         elif self._controller.viz_type == "segmentation":
-            pc = PyntCloud.from_file(str(SEGMENTED_PLY_PATH))
-            prepare_point_cloud(pc, flip=True, normalize_colors=True)
+            pc = PyntCloud.from_file(str(COLORED_SEGMENTED_PLY_PATH))
+            prepare_point_cloud(pc, flip=False, normalize_colors=True)
             renderer = PointCloudWidget(pc)
 
         if renderer is not None:
@@ -84,7 +84,7 @@ class View:
     def _build_succ(self):
         self._close_progress_bar()
         self._open_succ_window()
-        
+
     def _build_fail(self):
         self._close_progress_bar()
         self._open_fail_window()

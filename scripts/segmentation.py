@@ -7,7 +7,7 @@ from urb3d.segmentation.dataset import PointCloudSegmentationDataset
 import numpy as np
 
 def run(segmentor_ckpt_path, input_ply_path, output_ply_path):
-    model = PointNetSegmentor.load_from_checkpoint(segmentor_ckpt_path)
+    model = PointNetSegmentor.load_from_checkpoint(segmentor_ckpt_path, strict=False)
     dataset = PointCloudSegmentationDataset(input_ply_path)
     data_loader = DataLoader(dataset)
     trainer = pl.Trainer()
@@ -24,6 +24,7 @@ def save_class_labels_in_ply(cloud, output_ply_path, class_labels):
         raise ValueError("Number of class labels must match the number of points in the .ply file.")
 
     class_labels = np.array(class_labels, dtype=np.int32)
+    data.drop('scalar_class', axis=1, inplace=True)
     data['class_label'] = class_labels
 
     new_cloud = PyntCloud(data)
