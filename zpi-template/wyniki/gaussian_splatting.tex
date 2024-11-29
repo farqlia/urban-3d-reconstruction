@@ -1,17 +1,17 @@
 \subsection{Gaussian Splatting}
-Przy pomocy biblioteki \textit{gsplat}\cite{ye2024gsplatopensourcelibrarygaussian} zawierającej implementację \textit{Gaussian Splatting} w Pythonie wykonaliśmy eksperymenty polegające na uruchomeniu algorytmu dla różnych wartości hiperparametrów w celu znalezienia wartości które prowadzą do jak najbardziej optymalnego procesu trenowania w kontekście czasu trwania i wykorzystania pamięci. 
+Przy pomocy biblioteki \textit{gsplat}\cite{ye2024gsplatopensourcelibrarygaussian} zawierającej implementację \textit{Gaussian Splatting} w Pythonie wykonane zostały eksperymenty polegające na uruchomeniu algorytmu dla różnych wartości hiperparametrów w celu znalezienia wartości które prowadzą do jak najbardziej optymalnego procesu trenowania w kontekście czasu trwania i wykorzystania pamięci. 
 
 Na wejściu algorytmu podawana jest chmura punktów, która jest bazą do dalszego dzielenia i powstawania gaussianów, a ich parametry: pozycja, kolor, skala i rotacja są optymalizowane przy pomocy metody spadku wzdłuż gradientu. Metryki przyjęte do oceny jakości to \textbf{SSIM} (Structural Similarity Index Measure), \textbf{PSNR} (Peak Signal-to-Noise Ratio) oraz \textbf{LPIPS} (Learned Perceptual Image Patch Similarity).
 
-W wyniku przeprowadzenia eksperymentów okazało się, że najważniejszymi sterującymi procesem parametrami są 
+Wykonane eksperymenty pokazały, że najważniejsze parametry dla przebiegu procesu to: 
 \begin{enumerate}
-    \item Liczba Gaussianów: w przypadku scen urbanistycznych w celu oddania odpowieniej szczegółowości potrzebne jest parę milionów Gaussianów, dla naszych scen było to zwykle 3 mln.
-    \item Strategia i częstość adaptacji: określają w jaki sposób oraz jak często dodawane i usuwane są Gaussiany. 
-    \item Liczba iteracji: zwykle im dłużej trenowana jest scena tym lepsze wyniki otrzymujemy, jednak zależy to również od przyjętej strategii. Liczba ta wpływa bezpośrednio na czas trenowania, powinna wynieść nie mniej niż paręnaście tysięcy.
-    \item Stopień zmiennych harmonicznych: wyrażają one kolor, im większy stopień tym lepsza jakość sceny, ale też zwiększone zużycie pamięci i wydłużony czas trenowania. 
+    \item liczba Gaussianów: w przypadku scen urbanistycznych w celu oddania odpowieniej szczegółowości potrzebne jest kilka milionów Gaussianów,
+    \item strategia i częstość adaptacji: określają w jaki sposób oraz jak często dodawane i usuwane są Gaussiany, 
+    \item liczba iteracji: zwykle im dłużej trenowana jest scena tym wyniki są lepsze, jednak zależy to również od przyjętej strategii. Liczba ta wpływa bezpośrednio na czas trenowania, powinna wynieść nie mniej niż kilkanaście tysięcy,
+    \item stopień zmiennych harmonicznych: wyrażają one kolor, im większy stopień tym lepsza jakość sceny, ale też zwiększone zużycie pamięci i wydłużony czas trenowania. 
 \end{enumerate}
 
-Poniżej przedstawione są przykładowe wizualizacje oraz całościowe wyniki dla naszych scen testowych. Renderowania zostały wykonane przy pomocy biblioteki \textit{nerfview} która również służy do wizualizacji splatów. Na poniższych rysunkach są od lewej do prawej: prawdziwe zdjęcie i widok modelu.
+Ilustracje \ref{fig:sks_gs}, \ref{fig:c5_gs} oraz \ref{fig:sks_gs} przedstawiają przykładowe wizualizacje (od lewej do prawej: prawdziwe zdjęcie i widok modelu), a tabela \ref{table:tab_gs_res} zawiera wybrane wielkości dla scen testowych. Renderowania zostały wykonane przy pomocy biblioteki \textit{nerfview} która również służy do wizualizacji splatów.
 
 \begin{figure}[!h]
     \centering
@@ -48,5 +48,5 @@ Poniżej przedstawione są przykładowe wizualizacje oraz całościowe wyniki dl
     \hline
     \end{tabular}
 \caption{Całościowe metryki dla testowych scen. Otrzymane wartości PSNR, SSIM oraz LPIPS zwykle świadczą o dobrej jakości scenie, która oddaje wystarczające szczegóły i wygładzone artefakty.}
-\label{table:tab_conf_sks}
+\label{table:tab_gs_res}
 \end{table}
