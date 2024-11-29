@@ -26,7 +26,6 @@ Rectangle {
             height: FormatConst.headerButtonSize
         }
 
-        Spacer_ {}
 
         LayoutItemProxy {
             target: optionBuildMode
@@ -39,16 +38,15 @@ Rectangle {
             width: FormatConst.headerButtonSize
             height: FormatConst.headerButtonSize
         }
+        Spacer_{}
 
         LayoutItemProxy {
             target: titleCard
             width: FormatConst.headerTitleCardWidth
             height: FormatConst.headerTitleCardHeight
+            anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        Spacer_ {}
-        Spacer_ {}
-        Spacer_ {}
 
         LayoutItemProxy {
             target: buttonSettings
@@ -68,6 +66,8 @@ Rectangle {
         icon.source: "../icons/folder.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
+        icon.color: buttonFiles.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
+
         onClicked: {
             selectedTab.data = 0
         }
@@ -77,6 +77,7 @@ Rectangle {
         icon.source: "../icons/equalizer.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
+        icon.color: buttonParams.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
         onClicked: {
             selectedTab.data = 1
         }
@@ -87,10 +88,11 @@ Rectangle {
     }
     RoundButton_ {
         id: buttonRun
-        icon.source: "../icons/run.png"
+        icon.source: "../icons/play.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
-        background: null
+        icon.color: buttonRun.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
+
         onClicked: {
             switch (optionBuildMode.currentText) {
                 case LangConst.comboBoxPointCloud:
@@ -115,6 +117,8 @@ Rectangle {
         icon.source: "../icons/cog.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
+        icon.color: buttonSettings.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
+
         onClicked: {
             isSettingsOpen.data = true
         }
@@ -124,5 +128,6 @@ Rectangle {
         icon.source: "../icons/info.png"
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
+        icon.color: buttonInfo.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
     }
 }

@@ -4,10 +4,10 @@ import QtQuick
 QtObject {
     readonly property int backgroundZ: 0
     readonly property int defaultZ: 1
-    readonly property int defaultSpacing: 40
+    readonly property int defaultSpacing: 20
     readonly property int defaultMargin: 20
     readonly property int defaultPadding: 10
-    readonly property int defaultBorderWeight: 5
+    readonly property int defaultBorderWeight: 2
     readonly property int smallMargin: 10
     readonly property int smallPadding: 5
     readonly property int largeFontSize: 20

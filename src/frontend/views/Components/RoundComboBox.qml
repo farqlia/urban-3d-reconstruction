@@ -18,7 +18,7 @@ ComboBox {
     }
 
     indicator: Item {
-        x: comboBox.width - width - comboBox.rightPadding
+        x: comboBox.width - width - comboBox.rightPadding - 5
         y: comboBox.topPadding + (comboBox.availableHeight - height) / 2
         width: 15
         height: 15
@@ -44,6 +44,7 @@ ComboBox {
         required property int index
 
         width: comboBox.width
+        padding: 8
         contentItem: Text {
             text: delegate.model[comboBox.textRole]
             color: highlighted ? ColorConst.primaryColor : ColorConst.secondaryColor
@@ -53,7 +54,7 @@ ComboBox {
         highlighted: comboBox.highlightedIndex == index
 
         background: Rectangle {
-            color: highlighted ? ColorConst.informativeColor : "transparent"
+            color: highlighted ? ColorConst.hoverColor : "transparent"
             radius: 10
         }
     }
@@ -75,7 +76,7 @@ ComboBox {
         background: Rectangle {
             color: ColorConst.primaryColor
             border.color: ColorConst.secondaryColor
-            border.width: 5
+            border.width: 2
             radius: 10
         }
     }
