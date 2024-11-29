@@ -1,5 +1,16 @@
 \section{Wyniki}
 
+\subsection{Funkcjonalność oprogramowania}
+
+Modularność naszego projektu sprawia, że wygodniej jest omówić niezależnie każdą z części. Dla jasności, przebieg całego procesu jest następujący:
+\begin{enumerate}
+    \item Wczytanie plików zdjęć.
+    \item Rekonstrukcja SFM do chmury punktów, która jest podstawą do kolejnego etapu.
+    \item Wytrenowanie modelu sceny przy pomocy algorytmu Gaussian Splatting.
+    \item Filtracja, następnie segmentacja chmury punktów z poprzedniego kroku.
+\end{enumerate}
+Każda funkcjonalność, jak i wizualizacje wyników poszczególnych zadań są dostępne poprzez interfejs użytkownika. 
+
 \input{wyniki/akwizycja.tex}
 
 \input{wyniki/rekonstrukcja.tex}

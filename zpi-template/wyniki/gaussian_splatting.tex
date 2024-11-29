@@ -1,7 +1,7 @@
 \subsection{Gaussian Splatting}
-Przy pomocy biblioteki \textit{gsplat}\cite{ye2024gsplatopensourcelibrarygaussian} zawierającej implementację \textit{Gaussian Splatting} w Pythonie wykonaliśmy eksperymenty polegające na uruchomeniu algorytmu dla różnych wartości hiperparametrów w celu znalezienia wartości, które prowadzą do jak najbardziej optymalnego procesu trenowania w kontekście czasu trwania i wykorzystania pamięci. 
+Przy pomocy biblioteki \textit{gsplat}\cite{ye2024gsplatopensourcelibrarygaussian} zawierającej implementację \textit{Gaussian Splatting} w Pythonie wykonaliśmy eksperymenty polegające na uruchomeniu algorytmu dla różnych wartości hiperparametrów w celu znalezienia wartości które prowadzą do jak najbardziej optymalnego procesu trenowania w kontekście czasu trwania i wykorzystania pamięci. 
 
-Na wejściu algorytmu podawana jest otrzymywana w procesie rekonstrukcji chmura punktów, która jest bazą do dalszego dzielenia i powstawania "gaussianów", a ich parametry: pozycja, kolor, skala i rotacja są optymalizowane przy pomocy metody spadku wzdłuż gradientu. Metryki przyjęte do oceny jakości to SSIM (Structural Similarity Index Measure), PSNR (Peak Signal-to-Noise Ratio) oraz LPIPS (Learned Perceptual Image Patch Similarity).
+Na wejściu algorytmu podawana jest chmura punktów, która jest bazą do dalszego dzielenia i powstawania gaussianów, a ich parametry: pozycja, kolor, skala i rotacja są optymalizowane przy pomocy metody spadku wzdłuż gradientu. Metryki przyjęte do oceny jakości to \textbf{SSIM} (Structural Similarity Index Measure), \textbf{PSNR} (Peak Signal-to-Noise Ratio) oraz \textbf{LPIPS} (Learned Perceptual Image Patch Similarity).
 
 W wyniku przeprowadzenia eksperymentów okazało się, że najważniejszymi sterującymi procesem parametrami są 
 \begin{enumerate}
@@ -11,7 +11,7 @@ W wyniku przeprowadzenia eksperymentów okazało się, że najważniejszymi ster
     \item Stopień zmiennych harmonicznych: wyrażają one kolor, im większy stopień tym lepsza jakość sceny, ale też zwiększone zużycie pamięci i wydłużony czas trenowania. 
 \end{enumerate}
 
-Poniżej przedstawione są przykładowe wizualizacje. Renderowania zostały wykonane przy pomocy biblioteki nerfview która również służy do wizualizacji splatów. Na poniższych rysunkach są od lewej do prawej: prawdziwe zdjęcie i widok modelu.
+Poniżej przedstawione są przykładowe wizualizacje oraz całościowe wyniki dla naszych scen testowych. Renderowania zostały wykonane przy pomocy biblioteki \textit{nerfview} która również służy do wizualizacji splatów. Na poniższych rysunkach są od lewej do prawej: prawdziwe zdjęcie i widok modelu.
 
 \begin{figure}[!h]
     \centering
@@ -38,15 +38,15 @@ Poniżej przedstawione są przykładowe wizualizacje. Renderowania zostały wyko
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|}
     \hline
-    scena & PSNR & SSIM & LPIPS & liczba gaussianów & czas trenowania & pamięć (MB) \\
+    scena & PSNR & SSIM & LPIPS & liczba gaussianów & czas trenowania & pamięć pliku (MB) \\
     \hline 
     SKS & 22.03 & 0.71 & 0.25 & 2,937,549 & 2h53m & 661 \\
     \hline 
-    C5 & 21.64 & 0.70 & 0.37 & 3,000,000 & 2h40m & 675 \\
+    C5 & 21.98 & 0.71 & 0.26 & 4,564,464 & 10h40m & 675 \\
     \hline 
-    C7 & 22.63 & 0.72 & 0.29 & 3,000,000 & 0h0m & 0\\
+    C7 & 22.63 & 0.72 & 0.29 & 3,000,000 & 15h15m & 675 \\
     \hline
     \end{tabular}
-\caption{Całościowe metryki dla testowych scen}
+\caption{Całościowe metryki dla testowych scen. Otrzymane wartości PSNR, SSIM oraz LPIPS zwykle świadczą o dobrej jakości scenie, która oddaje wystarczające szczegóły i wygładzone artefakty.}
 \label{table:tab_conf_sks}
 \end{table}
