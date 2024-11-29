@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.10.19)  22 NOV 2024 20:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.10.19)  28 NOV 2024 22:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/julia/PycharmProjects/substitutive-urb3d/doc/main.tex
-(c:/Users/julia/PycharmProjects/substitutive-urb3d/doc/main.tex
+**c:/Users/julia/PycharmProjects/urban-3d-reconstruction/doc/main.tex
+(c:/Users/julia/PycharmProjects/urban-3d-reconstruction/doc/main.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -832,7 +832,6 @@ LaTeX Font Info:    ... okay on input line 79.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 79.
 LaTeX Font Info:    ... okay on input line 79.
 Package hyperref Info: Link coloring OFF on input line 79.
- (main.out) (main.out)
 \@outlinefile=\write7
 \openout7 = `main.out'.
 
@@ -911,89 +910,102 @@ Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count475
  (tytul.tex [1
 
-{C:/Users/julia/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plrm.enc}]) (main.toc
-LaTeX Font Info:    Trying to load font information for OML+plm on input line 2.
- (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/polski\omlplm.fd
-File: omlplm.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
-)
-LaTeX Font Info:    Trying to load font information for OMS+plsy on input line 2.
- (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/polski\omsplsy.fd
-File: omsplsy.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
-)
-LaTeX Font Info:    Trying to load font information for OMX+plex on input line 2.
- (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/polski\omxplex.fd
-File: omxplex.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
-)
-LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <10> on input line 2.
-LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <7> on input line 2.
-LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <5> on input line 2.
-)
+{C:/Users/julia/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plrm.enc}])
+No file main.toc.
 \tf@toc=\write8
 \openout8 = `main.toc'.
 
- (wstep.tex) (sota.tex
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.10 
-      [1]
-<img/city3dmesh.jpg, id=133, 127.97812pt x 110.66344pt>
+(wstep.tex) (sota.tex
+<img/city3dmesh.jpg, id=17, 127.97812pt x 110.66344pt>
 File: img/city3dmesh.jpg Graphic file (type jpg)
 <use img/city3dmesh.jpg>
 Package pdftex.def Info: img/city3dmesh.jpg  used on input line 21.
 (pdftex.def)             Requested size: 136.57635pt x 118.10643pt.
-<img/nerfobject.jpg, id=134, 124.96687pt x 110.66344pt>
+LaTeX Font Info:    Trying to load font information for OML+plm on input line 23.
+ (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/polski\omlplm.fd
+File: omlplm.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+)
+LaTeX Font Info:    Trying to load font information for OMS+plsy on input line 23.
+ (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/polski\omsplsy.fd
+File: omsplsy.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+)
+LaTeX Font Info:    Trying to load font information for OMX+plex on input line 23.
+ (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/polski\omxplex.fd
+File: omxplex.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+)
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <10> on input line 23.
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <7> on input line 23.
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <5> on input line 23.
+<img/nerfobject.jpg, id=18, 124.96687pt x 110.66344pt>
 File: img/nerfobject.jpg Graphic file (type jpg)
 <use img/nerfobject.jpg>
 Package pdftex.def Info: img/nerfobject.jpg  used on input line 25.
 (pdftex.def)             Requested size: 136.57635pt x 120.95676pt.
-<img/gaussiansplattingobject.jpg, id=135, 147.55125pt x 110.66344pt>
+<img/gaussiansplattingobject.jpg, id=19, 147.55125pt x 110.66344pt>
 File: img/gaussiansplattingobject.jpg Graphic file (type jpg)
 <use img/gaussiansplattingobject.jpg>
 Package pdftex.def Info: img/gaussiansplattingobject.jpg  used on input line 29.
 (pdftex.def)             Requested size: 136.57635pt x 102.43466pt.
-<img/gaussian_splatting_flow.png, id=136, 694.09312pt x 185.94469pt>
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.40 \end{itemize}
+                   [1]
+<img/gaussian_splatting_flow.png, id=37, 694.09312pt x 185.94469pt>
 File: img/gaussian_splatting_flow.png Graphic file (type png)
 <use img/gaussian_splatting_flow.png>
 Package pdftex.def Info: img/gaussian_splatting_flow.png  used on input line 45.
 (pdftex.def)             Requested size: 426.79135pt x 114.33968pt.
- [2 <./img/city3dmesh.jpg> <./img/nerfobject.jpg> <./img/gaussiansplattingobject.jpg> <./img/gaussian_splatting_flow.png>]) (projekt.tex
-<img/diagram_pu_3.png, id=150, 606.01407pt x 400.49625pt>
-File: img/diagram_pu_3.png Graphic file (type png)
-<use img/diagram_pu_3.png>
-Package pdftex.def Info: img/diagram_pu_3.png  used on input line 7.
-(pdftex.def)             Requested size: 426.79135pt x 282.05656pt.
- [3 <./img/diagram_pu_3.png>] (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+) (projekt.tex
+
+LaTeX Warning: File `img/diagram_pu_3.png' not found on input line 7.
+
+
+projekt.tex:7: Package pdftex.def Error: File `img/diagram_pu_3.png' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...ics[width=\linewidth]{img/diagram_pu_3.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line 7.
+(C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/polski\ot4cmtt.fd
+File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+) [2 <./img/city3dmesh.jpg> <./img/nerfobject.jpg> <./img/gaussiansplattingobject.jpg> <./img/gaussian_splatting_flow.png>] [3{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/pltt.enc}] (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
 File: lstlang2.sty 2023/02/27 1.9 listings language file
-)
-LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line 81.
- (C:\Users\julia\AppData\Local\Programs\MiKTeX\tex/latex/polski\ot4cmtt.fd
-File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
-) [4{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plit.enc}{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plsc.enc}{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/pltt.enc}] [5]) (wyniki.tex
+) [4{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plit.enc}{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plsc.enc}]) (wyniki.tex [5]
 Overfull \hbox (61.89845pt too wide) in paragraph at lines 24--55
  [][] 
  []
 
 
+LaTeX Warning: Reference `table:tab_conf_sks' on page 6 undefined on input line 59.
+
+
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [6{C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/pl/plms.enc}]
-<img/numGS_metrics.png, id=233, 1063.0917pt x 338.2236pt>
+<img/numGS_metrics.png, id=138, 1063.0917pt x 338.2236pt>
 File: img/numGS_metrics.png Graphic file (type png)
 <use img/numGS_metrics.png>
 Package pdftex.def Info: img/numGS_metrics.png  used on input line 105.
 (pdftex.def)             Requested size: 426.79135pt x 135.78249pt.
-<img/iterations_metrics.png, id=234, 1065.2598pt x 338.2236pt>
+<img/iterations_metrics.png, id=139, 1065.2598pt x 338.2236pt>
 File: img/iterations_metrics.png Graphic file (type png)
 <use img/iterations_metrics.png>
 Package pdftex.def Info: img/iterations_metrics.png  used on input line 119.
 (pdftex.def)             Requested size: 426.79135pt x 135.5038pt.
-<img/training_time_iter.png, id=235, 346.1733pt x 323.7696pt>
+<img/training_time_iter.png, id=140, 346.1733pt x 323.7696pt>
 File: img/training_time_iter.png Graphic file (type png)
 <use img/training_time_iter.png>
 Package pdftex.def Info: img/training_time_iter.png  used on input line 128.
@@ -1003,78 +1015,136 @@ Package pdftex.def Info: img/training_time_iter.png  used on input line 128.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [7 <./img/numGS_metrics.png> <./img/iterations_metrics.png>]
-<img/refine_every_metrics.png, id=247, 1063.0917pt x 338.2236pt>
+<img/refine_every_metrics.png, id=153, 1063.0917pt x 338.2236pt>
 File: img/refine_every_metrics.png Graphic file (type png)
 <use img/refine_every_metrics.png>
 Package pdftex.def Info: img/refine_every_metrics.png  used on input line 138.
 (pdftex.def)             Requested size: 426.79135pt x 135.78249pt.
  [8 <./img/training_time_iter.png> <./img/refine_every_metrics.png>]
-<img/res_imgs/eval_with_metrics_0010_5.png, id=258, 1927.2pt x 1084.05pt>
+<img/res_imgs/eval_with_metrics_0010_5.png, id=164, 1927.2pt x 1084.05pt>
 File: img/res_imgs/eval_with_metrics_0010_5.png Graphic file (type png)
 <use img/res_imgs/eval_with_metrics_0010_5.png>
 Package pdftex.def Info: img/res_imgs/eval_with_metrics_0010_5.png  used on input line 158.
 (pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
-<img/res_imgs/eval_with_metrics_0010_1.png, id=259, 1927.2pt x 1084.05pt>
+<img/res_imgs/eval_with_metrics_0010_1.png, id=165, 1927.2pt x 1084.05pt>
 File: img/res_imgs/eval_with_metrics_0010_1.png Graphic file (type png)
 <use img/res_imgs/eval_with_metrics_0010_1.png>
 Package pdftex.def Info: img/res_imgs/eval_with_metrics_0010_1.png  used on input line 164.
 (pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
-<img/res_imgs/rendered_c5_0001.png, id=260, 1927.2pt x 1084.05pt>
-File: img/res_imgs/rendered_c5_0001.png Graphic file (type png)
-<use img/res_imgs/rendered_c5_0001.png>
-Package pdftex.def Info: img/res_imgs/rendered_c5_0001.png  used on input line 174.
-(pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
+
+
+LaTeX Warning: File `img/res_imgs/rendered_c5_0001.png' not found on input line 174.
+
+
+wyniki.tex:174: Package pdftex.def Error: File `img/res_imgs/rendered_c5_0001.png' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.174 ...width]{img/res_imgs/rendered_c5_0001.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<img/res_imgs/img_0001.png, id=261, 1927.2pt x 1084.05pt>
-File: img/res_imgs/img_0001.png Graphic file (type png)
-<use img/res_imgs/img_0001.png>
-Package pdftex.def Info: img/res_imgs/img_0001.png  used on input line 180.
-(pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
+
+LaTeX Warning: File `img/res_imgs/img_0001.png' not found on input line 180.
+
+
+wyniki.tex:180: Package pdftex.def Error: File `img/res_imgs/img_0001.png' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.180 ...0.8\linewidth]{img/res_imgs/img_0001.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<img/res_imgs/rendered_c7_12.png, id=262, 1927.2pt x 1084.05pt>
-File: img/res_imgs/rendered_c7_12.png Graphic file (type png)
-<use img/res_imgs/rendered_c7_12.png>
-Package pdftex.def Info: img/res_imgs/rendered_c7_12.png  used on input line 186.
-(pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
+
+LaTeX Warning: File `img/res_imgs/rendered_c7_12.png' not found on input line 186.
+
+
+wyniki.tex:186: Package pdftex.def Error: File `img/res_imgs/rendered_c7_12.png' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.186 ...newidth]{img/res_imgs/rendered_c7_12.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<img/res_imgs/img_0012.png, id=263, 1927.2pt x 1084.05pt>
-File: img/res_imgs/img_0012.png Graphic file (type png)
-<use img/res_imgs/img_0012.png>
-Package pdftex.def Info: img/res_imgs/img_0012.png  used on input line 192.
-(pdftex.def)             Requested size: 341.43437pt x 192.0439pt.
+
+LaTeX Warning: File `img/res_imgs/img_0012.png' not found on input line 192.
+
+
+wyniki.tex:192: Package pdftex.def Error: File `img/res_imgs/img_0012.png' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.192 ...0.8\linewidth]{img/res_imgs/img_0012.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[9 <./img/res_imgs/eval_with_metrics_0010_5.png (PNG copy)> <./img/res_imgs/eval_with_metrics_0010_1.png (PNG copy)>]) (zakonczenie.tex [10 <./img/res_imgs/rendered_c5_0001.png (PNG copy)> <./img/res_imgs/img_0001.png (PNG copy)> <./img/res_imgs/rendered_c7_12.png (PNG copy)>]) [11 <./img/res_imgs/img_0012.png (PNG copy)>] (main.aux)
+[9 <./img/res_imgs/eval_with_metrics_0010_5.png (PNG copy)> <./img/res_imgs/eval_with_metrics_0010_1.png (PNG copy)>]) (zakonczenie.tex) [10] [11] [12] [13] (main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: EFBF1C4EFD63ED0275D45EA375D8BF5D;3657.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  EFBF1C4EFD63ED0275D45EA375D8BF5D;3657.
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                main
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43289 strings out of 474486
- 929174 string characters out of 5743754
- 2281542 words of memory out of 5000000
- 64948 multiletter control sequences out of 15000+600000
+ 43374 strings out of 474486
+ 932979 string characters out of 5743754
+ 2241542 words of memory out of 5000000
+ 65037 multiletter control sequences out of 15000+600000
  569212 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 144i,9n,133p,1655b,2893s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 144i,9n,133p,1660b,2893s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\julia\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plbx10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plbx12.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plcsc10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr12.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr17.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plr5.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plsy10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/plti10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/pltt10.pfb><C:/Users/julia/AppData/Local/Programs/MiKTeX/fonts/type1/public/pl/pltt8.pfb>
-Output written on main.pdf (12 pages, 17493481 bytes).
+Output written on main.pdf (14 pages, 6438385 bytes).
 PDF statistics:
- 376 PDF objects out of 1000 (max. 8388607)
- 112 named destinations out of 1000 (max. 500000)
- 264 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 289 PDF objects out of 1000 (max. 8388607)
+ 114 named destinations out of 1000 (max. 500000)
+ 63 words of extra memory for PDF output out of 10000 (max. 10000000)
 
