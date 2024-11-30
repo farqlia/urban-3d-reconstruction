@@ -29,6 +29,6 @@ def save_pointcloud_in_chunks_multiple_files(input_files, chunk_size, output_dir
 
 
 input_files = [
-    '../data/birmingham_blocks/birmingham_block_9.ply',
+    '../data/birmingham_blocks/cambridge_block_17.ply',
 ]
-save_pointcloud_in_chunks_multiple_files(input_files, 131_072, '../data/birmingham_blocks/val')
+save_pointcloud_in_chunks_multiple_files(input_files, 131_072, '../data/birmingham_blocks/test')
