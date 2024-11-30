@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1732985313.49842 "main.aux" "main.bbl" "main" 1732985531.86576 0
+["bibtex main"] 1732985667.35961 "main.aux" "main.bbl" "main" 1732985674.32897 0
   "./references.bib" 1732981271 4539 c5a534f69be12252920fb86553d46d5f ""
   "C:/Users/48791/AppData/Local/Programs/MiKTeX/bibtex/bst/bibtex/plain.bst" 1291864736 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "main.aux" 1732985530 5209 fc578d0c973acf7f85c747221352d541 "pdflatex"
+  "main.aux" 1732985673 5209 3e2f3710e5149b9a40e9d3e9c15f0607 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1732985526.74967 "c:/Users/48791/PycharmProjects/urban-3d-reconstruction/zpi-template/main.tex" "main.pdf" "main" 1732985531.8665 0
+["pdflatex"] 1732985667.84743 "c:/Users/48791/PycharmProjects/urban-3d-reconstruction/zpi-template/main.tex" "main.pdf" "main" 1732985674.3297 0
   "C:/Users/48791/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1732972556 289420 e5ad9af07b65d296adbe175ece2d8679 ""
   "C:/Users/48791/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1729859868 11948238 5770449632e7ba6cc3cc121a0e778592 ""
   "C:/Users/48791/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fira/fir_d67aat.enc" 1570723675 3385 21a7e8c8dac3c39de5acda2c56e7bd7e ""
@@ -214,8 +214,8 @@
   "C:/Users/48791/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/48791/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
   "C:/Users/48791/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
-  "abstrakt.tex" 1732985525 1257 814164a7f95a487793b0404b52cd0d2a ""
-  "c:/Users/48791/PycharmProjects/urban-3d-reconstruction/zpi-template/main.tex" 1732985307 797 00347caa6fb246cd81e4f0de0e7979ce ""
+  "abstrakt.tex" 1732985588 1257 814164a7f95a487793b0404b52cd0d2a ""
+  "c:/Users/48791/PycharmProjects/urban-3d-reconstruction/zpi-template/main.tex" 1732985595 824 eff738a8ab4d2785d4c5d201d5d696d9 ""
   "images/UI-Rendering.png" 1732981270 86486 2464998091ceae401f48a8408c12446a ""
   "images/ZPI-Day-cmyk.pdf" 1732981270 104058 bb1410c99ff22a479b96b684cf110e68 ""
   "images/c5_dinosaur_0001.png" 1732981270 5379004 a6745ecded56952b5281109b3a323a2e ""
@@ -229,10 +229,10 @@
   "images/sks_dataset_3.jpg" 1732981270 670157 8066466159e882e7595911cab7a5d41e ""
   "images/sks_dataset_4.jpg" 1732981270 833568 c342bb679ed7bc54b4f6899d9818f37e ""
   "images/sks_viper_0008.png" 1732981270 7097437 08a9d8fcc762abf20b226fa8d2a5b824 ""
-  "main.aux" 1732985530 5209 fc578d0c973acf7f85c747221352d541 "pdflatex"
-  "main.bbl" 1732985313 2319 130467ca805b2b7df7e5bd86102fd938 "bibtex main"
-  "main.out" 1732985530 1676 d2d708976dac7b6cc24ccc54e9ed92f7 "pdflatex"
-  "main.tex" 1732985307 797 00347caa6fb246cd81e4f0de0e7979ce ""
+  "main.aux" 1732985673 5209 3e2f3710e5149b9a40e9d3e9c15f0607 "pdflatex"
+  "main.bbl" 1732985667 2319 130467ca805b2b7df7e5bd86102fd938 "bibtex main"
+  "main.out" 1732985673 1676 d2d708976dac7b6cc24ccc54e9ed92f7 "pdflatex"
+  "main.tex" 1732985595 824 eff738a8ab4d2785d4c5d201d5d696d9 ""
   "podsumowanie.tex" 1732981271 1045 a2d88948a3b2b392aff0e572a61ba8e0 ""
   "rozwiniecie_wstep.tex" 1732981271 1531 4a2c9aa2c3749a6790a2150971725f6d ""
   "stan_nauki.tex" 1732981271 2169 17d0eabcb0e5fdc491f767efdad39d86 ""
@@ -241,8 +241,8 @@
   "wyniki/gaussian_splatting.tex" 1732981271 3271 2e5638cf0f229c018c61051171187cb2 ""
   "wyniki/oprogramowanie.tex" 1732981271 539 c080a18073c5991bf8d642f15d6c77f7 ""
   "wyniki/rekonstrukcja.tex" 1732981271 1678 6beeaeb9124c84d79ba3cee5f97c8f06 ""
-  "wyniki/segmentacja.tex" 1732984760 3951 e7586e481711f237268aed9ff8027268 ""
-  "wyniki/wizualizacja.tex" 1732981271 2332 903b4158fa0cb20bddcdc6313285d582 ""
+  "wyniki/segmentacja.tex" 1732985588 3951 e7586e481711f237268aed9ff8027268 ""
+  "wyniki/wizualizacja.tex" 1732985595 2546 070f68b0d8c3f5ceb6fa74eace48f661 ""
   "zpiday.cls" 1732981271 4447 319e2ea3fabfb53bdddc54ac3ebe1cb9 ""
   (generated)
   "main.aux"
