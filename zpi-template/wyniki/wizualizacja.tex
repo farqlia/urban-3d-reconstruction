@@ -1,7 +1,7 @@
 \subsection{Wizualizacja}
 W celu zapewnienia użytkownikowi końcowemu zintegrowanego i spójnego środowiska wizualizacji całego procesu – od wgrania plików wejściowych po interakcję z modelem – zaprojektowano od podstaw interfejs oraz system renderowania.
 
-Założeniem projektu była implementacja intuicyjnego, dynamicznego i responsywnego \textbf{interfejsu}[\ref{fig:ui}] przy pomocy biblioteki \textit{PyQt} oraz języka \textit{QML}. Interfejs został zintegrowany z wydajnym systemem \textbf{renderingu}[\ref{fig:rendering}] GPU, wykorzystującym technologie \textit{OpenGL}, \textit{OpenCL} oraz język \textit{C}. Dodatkowo, użytkownik ma możliwość alternatywnego renderowania z wykorzystaniem biblioteki \textit{VisPy}.
+Założeniem projektu była implementacja intuicyjnego, dynamicznego i responsywnego \textbf{interfejsu}[\ref{fig:rendering}] przy pomocy biblioteki \textit{PyQt} oraz języka \textit{QML}. Interfejs został zintegrowany z wydajnym systemem \textbf{renderingu}[\ref{fig:rendering}] GPU, wykorzystującym technologie \textit{OpenGL}, \textit{OpenCL} oraz język \textit{C}. Dodatkowo, użytkownik ma możliwość alternatywnego renderowania z wykorzystaniem biblioteki \textit{VisPy}.
 
 Projekt rozwiązuje problem fragmentaryczności funkcji dostępnych w innych aplikacjach, oferując spójne środowisko do obsługi modeli 3D, obejmujące procesy tworzenia, modyfikacji, segmentacji oraz wizualizacji danych.
 \\[10pt]
@@ -20,18 +20,9 @@ Do przechowywanych parametrów należą: \begin{itemize} \item pozycja, \item sk
 
 Podczas procesu renderowania, model sześcianu jest odpowiednio przekształcany na podstawie tych parametrów, co pozwala na uzyskanie splatów na wyjściu. Takie podejście umożliwia abstrakcyjne definiowanie splatów przy jednoczesnym zachowaniu wysokiej dokładności wizualnej.
 
-\clearpage
-
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=\textwidth]{images/UI-Rendering.png}
-    \caption{Zrzut ekranu przedstawiający główny widok aplikacji}
-    \label{fig:ui}
-\end{figure}
-
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=\textwidth]{images/cloud_rendering.png}
-    \caption{Zrzut ekranu przedstawiający własny renderer}
+    \caption{Zrzut ekranu przedstawiający główny widok aplikacji, w tym własny renderer}
     \label{fig:rendering}
 \end{figure}
