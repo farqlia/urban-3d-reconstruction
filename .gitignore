@@ -279,5 +279,5 @@ doc/*
 zpi-template/*
 
 # But do not ignore .tex and .bib files
-!template/*.tex
-!template/*.bib
+!zpi-template/*.tex
+!zpi-template/*.bib
