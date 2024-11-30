@@ -33,7 +33,15 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-gui = ["PyQt5"]
+# tutaj proszę oddawać swoje pakiety, najlepiej z wersjami
+gui =[
+    "PyQt6-Qt6==6.7.3",
+    "PyQt6-sip==13.8.0",
+    "PySide6==6.8.0",
+    "PySide6_Addons==6.8.0",
+    "PySide6_Essentials==6.8.0",
+    "shiboken6==6.8.0"
+]
 notebooks = [
     'pandas==2.2.3',
     'pyntcloud==0.3.1',

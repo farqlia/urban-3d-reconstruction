@@ -206,14 +206,14 @@ cython_debug/
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
-.idea/artifacts
-.idea/compiler.xml
-.idea/jarRepositories.xml
-.idea/modules.xml
+# .idea/artifacts
+# .idea/compiler.xml
+# .idea/jarRepositories.xml
+# .idea/modules.xml
 .idea/*.iml
-.idea/modules
-*.iml
-*.ipr
+# .idea/modules
+# *.iml
+# *.ipr
 
 # CMake
 cmake-build-*/
@@ -266,8 +266,18 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks
 /data/
 /output
-/results/
-/.
-/lightning_logs/
-/models/
-/src/urb3d/pipeline/lightning_logs/
+.idea/*
+
+# Ignore everything in the doc folder
+doc/*
+
+# But do not ignore .tex and .bib files
+!doc/*.tex
+!doc/*.bib
+
+# Ignore everything in the doc folder
+zpi-template/*
+
+# But do not ignore .tex and .bib files
+!zpi-template/*.tex
+!zpi-template/*.bib
