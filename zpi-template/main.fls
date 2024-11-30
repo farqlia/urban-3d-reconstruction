@@ -438,6 +438,10 @@ INPUT .\images\c7_gepard_0006.png
 INPUT .\wyniki\segmentacja.tex
 INPUT .\wyniki\segmentacja.tex
 INPUT wyniki\segmentacja.tex
+INPUT C:\Users\48791\AppData\Local\Programs\MiKTeX\fonts\vf\public\fira\FiraSans-LightItalic-osf-t1.vf
+INPUT C:\Users\48791\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fira\FiraSans-LightItalic-osf-t1--base.tfm
+INPUT C:\Users\48791\AppData\Local\Programs\MiKTeX\fonts\vf\public\fira\FiraSans-Bold-osf-t1.vf
+INPUT C:\Users\48791\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fira\FiraSans-Bold-osf-t1--base.tfm
 INPUT .\wyniki\renderowanie.tex
 INPUT .\wyniki\renderowanie.tex
 INPUT wyniki\renderowanie.tex
@@ -447,10 +451,6 @@ INPUT podsumowanie.tex
 INPUT .\main.bbl
 INPUT .\main.bbl
 INPUT main.bbl
-INPUT C:\Users\48791\AppData\Local\Programs\MiKTeX\fonts\vf\public\fira\FiraSans-LightItalic-osf-t1.vf
-INPUT C:\Users\48791\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fira\FiraSans-LightItalic-osf-t1--base.tfm
-INPUT C:\Users\48791\AppData\Local\Programs\MiKTeX\fonts\vf\public\fira\FiraSans-Bold-osf-t1.vf
-INPUT C:\Users\48791\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fira\FiraSans-Bold-osf-t1--base.tfm
 INPUT main.aux
 INPUT .\main.out
 INPUT .\main.out

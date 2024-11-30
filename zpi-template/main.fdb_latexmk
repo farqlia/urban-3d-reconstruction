@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1732632708.16137 "main.aux" "main.bbl" "main" 1732632781.24366 0
+["bibtex main"] 1732884900.50737 "main.aux" "main.bbl" "main" 1732884903.13991 0
   "./references.bib" 1732632623 2872 6e6528a26398d370e4a6c5e38bdb5899 ""
   "C:/Users/48791/AppData/Local/Programs/MiKTeX/bibtex/bst/bibtex/plain.bst" 1291864736 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "main.aux" 1732632779 2598 962582bc4cc92f18ab2e3a627807330f "pdflatex"
+  "main.aux" 1732884898 2598 06fe2269f259fbecded1bb2084cf5879 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1732632776.3713 "c:/Users/48791/PycharmProjects/urban-3d-reconstruction/zpi-template/main.tex" "main.pdf" "main" 1732632781.24527 0
+["pdflatex"] 1732884901.04731 "c:/Users/48791/PycharmProjects/urban-3d-reconstruction/zpi-template/main.tex" "main.pdf" "main" 1732884903.14072 2
   "C:/Users/48791/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1732632703 289420 e5ad9af07b65d296adbe175ece2d8679 ""
   "C:/Users/48791/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1729859868 11948238 5770449632e7ba6cc3cc121a0e778592 ""
   "C:/Users/48791/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fira/fir_d67aat.enc" 1570723675 3385 21a7e8c8dac3c39de5acda2c56e7bd7e ""
@@ -204,16 +204,16 @@
   "C:/Users/48791/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/48791/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
   "C:/Users/48791/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
-  "c:/Users/48791/PycharmProjects/urban-3d-reconstruction/zpi-template/main.tex" 1732632775 2065 cbca7addaef3955f0fbb81eb802af533 ""
+  "c:/Users/48791/PycharmProjects/urban-3d-reconstruction/zpi-template/main.tex" 1732880090 2064 d927c64dc4b3171df7d33bddfd09db67 ""
   "images/ZPI-Day-cmyk.pdf" 1732632622 104058 bb1410c99ff22a479b96b684cf110e68 ""
   "images/c5_mouse_0001.png" 1732632622 5559539 0617e52b3852dfa2e70f860333330db4 ""
   "images/c7_gepard_0006.png" 1732632622 5366149 151aca08de5aad3cd13d14b772e4ce6f ""
   "images/logo_white.png" 1732632622 1841123 f0a01021574486865cd09f3e756cbf13 ""
   "images/sks_viper_0008.png" 1732632622 7097437 08a9d8fcc762abf20b226fa8d2a5b824 ""
-  "main.aux" 1732632779 2598 962582bc4cc92f18ab2e3a627807330f "pdflatex"
-  "main.bbl" 1732632708 1755 50ec987e102b50d37fe6c9d75e1f3821 "bibtex main"
-  "main.out" 1732632779 1021 4af60c0a5b91c17fc630926b40a4e1fd "pdflatex"
-  "main.tex" 1732632775 2065 cbca7addaef3955f0fbb81eb802af533 ""
+  "main.aux" 1732884898 2598 06fe2269f259fbecded1bb2084cf5879 "pdflatex"
+  "main.bbl" 1732884900 1755 50ec987e102b50d37fe6c9d75e1f3821 "bibtex main"
+  "main.out" 1732884898 1021 4af60c0a5b91c17fc630926b40a4e1fd "pdflatex"
+  "main.tex" 1732880090 2064 d927c64dc4b3171df7d33bddfd09db67 ""
   "podsumowanie.tex" 1732632623 33 566e500c58104f8111eb30af1cf2136b ""
   "rozwiniecie_wstep.tex" 1732632623 1440 917548303816befb0800addc42abc750 ""
   "stan_nauki.tex" 1732632623 1921 1f834130ab77a54bf2c5eb460cd24fa8 ""
@@ -222,7 +222,7 @@
   "wyniki/gaussian_splatting.tex" 1732632623 2852 e05237ff0700a150cbe296608266c1bf ""
   "wyniki/rekonstrukcja.tex" 1732632623 26 ad1b2f532b5e45e8f9d46361439ff750 ""
   "wyniki/renderowanie.tex" 1732632623 25 0934ab252b16838bdd26d792e4e82655 ""
-  "wyniki/segmentacja.tex" 1732632623 24 5e4bf90c93b22492102a400c9bc9a6b9 ""
+  "wyniki/segmentacja.tex" 1732884894 697 d54a93fa2e96b5b69d474605c0189349 ""
   "zpiday.cls" 1732632623 4447 319e2ea3fabfb53bdddc54ac3ebe1cb9 ""
   (generated)
   "main.aux"
