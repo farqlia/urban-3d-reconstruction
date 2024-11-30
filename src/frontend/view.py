@@ -3,13 +3,12 @@ from PySide6.QtCore import QObject, QUrl, Qt
 from PySide6.QtWidgets import QWidget, QFileDialog
 from PySide6.QtQuick import QQuickWindow, QSGRendererInterface
 from PySide6.QtQuickWidgets import QQuickWidget
-from pyntcloud import PyntCloud
 
 from .config import LOADING_WINDOW_FILE, FAIL_WINDOW_FILE, SUCC_WINDOW_FILE, SETTINGS_WINDOW
 from src.pipeline.config import DATA_FOLDER
 from .views.main_window import MainWindow
 from .view_engine_manager import EngineManager
-from src.rendering.render_point_cloud import PointCloudGLWidget, prepare_point_cloud
+from .external_rendering_handler import get_external_window
 
 class View:
     def __init__(self, controller):
@@ -51,14 +50,10 @@ class View:
     def _create_renderer(self):
         renderer = None
 
-        pc_file = str(DATA_FOLDER) + "/sparse.ply"
-        if (os.path.exists(pc_file)):
-            pc = PyntCloud.from_file(pc_file)
-            prepare_point_cloud(pc)
-            renderer = PointCloudGLWidget(pc.points)
-            print("HERE")
+        external_window = get_external_window()
+        if external_window is not None:
+            renderer = QWidget.createWindowContainer(external_window)
         
-        print("HERE")
         if renderer is None:
             renderer = QWidget()
 
