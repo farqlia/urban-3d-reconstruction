@@ -16,13 +16,13 @@ W procesie eksperymentowania z różnymi architekturami i sposobami implementacj
     \item dobór danych treningowych, walidacyjnych i testowych - typowy problem dla uczenia maszynowego. Dbając o generalizację modelu nie możemy dopuścić do \textit{wycieku danych}, tj. sytuacji, w której obiecujące wyniki są spowodowane nie ową generalizacją, a pewnego rodzaju pokrewieństwem danych służących do treningu modelu i jego oceny w trakcie tego procesu lub po jego zakończeniu. Rozwązaniem oprócz odpowiedniego podziału i doboru danych jest użycie technik przetwarzania chmur punktów związanych np. z ich obracaniem lub skalowaniem, tak aby wyuczone wzorce podlegały jak najlepszemu uogólnieniu.
 \end{enumerate}
 
-Do trenowania posłużyliśmy się zbiorem \textit{SensatUrban}\cite{hu2022sensaturban}, często używanym w literaturze do oceny modeli segmentacji semantycznej.
+Do trenowania posłużyliśmy się zbiorem \textit{SensatUrban}\cite{hu2022sensaturban}\ref{fig:seg_bir}, często używanym w literaturze do oceny modeli segmentacji semantycznej.
 
 \begin{table}[!h]
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
     \hline
-    WL & TS & OwAcc & OwF & budynekAcc & budynekF & zieleńAcc & zieleńF & parkingAcc & parkingF \\
+    WL & TS & OwAcc & OwF & budAcc & budkF & zieAcc & zieF & parAcc & parF \\
     \hline 
     Nie & 238 950 & 43.37 & 37.50 & 83 & \emph{87} & 0 & 0 & \emph{51} & 11 \\
     \hline 
