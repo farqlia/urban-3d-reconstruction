@@ -281,3 +281,4 @@ zpi-template/*
 # But do not ignore .tex and .bib files
 !zpi-template/*.tex
 !zpi-template/*.bib
+!*.png
