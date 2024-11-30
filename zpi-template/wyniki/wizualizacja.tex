@@ -1,29 +1,26 @@
 \subsection{Wizualizacja}
-Wizualizacja modeli 3D stanowi wyzwanie dla użytkownika końcowego,
-głównie z powodu braku spójnych platform umożliwiających realizację
-całego procesu – od wgrania plików wejściowych po interakcję z modelem – w ramach jednej aplikacji.
-Dostępne na rynku rozwiązania wymagają korzystania z aplikacji trzecich i pewnej wiedzy technicznej,
-co prowadzi do problemów z integracją i spójnością działania.
+W celu zapewnienia użytkownikowi końcowemu zintegrowanego i spójnego środowiska wizualizacji całego procesu – od wgrania plików wejściowych po interakcję z modelem – zaprojektowano od podstaw interfejs oraz system renderowania.
 
-Celem projektu było stworzenie intuicyjnego, dynamicznego i responsywnego \textbf{interfejsu} zintegrowanego z wydajnym \textbf{renderingiem} GPU.
-Aplikacja umożliwia użytkownikowi końcowemu realizację pełnego procesu
-wizualizacji – od tworzenia i modyfikacji modelu po jego segmentację i wyświetlanie – w jednej aplikacji.
-Projekt rozwiązuje problem fragmentarycznej funkcjonalności dostępnych aplikacji, oferując spójne środowisko do obsługi modeli 3D.
+Założeniem projektu była implementacja intuicyjnego, dynamicznego i responsywnego \textbf{interfejsu}[\ref{fig:ui}] przy pomocy biblioteki \textit{PyQt} oraz języka \textit{QML}. Interfejs został zintegrowany z wydajnym systemem \textbf{renderingu}[\ref{fig:rendering}] GPU, wykorzystującym technologie \textit{OpenGL}, \textit{OpenCL} oraz język \textit{C}. Dodatkowo, użytkownik ma możliwość alternatywnego renderowania z wykorzystaniem biblioteki \textit{VisPy}.
 
-\textbf{Korzyści z realizacji interfejsu}
+Projekt rozwiązuje problem fragmentaryczności funkcji dostępnych w innych aplikacjach, oferując spójne środowisko do obsługi modeli 3D, obejmujące procesy tworzenia, modyfikacji, segmentacji oraz wizualizacji danych.
+\\[10pt]
+\textbf{Funkcjonalności interfejsu}
 
-\begin{itemize}
-    \item zwiększona wydajność dzięki GPU,
-    \item eliminacja konieczności korzystania z wielu narzędzi,
-    \item uproszczony proces użytkowania, co zwiększa dostępność aplikacji dla mniej zaawansowanych użytkowników.
-\end{itemize}
+\begin{itemize} \item wybór zdjęć, \item ustawienie parametrów, \item generowanie chmury punktów, \item generowanie splatów, \item segmentacja splatów, \item wizualizacja wyników. \end{itemize}
 
-Rendering wykorzystuje plik .ply jako dane wejściowe do wczytania splatów.
-Są one renderowane jako sześciany, w których wnętrzu generowane są shadery, bazujące na skalowaniu i rotacji splatów.
-Takie podejście umożliwia abstrakcyjne przedstawienie splatów przy jednoczesnym zachowaniu wysokiej dokładności wizualnej.
+\vspace{10pt}
+{\setlength{\parindent}{0pt}
+\textbf{Rendering}
+}
 
-Interfejs widoczny na ilustracji \ref{fig:ui} został zaimplementowany w \textit{QML}, \textit{PyQt}, natomiast rendering w technologiach \textit{C}, \textit{OpenGL} oraz \textit{OpenCL}, przedstawiony na zdjęciu \ref{fig:rendering}. Tymczasową wizualizację chmury wykonywaliśmy przy pomocy biblioteki \textit{VisPy}.
+Rendering wykorzystuje plik .ply jako dane wejściowe do wczytania splatów. Splaty te są reprezentowane przez sześciany z dodatkowymi parametrami przechowywanymi w Shader Storage Buffer Object (SSBO), co umożliwia efektywny odczyt dużych ilości danych. Takie podejście jest szczególnie przydatne w przypadku scen zawierających nawet do dwóch milionów obiektów.
 
+Do przechowywanych parametrów należą: \begin{itemize} \item pozycja, \item skala, \item rotacja, \item kolor, \item przezroczystość. \end{itemize}
+
+Podczas procesu renderowania, model sześcianu jest odpowiednio przekształcany na podstawie tych parametrów, co pozwala na uzyskanie splatów na wyjściu. Takie podejście umożliwia abstrakcyjne definiowanie splatów przy jednoczesnym zachowaniu wysokiej dokładności wizualnej.
+
+\clearpage
 
 \begin{figure}[!ht]
     \centering
