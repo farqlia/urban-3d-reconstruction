@@ -1,4 +1,18 @@
-\subsection{Segmentacja}
-Używając biblioteki \textit{PyTorch} do uczenia głębokiego, w oparciu o istniejące rozwiązania i aktualny stan wiedzy, przygotowaliśmy i wytrenowaliśmy własne modele segmentacji semantycznej na chmurze punktów, otrzymanej w naszej aplikacji w wyniku działania poprzednich etapów i przekształceń na danych z nimi związanych. 
-\textbf{Segmentacja semantyczna}
-Zadanie postawione przed modelem jest jednym z kategorii zadań widzenia komputerowego. Polega ono na przypisaniu każdemu z punktów w chmurze etykiety określającej do jakiego rodzaju obiektu on przynależy, na przykład: czy jest on częścią budynku, drogi, samochodu, czy terenu zielonego. Obiektem wejścia jest zatem chmura punktów, natomiast na wyjściu otrzymujemy 
+\subsection{Segmentacja semantyczna}
+Otrzymana w wyniku poprzednich etapów chmura punktów poddawana procesowi segmentacji semantycznej, czyli przypisaniu każdemu z punktów odpowiedniej kategorii semantycznej opisującej obiekt, w skład którego wchodzi. Do wybranych (na podstawie popularnych w literaturze zbiorów danych służących za punkt odniesienia w testowaniu modeli) kategorii semantycznych należą między innymi \textit{budynek}, \textit{droga}, czy też \textit{zieleń miejska}. 
+Używając biblioteki \textit{PyTorch} do uczenia głębokiego, w oparciu o istniejące rozwiązania i aktualny stan wiedzy, przygotowano i wytrenowano własne modele \emph{sieci neuronowych} do segmentacji semantycznej.
+W procesie eksperymentowania z różnymi architekturami i sposobami implementacji procesu treningu i predykcji za kluczowe pod względem wpływu na osiągi otrzymanego modelu należy uznać:
+\begin{enumerate}
+    \item próbkowanie - przy przetwarzaniu zbiorów danych, w przypadku których określenie porządku jest z punktu widzenia efektywności rozwiązania bezcelowe, a które jednocześnie z punktu widzenia modelu mogą osiągać różne rozmiary, ważnym elementem procesu zarówno treningu, jak i predykcji jest odpowiednie próbkowanie całego zbioru. Jest to niezbędne ze względu na architekturę sieci neuronowych, która zakłada stały rozmiar wejścia do modelu. W obrębie tego problemu należy wyróżnić następujące czynniki:
+    \begin{enumerate}
+        \item rozmiar próbki - zbyt mały może uniemożliwić uchwycenie zależności pomiędzy zbliżonymi do siebie w chmurze punktami,
+        \item sposób próbkowania - wpływa na zależność uchwyconych w wyniku procesu uczenia wzorców od bardziej lub mniej odległych od siebie punktów. Może prowadzić do swego rodzaju zdominowania segmentowanych punktów przez jedną kategorię.
+    \end{enumerate}
+    \item niezbalansowany zbiór danych - w przypadku rozpatrywania dużych scen miejskich naturalnym jest pojawienie się mniej (\textit{samochody}, \textit{tory kolejowe}) i bardziej (\textit{budynki}) popularnych kategorii semantycznych. Jest to klasyczny problem uczenia maszynowego na niezbalansowanym zbiorze danych, który, niezaadresowany, prowadzi do dominacji zbioru przez punkty popularniejszych kategorii, w efekcie przekładając się na słabszą generalizację otrzymanego modelu, w szczególności dla mniej popularnych kategorii semantycznych. W toku prac rozważano dwa sposoby radzenia sobie z tym problemem:
+    \begin{enumerate}
+        \item próbkowanie - opisane wyżej,
+        \item ważenie funkcji straty - \textit{karze} model za omijanie mniej popularnych kategorii semantycznych. Technika ta może prowadzić do nadreprezentacji tych kategorii w otrzymanym w wyniku predykcji zbiorze, jednakże przy odpowiedniej implementacji nieco słabsze wartości metryk dla popularnych kategorii są \textit{nomen omen} balansowane przez lepsze wyniki na niedoreprezentowanych w zbiorze treningowym kategorii, prowadząc w efekcie do lepszych wartości metryk dla całego zbioru testowego.
+    \end{enumerate}
+    \item dobór danych treningowych, walidacyjnych i testowych - typowy problem dla uczenia maszynowego. Dbając o generalizację modelu nie możemy dopuścić do \textit{wycieku danych}, tj. sytuacji, w której obiecujące wyniki są spowodowane nie ową generalizacją, a pewnego rodzaju pokrewieństwem danych służących do treningu modelu i jego oceny w trakcie tego procesu lub po jego zakończeniu. Rozwązaniem oprócz odpowiedniego podziału i doboru danych jest użycie technik przetwarzania chmur punktów związanych np. z ich obracaniem lub skalowaniem, tak aby wyuczone wzorce podlegały jak najlepszemu uogólnieniu.
+\end{enumerate}
+Otrzymany w wyniku tego procesu eksperymentowania model wdrożono w celu jego używania na \textit{niewidzianych} przez niego dotychczas danych.
