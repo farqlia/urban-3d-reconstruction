@@ -10,7 +10,7 @@ Aplikacja umożliwia użytkownikowi końcowemu realizację pełnego procesu
 wizualizacji – od tworzenia i modyfikacji modelu po jego segmentację i wyświetlanie – w jednej aplikacji.
 Projekt rozwiązuje problem fragmentarycznej funkcjonalności dostępnych aplikacji, oferując spójne środowisko do obsługi modeli 3D.
 
-\textbf{Korzyści z realizacji własnej wizualizacji}
+\textbf{Korzyści z realizacji interfejsu}
 
 \begin{itemize}
     \item zwiększona wydajność dzięki GPU,
@@ -22,19 +22,19 @@ Rendering wykorzystuje plik .ply jako dane wejściowe do wczytania splatów.
 Są one renderowane jako sześciany, w których wnętrzu generowane są shadery, bazujące na skalowaniu i rotacji splatów.
 Takie podejście umożliwia abstrakcyjne przedstawienie splatów przy jednoczesnym zachowaniu wysokiej dokładności wizualnej.
 
-Interfejs został zaimplementowany w \textit{QML}, \textit{PyQt}, natomiast rendering w technologiach \textit{C}, \textit{OpenGL} oraz \textit{OpenCL}.
+Interfejs widoczny na ilustracji \ref{fig:ui} został zaimplementowany w \textit{QML}, \textit{PyQt}, natomiast rendering w technologiach \textit{C}, \textit{OpenGL} oraz \textit{OpenCL}, przedstawiony na zdjęciu \ref{fig:rendering}. Tymczasową wizualizację chmury wykonywaliśmy przy pomocy biblioteki \textit{VisPy}.
 
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=\textwidth]{images/UI-Rendering.png}
     \caption{Zrzut ekranu przedstawiający główny widok aplikacji}
-    \label{fig:ui-rendering}
+    \label{fig:ui}
 \end{figure}
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=\textwidth]{images/UI-Rendering.png}
+    \includegraphics[width=\textwidth]{images/cloud_rendering.png}
     \caption{Zrzut ekranu przedstawiający własny renderer}
     \label{fig:rendering}
 \end{figure}
