@@ -15,4 +15,22 @@ W procesie eksperymentowania z różnymi architekturami i sposobami implementacj
     \end{enumerate}
     \item dobór danych treningowych, walidacyjnych i testowych - typowy problem dla uczenia maszynowego. Dbając o generalizację modelu nie możemy dopuścić do \textit{wycieku danych}, tj. sytuacji, w której obiecujące wyniki są spowodowane nie ową generalizacją, a pewnego rodzaju pokrewieństwem danych służących do treningu modelu i jego oceny w trakcie tego procesu lub po jego zakończeniu. Rozwązaniem oprócz odpowiedniego podziału i doboru danych jest użycie technik przetwarzania chmur punktów związanych np. z ich obracaniem lub skalowaniem, tak aby wyuczone wzorce podlegały jak najlepszemu uogólnieniu.
 \end{enumerate}
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    scena & PSNR & SSIM & LPIPS & liczba gaussianów & czas trenowania & pamięć pliku (MB) \\
+    \hline 
+    SKS & 22.03 & 0.71 & 0.25 & 2,937,549 & 2h53m & 661 \\
+    \hline 
+    C5 & 21.98 & 0.71 & 0.26 & 4,564,464 & 10h40m & 675 \\
+    \hline 
+    C7 & 22.63 & 0.72 & 0.29 & 3,000,000 & 15h15m & 675 \\
+    \hline
+    \end{tabular}
+\caption{Całościowe metryki dla testowych scen. Otrzymane wartości PSNR, SSIM oraz LPIPS zwykle świadczą o dobrej jakości scenie, która oddaje wystarczające szczegóły i wygładzone artefakty.}
+\label{table:tab_seg_met}
+\end{table}
+
 Otrzymany w wyniku tego procesu eksperymentowania model wdrożono w celu jego używania na \textit{niewidzianych} przez niego dotychczas danych.
