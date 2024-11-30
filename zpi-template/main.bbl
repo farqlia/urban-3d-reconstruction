@@ -1,9 +1,19 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{HAN2017103}
+Xian-Feng Han, Jesse~S. Jin, Ming-Jie Wang, Wei Jiang, Lei Gao, and Liping
+  Xiao.
+\newblock A review of algorithms for filtering the 3d point cloud.
+\newblock {\em Signal Processing: Image Communication}, 57:103--112, 2017.
 
 \bibitem{kerbl3Dgaussians}
 Bernhard Kerbl, Georgios Kopanas, Thomas Leimk{\"u}hler, and George Drettakis.
 \newblock 3d gaussian splatting for real-time radiance field rendering.
 \newblock {\em ACM Transactions on Graphics}, 42(4), July 2023.
+
+\bibitem{splatviewer}
+Kevin Kwok.
+\newblock Splat viewer.
 
 \bibitem{liu2024citygaussian}
 Yang Liu, He~Guan, Chuanchen Luo, Lue Fan, Junran Peng, and Zhaoxiang Zhang.
@@ -25,6 +35,12 @@ Charles~R. Qi, Hao Su, Kaichun Mo, and Leonidas~J. Guibas.
 Charles~R. Qi, Li~Yi, Hao Su, and Leonidas~J. Guibas.
 \newblock Pointnet++: Deep hierarchical feature learning on point sets in a
   metric space, 2017.
+
+\bibitem{Schonberger_2016_CVPR}
+Johannes~L. Schonberger and Jan-Michael Frahm.
+\newblock Structure-from-motion revisited.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, June 2016.
 
 \bibitem{thomas2019kpconvflexibledeformableconvolution}
 Hugues Thomas, Charles~R. Qi, Jean-Emmanuel Deschaud, Beatriz Marcotegui,
