@@ -69,11 +69,11 @@ if __name__ == "__main__":
                         help="Maximum cap for MCMC gaussians. [strategy=mcmc]")
     parser.add_argument("--refine_every", type=int, default=100, help="Refine frequency (iterations).")  # tune?
 
-    parser.add_argument("--sh_degree_interval", type=int, default=5_000,
-                        help="Add spherical harmonics degree interval.")
-
+    parser.add_argument("--sh_degree", type=int, default=3, choices=[1, 2, 3], help="Degree of spherical harmonics.")
     # -------------- END ARGUMENTS FOR USER ----------------------
 
+    parser.add_argument("--sh_degree_interval", type=int, default=5_000,
+                        help="Add spherical harmonics degree interval.")
     parser.add_argument("--data_factor", type=int, default=1, help="Data factor.")
     parser.add_argument("--init_type", type=str, default="sfm", help="Initialization type.", choices=["sfm", "random"])
     parser.add_argument("--init_num_pts", type=int, default=300_000, help="Initial number of points (only for random).")
@@ -120,6 +120,7 @@ if __name__ == "__main__":
     init_scale = args.init_scale
     init_opa = args.init_opa
     sh_degree_interval = args.sh_degree_interval
+    sh_degree = args.sh_degree
     packed = args.packed
     sparse_grad = args.sparse_grad
     ckpt = [args.ckpt] if args.ckpt is not None else None
@@ -146,6 +147,7 @@ if __name__ == "__main__":
                 sparse_grad=sparse_grad,
                 disable_viewer=True,
                 ckpt=ckpt,
+                sh_degree=sh_degree,
                 sh_degree_interval=sh_degree_interval,
                 strategy=DefaultStrategy(verbose=True, refine_start_iter=refine_start_iter,
                                          refine_every=refine_every, refine_stop_iter=refine_stop_iter,
@@ -170,6 +172,7 @@ if __name__ == "__main__":
                 packed=packed,
                 disable_viewer=True,
                 ckpt=ckpt,
+                sh_degree=sh_degree,
                 sparse_grad=sparse_grad,
                 sh_degree_interval=sh_degree_interval,
                 strategy=MCMCStrategy(verbose=True, cap_max=cap_max, refine_every=refine_every,
