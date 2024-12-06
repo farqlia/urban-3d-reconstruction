@@ -15,12 +15,13 @@ class ModelProcessor():
             run_script_with_env(COLMAP_ENV, "colmap_reconstruction.py", "--input", str(self.input_folder),
                        "--output", str(self.output_folder))
 
-    def _create_gaussian_model(self): 
+    def _create_gaussian_model(self, strategy : str, max_steps : int, cap_max : int,
+                              refine_every : int, sh_degree : int):
         if not self.gaussian_ply_path.exists():
             if not self.ckpts_path.exists():
-
-                run_script("simple_trainer.py", "--data_dir", str(self.reconstruction_folder),  #?
-                           "--result_dir", str(self.output_folder), "--max_steps", "500", "--delta_steps", "250")
+                run_script("simple_trainer.py", "--data_dir", str(self.reconstruction_folder),
+                           "--result_dir", str(self.output_folder), "--strategy", strategy, "--max_steps", str(max_steps),
+                           "--cap_max", str(cap_max), "--refine_every", str(refine_every), "--sh_degree", str(sh_degree))
                 
             run_script("save_model.py", "--ckpts", str(self.ckpts_path),
                        "--output", str(GAUSSIAN_MODEL_PLY))

@@ -12,8 +12,10 @@ class Backend:
     def reconstruct_point_cloud(self):
         self.model_processor._reconstruct_point_cloud()
 
-    def create_gaussian_model(self):
-        self.model_processor._create_gaussian_model()
+    def create_gaussian_model(self, strategy : str = "default", max_steps : int = 100_000, cap_max : int = 3_000_000,
+                              refine_every : int = 100, sh_degree : int = 3):
+        self.model_processor._create_gaussian_model(strategy=strategy, max_steps=max_steps, cap_max=cap_max, refine_every=refine_every,
+                                                    sh_degree=sh_degree)
 
     def run_segmentation(self):
         self.segmentation_processor.run_segmentation()
