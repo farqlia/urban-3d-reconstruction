@@ -268,13 +268,18 @@ pyrightconfig.json
 /output
 .idea/*
 
+models/*
+
 # Ignore everything in the doc folder
-doc/*
-
-# But do not ignore .tex and .bib files
-!doc/*.tex
-!doc/*.bib
-
+doc/*.aux
+doc/*.pdf
+doc/*.bbl
+doc/*.blg
+doc/*.fdb_latexmk
+doc/*.fls
+doc/*.log
+doc/*.out
+doc/*.synctex.gz
 # Ignore everything in the doc folder
 zpi-template/*
 
