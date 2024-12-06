@@ -1,19 +1,17 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from sys import platform
 
-load_dotenv()
-
-BASE_DIR = Path(__file__).resolve().parents[2]
-QML_IMPORT = BASE_DIR / os.getenv("QML_IMPORT")
-HEADER_FILE = BASE_DIR / os.getenv("HEADER_FILE")
-LEFT_PANE_FILE = BASE_DIR / os.getenv("LEFT_PANE_FILE")
-FOOTER_FILE = BASE_DIR / os.getenv("FOOTER_FILE")
-LOADING_WINDOW_FILE = BASE_DIR / os.getenv("LOADING_WINDOW_FILE")
-SUCC_WINDOW_FILE = BASE_DIR / os.getenv("SUCC_WINDOW_FILE")
-FAIL_WINDOW_FILE = BASE_DIR / os.getenv("FAIL_WINDOW_FILE")
-SETTINGS_WINDOW = BASE_DIR / os.getenv("SETTINGS_WINDOW")
-RIGHT_PANE_LT_FILE = BASE_DIR / os.getenv("RIGHT_PANE_LT_FILE")
-RIGHT_PANE_RT_FILE = BASE_DIR / os.getenv("RIGHT_PANE_RT_FILE")
-RIGHT_PANE_LB_FILE = BASE_DIR / os.getenv("RIGHT_PANE_LB_FILE")
-RIGHT_PANE_RB_FILE = BASE_DIR / os.getenv("RIGHT_PANE_RB_FILE")
+QML_IMPORT = "src/frontend/views"
+HEADER_FILE = "src/frontend/views/Main/Header.qml"
+FOOTER_FILE = "src/frontend/views/Main/Footer.qml"
+LEFT_PANE_FILE = "src/frontend/views/Main/BodyLeftPane.qml"
+LOADING_WINDOW_FILE = "src/frontend/views/Main/LoadingWindow.qml"
+SUCC_WINDOW_FILE = "src/frontend/views/Main/SuccessWindow.qml"
+FAIL_WINDOW_FILE = "src/frontend/views/Main/ErrorWindow.qml"
+SETTINGS_WINDOW = "src/frontend/views/Main/SettingsWindow.qml"
+RIGHT_PANE_LT_FILE = "src/frontend/views/Main/BodyRightPaneLT.qml"
+RIGHT_PANE_RT_FILE = "src/frontend/views/Main/BodyRightPaneRT.qml"
+RIGHT_PANE_LB_FILE = "src/frontend/views/Main/BodyRightPaneLB.qml"
+RIGHT_PANE_RB_FILE = "src/frontend/views/Main/BodyRightPaneRB.qml"

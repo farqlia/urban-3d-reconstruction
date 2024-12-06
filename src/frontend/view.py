@@ -8,13 +8,15 @@ from .config import LOADING_WINDOW_FILE, FAIL_WINDOW_FILE, SUCC_WINDOW_FILE, SET
 from src.pipeline.config import DATA_FOLDER
 from .views.main_window import MainWindow
 from .view_engine_manager import EngineManager
-from .external_rendering_handler import get_external_window
+from .external_window import external_window_to_widget
+from .rendering_lib import get_rendering_lib
 
 class View:
     def __init__(self, controller):
         QQuickWindow.setGraphicsApi(QSGRendererInterface.GraphicsApi.OpenGL)
         self._controller = controller
         self._engine_manager = EngineManager()
+        self._rendering_lib = get_rendering_lib()
         self._configure_engine_properties()
         self._configure_handlers()
 
@@ -48,14 +50,22 @@ class View:
         self._engine_manager.set_qml_property("buildRunCategorization", self._controller.get_build_run_categorization_qml())
 
     def _create_renderer(self):
-        renderer = None
+        if renderer is not None:
+            self._rendering_lib.close()
+            self._rendering_lib.cleanUp()
 
-        external_window = get_external_window()
-        if external_window is not None:
-            renderer = QWidget.createWindowContainer(external_window)
+        self._rendering_lib.initWindow()
+        window_id = self._rendering_lib.getWindowId()
+
+        renderer = external_window_to_widget(window_id)
         
         if renderer is None:
             renderer = QWidget()
+
+        # PATH TO FILE
+        data_path = "".encode('utf-8')
+
+        self._rendering_lib.loadData(data_path)
 
         self._main_view.configure_renderer(renderer)
 

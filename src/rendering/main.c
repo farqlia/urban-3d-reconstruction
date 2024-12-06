@@ -6,112 +6,129 @@
 #include "data.h"
 #include "rendering.h"
 
+#if defined(_WIN32)
+    #include <windows.h>
+#elif defined(__linux__)
+    #include <X11/Xlib.h>
+#endif
+
 #define WIDTH 800
 #define HEIGHT 600
 #define TARGET_FPS 5
 #define TARGET_FRAME_TIME (1.0 / TARGET_FPS)
+
+GLFWwindow* WINDOW;
+PointCloudData* DATA;
+size_t DATA_COUNT;
+GLuint SHADER_PROGRAM;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
 // Function to initialize the GLFW window
-GLFWwindow* initWindow(int width, int height, const char* title)
+void initWindow()
 {
     if (!glfwInit())
     {
         printf("GLFW initialization failed.\n");
-        return NULL;
+        return;
     }
 
-    GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
-    if (!window)
+    WINDOW = glfwCreateWindow(WIDTH, HEIGHT, "", NULL, NULL);
+    if (!WINDOW)
     {
         printf("GLFW window creation failed.\n");
         glfwTerminate();
-        return NULL;
+        return;
     }
 
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwMakeContextCurrent(WINDOW);
+    glfwSetFramebufferSizeCallback(WINDOW, framebuffer_size_callback);
 
     if (glewInit() != GLEW_OK)
     {
         printf("GLEW initialization failed.\n");
-        return NULL;
+        return;
     }
 
-    return window;
+    glfwSetInputMode(WINDOW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    glfwSetMouseButtonCallback(WINDOW, mouseButtonCallback);
+    glfwSetCursorPosCallback(WINDOW, mouseCallback);
+
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glfwSwapBuffers(WINDOW);
 }
 
-int main()
+void loadData(const char* filename)
 {
-    GLFWwindow* window = initWindow(800, 600, "OpenGL Cube");
-    if (!window)
-    {
-        printf("GLFW window creation failed.\n");
-        glfwTerminate();
-        return -1;
-    }
+    loadPLY(filename, &DATA, &DATA_COUNT);
+    generateVAOVBO(DATA, DATA_COUNT);
+    generateStructureOfArrays(DATA, DATA_COUNT);
+    generateSSBO(DATA, DATA_COUNT);
+}
 
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+intptr_t getWindowId()
+{
+    #if defined(_WIN32)
+        return (intptr_t)glfwGetWin32Window(WINDOW);
+    #elif defined(__linux__)
+        #if defined(GLFW_EXPOSE_NATIVE_X11)
+            return (intptr_t)glfwGetX11Window(WINDOW);
+        #endif
+    #endif
+}
 
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-    glfwSetMouseButtonCallback(window, mouseButtonCallback);
-    glfwSetCursorPosCallback(window, mouseCallback);
-    // glfwSetScrollCallback(window, scroll_callback);
-
-    PointCloudData* data;
-    size_t pointCount;
-    loadPLY("data/tester.ply", &data, &pointCount);
-    generateVAOVBO(data, pointCount);
-    generateStructureOfArrays(data, pointCount);
-    generateSSBO(data, pointCount);
-
-    GLuint shaderProgram = createShaderProgram();
+void run()
+{
+    SHADER_PROGRAM = createShaderProgram();
 
     mat4 model, projection;
     glm_mat4_identity(projection);
     glm_mat4_identity(model);
-    // glm_scale_uni(model, 0.1f);
-    // glm_scale_uni(projection, 0.1f);
     glm_perspective(glm_rad(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 10000.0f, projection);
-    setupShaderProgram(shaderProgram, model, projection);
+    setupShaderProgram(SHADER_PROGRAM, model, projection);
 
     float lastFrame = 0.0f;
     updateCamera();
-    printf("pitch: %f, yaw: %f\n", camera.pitch, camera.yaw);
 
-    while (!glfwWindowShouldClose(window))
+    glEnable(GL_DEPTH_TEST);
+
+    while (!glfwWindowShouldClose(WINDOW))
     {
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-            glfwSetWindowShouldClose(window, true);
+        if (glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(WINDOW, true);
 
         float currentFrame = glfwGetTime();
         float deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_DEPTH_TEST);
 
-        processKeyboardInput(window, deltaTime);
+        processKeyboardInput(WINDOW, deltaTime);
 
-        // glm_perspective(glm_rad(camera.zoom), 1.0f, 0.1f, 100.0f, projection);
-        // glm_rotate(model, (float)glfwGetTime(), (vec3){0.5f, 1.0f, 0.0f});
+        updateShaderProgram(SHADER_PROGRAM);
 
-        updateShaderProgram(shaderProgram);
+        render(DATA_COUNT);
 
-        render(pointCount);
-
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(WINDOW);
         glfwPollEvents();
 
         // if (deltaTime < TARGET_FRAME_TIME)
         //     glfwWaitEventsTimeout(TARGET_FRAME_TIME - deltaTime);
     }
+}
 
+void close()
+{
+    glfwSetWindowShouldClose(WINDOW, true);
+    glfwTerminate();
+}
+
+void cleanUp()
+{
     glDeleteVertexArrays(1, &_VAO);
     glDeleteBuffers(1, &_VBO);
     glDeleteBuffers(1, &_positionSSBO);
@@ -119,16 +136,11 @@ int main()
     glDeleteBuffers(1, &_colorSSBO);
     glDeleteBuffers(1, &_quatSSBO);
     glDeleteBuffers(1, &_alphaSSBO);
-    glDeleteProgram(shaderProgram);
+    glDeleteProgram(SHADER_PROGRAM);
 
-    glfwTerminate();
-    return 0;
+    for (size_t i = 0; i < DATA_COUNT; i++)
+        if (DATA[i].sh != NULL)
+            free(DATA[i].sh);
+
+    free(DATA);
 }
-
-// int main(int argc, char const *argv[])
-// {
-//     PointCloudData* data;
-//     size_t pointCount;
-//     loadPLY("tester.ply", &data, &pointCount);
-//     return 0;
-// }

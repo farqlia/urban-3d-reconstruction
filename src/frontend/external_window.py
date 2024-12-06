@@ -5,12 +5,17 @@ import subprocess
 import ctypes
 import sys
 
-def get_external_window():
-    windowId = 60817417
-    externalWindow = QWindow.fromWinId(windowId)
-    externalWindow.setFlags(Qt.FramelessWindowHint)
+def external_window_to_widget(window_id):
+    window_id = int(window_id)
 
-    return externalWindow
+    external_window = QWindow.fromWinId(window_id)
+    
+    if external_window is None:
+        return None
+
+    external_window.setFlags(Qt.FramelessWindowHint)
+
+    return QWidget.createWindowContainer(external_window)
 
 if __name__ == "__main__":
     windowIdStr = subprocess.check_output(['sh', '-c', r"xwininfo -int | sed -ne 's/.*Window id: \([0-9a-fA-Fx]\+\).*/\1/p'"]).decode('utf-8')
