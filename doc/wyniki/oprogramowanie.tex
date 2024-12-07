@@ -8,14 +8,10 @@
 \subsection{Architektura}
 
 \begin{figure}[!htb]
-    \includegraphics[width=1.0\linewidth]{img/diagramy/diagram_komponentow.png}
-    \caption{Diagram komponentów}\label{fig:components_diagram}
+    \includegraphics[width=1.0\linewidth]{img/diagramy/diagram_wdrozenia_komponentow.png}
+    \caption{Diagram wdrożenia komponentów}\label{fig:components_diagram}
 \end{figure}
 
-\begin{figure}[!htb]
-    \includegraphics[width=1.0\linewidth]{img/diagramy/diagram_rozmieszczenia.png}
-    \caption{Diagram rozmieszczenia}\label{fig:deployment_diagram}
-\end{figure}
 
 \subsection{Implementacja}
 Opis zastosowanych technologii i dokumentów
@@ -42,32 +38,27 @@ Opis zastosowanych technologii i dokumentów
     before computing xy={l=15pt},
   }
 [project
+  [data
+    [city\_model
+      [images]
+      [sparse
+          [images.bin]
+          [cameras.bin]
+          [points.bin]
+      ]
+      [model.pt]
+      [model.ply]
+      [segmentation.ply]
+    ]
+  ]
   [src
+    [frontend]
+    [backend]
     [urb3d
       [rendering]
       [geometry]
       [models]
       [splats]
-    ]
-  ]
-  [docs
-    [main.pdf]
-    [readme.txt]
-  ]
-  [config
-    [config.json]
-  ]
-  [data
-  [city\_model
-        [images]
-        [sparse
-            [images.bin]
-            [cameras.bin]
-            [points.bin]
-        ]
-        [model.pt]
-        [model.ply]
-        [segmentation.ply]
     ]
   ]
 ]

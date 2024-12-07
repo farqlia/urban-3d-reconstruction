@@ -10,7 +10,9 @@
 \contentsline {subsection}{\numberline {3.2}Architektura}{3}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Implementacja}{3}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Struktura plikowa projektu}{5}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}Gaussian Splatting}{6}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.2}Gaussian Splatting}{5}{subsubsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.4}Testy}{7}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Testy jednostkowe}{7}{subsubsection.3.4.1}%
 \contentsline {section}{\numberline {4}Wyniki i analiza badań}{7}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Rekonstrukcja - Gaussian Splatting}{7}{subsection.4.1}%
 \contentsline {subsubsection}{\numberline {4.1.1}Wstęp}{7}{subsubsection.4.1.1}%
