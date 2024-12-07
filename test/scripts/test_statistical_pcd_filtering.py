@@ -1,3 +1,4 @@
+from lib2to3.pygram import python_grammar_no_print_and_exec_statement
 from pathlib import Path
 
 import pytest
@@ -20,20 +21,21 @@ def filtered_ply_path(tmp_path):
 
 @pytest.fixture
 def run_filtering(ply_path, filtered_ply_path):
-    run_script("distance_pcd_filtering.py", "--input", str(ply_path),
-               "--output", str(filtered_ply_path))
+    run_script("statistical_pcd_filtering.py", "--input", str(ply_path),
+               "--output", str(filtered_ply_path), '--method', 'iqr')
 
-
-def test_distance_pcd_filtering_files_exist(run_filtering, filtered_ply_path):
+@pytest.fixture
+def test_filtered_pcd_file_exists(run_filtering, filtered_ply_path):
     assert filtered_ply_path.exists()
 
-def test_distance_pcd_filtering_works(run_filtering, ply_path, filtered_ply_path):
+@pytest.fixture
+def test_filtering_works_correctly(run_filtering, ply_path, filtered_ply_path):
     cloud = PyntCloud.from_file(str(ply_path))
     filtered_cloud = PyntCloud.from_file(str(filtered_ply_path))
     assert len(filtered_cloud.points) <= len(cloud.points)
 
 def test_error_on_wrong_type(pt_path, filtered_ply_path):
     with pytest.raises(RuntimeError) as e:
-        run_script("distance_pcd_filtering.py", "--input", str(pt_path),
-                    "--output", str(filtered_ply_path))
-    assert 'Failed to execute distance_pcd_filtering.py)' in str(e.value)
+        run_script("statistical_pcd_filtering.py", "--input", str(pt_path),
+                   "--output", str(filtered_ply_path), '--method', 'iqr')
+    assert 'Failed to execute statistical_pcd_filtering.py)' in str(e.value)
