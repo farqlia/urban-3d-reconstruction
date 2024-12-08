@@ -48,6 +48,7 @@ Rectangle {
 
             RowLayout {
                 Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
 
                 Text {
                     text: "Uploaded images"
@@ -130,6 +131,7 @@ Rectangle {
         icon.source: "../icons/folder-click.png"
         icon.width: 35
         icon.height: 35
+        icon.color: buttonOpenDialogWindow.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
         onClicked: {
             isOpenDialog.data = true
         }
