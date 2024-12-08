@@ -20,4 +20,6 @@ def convert(model_path, output_path):
 
     pd_data = pd.DataFrame(data, columns=columns)
     cloud = pyntcloud.PyntCloud(pd_data)
+    cloud.points['z'] = cloud.points['z'] * -1
+    # cloud.points['y'] = cloud.points['y'] * -1
     cloud.to_file(output_path)

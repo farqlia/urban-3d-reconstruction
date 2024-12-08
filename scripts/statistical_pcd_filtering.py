@@ -56,11 +56,11 @@ def load_and_filter_cloud(file_path, output_path, method, alpha, threshold, outl
         inliers, outliers = filter_outliers_zscore(points, threshold)
 
     cloud.points = inliers
-    cloud.to_file(output_path, as_text=True)
+    cloud.to_file(output_path)
 
     if outliers_path is not None:
         cloud.points = outliers
-        cloud.to_file(outliers_path, as_text=True)
+        cloud.to_file(outliers_path)
 
 if __name__=="__main__":
     # usage:

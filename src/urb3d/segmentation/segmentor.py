@@ -76,7 +76,8 @@ class PointNetSegmentor(pl.LightningModule):
         return {'val_loss': loss}
 
     def predict_step(self, batch, batch_idx, dataloader_idx=0):
-        predictions, _, _ = self(batch)
+        x, y = batch
+        predictions, _, _ = self(x)
         return torch.argmax(predictions, dim=1)
 
     def configure_optimizers(self):

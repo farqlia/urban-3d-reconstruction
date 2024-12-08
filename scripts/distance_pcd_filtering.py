@@ -4,7 +4,7 @@ import open3d as o3d
 import argparse
 
 def filter_by_distance(cloud, max_distance):
-    center = cloud.centroid # cloud.points[['x', 'y', 'z']].mean()
+    center = cloud.points[['x', 'y', 'z']].mean()
     distances = np.sqrt((cloud.points['x'] - center['x']) ** 2 +
                         (cloud.points['y'] - center['y']) ** 2 +
                         (cloud.points['z'] - center['z']) ** 2)
@@ -28,7 +28,7 @@ if __name__=="__main__":
     inliers, outliers = filter_by_distance(cloud, args.max_distance)
 
     cloud.points = inliers
-    cloud.to_file(args.output, as_text=True)
+    cloud.to_file(args.output)
 
     #inliers = o3d.io.read_point_cloud(args.output)
     #o3d.visualization.draw_geometries([inliers])

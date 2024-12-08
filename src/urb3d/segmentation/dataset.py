@@ -6,6 +6,8 @@ import torch
 from torch.utils.data import Dataset
 import numpy as np
 
+SAMPLE_SIZE = 500_000
+
 class MockPointSampler:
 
     def __call__(self, point_cloud):
@@ -56,7 +58,10 @@ class PointCloudSegmentationDataset(Dataset):
         # For now, a point cloud is sampled each time this function is called (it doesn't depend on idx)
         sampled_cloud = self.point_sampler(self.pt.points[['x_norm', 'y_norm', 'z_norm']])
         sampled_points = torch.tensor(sampled_cloud[['x_norm', 'y_norm', 'z_norm']].values, device=device)
-        return sampled_points.T
+        labels = torch.tensor(sampled_cloud[['class']].values, device=device, dtype=torch.long).flatten() \
+            if 'class' in sampled_cloud.columns \
+            else torch.zeros(self.subsample_size, dtype=torch.long, device=device)
+        return sampled_points.T, labels
 
 
 class ChunkedPointCloudDataset(Dataset):
@@ -78,9 +83,9 @@ class ChunkedPointCloudDataset(Dataset):
         x, y, z = min_max_standardize(chunk[['x', 'y', 'z']])
         points = torch.tensor(np.column_stack([x, y, z]), dtype=torch.float32)
 
-        # Handle labels
-        label_col = 'class' if 'class' in chunk.columns else 'scalar_class'
-        labels = torch.tensor(chunk[label_col].values, dtype=torch.long)
+        # Handle labels (during inference we have no labels)
+        labels = torch.tensor(chunk['class'].values, dtype=torch.long) if 'class' in chunk.columns\
+            else torch.zeros(len(chunk), dtype=torch.long)
 
         # Combine points and labels
         point_cloud_with_labels = torch.cat([points, labels.unsqueeze(-1)], dim=-1).to(device)

@@ -3,7 +3,7 @@ from PySide6.QtQuick import QQuickWindow, QSGRendererInterface
 from PySide6.QtWidgets import QFileDialog
 from pyntcloud import PyntCloud
 
-from urb3d.pipeline.config import GAUSSIAN_MODEL_PLY, POINT_CLOUD_SPARSE, SEGMENTED_PLY_PATH, PNG_RENDERS_FOLDER, COLORED_SEGMENTED_PLY_PATH
+from urb3d.pipeline.config import GAUSSIAN_MODEL_PLY, POINT_CLOUD_SPARSE, FILTERED_PRESEG_MODEL, PNG_RENDERS_FOLDER, COLORED_SEGMENTED_PLY_PATH
 from urb3d.rendering.render_point_cloud import PointCloudWidget, prepare_point_cloud
 from urb3d.rendering.slideshow import SlideshowWidget
 from .config import LOADING_WINDOW_FILE, FAIL_WINDOW_FILE, SUCC_WINDOW_FILE, SETTINGS_WINDOW
@@ -55,9 +55,11 @@ class View:
         print(self._controller.viz_type)
 
         renderer = None
+
         if self._controller.viz_type == "reconstruction":
-            pc = PyntCloud.from_file(str(POINT_CLOUD_SPARSE))
-            prepare_point_cloud(pc, flip=False, normalize_colors=True)
+            cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
+            pc = PyntCloud.from_file(cloud_file)
+            prepare_point_cloud(pc, flip=False, normalize_colors=cloud_file == str(POINT_CLOUD_SPARSE))
             renderer = PointCloudWidget(pc)
 
         elif self._controller.viz_type == "rendering":

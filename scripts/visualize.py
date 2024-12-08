@@ -1,5 +1,7 @@
 import argparse
 import open3d as o3d
+from pyntcloud import PyntCloud
+
 if __name__=="__main__":
     # usage:
     # python scripts\statistical_pcd_filtering.py --input "path_to_file.ply" --method iqr --output "filtered_output.ply"
@@ -12,5 +14,12 @@ if __name__=="__main__":
 
     args = parser.parse_args()
 
+    # ptcl = PyntCloud.from_file(args.input)
+
+    # ptcl.points['z'] = ptcl.points['z'] * (-1)
+    # ptcl.to_file('../tmp_pt.ply')
+
     inliers = o3d.io.read_point_cloud(args.input)
+    print(inliers)
+    # inliers['z'] =
     o3d.visualization.draw_geometries([inliers])
