@@ -30,6 +30,7 @@ class MainWindow(QMainWindow):
         body_layout = QHBoxLayout(body)
 
         header.setMinimumHeight(100)
+        header.setMaximumHeight(120)
         footer.setMaximumHeight(20)
 
         lp_cont = QWidget(body)
