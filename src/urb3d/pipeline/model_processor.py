@@ -1,4 +1,7 @@
-from .config import INPUT_DATA_FOLDER, DATA_FOLDER, COLMAP_RECONSTRUCTION_DIR, CKPTS_PATH, GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_PT, COLMAP_ENV, POINT_CLOUD_SPARSE
+import os.path
+
+from .config import (INPUT_DATA_FOLDER, DATA_FOLDER, COLMAP_RECONSTRUCTION_DIR, PNG_RENDERS_FOLDER,
+                     CKPTS_PATH, GAUSSIAN_MODEL_PLY, GAUSSIAN_MODEL_PT, COLMAP_ENV, POINT_CLOUD_SPARSE)
 from .utils import run_script, run_script_with_env
 
 class ModelProcessor:
@@ -18,6 +21,7 @@ class ModelProcessor:
                        "--output", str(self.reconstruction_folder))
             self._remove_noises_sparse_reconstruction()
         if not self.point_cloud_sparse.exists():
+            print("Create ply file ...")
             run_script_with_env(COLMAP_ENV, "convert_to_ply.py", "--point_cloud", str(self.point_cloud_sparse),
                                 "--reconstruction_dir", str(self.reconstruction_folder))
 
@@ -32,10 +36,12 @@ class ModelProcessor:
             run_script("save_model.py", "--ckpts", str(self.ckpts_path),
                        "--output", str(GAUSSIAN_MODEL_PLY))
 
+            run_script("add_rgb_color.py", "--input", str(GAUSSIAN_MODEL_PLY))
+
+        if not os.path.exists(PNG_RENDERS_FOLDER) or not (os.listdir(PNG_RENDERS_FOLDER)):
             run_script("simple_trainer.py", "--data_dir", str(self.output_folder),  # ?
                        "--result_dir", str(self.output_folder), "--ckpt", GAUSSIAN_MODEL_PT)
 
-            run_script("add_rgb_color.py", "--input", str(GAUSSIAN_MODEL_PLY))
 
     def _remove_noises_sparse_reconstruction(self):
         run_script_with_env(COLMAP_ENV, "neighbor-based_pcd_filtering.py", "--reconstruction_dir",
