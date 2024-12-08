@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Dialogs
 
 import Constants
 import Components
@@ -28,6 +29,11 @@ Rectangle {
 
         LayoutItemProxy {
             target: buttonRun
+            width: FormatConst.headerButtonSize
+            height: FormatConst.headerButtonSize
+        }
+        LayoutItemProxy {
+            target: buttonSave
             width: FormatConst.headerButtonSize
             height: FormatConst.headerButtonSize
         }
@@ -97,6 +103,35 @@ Rectangle {
                     buildRunCategorization.func()
                     break;
             }
+        }
+    }
+    RoundButton_ {
+        id: buttonSave
+        icon.source: "../icons/save.webp"
+        icon.width: RoundButtonConst.headerImageRadius
+        icon.height: RoundButtonConst.headerImageRadius
+        icon.color: buttonSave.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
+
+        FolderDialog {
+            id: saveFileDialog
+
+            onAccepted: {
+               switch (optionBuildMode.currentText) {
+                case LangConst.comboBoxPointCloud:
+                    buildSaveCloud.func()
+                    break;
+                case LangConst.comboBoxSplats:
+                    buildSaveSplatModel.func()
+                    break;
+                case LangConst.comboBoxCategorization:
+                    buildSaveSegmentedModel.func()
+                    break;
+                }
+            }
+        }
+
+        onClicked: {
+            saveFileDialog.open();
         }
     }
     TitleCard_ {
