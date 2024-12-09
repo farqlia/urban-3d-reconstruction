@@ -90,9 +90,17 @@ Rectangle {
                                 id: loadReconstructionDialog
                                 property string chosenDir: ""
                                 onAccepted: {
-                                    chosenDir = loadReconstructionDialog.selectedFolder
-                                    backend.upload_reconstruction(chosenDir)
-                                    settingsStatus.data = true
+                                    try {
+                                        chosenDir = loadReconstructionDialog.selectedFolder;
+                                        backend.upload_reconstruction(chosenDir);
+                                        messageDialog.title = "Success"
+                                        messageDialog.text = "Reconstruction uploaded successfully!";
+                                        messageDialog.open();
+                                    } catch (error) {
+                                        messageDialog.title = "Error"
+                                        messageDialog.text = "Couldn't upload reconstruction";
+                                        messageDialog.open();
+                                    }
                                 }
                             }
                             onClicked: {
@@ -116,8 +124,10 @@ Rectangle {
                             }
                             padding: FormatConst.defaultPadding
                              onClicked: {
-                                backend.clear_reconstruction()
-
+                                 backend.clear_reconstruction()
+                                 messageDialog.title = "Success"
+                                 messageDialog.text = "Reconstruction cleared successfully!"
+                                 messageDialog.open()
                              }
                         }
 
@@ -160,7 +170,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.margins: FormatConst.defaultMargin
 
-                Button {
+              /*  Button {
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
                         applyChanges();
@@ -178,7 +188,7 @@ Rectangle {
                         font.pointSize: FormatConst.smallFontSize
                     }
                     padding: FormatConst.defaultPadding
-                }
+                }*/
 
                 Button {
                     Layout.alignment: Qt.AlignHCenter
@@ -204,5 +214,9 @@ Rectangle {
     SuccessWindow {
         id: successWindow
         visible: false
+    }
+
+    MessageDialog {
+        id: messageDialog
     }
 }
