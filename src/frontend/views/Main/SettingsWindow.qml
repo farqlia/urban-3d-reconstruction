@@ -41,6 +41,163 @@ Rectangle {
 
         ColumnLayout {
             anchors.fill: parent
+            spacing: FormatConst.defaultPadding
+            anchors.topMargin: FormatConst.defaultMargin
+             ColumnLayout {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.topMargin: FormatConst.defaultMargin
+                        spacing: FormatConst.defaultPadding
+                        RowLayout {
+                            id: content
+                            // anchors.fill: parent
+                            spacing: FormatConst.smallPadding
+                            anchors.horizontalCenter: parent.horizontalCenter
+
+                            Text {
+                                text: "COLMAP reconstruction  "
+                                Layout.alignment: Qt.AlignCenter
+                                color: ColorConst.secondaryColor
+                                font.pointSize: FormatConst.smallFontSize
+                                font.bold: true
+                            }
+                            Button {
+                                id: loadReconstructionButton
+                                font.pointSize: FormatConst.defaultFontSize
+                                font.bold: true
+                                background: Rectangle {
+                                    color: loadReconstructionButton.hovered ? ColorConst.hoverColor : ColorConst.secondaryColor
+                                    radius: 10
+                                }
+                                contentItem: Text {
+                                    text: "Load"
+                                    color: ColorConst.primaryColor
+                                    font.bold: true
+                                    anchors.centerIn: parent
+                                    font.pointSize: FormatConst.smallFontSize
+                                }
+                                padding: FormatConst.defaultPadding
+                                FolderDialog {
+                                    id: loadReconstructionDialog
+                                    property string chosenDir: ""
+                                    onAccepted: {
+                                        try {
+                                            chosenDir = loadReconstructionDialog.selectedFolder;
+                                            backend.upload_reconstruction(chosenDir);
+                                            messageDialog.title = "Success"
+                                            messageDialog.text = "Reconstruction uploaded successfully!";
+                                            messageDialog.open();
+                                        } catch (error) {
+                                            messageDialog.title = "Error"
+                                            messageDialog.text = "Couldn't upload reconstruction";
+                                            messageDialog.open();
+                                        }
+                                    }
+                                }
+                                onClicked: {
+                                    loadReconstructionDialog.open()
+                                }
+                            }
+                            Button {
+                                id: clearReconstructionButton
+                                font.pointSize: FormatConst.defaultFontSize
+                                font.bold: true
+                                background: Rectangle {
+                                    color: clearReconstructionButton.hovered ? ColorConst.hoverColor : ColorConst.secondaryColor
+                                    radius: 10
+                                }
+                                contentItem: Text {
+                                    text: "Clear"
+                                    color: ColorConst.primaryColor
+                                    font.bold: true
+                                    anchors.centerIn: parent
+                                    font.pointSize: FormatConst.smallFontSize
+                                }
+                                padding: FormatConst.defaultPadding
+                                onClicked: {
+                                    backend.clear_reconstruction()
+                                    messageDialog.title = "Success"
+                                    messageDialog.text = "Reconstruction cleared successfully!"
+                                    messageDialog.open()
+                                }
+                            }
+                        }
+                        RowLayout {
+                            id: contentModel
+                            // anchors.fill: parent
+                            spacing: FormatConst.smallPadding
+                            anchors.horizontalCenter: parent.horizontalCenter
+
+                            Text {
+                                text: "Gaussian model ckpts  "
+                                Layout.alignment: Qt.AlignCenter
+                                color: ColorConst.secondaryColor
+                                font.pointSize: FormatConst.smallFontSize
+                                font.bold: true
+                            }
+
+                            Button {
+                                id: loadGModelButton
+                                font.pointSize: FormatConst.defaultFontSize
+                                font.bold: true
+                                background: Rectangle {
+                                    color: loadGModelButton.hovered ? ColorConst.hoverColor : ColorConst.secondaryColor
+                                    radius: 10
+                                }
+                                contentItem: Text {
+                                    text: "Load"
+                                    color: ColorConst.primaryColor
+                                    font.bold: true
+                                    anchors.centerIn: parent
+                                    font.pointSize: FormatConst.smallFontSize
+                                }
+                                padding: FormatConst.defaultPadding
+                                FolderDialog {
+                                    id: loadGModelDialog
+
+                                    property string chosenDir: ""
+                                    onAccepted: {
+                                        try {
+                                            chosenDir = loadGModelDialog.selectedFolder;
+                                            backend.upload_gaussian_ckpts(chosenDir);
+                                            messageDialog.title = "Success"
+                                            messageDialog.text = "Model uploaded successfully!";
+                                            messageDialog.open();
+                                        } catch (error) {
+                                            messageDialog.title = "Error"
+                                            messageDialog.text = "Couldn't upload model";
+                                            messageDialog.open();
+                                        }
+                                    }
+                                }
+                                onClicked: {
+                                    loadGModelDialog.open()
+                                }
+                            }
+                            Button {
+                                id: clearModelButton
+                                font.pointSize: FormatConst.defaultFontSize
+                                font.bold: true
+                                background: Rectangle {
+                                    color: clearModelButton.hovered ? ColorConst.hoverColor : ColorConst.secondaryColor
+                                    radius: 10
+                                }
+                                contentItem: Text {
+                                    text: "Clear"
+                                    color: ColorConst.primaryColor
+                                    font.bold: true
+                                    anchors.centerIn: parent
+                                    font.pointSize: FormatConst.smallFontSize
+                                }
+                                padding: FormatConst.defaultPadding
+                                onClicked: {
+                                    backend.clear_gaussian_model()
+                                    messageDialog.title = "Success"
+                                    messageDialog.text = "Gaussian model cleared successfully!"
+                                    messageDialog.open()
+                                }
+                            }
+                        }
+                    }
 
 
             ListView {
@@ -50,119 +207,33 @@ Rectangle {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.margins: FormatConst.defaultMargin
                 //spacing: FormatConst.smallPadding
-                model: [1]
-                //model: settingsVars ? getCopyVars() : []
+                //model: [1]
+                model: settingsVars ? getCopyVars() : []
 
-                delegate: Item {
-                    width: listView.width
-                    height: content.height + FormatConst.smallPadding
 
-                    RowLayout {
-                        id: content
-                       // anchors.fill: parent
-                        spacing: FormatConst.smallPadding
-                        anchors.horizontalCenter: parent.horizontalCenter
 
-                        Text {
-                            text: "COLMAP reconstruction  "
-                            Layout.alignment: Qt.AlignCenter
-                            color: ColorConst.secondaryColor
-                            font.pointSize: FormatConst.smallFontSize
-                            font.bold: true
-                        }
-                        Button {
-                            id: loadReconstructionButton
-                            font.pointSize: FormatConst.defaultFontSize
-                            font.bold: true
-                            background: Rectangle {
-                                color: loadReconstructionButton.hovered ? ColorConst.hoverColor : ColorConst.secondaryColor
-                                radius: 10
+                    delegate: Item {
+                        width: parent.width
+                        height: 50
+
+                        RowLayout {
+                            anchors.fill: parent
+                            spacing: 10
+
+                            Label {
+                                text: modelData.label
+                                Layout.alignment: Qt.AlignLeft
+                                width: 100
                             }
-                            contentItem: Text {
-                                text: "Load"
-                                color: ColorConst.primaryColor
-                                font.bold: true
-                                anchors.centerIn: parent
-                                font.pointSize: FormatConst.smallFontSize
-                            }
-                            padding: FormatConst.defaultPadding
-                            FolderDialog {
-                                id: loadReconstructionDialog
-                                property string chosenDir: ""
-                                onAccepted: {
-                                    try {
-                                        chosenDir = loadReconstructionDialog.selectedFolder;
-                                        backend.upload_reconstruction(chosenDir);
-                                        messageDialog.title = "Success"
-                                        messageDialog.text = "Reconstruction uploaded successfully!";
-                                        messageDialog.open();
-                                    } catch (error) {
-                                        messageDialog.title = "Error"
-                                        messageDialog.text = "Couldn't upload reconstruction";
-                                        messageDialog.open();
-                                    }
-                                }
-                            }
-                            onClicked: {
-                                loadReconstructionDialog.open()
+
+                            TextField {
+                                id: textField
+                                text: modelData.input
+                                Layout.fillWidth: true
                             }
                         }
-                         Button {
-                            id: clearReconstructionButton
-                            font.pointSize: FormatConst.defaultFontSize
-                            font.bold: true
-                            background: Rectangle {
-                                color: clearReconstructionButton.hovered ? ColorConst.hoverColor : ColorConst.secondaryColor
-                                radius: 10
-                            }
-                            contentItem: Text {
-                                text: "Clear"
-                                color: ColorConst.primaryColor
-                                font.bold: true
-                                anchors.centerIn: parent
-                                font.pointSize: FormatConst.smallFontSize
-                            }
-                            padding: FormatConst.defaultPadding
-                             onClicked: {
-                                 backend.clear_reconstruction()
-                                 messageDialog.title = "Success"
-                                 messageDialog.text = "Reconstruction cleared successfully!"
-                                 messageDialog.open()
-                             }
-                        }
 
-                       /* RoundButton_ {
-                            id: clearReconstructionButton
-                            icon.source: "../icons/clear.png"
-                            icon.width: 35
-                            icon.height: 35
-                            icon.color: clearReconstructionButton.hovered ? ColorConst.hoverColor : ColorConst.secondaryColor
-                            Layout.alignment: Qt.AlignCenter
-                        }*/
-                    }
                 }
-
-                /*delegate: Item {
-                    width: parent.width
-                    height: 50
-                
-                    RowLayout {
-                        anchors.fill: parent
-                        spacing: 10
-
-                        Label {
-                            text: modelData.label
-                            Layout.alignment: Qt.AlignLeft
-                            width: 100
-                        }
-
-                        TextField {
-                            id: textField
-                            text: modelData.input
-                            Layout.fillWidth: true
-                        }
-                    }
-                }*/
             }
 
             RowLayout {
@@ -170,7 +241,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.margins: FormatConst.defaultMargin
 
-              /*  Button {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
                         applyChanges();
@@ -188,7 +259,7 @@ Rectangle {
                         font.pointSize: FormatConst.smallFontSize
                     }
                     padding: FormatConst.defaultPadding
-                }*/
+                }
 
                 Button {
                     Layout.alignment: Qt.AlignHCenter
@@ -200,7 +271,7 @@ Rectangle {
                         radius: 10
                     }
                     contentItem: Text {
-                        text: "Cancel"
+                        text: "Close"
                         color: ColorConst.primaryColor
                         font.bold: true
                         anchors.centerIn: parent
