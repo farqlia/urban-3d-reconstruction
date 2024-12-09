@@ -40,3 +40,9 @@ class FileManager:
             raise FileNotFoundError(f"Model file '{self.model_path}' does not exist.")
         
         shutil.copy(self.model_path, destination_file)
+
+    def save_result(self, to_save_path, destination_path):
+        destination_file = Path(destination_path)
+        if not to_save_path.exists() or not to_save_path.is_file():
+            raise FileNotFoundError(f"Model file '{to_save_path}' does not exist.")
+        shutil.copy(to_save_path, destination_file)
