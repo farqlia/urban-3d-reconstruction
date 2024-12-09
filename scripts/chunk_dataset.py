@@ -19,7 +19,7 @@ def save_pointcloud_in_chunks_multiple_files(input_files, chunk_size, output_dir
         print(f"Points: {len(points)}")
 
         # Shuffle points
-        #points = points.sample(frac=1, random_state=42).reset_index(drop=True)
+        points = points.sample(frac=1, random_state=42).reset_index(drop=True)
 
         # Calculate number of chunks
         num_chunks = (len(points) + chunk_size - 1) // chunk_size  # Round up
@@ -45,4 +45,4 @@ if __name__=="__main__":
 
     args = parser.parse_args()
 
-    save_pointcloud_in_chunks_multiple_files([args.input], SAMPLE_SIZE, args.output)
+    save_pointcloud_in_chunks_multiple_files([args.input], 1_000_000, args.output)

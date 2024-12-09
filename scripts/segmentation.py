@@ -7,7 +7,7 @@ import argparse
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
 from urb3d.segmentation.segmentor import PointNetSegmentor
-from urb3d.segmentation.dataset import PointCloudSegmentationDataset, ChunkedPointCloudDataset, SAMPLE_SIZE
+from urb3d.segmentation.dataset import PointCloudSegmentationDataset, ChunkedPointCloudDataset, MockPointSampler, SAMPLE_SIZE
 import numpy as np
 import warnings
 
@@ -27,7 +27,7 @@ def run(segmentor_ckpt_path, input_ply_path, output_ply_path):
 
 def run_chunked(segmentor_ckpt_path, input_chunks_dir, output_ply_path):
     model = PointNetSegmentor.load_from_checkpoint(segmentor_ckpt_path, strict=False)
-    dataset = ChunkedPointCloudDataset(input_chunks_dir)
+    dataset = ChunkedPointCloudDataset(input_chunks_dir, point_sampler=MockPointSampler())
     data_loader = DataLoader(dataset)
     trainer = pl.Trainer()
 
