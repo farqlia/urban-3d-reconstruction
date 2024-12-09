@@ -68,7 +68,7 @@ if __name__=="__main__":
     output_path = Path(args.output)
     database_path = Path(args.database_path) if args.database_path else output_path / 'database.db'
 
-    if not os.path.exists(output_path):
-        reconstruction = run_reconstruction(input_images_path, output_path, database_path)
-        #export_reconstructions_to_ply(reconstructions)
-        reconstruction.export_PLY(output_path / 'sparse.ply')
+    #if not os.path.exists(output_path):
+    reconstruction = run_reconstruction(input_images_path, output_path, database_path)
+    #export_reconstructions_to_ply(reconstructions)
+    reconstruction.export_PLY(output_path / 'sparse.ply')
