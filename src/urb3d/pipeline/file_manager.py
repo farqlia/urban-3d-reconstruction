@@ -1,13 +1,14 @@
 import shutil
 from pathlib import Path
 from tqdm import tqdm
-from .config import INPUT_DATA_FOLDER, GAUSSIAN_MODEL_PLY
+from urb3d.pipeline.config import INPUT_DATA_FOLDER, GAUSSIAN_MODEL_PLY, COLMAP_RECONSTRUCTION_DIR
 
 class FileManager:
     def __init__(self):
         self.destination_folder = INPUT_DATA_FOLDER
         self.model_path = GAUSSIAN_MODEL_PLY
         self.destination_folder.mkdir(parents=True, exist_ok=True)
+        self.reconstruction_dir = COLMAP_RECONSTRUCTION_DIR / "sparse"
 
     def upload_folder(self, source_folder: str) -> None:
         source_path = Path(source_folder)
@@ -46,3 +47,27 @@ class FileManager:
         if not to_save_path.exists() or not to_save_path.is_file():
             raise FileNotFoundError(f"Model file '{to_save_path}' does not exist.")
         shutil.copy(to_save_path, destination_file)
+
+    def upload_reconstruction(self, src_path):
+        required_files = ["cameras.bin", "images.bin", "points3D.bin"]
+        src_path = Path(src_path)
+
+        if not src_path.is_dir():
+            raise FileNotFoundError(f"Ścieżka {src_path} nie istnieje lub nie jest folderem.")
+
+        missing_files = [file for file in required_files if not (src_path / file).exists()]
+        if missing_files:
+            raise FileNotFoundError(f"Brakuje wymaganych plików rekonstrukcji: {', '.join(missing_files)}")
+
+        if self.reconstruction_dir.exists():
+            for item in self.reconstruction_dir.iterdir():
+                if item.is_file() or item.is_symlink():
+                    item.unlink()
+
+        self.reconstruction_dir.mkdir(parents=True, exist_ok=True)
+        for file in required_files:
+            shutil.copy(src_path / file, self.reconstruction_dir)
+
+    def clear_reconstruction(self):
+        if self.reconstruction_dir.exists():
+            shutil.rmtree(self.reconstruction_dir)

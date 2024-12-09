@@ -45,5 +45,13 @@ class Backend(QObject):
         destination_file = destination_path + "/segmented_model.ply"
         self.save_result(SEGMENTED_PLY_PATH, destination_file)
 
+    @Slot(str)
+    def upload_reconstruction(self, src_path):
+        self.file_manager.upload_reconstruction(src_path[8:])
+
+    @Slot()
+    def clear_reconstruction(self):
+        self.file_manager.clear_reconstruction()
+
     def upload_gaussian_model(self, source_path):
         self.file_manager.upload_gaussian_model(source_path)
