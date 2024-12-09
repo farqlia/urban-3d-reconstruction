@@ -53,5 +53,10 @@ class Backend(QObject):
     def clear_reconstruction(self):
         self.file_manager.clear_reconstruction()
 
-    def upload_gaussian_model(self, source_path):
-        self.file_manager.upload_gaussian_model(source_path)
+    @Slot(str)
+    def upload_gaussian_ckpts(self, source_path):
+        self.file_manager.upload_gaussian_ckpts(source_path[8:])
+
+    @Slot()
+    def clear_gaussian_model(self):
+        self.file_manager.clear_gaussian_model()
