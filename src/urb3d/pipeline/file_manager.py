@@ -53,11 +53,11 @@ class FileManager:
         src_path = Path(src_path)
 
         if not src_path.is_dir():
-            raise FileNotFoundError(f"Ścieżka {src_path} nie istnieje lub nie jest folderem.")
+            raise FileNotFoundError(f"Path does not exist or is not a directory")
 
         missing_files = [file for file in required_files if not (src_path / file).exists()]
         if missing_files:
-            raise FileNotFoundError(f"Brakuje wymaganych plików rekonstrukcji: {', '.join(missing_files)}")
+            raise FileNotFoundError(f"Missing reconstruction files: {', '.join(missing_files)}")
 
         if self.reconstruction_dir.exists():
             for item in self.reconstruction_dir.iterdir():
