@@ -5,11 +5,12 @@ import pytorch_lightning as pl
 from torchmetrics import Precision, Accuracy, Recall
 from urb3d.segmentation.transform import Transform
 
-def segmentation_loss(outputs, labels, m3x3, m64x64, alpha=0.001):
+def segmentation_loss(outputs, labels, m3x3, m64x64, alpha=0.001, criterion=None):
     '''
     Cross entropy loss plus regularization for transformation matrices
     '''
-    criterion = torch.nn.CrossEntropyLoss()
+    if criterion is None:
+        criterion = torch.nn.CrossEntropyLoss()
     bs=outputs.size(0)
     id3x3 = torch.eye(3, requires_grad=True).repeat(bs,1,1)
     id64x64 = torch.eye(64, requires_grad=True).repeat(bs,1,1)
@@ -21,8 +22,9 @@ def segmentation_loss(outputs, labels, m3x3, m64x64, alpha=0.001):
     return criterion(outputs, labels) + alpha * (torch.norm(diff3x3)+torch.norm(diff64x64)) / float(bs)
 
 class PointNetSegmentor(pl.LightningModule):
-    def __init__(self, classes=13):
+    def __init__(self, classes=13, weights=None):
         super().__init__()
+        self.criterion = torch.nn.CrossEntropyLoss() if weights is None else torch.nn.CrossEntropyLoss(weight=weights)
         self.precision = Precision(task="multiclass", average='macro', num_classes=classes)
         self.recall = Recall(task="multiclass", average='macro', num_classes=classes)
         self.accuracy = Accuracy(task="multiclass", num_classes=classes)
@@ -56,7 +58,7 @@ class PointNetSegmentor(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         x, y = batch
         predictions, matrix3x3, matrix64x64 = self(x)
-        loss = segmentation_loss(predictions, y, matrix3x3, matrix64x64)
+        loss = segmentation_loss(predictions, y, matrix3x3, matrix64x64, criterion=self.criterion)
         self.log('train_loss', loss, prog_bar=True, sync_dist=True, on_epoch=True)
         self.log('train_accuracy', self.accuracy(predictions, y), prog_bar=True, sync_dist=True, on_epoch=True)
         self.log('train_precision', self.precision(predictions, y), prog_bar=True, sync_dist=True, on_epoch=True)
@@ -66,7 +68,7 @@ class PointNetSegmentor(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         x, y = batch
         predictions, matrix3x3, matrix64x64 = self(x)
-        loss = segmentation_loss(predictions, y, matrix3x3, matrix64x64)
+        loss = segmentation_loss(predictions, y, matrix3x3, matrix64x64, criterion=self.criterion)
         self.log('val_loss', loss, prog_bar=True, sync_dist=True, on_epoch=True)
         self.log('val_accuracy', self.accuracy(predictions, y), prog_bar=True, sync_dist=True, on_epoch=True)
         self.log('val_precision', self.precision(predictions, y), prog_bar=True, sync_dist=True, on_epoch=True)

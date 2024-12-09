@@ -3,6 +3,7 @@ import os
 import pycolmap
 from pathlib import Path
 
+
 def run_reconstruction(input_images_path, output_path, database_path, camera_model='SIMPLE_PINHOLE'):
     os.makedirs(output_path, exist_ok=True)
 
@@ -41,20 +42,11 @@ def run_reconstruction(input_images_path, output_path, database_path, camera_mod
 
     maps = pycolmap.incremental_mapping(database_path, input_images_path, output_path,
                                             options=incremental_pipeline_options)
-    
-    reconstructions = []
 
-    for i in range(len(maps)):
-        model_path = output_path / str(i)
-        maps[i].write(model_path)
+    maps[0].write(output_path)
 
-        undistorted_path = output_path / f'undistorted_images_{i}'
-        pycolmap.undistort_images(output_path=str(undistorted_path), image_path=str(input_images_path), 
-                                  input_path=model_path)
-        reconstruction = pycolmap.Reconstruction(undistorted_path / 'sparse')
-        reconstructions.append(reconstruction)
-       
-    return reconstructions
+    reconstruction = pycolmap.Reconstruction(output_path)
+    return reconstruction
 
 def export_reconstructions_to_ply(reconstructions):
     for i, reconstruction in enumerate(reconstructions):
@@ -76,7 +68,7 @@ if __name__=="__main__":
     output_path = Path(args.output)
     database_path = Path(args.database_path) if args.database_path else output_path / 'database.db'
 
-    if not os.path.exists(output_path / '0'):
-        reconstructions = run_reconstruction(input_images_path, output_path, database_path)
+    if not os.path.exists(output_path):
+        reconstruction = run_reconstruction(input_images_path, output_path, database_path)
         #export_reconstructions_to_ply(reconstructions)
-        reconstructions[0].export_PLY(output_path / 'sparse.ply')
+        reconstruction.export_PLY(output_path / 'sparse.ply')
