@@ -5,10 +5,11 @@ import Constants
 
 ComboBox {
     id: comboBox
+    property int additionalPadding: 0
 
     contentItem: Text {
         leftPadding: 10
-        rightPadding: comboBox.indicator.width + comboBox.spacing
+        rightPadding: comboBox.indicator.width + comboBox.spacing + additionalPadding
 
         text: comboBox.displayText
         font.bold: true
@@ -44,7 +45,6 @@ ComboBox {
         required property int index
 
         width: comboBox.width
-        padding: 8
         contentItem: Text {
             text: delegate.model[comboBox.textRole]
             color: highlighted ? ColorConst.primaryColor : ColorConst.secondaryColor

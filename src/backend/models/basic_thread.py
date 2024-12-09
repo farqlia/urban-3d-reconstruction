@@ -8,5 +8,9 @@ class BasicThreadScript(QRunnable):
         self._callback = callback
 
     def run(self):
-        result = self._func()
+        result = None
+        try:
+            result = self._func()
+        except Exception as e:
+            result = str(e)
         self._callback(result)

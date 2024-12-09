@@ -28,11 +28,6 @@ Rectangle {
                 Layout.fillHeight: true
             }
 
-            LayoutItemProxy {
-                target: settingParametersTab
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-            }
         }
     }
 
@@ -78,53 +73,6 @@ Rectangle {
             }
         }
     }
-
-
-    // Border_ {
-    //     id: settingParametersTab
-
-    //     color: "transparent"
-    //     border.color: "transparent"
-
-    //     ColumnLayout {
-    //         anchors.fill: parent
-    //         anchors.margins: FormatConst.defaultMargin
-
-    //         ColumnLayout {
-    //             Layout.fillWidth: true
-
-    //             Text {
-    //                 text: "Setting"
-    //                 Layout.fillWidth: true
-    //                 horizontalAlignment: Text.AlignHCenter
-    //                 color: ColorConst.secondaryColor
-    //                 font.pointSize: FormatConst.defaultFontSize
-    //                 font.bold: true
-    //             }
-
-    //             Text {
-    //                 text: "parameters"
-    //                 Layout.fillWidth: true
-    //                 horizontalAlignment: Text.AlignHCenter
-    //                 color: ColorConst.secondaryColor
-    //                 font.pointSize: FormatConst.defaultFontSize
-    //                 font.bold: true
-    //             }
-    //         }
-
-    //         ListView {
-    //             Layout.alignment: Qt.AlignHCenter
-    //             Layout.fillWidth: true
-    //             Layout.fillHeight: true
-    //             model: []
-    //             spacing: FormatConst.smallPadding
-
-    //             delegate: ListEntry_ {
-    //                 text: modelData
-    //             }
-    //         }
-    //     }
-    // }
 
     RoundButton_ {
         id: buttonOpenDialogWindow

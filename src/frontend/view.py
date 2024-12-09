@@ -22,9 +22,10 @@ class View:
         QQuickWindow.setGraphicsApi(QSGRendererInterface.GraphicsApi.OpenGL)
         self._controller = controller
         self._engine_manager = EngineManager()
-        self._rendering_lib = lib
+        self.rendering_lib = lib
         self._configure_engine_properties()
         self._configure_handlers()
+        self.popup_on = False
 
         self._main_view = MainWindow(self._engine_manager)
         self._loading_window = None
@@ -37,8 +38,8 @@ class View:
         self._controller.configure_dialog_open_handler(self.open_dialog)
         self._controller.configure_dialog_file_list_open_handler(self.wrapper_slidig_widget)
         self._controller.configure_open_build_run_handler(self.build)
-        self._controller.configure_succ_build_run_handler(self.build_succ)
-        self._controller.configure_fail_build_run_handler(self.build_fail)
+        self._controller.configure_succ_build_run_handler(self.build_succ, self.close_popup_window)
+        self._controller.configure_fail_build_run_handler(self.build_fail, self.close_popup_window)
         self._controller.configure_renderer_handler(self._create_renderer)
         self._controller.configure_settings_handler(lambda: self.open_popup_window(SETTINGS_WINDOW))
         self._controller.configure_settings_status_handler(self.close_popup_window)
@@ -62,54 +63,49 @@ class View:
         self._engine_manager.set_qml_property("buildRunCloud", self._controller.get_build_run_cloud_qml())
         self._engine_manager.set_qml_property("buildRunSplats", self._controller.get_build_run_splats_qml())
         self._engine_manager.set_qml_property("buildRunCategorization", self._controller.get_build_run_categorization_qml())
-
+        self._engine_manager.set_qml_property("buildInfo", self._controller.get_build_info())
 
     def _create_renderer(self):
-        print(self._controller.viz_type)
-
-        renderer = None
+        self.renderer = None
 
         if self._controller.viz_type == "reconstruction":
-            # '''
-            # Here own renderer
-            # '''
-            # thread_pool = QThreadPool.globalInstance()
-
-            # # PATH TO FILE
-            # data_path = "data/tester.ply".encode('utf-8')
-            # self._renderer = None
-
-            # def bundle():
-            #     self._rendering_lib.initWindow()
-            #     window_id = self._rendering_lib.getWindowId()
-            #     self._renderer = external_window(window_id)
-            #     self._rendering_lib.loadData(data_path)
-            #     self._rendering_lib.run()
-
-            # thread_pool.start(BasicThreadScript(bundle, lambda x: None))
-            
-            # while(self._renderer is None):
-            #     continue
-
-            # self._renderer.moveToThread(self._main_view.thread())
-            # self._renderer = QWidget.createWindowContainer(self._renderer)
-            # '''
-            # End own controller
-            # '''
             cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
-            pc = PyntCloud.from_file(cloud_file)
-            prepare_point_cloud(pc, flip=False, normalize_colors=cloud_file == str(POINT_CLOUD_SPARSE))
-            renderer = PointCloudWidget(pc)
+            cloud_file = "data/sparse.ply"
+
+            if self._controller.renderer_type == 1:
+                self.renderer = None
+                # thread_pool = QThreadPool.globalInstance()
+
+                # def bundle():
+                #     self.rendering_lib.initWindow()
+                #     window_id = self.rendering_lib.getWindowId()
+                #     self.renderer = external_window(window_id)
+                #     self.rendering_lib.loadData(cloud_file.encode('utf-8'))
+                #     self.rendering_lib.run()
+
+                # thread_pool.start(BasicThreadScript(bundle, lambda x: None))
+                
+                # while(self.renderer is None):
+                #     continue
+
+                # self.renderer.moveToThread(self._main_view.thread())
+                # self.renderer = QWidget.createWindowContainer(self._renderer)
+
+            else:
+                cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
+                pc = PyntCloud.from_file(cloud_file)
+                prepare_point_cloud(pc, flip=False, normalize_colors=cloud_file == str(POINT_CLOUD_SPARSE))
+                self.renderer = PointCloudWidget(pc)
 
         elif self._controller.viz_type == "rendering":
-            renderer = SlideshowWidget(PNG_RENDERS_FOLDER)
+            self.renderer = SlideshowWidget(PNG_RENDERS_FOLDER)
 
         elif self._controller.viz_type == "segmentation":
             pc = PyntCloud.from_file(str(COLORED_SEGMENTED_PLY_PATH))
             prepare_point_cloud(pc, flip=False, normalize_colors=True)
-            renderer = PointCloudWidget(pc)
+            self.renderer = PointCloudWidget(pc)
 
-        if renderer is not None:
+        if self.renderer is not None:
             print("Configure renderer")
             self._main_view.configure_renderer(renderer)
 
@@ -123,13 +119,16 @@ class View:
 
     def build_succ(self):
         self.close_popup_window()
-        self.open_popup_window(FAIL_WINDOW_FILE)
+        self.open_popup_window(SUCC_WINDOW_FILE)
         
     def build_fail(self):
         self.close_popup_window()
-        self.open_popup_window(SUCC_WINDOW_FILE)
+        self.open_popup_window(FAIL_WINDOW_FILE)
     
     def open_popup_window(self, component):
+        if self.popup_on:
+            return
+
         self.popup = self._engine_manager.load_component(component, self._main_view)
         parent_rect = self._main_view.rect()
         self.popup.setGeometry(
@@ -139,11 +138,13 @@ class View:
             self.popup.height()
         )
         self.popup.show()
+        self.popup_on = True
 
     def close_popup_window(self):
         if self.popup is not None:
             self.popup.hide()
             self.popup.deleteLater()
+            self.popup_on = False
 
     def wrapper_slidig_widget(self):
         self._main_view.slide_body()

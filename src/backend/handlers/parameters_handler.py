@@ -6,6 +6,14 @@ class ParametersHandler:
         self._is_parameters_open = BasicModelBool()
         self._status = BasicModelBool()
         self._params = BasicModelList()
+        # default
+        self._params.data = [
+            "default",
+            "100000",
+            "3000000",
+            "100",
+            "1"
+        ]
     
     @property
     def is_parameters_open(self):

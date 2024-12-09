@@ -35,9 +35,9 @@ Rectangle {
             }
 
             Button {
-                Layout.alignment: At.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter
                 onClicked: {
-                    isSuccessWindow.data = false
+                    isBuildSucc.data = false
                 }
                 background: Rectangle {
                     color: ColorConst.secondaryColor

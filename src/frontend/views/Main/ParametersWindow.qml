@@ -11,7 +11,7 @@ Rectangle {
     color: ColorConst.primaryColor
 
     width: FormatConst.popupWidth
-    height: 500
+    height: 400
 
     function getCopyVars() {
         var tempVars = [];
@@ -28,9 +28,7 @@ Rectangle {
         tempVars.push(capInput.text);
         tempVars.push(refineInput.text);
         tempVars.push(shInput.currentText);
-        console.log(tempVars);
         parametersVars.data = tempVars;
-        console.log(parametersVars.data);
     }
 
     Border_ {
@@ -40,10 +38,13 @@ Rectangle {
         ColumnLayout {
             anchors.fill: parent
 
-            RowLayout {
+            GridLayout {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillWidth: true
                 Layout.margins: FormatConst.defaultMargin
+                columns: 2
+                rowSpacing: 20
+                columnSpacing: 10
 
                 Label {
                     text: "Strategy"
@@ -52,13 +53,8 @@ Rectangle {
                 RoundComboBox_ {
                     id: strategyInput
                     model: ["default", "mcmc"]
+                    additionalPadding: 10
                 }
-            }
-
-            RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: true
-                Layout.margins: FormatConst.defaultMargin
 
                 Label {
                     text: "Max steps"
@@ -66,16 +62,9 @@ Rectangle {
 
                 TextField {
                     id: stepsInput
-                    text: "100000"
-                    Layout.fillWidth: true
+                    text: parametersVars.data[1]
+                    Layout.preferredWidth: 100
                 }
-            }
-
-
-            RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: true
-                Layout.margins: FormatConst.defaultMargin
 
                 Label {
                     text: "Cap max"
@@ -83,15 +72,9 @@ Rectangle {
 
                 TextField {
                     id: capInput
-                    text: "3000000"
-                    Layout.fillWidth: true
+                    text: parametersVars.data[2]
+                    Layout.preferredWidth: 100
                 }
-            }
-
-            RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: true
-                Layout.margins: FormatConst.defaultMargin
 
                 Label {
                     text: "Refine every (iterations)"
@@ -99,15 +82,9 @@ Rectangle {
 
                 TextField {
                     id: refineInput
-                    text: "100"
-                    Layout.fillWidth: true
+                    text: parametersVars.data[3]
+                    Layout.preferredWidth: 100
                 }
-            }
-
-            RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: true
-                Layout.margins: FormatConst.defaultMargin
 
                 Label {
                     text: "Spherical harmonics degrees"
@@ -116,6 +93,7 @@ Rectangle {
                 RoundComboBox_ {
                     id: shInput
                     model: ["1", "2", "3"]
+                    additionalPadding: 10
                 }
             }
 
