@@ -72,7 +72,7 @@ class View:
 
         if renderer is not None:
             print("Configure renderer")
-            self._main_view.configure_renderer(renderer)
+            self._main_view.configure_renderer(renderer, self._controller.viz_type)
 
 
     def _open_dialog(self):

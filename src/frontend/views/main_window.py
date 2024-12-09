@@ -1,5 +1,7 @@
-from PySide6.QtCore import QObject, QUrl, Qt 
+from PySide6.QtCore import QObject, QUrl, Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QHBoxLayout, QStackedLayout, QFileDialog, QGridLayout, QLabel, QApplication, QSizePolicy
+from PySide6.QtGui import QPixmap
+import os
 
 from ..config import HEADER_FILE, FOOTER_FILE, LEFT_PANE_FILE, RIGHT_PANE_LB_FILE, RIGHT_PANE_LT_FILE, RIGHT_PANE_RB_FILE, RIGHT_PANE_RT_FILE
 
@@ -76,7 +78,7 @@ class MainWindow(QMainWindow):
     def _create_right_pane_rb(self, parent):
         return self._engine_manager.load_component(RIGHT_PANE_RB_FILE, parent)
 
-    def configure_renderer(self, renderer):
+    def configure_renderer(self, renderer, viz_type):
         # For now
         if self._renderer is not None:
             self._renderer.hide()
@@ -84,10 +86,10 @@ class MainWindow(QMainWindow):
         self._renderer = renderer
         # self._renderer.setParent()
         # self._renderer.hide()
-        self._update_right_pane()
+        self._update_right_pane(viz_type)
         # self._renderer.show()
 
-    def _update_right_pane(self):
+    def _update_right_pane(self, viz_type=None):
         while self._renderer_layout.count():
             item = self._renderer_layout.takeAt(0)
             widget = item.widget()
@@ -109,6 +111,18 @@ class MainWindow(QMainWindow):
         self._renderer_layout.addWidget(rt, 0, 1, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignTop)
         self._renderer_layout.addWidget(lb, 1, 0, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
         self._renderer_layout.addWidget(rb, 1, 1, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignBottom)
+
+        if viz_type == "segmentation":
+            legend_label = QLabel(self)
+            legend_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "icons\legend.png")
+            legend_pixmap = QPixmap(legend_path)
+            legend_label.setPixmap(legend_pixmap)
+            legend_label.setScaledContents(True)
+            legend_label.setMaximumSize(258,425)
+
+            self._renderer_layout.addWidget(
+                legend_label, 0, 1, 2, 1, alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight
+            )
 
         self._renderer_layout.setRowStretch(0, 1)
         self._renderer_layout.setRowStretch(1, 1)
