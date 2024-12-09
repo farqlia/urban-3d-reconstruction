@@ -48,7 +48,7 @@ class View:
         self._engine_manager.set_qml_property("buildRunCloud", self._controller.get_build_run_cloud_qml())
         self._engine_manager.set_qml_property("buildRunSplats", self._controller.get_build_run_splats_qml())
         self._engine_manager.set_qml_property("buildRunCategorization", self._controller.get_build_run_categorization_qml())
-
+        self._engine_manager.set_qml_property("backend", self._controller.get_backend_qml())
 
     def _create_renderer(self):
 

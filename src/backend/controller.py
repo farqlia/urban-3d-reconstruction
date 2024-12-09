@@ -9,6 +9,7 @@ from urb3d.pipeline.config import INPUT_DATA_FOLDER, DATA_FOLDER, COLMAP_RECONST
 
 class Controller:
     def __init__(self, backend):
+        self.backend = backend
         self._build_info_handler = BuildInfoHandler()
         self._point_cloud_build_handler = BuildHandler(backend.reconstruct_point_cloud, lambda x: self.complete_build(x, "reconstruction"))
         self._splats_build_handler = BuildHandler(backend.create_gaussian_model, lambda x: self.complete_build(x, "rendering"))
@@ -100,6 +101,9 @@ class Controller:
 
     def get_build_run_categorization_qml(self):
         return self._categorization_handler.func
+
+    def get_backend_qml(self):
+        return self.backend
 
     def set_file_list(self, dir_path):
         if dir_path:
