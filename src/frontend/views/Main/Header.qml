@@ -69,7 +69,7 @@ Rectangle {
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
         onClicked: {
-            selectedTab.data = 0
+            isFileListOpen.data = !isFileListOpen.data
         }
     }
     RoundButton_ {
@@ -78,7 +78,7 @@ Rectangle {
         icon.width: RoundButtonConst.headerImageRadius
         icon.height: RoundButtonConst.headerImageRadius
         onClicked: {
-            selectedTab.data = 1
+            isParametersOpen.data = true
         }
     }
     RoundComboBox_ {

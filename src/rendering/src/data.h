@@ -1,9 +1,9 @@
 #ifndef DATA_H
 #define DATA_H
 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <cglm/cglm.h>
-#include "utils.h"
 
 typedef struct {
     vec3 position;   // Position (x, y, z)

@@ -1,10 +1,12 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include <cglm/cglm.h>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <cglm/cglm.h>
+
+#include <math.h>
 #include "data.h"
-#include "math.h"
 
 // Struct to represent the camera
 typedef struct {

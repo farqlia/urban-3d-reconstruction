@@ -1,9 +1,13 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <cglm/cglm.h>
+
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "camera.h"
 
 GLuint compileShader(GLenum shaderType, const char* shaderSource);

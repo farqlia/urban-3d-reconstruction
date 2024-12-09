@@ -2,6 +2,7 @@ from PySide6.QtCore import QObject, QUrl, Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QHBoxLayout, QStackedLayout, QFileDialog, QGridLayout, QLabel
 
 from ..config import HEADER_FILE, FOOTER_FILE, LEFT_PANE_FILE, RIGHT_PANE_LB_FILE, RIGHT_PANE_LT_FILE, RIGHT_PANE_RB_FILE, RIGHT_PANE_RT_FILE
+from .sliding_widget import SlidingWidget
 
 class MainWindow(QMainWindow):
     def __init__(self, engine_manager):
@@ -15,6 +16,7 @@ class MainWindow(QMainWindow):
         self._renderer = None
 
         central_widget = QWidget()
+        central_widget.setGeometry(0, 0, self.width(), self.height())
         central_layout = QVBoxLayout(central_widget)
         
         central_widget.setStyleSheet(
@@ -23,31 +25,32 @@ class MainWindow(QMainWindow):
 
         header = self._create_header(central_widget)
         footer = self._create_footer(central_widget)
-        body = QWidget(central_widget)
+        self.body = SlidingWidget(central_widget, self._engine_manager)
+        # body = QWidget(central_widget)
         # body.setWindowModality(Qt.WindowModality.ApplicationModal)
-        body_layout = QHBoxLayout(body)
+        # body_layout = QHBoxLayout(body)
 
         header.setMaximumHeight(100)
         footer.setMaximumHeight(20)
 
-        lp_cont = QWidget(body)
-        lp_cont_layout = QVBoxLayout(lp_cont)
-        lp_cont.setMaximumWidth(300)
-        left_pane = self._create_left_pane(lp_cont)
-        lp_cont_layout.addWidget(left_pane)
+        # lp_cont = QWidget(body)
+        # lp_cont_layout = QVBoxLayout(lp_cont)
+        # lp_cont.setMaximumWidth(300)
+        # left_pane = self._create_left_pane(lp_cont)
+        # lp_cont_layout.addWidget(left_pane)
 
-        self._renderer_cont = QWidget(body)
-        self._renderer_layout = QGridLayout(self._renderer_cont)
+        # self._renderer_cont = QWidget(body)
+        # self._renderer_layout = QGridLayout(self._renderer_cont)
 
-        self._update_right_pane()
+        # self._update_right_pane()
 
-        body.setMaximumHeight(700)
+        # body.setMaximumHeight(700)
 
-        body_layout.addWidget(lp_cont)
-        body_layout.addWidget(self._renderer_cont)
+        # body_layout.addWidget(lp_cont)
+        # body_layout.addWidget(self._renderer_cont)
 
         central_layout.addWidget(header)
-        central_layout.addWidget(body)
+        central_layout.addWidget(self.body)
         central_layout.addWidget(footer)
 
         self.setCentralWidget(central_widget)
@@ -106,3 +109,6 @@ class MainWindow(QMainWindow):
         self._renderer_layout.addWidget(rt, 0, 1, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignTop)
         self._renderer_layout.addWidget(lb, 1, 0, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
         self._renderer_layout.addWidget(rb, 1, 1, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignBottom)
+    
+    def slide_body(self):
+        self.body.toggle_widgets()

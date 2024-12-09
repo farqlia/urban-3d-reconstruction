@@ -93,7 +93,7 @@ void generateStructureOfArrays(PointCloudData* data, size_t pointCount)
                avgShY += splat->sh[j++] * splat->a;
                avgShZ += splat->sh[j++] * splat->a;
             }
-            vec3 avgs = { sigmoid(avgShX) * 255, sigmoid(avgShY) * 255, sigmoid(avgShZ) * 255 };
+            vec3 avgs = { avgShX * 255, avgShY * 255, avgShZ * 255 };
             glm_vec4(avgs, 1.0f, color);
         } else
             glm_vec4(splat->color, 1.0f, color);

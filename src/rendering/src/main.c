@@ -1,23 +1,28 @@
+#if defined(_WIN32)
+    #include <windows.h>
+    #define GLFW_EXPOSE_NATIVE_WIN32
+    #define EXPORT __declspec(dllexport)
+#else
+    #define GLFW_EXPOSE_NATIVE_X11
+    #define EXPORT
+#endif
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <GLFW/glfw3native.h>
+
 #include "shader.h"
 #include "loader.h"
 #include "camera.h"
 #include "data.h"
 #include "rendering.h"
 
-#if defined(_WIN32)
-    #include <windows.h>
-#elif defined(__linux__)
-    #include <X11/Xlib.h>
-#endif
-
 #define WIDTH 800
 #define HEIGHT 600
 #define TARGET_FPS 5
 #define TARGET_FRAME_TIME (1.0 / TARGET_FPS)
 
-GLFWwindow* WINDOW;
+GLFWwindow* WINDOW = NULL;
 PointCloudData* DATA;
 size_t DATA_COUNT;
 GLuint SHADER_PROGRAM;
@@ -27,7 +32,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 }
 
 // Function to initialize the GLFW window
-void initWindow()
+EXPORT void initWindow()
 {
     if (!glfwInit())
     {
@@ -61,7 +66,7 @@ void initWindow()
     glfwSwapBuffers(WINDOW);
 }
 
-void loadData(const char* filename)
+EXPORT void loadData(const char* filename)
 {
     loadPLY(filename, &DATA, &DATA_COUNT);
     generateVAOVBO(DATA, DATA_COUNT);
@@ -69,7 +74,7 @@ void loadData(const char* filename)
     generateSSBO(DATA, DATA_COUNT);
 }
 
-intptr_t getWindowId()
+EXPORT intptr_t getWindowId()
 {
     #if defined(_WIN32)
         return (intptr_t)glfwGetWin32Window(WINDOW);
@@ -80,7 +85,7 @@ intptr_t getWindowId()
     #endif
 }
 
-void run()
+EXPORT void run()
 {
     SHADER_PROGRAM = createShaderProgram();
 
@@ -121,13 +126,13 @@ void run()
     }
 }
 
-void close()
+EXPORT void close()
 {
     glfwSetWindowShouldClose(WINDOW, true);
     glfwTerminate();
 }
 
-void cleanUp()
+EXPORT void cleanUp()
 {
     glDeleteVertexArrays(1, &_VAO);
     glDeleteBuffers(1, &_VBO);

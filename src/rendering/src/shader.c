@@ -21,8 +21,8 @@ GLuint compileShader(GLenum shaderType, const char* shaderFilename)
 
 GLuint createShaderProgram()
 {
-    GLuint vertexShader = compileShader(GL_VERTEX_SHADER, "shaders/test_vertex_shader.glsl");
-    GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, "shaders/test_fragment_shader.glsl");
+    GLuint vertexShader = compileShader(GL_VERTEX_SHADER, "src/rendering/shaders/test_vertex_shader.glsl");
+    GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, "src/rendering/shaders/test_fragment_shader.glsl");
 
     GLuint shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
