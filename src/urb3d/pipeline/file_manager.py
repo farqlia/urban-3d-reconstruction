@@ -52,24 +52,27 @@ class FileManager:
         shutil.copy(to_save_path, destination_file)
 
     def upload_reconstruction(self, src_path):
-        required_files = ["cameras.bin", "images.bin", "points3D.bin"]
         src_path = Path(src_path)
 
         if not src_path.is_dir():
-            raise FileNotFoundError(f"Path does not exist or is not a directory")
+            raise FileNotFoundError(f"Path does not exist or is not a directory: {src_path}")
 
-        missing_files = [file for file in required_files if not (src_path / file).exists()]
+        required_folders = ["sparse", "images"]
+        missing_folders = [folder for folder in required_folders if not (src_path / folder).is_dir()]
+        if missing_folders:
+            raise FileNotFoundError(f"Missing required folders: {', '.join(missing_folders)}")
+
+        sparse_folder = src_path / "sparse"
+        required_files = ["cameras.bin", "images.bin", "points3D.bin"]
+        missing_files = [file for file in required_files if not (sparse_folder / file).exists()]
         if missing_files:
-            raise FileNotFoundError(f"Missing reconstruction files: {', '.join(missing_files)}")
+            raise FileNotFoundError(f"Missing files in sparse folder: {', '.join(missing_files)}")
 
         if self.reconstruction_dir.exists():
-            for item in self.reconstruction_dir.iterdir():
-                if item.is_file() or item.is_symlink():
-                    item.unlink()
+            shutil.rmtree(self.reconstruction_dir)
 
-        self.reconstruction_dir.mkdir(parents=True, exist_ok=True)
-        for file in required_files:
-            shutil.copy(src_path / file, self.reconstruction_dir)
+        shutil.copytree(src_path, self.reconstruction_dir)
+
 
     def clear_reconstruction(self):
         if self.reconstruction_dir.exists():
