@@ -24,6 +24,7 @@ def set_color_based_on_class_labels(input_ply_path, output_ply_path, color_map):
     data = cloud.points
 
     colors = np.array([color_map.get(label, [0, 0, 0]) for label in data['class']])
+    # print(data['class'])
     data['red'], data['green'], data['blue'] = colors.T
 
     colors = colors / 255.0  
@@ -37,8 +38,8 @@ def set_color_based_on_class_labels(input_ply_path, output_ply_path, color_map):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Changes colors of points in a .ply file based on class labels.")
-    parser.add_argument("--input", type=str, help="Path to the input .ply file with class labels.")
-    parser.add_argument("--output", type=str, help="Path to save the modified .ply file with colors.")
+    parser.add_argument("--input", type=str, required=True, help="Path to the input .ply file with class labels.")
+    parser.add_argument("--output", type=str, required=True, help="Path to save the modified .ply file with colors.")
     args = parser.parse_args()
 
     set_color_based_on_class_labels(args.input, args.output, COLOR_MAP)
