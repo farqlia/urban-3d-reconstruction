@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-BASE_DIR = Path(__file__).resolve().parents[3]
+BASE_DIR = Path(os.path.dirname(os.path.abspath(sys.argv[0]))).resolve().parents[1]
 INPUT_DATA_FOLDER = BASE_DIR / os.getenv("INPUT_DATA_FOLDER")
 DATA_FOLDER = BASE_DIR / os.getenv("DATA_FOLDER")
 SCRIPTS_DIR = BASE_DIR / "scripts"
