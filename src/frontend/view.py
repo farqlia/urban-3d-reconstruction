@@ -73,29 +73,34 @@ class View:
             # '''
             # Here own renderer
             # '''
-            # thread_pool = QThreadPool.globalInstance()
+            '''
+            thread_pool = QThreadPool.globalInstance()
 
             # # PATH TO FILE
-            # data_path = "data/tester.ply".encode('utf-8')
-            # self._renderer = None
+            data_path = (str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)).encode('utf-8')
+            # data_path = str(TEST_MODEL_PLY_PATH).encode('utf-8')
+            self._renderer = None
 
-            # def bundle():
-            #     self._rendering_lib.initWindow()
-            #     window_id = self._rendering_lib.getWindowId()
-            #     self._renderer = external_window(window_id)
-            #     self._rendering_lib.loadData(data_path)
-            #     self._rendering_lib.run()
+            def bundle():
+                print("bundle...")
+                self._rendering_lib.initWindow()
+                window_id = self._rendering_lib.getWindowId()
+                self._renderer = external_window(window_id)
+                print(self._renderer)
+                # self._rendering_lib.loadData(data_path)
+                self._rendering_lib.run()
 
-            # thread_pool.start(BasicThreadScript(bundle, lambda x: None))
+            thread_pool.start(BasicThreadScript(bundle, lambda x: None))
             
-            # while(self._renderer is None):
-            #     continue
+            while(self._renderer is None):
+                print("while loop")
+                continue
 
             # self._renderer.moveToThread(self._main_view.thread())
             # self._renderer = QWidget.createWindowContainer(self._renderer)
-            # '''
+
             # End own controller
-            # '''
+            '''
             cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
             pc = PyntCloud.from_file(cloud_file)
             prepare_point_cloud(pc, flip=False, normalize_colors=cloud_file == str(POINT_CLOUD_SPARSE))

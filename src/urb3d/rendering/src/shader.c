@@ -21,8 +21,8 @@ GLuint compileShader(GLenum shaderType, const char* shaderFilename)
 
 GLuint createShaderProgram()
 {
-    GLuint vertexShader = compileShader(GL_VERTEX_SHADER, "src/rendering/shaders/test_vertex_shader.glsl");
-    GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, "src/rendering/shaders/test_fragment_shader.glsl");
+    GLuint vertexShader = compileShader(GL_VERTEX_SHADER, "src/urb3d/rendering/shaders/test_vertex_shader.glsl");
+    GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, "src/urb3d/rendering/shaders/test_fragment_shader.glsl");
 
     GLuint shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
@@ -48,7 +48,8 @@ GLuint createShaderProgram()
 char* loadShaderSource(const char* filename) {
         FILE* file = fopen(filename, "r");  // Open file for reading
     if (!file) {
-        perror("Failed to open shader file");
+        fprintf(stderr, "Failed to open shader file: %s\n", filename);
+        perror("Error details");  // Optionally add this for detailed error information
         return NULL;
     }
 
