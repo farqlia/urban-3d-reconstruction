@@ -80,58 +80,59 @@ Rectangle {
     }
 
 
-    Border_ {
-        id: settingParametersTab
+    // Border_ {
+    //     id: settingParametersTab
 
-        color: "transparent"
-        border.color: "transparent"
+    //     color: "transparent"
+    //     border.color: "transparent"
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: FormatConst.defaultMargin
+    //     ColumnLayout {
+    //         anchors.fill: parent
+    //         anchors.margins: FormatConst.defaultMargin
 
-            ColumnLayout {
-                Layout.fillWidth: true
+    //         ColumnLayout {
+    //             Layout.fillWidth: true
 
-                Text {
-                    text: "Setting"
-                    Layout.fillWidth: true
-                    horizontalAlignment: Text.AlignHCenter
-                    color: ColorConst.secondaryColor
-                    font.pointSize: FormatConst.defaultFontSize
-                    font.bold: true
-                }
+    //             Text {
+    //                 text: "Setting"
+    //                 Layout.fillWidth: true
+    //                 horizontalAlignment: Text.AlignHCenter
+    //                 color: ColorConst.secondaryColor
+    //                 font.pointSize: FormatConst.defaultFontSize
+    //                 font.bold: true
+    //             }
 
-                Text {
-                    text: "parameters"
-                    Layout.fillWidth: true
-                    horizontalAlignment: Text.AlignHCenter
-                    color: ColorConst.secondaryColor
-                    font.pointSize: FormatConst.defaultFontSize
-                    font.bold: true
-                }
-            }
+    //             Text {
+    //                 text: "parameters"
+    //                 Layout.fillWidth: true
+    //                 horizontalAlignment: Text.AlignHCenter
+    //                 color: ColorConst.secondaryColor
+    //                 font.pointSize: FormatConst.defaultFontSize
+    //                 font.bold: true
+    //             }
+    //         }
 
-            ListView {
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                model: []
-                spacing: FormatConst.smallPadding
+    //         ListView {
+    //             Layout.alignment: Qt.AlignHCenter
+    //             Layout.fillWidth: true
+    //             Layout.fillHeight: true
+    //             model: []
+    //             spacing: FormatConst.smallPadding
 
-                delegate: ListEntry_ {
-                    text: modelData
-                }
-            }
-        }
-    }
+    //             delegate: ListEntry_ {
+    //                 text: modelData
+    //             }
+    //         }
+    //     }
+    // }
+
     RoundButton_ {
         id: buttonOpenDialogWindow
         icon.source: "../icons/folder-click.png"
         icon.width: 35
         icon.height: 35
         onClicked: {
-            isOpenDialog.data = true
+            isDialogOpen.data = true
         }
     }
 }
