@@ -6,7 +6,7 @@ import torch
 from torch.utils.data import Dataset
 import numpy as np
 
-SAMPLE_SIZE = 500_000
+SAMPLE_SIZE = 20_000
 
 class MockPointSampler:
 
