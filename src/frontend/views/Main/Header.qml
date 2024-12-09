@@ -114,18 +114,19 @@ Rectangle {
 
         FolderDialog {
             id: saveFileDialog
-
+            property string destinationPath: ""
             onAccepted: {
-               switch (optionBuildMode.currentText) {
-                case LangConst.comboBoxPointCloud:
-                    buildSaveCloud.func()
-                    break;
-                case LangConst.comboBoxSplats:
-                    buildSaveSplatModel.func()
-                    break;
-                case LangConst.comboBoxCategorization:
-                    buildSaveSegmentedModel.func()
-                    break;
+                destinationPath = saveFileDialog.selectedFolder
+                switch (optionBuildMode.currentText) {
+                    case LangConst.comboBoxPointCloud:
+                        backend.save_cloud(destinationPath)
+                        break;
+                    case LangConst.comboBoxSplats:
+                        backend.save_gaussian_model(destinationPath)
+                        break;
+                    case LangConst.comboBoxCategorization:
+                        backend.save_segmented_model(destinationPath)
+                        break;
                 }
             }
         }
