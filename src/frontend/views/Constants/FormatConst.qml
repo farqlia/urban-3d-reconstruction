@@ -22,4 +22,5 @@ QtObject {
     readonly property int defaultRadius: 10
     readonly property int popupWidth: 700
     readonly property int popupHeight: 250
+    readonly property int popupSmallWidth: 500
 }
