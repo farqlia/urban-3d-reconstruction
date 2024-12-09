@@ -26,7 +26,22 @@ class Backend(QObject):
         self.file_manager.upload_folder(source_folder)
 
     def save_result(self, to_save_path, destination_path):
-        self.file_manager.save_result(to_save_path, destination_path)
+        self.file_manager.save_result(to_save_path, destination_path[8:])
+
+    @Slot(str)
+    def save_cloud(self, destination_path):
+        destination_file = destination_path + "/pcd.ply"
+        self.save_result(POINT_CLOUD_SPARSE, destination_file)
+
+    @Slot(str)
+    def save_gaussian_model(self, destination_path):
+        destination_file = destination_path + "/gaussian_model.ply"
+        self.save_result(GAUSSIAN_MODEL_PLY, destination_file)
+
+    @Slot(str)
+    def save_segmented_model(self, destination_path):
+        destination_file = destination_path + "/segmented_model.ply"
+        self.save_result(SEGMENTED_PLY_PATH, destination_file)
 
     def upload_gaussian_model(self, source_path):
         self.file_manager.upload_gaussian_model(source_path)
