@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\rendering_lib.dir/objects.a
-C:\mingw64\bin\ar.exe qc CMakeFiles\rendering_lib.dir/objects.a @CMakeFiles\rendering_lib.dir\objects1.rsp
-x86_64-w64-mingw32-gcc -shared -o librendering_lib.dll -Wl,--out-implib,librendering_lib.dll.a -Wl,--major-image-version,0,--minor-image-version,0 -Wl,--whole-archive CMakeFiles\rendering_lib.dir/objects.a -Wl,--no-whole-archive @CMakeFiles\rendering_lib.dir\linkLibs.rsp

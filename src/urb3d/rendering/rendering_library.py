@@ -1,19 +1,20 @@
 import ctypes
 import os
 import platform
+from pathlib import Path
 
 class RenderingLibrary:
     def __init__(self):
-        lib_path = "src/urb3d/rendering/"
+        lib_path = Path(r"C:\Users\julia\PycharmProjects\urb3drecon\src\urb3d\rendering")
 
         self._lib = None
         # os.environ["WINEPREFIX"] = "/home/frafau/.wine"
 
         if platform.system() == "Linux":
-            lib_path += "rendering_lib.so"
+            lib_path += "librendering_lib.so"
             self._lib = ctypes.CDLL(lib_path)
         else:
-            lib_path += "rendering_lib.dll"
+            lib_path = str(lib_path / "librendering_lib.dll")
             self._lib = ctypes.WinDLL(lib_path)
         
         self._lib.initWindow.restype = None

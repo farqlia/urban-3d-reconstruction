@@ -14,6 +14,7 @@ GLuint compileShader(GLenum shaderType, const char* shaderFilename)
         char infoLog[512];
         glGetShaderInfoLog(shader, 512, NULL, infoLog);
         printf("ERROR::SHADER::COMPILATION_FAILED\n%s\n", infoLog);
+        printf(shaderSource);
     }
 
     return shader;

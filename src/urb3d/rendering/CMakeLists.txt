@@ -15,9 +15,9 @@ include_directories(
 )
 
 link_directories(
-    lib/glfw-3.4/lib-mingw-w64
-    lib/glew-2.1.0/bin/Release/x64
-    lib/cglm/build
+    lib/glfw-3.4/lib-vc2022
+    lib/glew-2.1.0/lib/Release/x64
+    lib/cglm/win/Release
     /usr/x86_64-w64-mingw32/lib
 )
 
@@ -39,8 +39,8 @@ target_link_libraries(rendering_lib
     gdi32
 )
 
-# set_target_properties(rendering_lib PROPERTIES
-#     OUTPUT_NAME "rendering_lib"
-#     PREFIX ""
-#     SUFFIX ".dll"
-# )
+set_target_properties(rendering_lib PROPERTIES
+     OUTPUT_NAME "librendering_lib"
+     PREFIX ""
+     SUFFIX ".dll"
+)

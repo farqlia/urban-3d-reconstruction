@@ -40,7 +40,7 @@ class BasicModelInt(QObject):
 
     def __init__(self):
         super().__init__()
-        self._data = 0
+        self._data = 1
 
     @Property(int, notify=dataChanged)
     def data(self):

@@ -1,6 +1,6 @@
 from pyntcloud import PyntCloud
 
-from src.urb3d.pipeline.config import GAUSSIAN_MODEL_PLY, POINT_CLOUD_SPARSE, FILTERED_PRESEG_MODEL, PNG_RENDERS_FOLDER, COLORED_SEGMENTED_PLY_PATH
+from src.urb3d.pipeline.config import TEST_MODEL_PLY_PATH, GAUSSIAN_MODEL_PLY, POINT_CLOUD_SPARSE, FILTERED_PRESEG_MODEL, PNG_RENDERS_FOLDER, COLORED_SEGMENTED_PLY_PATH
 from src.urb3d.rendering.render_point_cloud import PointCloudWidget, prepare_point_cloud
 from src.urb3d.rendering.slideshow import SlideshowWidget
 from .view_engine_manager import EngineManager
@@ -79,6 +79,7 @@ class View:
 
         if self._controller.viz_type == "reconstruction":
             cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
+            # cloud_file = str(TEST_MODEL_PLY_PATH)
 
             if self._controller.rendering_type == 1:
                 thread_pool = QThreadPool.globalInstance()
@@ -87,7 +88,9 @@ class View:
                     self.rendering_lib.initWindow()
                     window_id = self.rendering_lib.getWindowId()
                     self.renderer = external_window(window_id)
+                    print("Loading shader data")
                     self.rendering_lib.loadData(cloud_file.encode('utf-8'))
+                    print("Done loading shader data")
                     self.rendering_lib.run()
 
                 thread_pool.start(BasicThreadScript(bundle, lambda x: None))
@@ -97,8 +100,8 @@ class View:
 
                 self.lib_init = True
 
-                self.renderer.moveToThread(self._main_view.thread())
-                self.renderer = QWidget.createWindowContainer(self.renderer)
+                # self.renderer.moveToThread(self._main_view.thread())
+                # self.renderer = QWidget.createWindowContainer(self.renderer)
             else:
                 cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
                 pc = PyntCloud.from_file(cloud_file)
