@@ -4,7 +4,7 @@ GLuint compileShader(GLenum shaderType, const char* shaderFilename)
 {
     GLuint shader = glCreateShader(shaderType);
     char* shaderSource = loadShaderSource(shaderFilename);
-    glShaderSource(shader, 1, &shaderSource, NULL);
+    glShaderSource(shader, 1, (const GLchar* const*)&shaderSource, NULL);
     glCompileShader(shader);
 
     GLint success;

@@ -74,14 +74,14 @@ void generateStructureOfArrays(PointCloudData* data, size_t pointCount)
         xyz[0] = splat->position[0];
         xyz[1] = -1.0f * splat->position[2];
         xyz[2] = splat->position[1];
-        glm_vec4(xyz, 1.0f, pos);
+        glm_vec4(xyz, 1.0f, *pos);
 
         const double MULTIPLIER = 1000.0f;
         vec4 mul = {MULTIPLIER, MULTIPLIER, MULTIPLIER, MULTIPLIER};
-        glm_vec4_mul(pos, mul, pos);
+        glm_vec4_mul(*pos, mul, *pos);
 
         vec4* scale = &_scales[i];
-        glm_vec4(splat->scalars, 1.0f, scale);
+        glm_vec4(splat->scalars, 1.0f, *scale);
 
         vec4* color = &_colors[i];
         if (splat->sh != NULL) {
@@ -94,14 +94,14 @@ void generateStructureOfArrays(PointCloudData* data, size_t pointCount)
                avgShZ += splat->sh[j++] * splat->a;
             }
             vec3 avgs = { avgShX * 255, avgShY * 255, avgShZ * 255 };
-            glm_vec4(avgs, 1.0f, color);
+            glm_vec4(avgs, 1.0f, *color);
         } else
-            glm_vec4(splat->color, 1.0f, color);
+            glm_vec4(splat->color, 1.0f, *color);
 
         vec4* quaternitions = &_quaternitions[i];
-        glm_vec4_copy(splat->quaternition, quaternitions);
+        glm_vec4_copy(splat->quaternition, *quaternitions);
 
-        glm_vec4_normalize(quaternitions);
+        glm_vec4_normalize(*quaternitions);
 
         _alphas[i] = (1.0f / (1.0f + exp(splat->a * -1.0f)));
     }

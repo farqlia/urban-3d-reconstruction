@@ -8,12 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/frafau/Documents/urban-3d-reconstruction/src/rendering/src/camera.c" "CMakeFiles/rendering_lib.dir/src/camera.c.o" "gcc" "CMakeFiles/rendering_lib.dir/src/camera.c.o.d"
-  "/home/frafau/Documents/urban-3d-reconstruction/src/rendering/src/data.c" "CMakeFiles/rendering_lib.dir/src/data.c.o" "gcc" "CMakeFiles/rendering_lib.dir/src/data.c.o.d"
-  "/home/frafau/Documents/urban-3d-reconstruction/src/rendering/src/loader.c" "CMakeFiles/rendering_lib.dir/src/loader.c.o" "gcc" "CMakeFiles/rendering_lib.dir/src/loader.c.o.d"
-  "/home/frafau/Documents/urban-3d-reconstruction/src/rendering/src/main.c" "CMakeFiles/rendering_lib.dir/src/main.c.o" "gcc" "CMakeFiles/rendering_lib.dir/src/main.c.o.d"
-  "/home/frafau/Documents/urban-3d-reconstruction/src/rendering/src/rendering.c" "CMakeFiles/rendering_lib.dir/src/rendering.c.o" "gcc" "CMakeFiles/rendering_lib.dir/src/rendering.c.o.d"
-  "/home/frafau/Documents/urban-3d-reconstruction/src/rendering/src/shader.c" "CMakeFiles/rendering_lib.dir/src/shader.c.o" "gcc" "CMakeFiles/rendering_lib.dir/src/shader.c.o.d"
+  "C:/Users/rmiel/Documents/urban-3d-reconstruction/src/urb3d/rendering/src/camera.c" "CMakeFiles/rendering_lib.dir/src/camera.c.obj" "gcc" "CMakeFiles/rendering_lib.dir/src/camera.c.obj.d"
+  "C:/Users/rmiel/Documents/urban-3d-reconstruction/src/urb3d/rendering/src/data.c" "CMakeFiles/rendering_lib.dir/src/data.c.obj" "gcc" "CMakeFiles/rendering_lib.dir/src/data.c.obj.d"
+  "C:/Users/rmiel/Documents/urban-3d-reconstruction/src/urb3d/rendering/src/loader.c" "CMakeFiles/rendering_lib.dir/src/loader.c.obj" "gcc" "CMakeFiles/rendering_lib.dir/src/loader.c.obj.d"
+  "C:/Users/rmiel/Documents/urban-3d-reconstruction/src/urb3d/rendering/src/main.c" "CMakeFiles/rendering_lib.dir/src/main.c.obj" "gcc" "CMakeFiles/rendering_lib.dir/src/main.c.obj.d"
+  "C:/Users/rmiel/Documents/urban-3d-reconstruction/src/urb3d/rendering/src/rendering.c" "CMakeFiles/rendering_lib.dir/src/rendering.c.obj" "gcc" "CMakeFiles/rendering_lib.dir/src/rendering.c.obj.d"
+  "C:/Users/rmiel/Documents/urban-3d-reconstruction/src/urb3d/rendering/src/shader.c" "CMakeFiles/rendering_lib.dir/src/shader.c.obj" "gcc" "CMakeFiles/rendering_lib.dir/src/shader.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
