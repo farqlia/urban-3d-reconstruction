@@ -10,7 +10,7 @@ Rectangle {
     id: parametersWindow
     color: ColorConst.primaryColor
 
-    width: FormatConst.popupWidth
+    width: FormatConst.popupSmallWidth
     height: 450
 
     function getCopyVars() {
@@ -57,6 +57,9 @@ Rectangle {
 
                 Label {
                     text: "Strategy"
+                    color: ColorConst.secondaryColor
+                    font.pointSize: FormatConst.smallFontSize
+                    font.bold: true
                 }
 
                 RoundComboBox_ {
@@ -69,6 +72,9 @@ Rectangle {
 
                 Label {
                     text: "Max steps"
+                    color: ColorConst.secondaryColor
+                    font.pointSize: FormatConst.smallFontSize
+                    font.bold: true
                 }
 
                 TextField {
@@ -84,6 +90,9 @@ Rectangle {
 
                 Label {
                     text: "Cap max"
+                    color: ColorConst.secondaryColor
+                    font.pointSize: FormatConst.smallFontSize
+                    font.bold: true
                 }
 
                 TextField {
@@ -99,6 +108,9 @@ Rectangle {
 
                 Label {
                     text: "Refine every (iterations)"
+                    color: ColorConst.secondaryColor
+                    font.pointSize: FormatConst.smallFontSize
+                    font.bold: true
                 }
 
                 TextField {
@@ -114,6 +126,9 @@ Rectangle {
 
                 Label {
                     text: "Spherical harmonics degrees"
+                    color: ColorConst.secondaryColor
+                    font.pointSize: FormatConst.smallFontSize
+                    font.bold: true
                 }
 
                 RoundComboBox_ {
