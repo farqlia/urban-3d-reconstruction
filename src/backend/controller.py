@@ -30,21 +30,21 @@ class Controller:
         self._tab_handler = TabHandler()
         self._renderer_handler = RendererHandler()
         self.viz_type = None
+        self._parameters_handler = ParametersHandler()
+
+    @property
+    def rendering_type(self):
+        return self._settings_handler.rendering_type.data
 
     def complete_build(self, info, handler):
-
-        # if info is not None: # idk, if something returns then error
-          #   self._build_info_handler.is_build_succ.data = True
-        # else:
-          #   self._build_info_handler.is_build_fail.data = True
+        if info:
+            self._build_info_handler.is_build_fail.data = True
+            self._build_info_handler.build_info.data = info
+        else:
+            self._build_info_handler.is_build_succ.data = True
 
         self.viz_type = handler
         self._renderer_handler.is_model.data = True
-
-
-    def cancel_build(self, info):
-        self._build_info_handler.is_build_fail.data = True
-        print(info)
 
     def configure_dialog_open_handler(self, func):
         self._dialog_handler.configure_handler_is_dialog_open(func)
@@ -55,11 +55,11 @@ class Controller:
     def configure_open_build_run_handler(self, func):
         self._build_info_handler.configure_open_handler(func)
 
-    def configure_succ_build_run_handler(self, func):
-        self._build_info_handler.configure_succ_handler(func)
+    def configure_succ_build_run_handler(self, func, func2):
+        self._build_info_handler.configure_succ_handler(func, func2)
 
-    def configure_fail_build_run_handler(self, func):
-        self._build_info_handler.configure_fail_handler(func)
+    def configure_fail_build_run_handler(self, func, func2):
+        self._build_info_handler.configure_fail_handler(func, func2)
 
     def configure_renderer_handler(self, func):
         self._renderer_handler.configure_handler(func)
@@ -125,6 +125,9 @@ class Controller:
     def get_params_qml(self):
         return self._parameters_handler.params
 
+    def get_rendering_settings_open_qml(self):
+        return self._settings_handler.rendering_type
+
     def get_build_run_cloud_qml(self):
         return self._point_cloud_build_handler.func
 
@@ -133,6 +136,9 @@ class Controller:
 
     def get_build_run_categorization_qml(self):
         return self._categorization_handler.func
+
+    def get_build_info(self):
+        return self._build_info_handler.build_info
 
     def set_file_list(self, dir_path):
         if dir_path:

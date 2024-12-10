@@ -94,6 +94,7 @@ Rectangle {
         icon.color: buttonRun.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
 
         onClicked: {
+            isBuildOpen.data = true;
             switch (optionBuildMode.currentText) {
                 case LangConst.comboBoxPointCloud:
                     buildRunCloud.func()

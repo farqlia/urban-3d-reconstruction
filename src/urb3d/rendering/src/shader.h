@@ -13,7 +13,7 @@
 GLuint compileShader(GLenum shaderType, const char* shaderSource);
 GLuint createShaderProgram();
 char* loadShaderSource(const char* filename);
-void setupShaderProgram(GLuint shaderProgram, mat4 model, mat4 projection);
+void setupShaderProgram(GLuint shaderProgram, mat4 model, mat4 projection, size_t shCount);
 void updateShaderProgram(GLuint shaderProgram);
 
 #endif

@@ -21,11 +21,16 @@
 #define HEIGHT 600
 #define TARGET_FPS 5
 #define TARGET_FRAME_TIME (1.0 / TARGET_FPS)
+#define CLOSED 1
+#define RUNNING 0 
+
+int STATE;
 
 GLFWwindow* WINDOW = NULL;
 PointCloudData* DATA;
 size_t DATA_COUNT;
 GLuint SHADER_PROGRAM;
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
@@ -64,6 +69,8 @@ EXPORT void initWindow()
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glfwSwapBuffers(WINDOW);
+
+    STATE = RUNNING;
 }
 
 EXPORT void loadData(const char* filename)
@@ -93,7 +100,10 @@ EXPORT void run()
     glm_mat4_identity(projection);
     glm_mat4_identity(model);
     glm_perspective(glm_rad(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 10000.0f, projection);
-    setupShaderProgram(SHADER_PROGRAM, model, projection);
+    size_t shCount = 0;
+    if (DATA != NULL && &DATA[0] != NULL)
+        shCount = DATA[0].sh_count;
+    setupShaderProgram(SHADER_PROGRAM, model, projection, shCount);
 
     float lastFrame = 0.0f;
     updateCamera();
@@ -102,7 +112,7 @@ EXPORT void run()
 
     while (!glfwWindowShouldClose(WINDOW))
     {
-        if (glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        if (STATE)
             glfwSetWindowShouldClose(WINDOW, true);
 
         float currentFrame = glfwGetTime();
@@ -124,12 +134,13 @@ EXPORT void run()
         // if (deltaTime < TARGET_FRAME_TIME)
         //     glfwWaitEventsTimeout(TARGET_FRAME_TIME - deltaTime);
     }
+
+    glfwTerminate();
 }
 
 EXPORT void close()
 {
-    glfwSetWindowShouldClose(WINDOW, true);
-    glfwTerminate();
+    STATE = CLOSED;
 }
 
 EXPORT void cleanUp()

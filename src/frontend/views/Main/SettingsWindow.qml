@@ -10,7 +10,7 @@ Rectangle {
     color: ColorConst.primaryColor
 
     width: FormatConst.popupWidth
-    height: FormatConst.popupHeight
+    height: 400
 
     function getCopyVars() {
         var tempVars = [];
@@ -38,6 +38,40 @@ Rectangle {
 
         ColumnLayout {
             anchors.fill: parent
+            anchors.margins: FormatConst.defaultMargin
+
+            RoundButton_ {
+                icon.source: "../icons/cog.png"
+                Layout.alignment: Qt.AlignHCenter
+                icon.color: ColorConst.secondaryColor
+                icon.width: RoundButtonConst.headerImageRadius
+                icon.height: RoundButtonConst.headerImageRadius
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignHCenter
+                spacing: FormatConst.defaultMargin
+
+                CheckBox {
+                    id: awayRendering
+                    text: "3rd party rendering"
+                    checked: !renderingType.data
+                    onCheckedChanged: {
+                        homeRendering.checked = !checked
+                    }
+                }
+
+                CheckBox {
+                    id: homeRendering
+                    text: "Own rendering"
+                    checked: renderingType.data
+                    onCheckedChanged: {
+                        awayRendering.checked = !checked
+                    }
+                }
+            }
 
             ListView {
                 id: listView
@@ -60,12 +94,18 @@ Rectangle {
                             text: modelData.label
                             Layout.alignment: Qt.AlignLeft
                             width: 100
+                            color: ColorConst.secondaryColor
                         }
 
                         TextField {
                             id: textField
                             text: modelData.input
                             Layout.fillWidth: true
+                            color: ColorConst.primaryColor
+                            background: Rectangle {
+                                color: ColorConst.secondaryColor
+                                radius: FormatConst.defaultRadius
+                            }
                         }
                     }
                 }
@@ -80,6 +120,10 @@ Rectangle {
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
                         applyChanges();
+                        if (awayRendering.checked)
+                            renderingType.data = 0;
+                        else if (homeRendering.checked)
+                            renderingType.data = 1;
                         settingsStatus.data = true
                     }
                     background: Rectangle {

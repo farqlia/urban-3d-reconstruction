@@ -17,6 +17,8 @@ if __name__ == '__main__':
 
     view.run()
     sys.exit(app.exec())
+    print("BEFORE CLOSE")
 
-    lib.cleanUp()
     lib.close()
+    lib.cleanUp()
+    print("AFTER CLOSE")

@@ -1,11 +1,12 @@
 import os
-from ..models.basic_model import BasicModelBool, BasicModelList
+from ..models.basic_model import BasicModelBool, BasicModelList, BasicModelInt
 
 class SettingsHandler:
     def __init__(self):
         self._is_settings_open = BasicModelBool()
         self._status = BasicModelBool()
         self._env_vars = BasicModelList()
+        self._rendering_type = BasicModelInt()
     
     @property
     def is_settings_open(self):
@@ -18,6 +19,10 @@ class SettingsHandler:
     @property
     def env_vars(self):
         return self._env_vars
+    
+    @property
+    def rendering_type(self):
+        return self._rendering_type
 
     def configure_open_handler(self, func):
         self.is_settings_open.dataChanged.connect(lambda: self._handle_open(func))
