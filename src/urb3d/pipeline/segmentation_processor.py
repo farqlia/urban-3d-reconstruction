@@ -30,6 +30,7 @@ class SegmentationProcessor:
                        "--chunked", str(True))
 
         if not os.path.exists(self.colored_ply_path):
+            print("Run coloring....")
             run_script("pcd_coloring.py", "--input", str(self.segmented_ply_path),
                        "--output", str(self.colored_ply_path))
 

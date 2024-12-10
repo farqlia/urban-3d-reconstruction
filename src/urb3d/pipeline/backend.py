@@ -4,7 +4,7 @@ from src.urb3d.pipeline.segmentation_processor import SegmentationProcessor
 from src.urb3d.pipeline.config import POINT_CLOUD_SPARSE, GAUSSIAN_MODEL_PLY, SEGMENTED_PLY_PATH
 from PySide6.QtCore import QObject, Slot
 
-
+PREFIX_LENGTH = 8
 class Backend(QObject):
 
     def __init__(self):
@@ -28,7 +28,7 @@ class Backend(QObject):
         self.file_manager.upload_folder(source_folder)
 
     def save_result(self, to_save_path, destination_path):
-        self.file_manager.save_result(to_save_path, destination_path[8:])
+        self.file_manager.save_result(to_save_path, destination_path[PREFIX_LENGTH:])
 
     @Slot(str)
     def save_cloud(self, destination_path):
@@ -47,7 +47,7 @@ class Backend(QObject):
 
     @Slot(str)
     def upload_reconstruction(self, src_path):
-        self.file_manager.upload_reconstruction(src_path[8:])
+        self.file_manager.upload_reconstruction(src_path[PREFIX_LENGTH:])
 
     @Slot()
     def clear_reconstruction(self):
@@ -55,7 +55,7 @@ class Backend(QObject):
 
     @Slot(str)
     def upload_gaussian_ckpts(self, source_path):
-        self.file_manager.upload_gaussian_ckpts(source_path[8:])
+        self.file_manager.upload_gaussian_ckpts(source_path[PREFIX_LENGTH:])
 
     @Slot()
     def clear_gaussian_model(self):

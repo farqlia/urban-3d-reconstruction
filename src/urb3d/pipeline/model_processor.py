@@ -15,15 +15,15 @@ class ModelProcessor:
         self.gaussian_ply_path = GAUSSIAN_MODEL_PLY
 
     def _reconstruct_point_cloud(self):
-        if not self.reconstruction_folder.exists():
+        if not (self.reconstruction_folder / 'sparse').exists():
             print("Colmap reconstruction running ...")
             run_script_with_env(COLMAP_ENV, "colmap_reconstruction.py", "--input", str(self.input_folder),
-                       "--output", str(self.reconstruction_folder))
+                       "--output", str(self.reconstruction_folder / 'sparse'))
             self._remove_noises_sparse_reconstruction()
         if not self.point_cloud_sparse.exists():
             print("Create ply file ...")
             run_script_with_env(COLMAP_ENV, "convert_to_ply.py", "--point_cloud", str(self.point_cloud_sparse),
-                                "--reconstruction_dir", str(self.reconstruction_folder))
+                                "--reconstruction_dir", str(self.reconstruction_folder / 'sparse'))
 
     def _create_gaussian_model(self, strategy : str, max_steps : int, cap_max : int,
                               refine_every : int, sh_degree : int):
@@ -45,7 +45,7 @@ class ModelProcessor:
 
     def _remove_noises_sparse_reconstruction(self):
         run_script_with_env(COLMAP_ENV, "neighbor-based_pcd_filtering.py", "--reconstruction_dir",
-                            str(self.reconstruction_folder), "--point_cloud", str(self.point_cloud_sparse), "--method", "statistical")
+                            str(self.reconstruction_folder / 'sparse'), "--point_cloud", str(self.point_cloud_sparse), "--method", "statistical")
 
     def _remove_noises_gaussian_model(self):
         pass

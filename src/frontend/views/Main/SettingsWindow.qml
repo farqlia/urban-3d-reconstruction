@@ -7,6 +7,7 @@ import Components
 import Constants
 import "."
 
+
 Rectangle {
     id: loadingWindow
     color: ColorConst.primaryColor

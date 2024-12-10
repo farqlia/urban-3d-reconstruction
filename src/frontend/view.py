@@ -66,9 +66,12 @@ class View:
         self._engine_manager.set_qml_property("buildRunSplats", self._controller.get_build_run_splats_qml())
         self._engine_manager.set_qml_property("buildRunCategorization", self._controller.get_build_run_categorization_qml())
         self._engine_manager.set_qml_property("buildInfo", self._controller.get_build_info())
+        self._engine_manager.set_qml_property("backend", self._controller.get_backend_qml())
 
     def _create_renderer(self):
         self.renderer = None
+
+        print("Rendering ...", self._controller.viz_type)
 
         if (self.lib_init):
             self.rendering_lib.close()
