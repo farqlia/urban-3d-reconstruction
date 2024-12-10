@@ -1,5 +1,7 @@
-from PySide6.QtCore import QObject, QUrl, Qt 
+from PySide6.QtCore import QObject, QUrl, Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QHBoxLayout, QStackedLayout, QFileDialog, QGridLayout, QLabel, QApplication, QSizePolicy
+from PySide6.QtGui import QPixmap
+import os
 
 from ..config import HEADER_FILE, FOOTER_FILE, LEFT_PANE_FILE, RIGHT_PANE_LB_FILE, RIGHT_PANE_LT_FILE, RIGHT_PANE_RB_FILE, RIGHT_PANE_RT_FILE
 from .sliding_widget import SlidingWidget
@@ -33,7 +35,8 @@ class MainWindow(QMainWindow):
         footer = self._create_footer(central_widget)
         self.body = SlidingWidget(central_widget, self._engine_manager)
 
-        header.setMaximumHeight(100)
+        header.setMinimumHeight(100)
+        header.setMaximumHeight(120)
         footer.setMaximumHeight(20)
 
         self.setCentralWidget(central_widget)
@@ -63,8 +66,8 @@ class MainWindow(QMainWindow):
     def _create_right_pane_rb(self, parent):
         return self._engine_manager.load_component(RIGHT_PANE_RB_FILE, parent)
 
-    def configure_renderer(self, renderer):
-        self.body.update_right_pane(renderer)
+    def configure_renderer(self, renderer, viz_type):
+        self.body.update_right_pane(renderer, viz_type)
     
     def slide_body(self):
         self.body.toggle_widgets()

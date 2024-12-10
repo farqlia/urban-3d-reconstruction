@@ -118,7 +118,7 @@ class View:
 
         if self.renderer is not None:
             print("Configure renderer")
-            self._main_view.configure_renderer(self.renderer)
+            self._main_view.configure_renderer(self.renderer, self._controller.viz_type)
 
     def open_dialog(self):
         dialog = QFileDialog.getExistingDirectoryUrl(self._main_view, "Choose directory", "", QFileDialog.Option.ShowDirsOnly)

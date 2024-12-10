@@ -7,7 +7,7 @@ QtObject {
     readonly property int defaultSpacing: 20
     readonly property int defaultMargin: 20
     readonly property int defaultPadding: 10
-    readonly property int defaultBorderWeight: 2
+    readonly property int defaultBorderWeight: 3
     readonly property int smallMargin: 10
     readonly property int smallPadding: 5
     readonly property int largeFontSize: 20
@@ -22,4 +22,5 @@ QtObject {
     readonly property int defaultRadius: 10
     readonly property int popupWidth: 700
     readonly property int popupHeight: 250
+    readonly property int popupSmallWidth: 500
 }

@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Dialogs
 
 import Constants
 import Components
@@ -21,13 +22,6 @@ Rectangle {
         }
 
         LayoutItemProxy {
-            target: buttonParams
-            width: FormatConst.headerButtonSize
-            height: FormatConst.headerButtonSize
-        }
-
-
-        LayoutItemProxy {
             target: optionBuildMode
             width: 200
             height: 40
@@ -35,6 +29,11 @@ Rectangle {
 
         LayoutItemProxy {
             target: buttonRun
+            width: FormatConst.headerButtonSize
+            height: FormatConst.headerButtonSize
+        }
+        LayoutItemProxy {
+            target: buttonSave
             width: FormatConst.headerButtonSize
             height: FormatConst.headerButtonSize
         }
@@ -47,15 +46,14 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
-
         LayoutItemProxy {
-            target: buttonSettings
+            target: buttonParams
             width: FormatConst.headerButtonSize
             height: FormatConst.headerButtonSize
         }
 
         LayoutItemProxy {
-            target: buttonInfo
+            target: buttonSettings
             width: FormatConst.headerButtonSize
             height: FormatConst.headerButtonSize
         }
@@ -108,6 +106,36 @@ Rectangle {
             }
         }
     }
+    RoundButton_ {
+        id: buttonSave
+        icon.source: "../icons/save.webp"
+        icon.width: RoundButtonConst.headerImageRadius
+        icon.height: RoundButtonConst.headerImageRadius
+        icon.color: buttonSave.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
+
+        FolderDialog {
+            id: saveFileDialog
+            property string destinationPath: ""
+            onAccepted: {
+                destinationPath = saveFileDialog.selectedFolder
+                switch (optionBuildMode.currentText) {
+                    case LangConst.comboBoxPointCloud:
+                        backend.save_cloud(destinationPath)
+                        break;
+                    case LangConst.comboBoxSplats:
+                        backend.save_gaussian_model(destinationPath)
+                        break;
+                    case LangConst.comboBoxCategorization:
+                        backend.save_segmented_model(destinationPath)
+                        break;
+                }
+            }
+        }
+
+        onClicked: {
+            saveFileDialog.open();
+        }
+    }
     TitleCard_ {
         id: titleCard
         text: "Urb3D"
@@ -123,12 +151,5 @@ Rectangle {
         onClicked: {
             isSettingsOpen.data = true
         }
-    }
-    RoundButton_ {
-        id: buttonInfo
-        icon.source: "../icons/info.png"
-        icon.width: RoundButtonConst.headerImageRadius
-        icon.height: RoundButtonConst.headerImageRadius
-        icon.color: buttonInfo.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
     }
 }

@@ -140,6 +140,9 @@ class Controller:
     def get_build_info(self):
         return self._build_info_handler.build_info
 
+    def get_backend_qml(self):
+        return self.backend
+
     def set_file_list(self, dir_path):
         if dir_path:
             self._dialog_handler.file_list.data = [f for f in  os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))]
