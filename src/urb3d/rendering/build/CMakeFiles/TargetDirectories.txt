@@ -1,0 +1,3 @@
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/build/CMakeFiles/rendering_lib.dir
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/build/CMakeFiles/edit_cache.dir
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/build/CMakeFiles/rebuild_cache.dir
