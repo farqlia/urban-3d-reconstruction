@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 import Constants
+import Components
 
 Rectangle {
     id: errorWindow
@@ -26,16 +27,16 @@ Rectangle {
             }
 
             Text {
-                text: ""
+                text: buildInfo.data
                 color: ColorConst.secondaryColor
                 font.bold: true
                 Layout.alignment: Qt.AlignHCenter
             }
 
             Button {
-                Layout.alignment: At.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter
                 onClicked: {
-                    isErrorWindow.data = false
+                    isBuildFail.data = false
                 }
                 background: Rectangle {
                     color: ColorConst.secondaryColor

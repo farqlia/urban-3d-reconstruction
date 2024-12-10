@@ -1,0 +1,9 @@
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/lib/cglm/build/CMakeFiles/cglm.dir
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/lib/cglm/build/CMakeFiles/package.dir
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/lib/cglm/build/CMakeFiles/package_source.dir
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/lib/cglm/build/CMakeFiles/edit_cache.dir
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/lib/cglm/build/CMakeFiles/rebuild_cache.dir
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/lib/cglm/build/CMakeFiles/list_install_components.dir
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/lib/cglm/build/CMakeFiles/install.dir
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/lib/cglm/build/CMakeFiles/install/local.dir
+/home/frafau/Documents/urban-3d-reconstruction/src/rendering/lib/cglm/build/CMakeFiles/install/strip.dir

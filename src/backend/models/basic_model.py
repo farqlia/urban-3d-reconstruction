@@ -55,9 +55,9 @@ class BasicModelInt(QObject):
 class BasicModelBool(QObject):
     dataChanged = Signal()
 
-    def __init__(self):
+    def __init__(self, initial_value=False):
         super().__init__()
-        self._data = False
+        self._data = initial_value
 
     @Property(bool, notify=dataChanged)
     def data(self):

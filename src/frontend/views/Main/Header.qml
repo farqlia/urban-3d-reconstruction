@@ -67,7 +67,7 @@ Rectangle {
         icon.color: buttonFiles.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
 
         onClicked: {
-            selectedTab.data = 0
+            isFileListOpen.data = !isFileListOpen.data
         }
     }
     RoundButton_ {
@@ -77,7 +77,7 @@ Rectangle {
         icon.height: RoundButtonConst.headerImageRadius
         icon.color: buttonParams.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
         onClicked: {
-            selectedTab.data = 1
+            isParametersOpen.data = true
         }
     }
     RoundComboBox_ {
@@ -92,6 +92,7 @@ Rectangle {
         icon.color: buttonRun.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
 
         onClicked: {
+            isBuildOpen.data = true;
             switch (optionBuildMode.currentText) {
                 case LangConst.comboBoxPointCloud:
                     buildRunCloud.func()

@@ -9,28 +9,33 @@ Rectangle {
     id: bodyRightPaneRB
     color: ColorConst.primaryColor
 
-    RowLayout {
+    Border_ {
         anchors.fill: parent
 
-        LayoutItemProxy {
-            target: buttonMoveAction
-            width: RoundButtonConst.renderingModeRadius
-            height: RoundButtonConst.renderingModeRadius
-            Layout.alignment: Qt.AlignBottom
-        }
+        RowLayout {
+            anchors.fill: parent
+            anchors.margins: FormatConst.defaultPadding
 
-        LayoutItemProxy {
-            target: buttonRotateAction
-            width: RoundButtonConst.renderingModeRadius
-            height: RoundButtonConst.renderingModeRadius
-            Layout.alignment: Qt.AlignBottom
-        }
+            LayoutItemProxy {
+                target: buttonMoveAction
+                width: RoundButtonConst.renderingModeRadius
+                height: RoundButtonConst.renderingModeRadius
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+            }
 
-        LayoutItemProxy {
-            target: buttonZoomAction
-            width: RoundButtonConst.renderingModeRadius
-            height: RoundButtonConst.renderingModeRadius
-            Layout.alignment: Qt.AlignBottom
+            LayoutItemProxy {
+                target: buttonRotateAction
+                width: RoundButtonConst.renderingModeRadius
+                height: RoundButtonConst.renderingModeRadius
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            }
+
+            LayoutItemProxy {
+                target: buttonZoomAction
+                width: RoundButtonConst.renderingModeRadius
+                height: RoundButtonConst.renderingModeRadius
+                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+            }
         }
     }
 
