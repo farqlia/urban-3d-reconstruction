@@ -1,6 +1,8 @@
 import os.path
 from subprocess import run, CalledProcessError
+
 from src.urb3d.pipeline.config import SCRIPTS_DIR
+
 
 # TODO: handle exceptions
 def run_script(script_name, *args):

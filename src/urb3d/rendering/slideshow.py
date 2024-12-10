@@ -15,28 +15,28 @@ class SlideshowWidget(QWidget):
 
         self.image_label = QLabel(self)
         self.image_label.setAlignment(Qt.AlignCenter)
-        self.image_label.setMinimumSize(600,450)
+        self.image_label.setMinimumSize(1000,650)
         self.image_label.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
         )
 
         self.prev_button = QPushButton(self)
-        self.prev_button.setIcon(QIcon("../frontend/views/icons/previous.png"))
+        self.prev_button.setIcon(QIcon("src/frontend/views/icons/previous.png"))
         self.prev_button.setIconSize(QSize(40, 40))
         self.prev_button.setStyleSheet("border: none;")
 
         self.next_button = QPushButton(self)
-        self.next_button.setIcon(QIcon("../frontend/views/icons/next.png"))
+        self.next_button.setIcon(QIcon("src/frontend/views/icons/next.png"))
         self.next_button.setIconSize(QSize(40, 40))
         self.next_button.setStyleSheet("border: none;")
 
         self.play_button = QPushButton(self)
-        self.play_button.setIcon(QIcon("../frontend/views/icons/play.png"))
+        self.play_button.setIcon(QIcon("src/frontend/views/icons/play.png"))
         self.play_button.setIconSize(QSize(40, 40))
         self.play_button.setStyleSheet("border: none;")
 
         self.stop_button = QPushButton(self)
-        self.stop_button.setIcon(QIcon("../frontend/views/icons/stop.png"))
+        self.stop_button.setIcon(QIcon("src/frontend/views/icons/stop.png"))
         self.stop_button.setIconSize(QSize(40, 40))
         self.stop_button.setStyleSheet("border: none;")
 

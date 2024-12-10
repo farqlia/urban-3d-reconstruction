@@ -9,10 +9,10 @@ class ParametersHandler:
         # default
         self._params.data = [
             "default",
-            "100000",
-            "3000000",
+            "1000",
+            "30000",
             "100",
-            "1"
+            "3"
         ]
     
     @property

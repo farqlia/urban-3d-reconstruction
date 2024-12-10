@@ -40,6 +40,7 @@ class SettingsHandler:
             for entry in self.env_vars.data:
                 env_name = entry["label"]
                 env_value = entry["input"]
+                print(f"New env: {env_name} = {env_value}")
                 os.environ[env_name] = env_value
             self.status.data = False
             func()
