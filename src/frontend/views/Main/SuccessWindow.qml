@@ -24,7 +24,6 @@ Rectangle {
                 icon.source: "../icons/ok.png"
                 icon.width: RoundButtonConst.headerImageRadius
                 icon.height: RoundButtonConst.headerImageRadius
-                icon.color: buttonRun.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
                 Layout.alignment: Qt.AlignHCenter
             }
 

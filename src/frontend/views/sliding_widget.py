@@ -1,5 +1,5 @@
 from PySide6.QtCore import QPropertyAnimation, QRect, Qt
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QWidget, QGridLayout, QHBoxLayout 
+from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QWidget, QGridLayout, QHBoxLayout, QSizePolicy
 from ..config import HEADER_FILE, FOOTER_FILE, LEFT_PANE_FILE, RIGHT_PANE_LB_FILE, RIGHT_PANE_LT_FILE, RIGHT_PANE_RB_FILE, RIGHT_PANE_RT_FILE
 from ..view_engine_manager import EngineManager
 
@@ -60,32 +60,32 @@ class SlidingWidget(QWidget):
                 widget.setParent(None)
 
         if self.renderer is not None:
-            self.right_layout.addWidget(self._renderer, 0, 0, 2, 2,  alignment=Qt.AlignmentFlag.AlignCenter)
+            self.right_layout.addWidget(self.renderer, 0, 0, 2, 2, alignment=Qt.AlignmentFlag.AlignCenter)
 
-        lt = self.create_right_pane_lt(self.right_widget)
-        rt = self.create_right_pane_rt(self.right_widget)
-        lb = self.create_right_pane_lb(self.right_widget)
-        rb = self.create_right_pane_rb(self.right_widget)
+        # lt = self.create_right_pane_lt(self.right_widget)
+        # rt = self.create_right_pane_rt(self.right_widget)
+        # lb = self.create_right_pane_lb(self.right_widget)
+        # rb = self.create_right_pane_rb(self.right_widget)
 
-        for widget in [lt, rt, lb, rb]:
-            widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        # for widget in [lt, rt, lb, rb]:
+        #     widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
-        self.right_layout.addWidget(lt, 0, 0, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
-        self.right_layout.addWidget(rt, 0, 1, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignTop)
-        self.right_layout.addWidget(lb, 1, 0, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
-        self.right_layout.addWidget(rb, 1, 1, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignBottom)
+        # self.right_layout.addWidget(lt, 0, 0, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
+        # self.right_layout.addWidget(rt, 0, 1, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignTop)
+        # self.right_layout.addWidget(lb, 1, 0, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
+        # self.right_layout.addWidget(rb, 1, 1, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignBottom)
 
-        if viz_type == "segmentation":
-            legend_label = QLabel(self)
-            legend_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "icons\legend.png")
-            legend_pixmap = QPixmap(legend_path)
-            legend_label.setPixmap(legend_pixmap)
-            legend_label.setScaledContents(True)
-            legend_label.setMaximumSize(258,425)
+        # if viz_type == "segmentation":
+        #     legend_label = QLabel(self)
+        #     legend_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "icons\legend.png")
+        #     legend_pixmap = QPixmap(legend_path)
+        #     legend_label.setPixmap(legend_pixmap)
+        #     legend_label.setScaledContents(True)
+        #     legend_label.setMaximumSize(258,425)
 
-            self.right_layout.addWidget(
-                legend_label, 0, 1, 2, 1, alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight
-            )
+        #     self.right_layout.addWidget(
+        #         legend_label, 0, 1, 2, 1, alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight
+        #     )
 
         self.right_layout.setRowStretch(0, 1)
         self.right_layout.setRowStretch(1, 1)

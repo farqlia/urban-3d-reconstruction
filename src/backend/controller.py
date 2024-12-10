@@ -13,15 +13,18 @@ class Controller:
         self.backend = backend
         self._build_info_handler = BuildInfoHandler()
         self._settings_handler = SettingsHandler()
-        self._point_cloud_build_handler = BuildHandler(backend.reconstruct_point_cloud, lambda x: self.complete_build(x, "reconstruction"))
-        self._splats_build_handler = BuildHandler(lambda: backend.create_gaussian_model(
-            self._parameters_handler.params.data[0],
-            int(self._parameters_handler.params.data[1]),
-            int(self._parameters_handler.params.data[2]),
-            int(self._parameters_handler.params.data[3]),
-            int(self._parameters_handler.params.data[4])
-            ), lambda x: self.complete_build(x, "rendering"))
-        self._categorization_handler = BuildHandler(backend.run_segmentation, lambda x: self.complete_build(x, "segmentation"))
+        # self._point_cloud_build_handler = BuildHandler(backend.reconstruct_point_cloud, lambda x: self.complete_build(x, "reconstruction"))
+        # self._splats_build_handler = BuildHandler(lambda: backend.create_gaussian_model(
+        #     self._parameters_handler.params.data[0],
+        #     int(self._parameters_handler.params.data[1]),
+        #     int(self._parameters_handler.params.data[2]),
+        #     int(self._parameters_handler.params.data[3]),
+        #     int(self._parameters_handler.params.data[4])
+        #     ), lambda x: self.complete_build(x, "rendering"))
+        # self._categorization_handler = BuildHandler(backend.run_segmentation, lambda x: self.complete_build(x, "segmentation"))
+        self._point_cloud_build_handler = BuildHandler(None, lambda x: self.complete_build(x, "reconstruction"))
+        self._splats_build_handler = BuildHandler(None, lambda x: self.complete_build(x, "rendering"))
+        self._categorization_handler = BuildHandler(None, lambda x: self.complete_build(x, "segmentation"))
         self._dialog_handler = DialogHandler()
         self._tab_handler = TabHandler()
         self._renderer_handler = RendererHandler()
