@@ -73,15 +73,17 @@ char* loadShaderSource(const char* filename) {
     return source;  // Return the shader source
 }
 
-void setupShaderProgram(GLuint shaderProgram, mat4 model, mat4 projection)
+void setupShaderProgram(GLuint shaderProgram, mat4 model, mat4 projection, size_t shCount)
 {
     glUseProgram(shaderProgram);
 
     GLint projLoc = glGetUniformLocation(shaderProgram, "projection");
     GLint modelLoc = glGetUniformLocation(shaderProgram, "model");
+    GLint shCountLoc = glGetUniformLocation(shaderProgram, "shCount");
 
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, (const GLfloat*)projection);
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, (const GLfloat*)model);
+    glUniform1i(shCountLoc, shCount);
 }
 
 void updateShaderProgram(GLuint shaderProgram)

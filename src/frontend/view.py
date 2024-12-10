@@ -26,8 +26,9 @@ class View:
         self._configure_engine_properties()
         self._configure_handlers()
         self.popup_on = False
+        self.lib_init = False
 
-        self._main_view = MainWindow(self._engine_manager)
+        self._main_view = MainWindow(self, self._engine_manager, self.rendering_lib)
         self._loading_window = None
 
     def run(self):
@@ -57,6 +58,7 @@ class View:
         self._engine_manager.set_qml_property("isSettingsOpen", self._controller.get_is_settings_open_qml())
         self._engine_manager.set_qml_property("settingsStatus", self._controller.get_status_settings_open_qml())
         self._engine_manager.set_qml_property("settingsVars", self._controller.get_vars_settings_open_qml())
+        self._engine_manager.set_qml_property("renderingType", self._controller.get_rendering_settings_open_qml())
         self._engine_manager.set_qml_property("isParametersOpen", self._controller.get_is_parameters_open_qml())
         self._engine_manager.set_qml_property("parametersStatus", self._controller.get_status_parameters_open_qml())
         self._engine_manager.set_qml_property("parametersVars", self._controller.get_params_qml())
@@ -68,29 +70,35 @@ class View:
     def _create_renderer(self):
         self.renderer = None
 
+        if (self.lib_init):
+            self.rendering_lib.close()
+            self.rendering_lib.cleanUp()
+            self.lib_init = False
+
+        # cloud_file = "data/tester2.ply"
+
         if self._controller.viz_type == "reconstruction":
             cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
-            cloud_file = "data/sparse.ply"
 
-            if self._controller.renderer_type == 1:
-                self.renderer = None
-                # thread_pool = QThreadPool.globalInstance()
+            if self._controller.rendering_type == 1:
+                thread_pool = QThreadPool.globalInstance()
 
-                # def bundle():
-                #     self.rendering_lib.initWindow()
-                #     window_id = self.rendering_lib.getWindowId()
-                #     self.renderer = external_window(window_id)
-                #     self.rendering_lib.loadData(cloud_file.encode('utf-8'))
-                #     self.rendering_lib.run()
+                def bundle():
+                    self.rendering_lib.initWindow()
+                    window_id = self.rendering_lib.getWindowId()
+                    self.renderer = external_window(window_id)
+                    self.rendering_lib.loadData(cloud_file.encode('utf-8'))
+                    self.rendering_lib.run()
 
-                # thread_pool.start(BasicThreadScript(bundle, lambda x: None))
+                thread_pool.start(BasicThreadScript(bundle, lambda x: None))
                 
-                # while(self.renderer is None):
-                #     continue
+                while(self.renderer is None):
+                    continue
+                
+                self.lib_init = True
 
-                # self.renderer.moveToThread(self._main_view.thread())
-                # self.renderer = QWidget.createWindowContainer(self._renderer)
-
+                self.renderer.moveToThread(self._main_view.thread())
+                self.renderer = QWidget.createWindowContainer(self.renderer)
             else:
                 cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
                 pc = PyntCloud.from_file(cloud_file)
@@ -107,7 +115,7 @@ class View:
 
         if self.renderer is not None:
             print("Configure renderer")
-            self._main_view.configure_renderer(renderer)
+            self._main_view.configure_renderer(self.renderer)
 
     def open_dialog(self):
         dialog = QFileDialog.getExistingDirectoryUrl(self._main_view, "Choose directory", "", QFileDialog.Option.ShowDirsOnly)

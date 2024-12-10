@@ -11,7 +11,7 @@ Rectangle {
     color: ColorConst.primaryColor
 
     width: FormatConst.popupWidth
-    height: 400
+    height: 450
 
     function getCopyVars() {
         var tempVars = [];
@@ -37,6 +37,15 @@ Rectangle {
 
         ColumnLayout {
             anchors.fill: parent
+            anchors.margins: FormatConst.defaultMargin
+
+            RoundButton_ {
+                icon.source: "../icons/equalizer.png"
+                Layout.alignment: Qt.AlignHCenter
+                icon.color: ColorConst.secondaryColor
+                icon.width: RoundButtonConst.headerImageRadius
+                icon.height: RoundButtonConst.headerImageRadius
+            }
 
             GridLayout {
                 Layout.alignment: Qt.AlignHCenter
@@ -54,6 +63,8 @@ Rectangle {
                     id: strategyInput
                     model: ["default", "mcmc"]
                     additionalPadding: 10
+                    implicitWidth: 100
+                    implicitHeight: 30
                 }
 
                 Label {
@@ -64,6 +75,11 @@ Rectangle {
                     id: stepsInput
                     text: parametersVars.data[1]
                     Layout.preferredWidth: 100
+                    color: ColorConst.primaryColor
+                    background: Rectangle {
+                        color: ColorConst.secondaryColor
+                        radius: FormatConst.defaultRadius
+                    }
                 }
 
                 Label {
@@ -74,6 +90,11 @@ Rectangle {
                     id: capInput
                     text: parametersVars.data[2]
                     Layout.preferredWidth: 100
+                    color: ColorConst.primaryColor
+                    background: Rectangle {
+                        color: ColorConst.secondaryColor
+                        radius: FormatConst.defaultRadius
+                    }
                 }
 
                 Label {
@@ -84,6 +105,11 @@ Rectangle {
                     id: refineInput
                     text: parametersVars.data[3]
                     Layout.preferredWidth: 100
+                    color: ColorConst.primaryColor
+                    background: Rectangle {
+                        color: ColorConst.secondaryColor
+                        radius: FormatConst.defaultRadius
+                    }
                 }
 
                 Label {
@@ -94,6 +120,8 @@ Rectangle {
                     id: shInput
                     model: ["1", "2", "3"]
                     additionalPadding: 10
+                    implicitWidth: 100
+                    implicitHeight: 30
                 }
             }
 

@@ -7,7 +7,7 @@
     #define LIBRARY_NAME "librendering_lib.dll"
 #else
     #include <dlfcn.h>
-    #define LIBRARY_NAME "rendering_lib.so"
+    #define LIBRARY_NAME "librendering_lib.so"
 #endif
 
 int main() {

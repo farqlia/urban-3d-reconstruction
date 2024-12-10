@@ -20,10 +20,11 @@ Rectangle {
         ColumnLayout {
             anchors.fill: parent
 
-            Image {
-                source: "../icons/ok.png"
-                Layout.preferredWidth: 50
-                Layout.preferredHeight: 50
+            RoundButton_ {
+                icon.source: "../icons/ok.png"
+                icon.width: RoundButtonConst.headerImageRadius
+                icon.height: RoundButtonConst.headerImageRadius
+                icon.color: buttonRun.hovered? ColorConst.hoverColor : ColorConst.secondaryColor
                 Layout.alignment: Qt.AlignHCenter
             }
 

@@ -19,14 +19,14 @@ layout (std430, binding = 4) buffer splatAlpha {
 };
 
 uniform mat4 model, view, projection;
+uniform int shCount;
 
 // Outputs
-out vec3 position;
-out vec3 ellipsoidCenter;
-out vec3 ellipsoidScale;
-out mat3 ellipsoidRot;
-out float ellipsoidAlpha;
 out vec3 color;
+out vec3 instanceScale; 
+out mat3 instanceRotation;
+out vec3 WorldNormal;
+out vec3 WorldPos;
 
 mat3 quatToMat(vec4 q) {
     return mat3(2.0 * (q.x * q.x + q.y * q.y) - 1.0, 2.0 * (q.y * q.z + q.x * q.w), 2.0 * (q.y * q.w - q.x * q.z), // 1st column
@@ -41,8 +41,20 @@ mat4 translate(mat4 model, vec3 t) {
 }
 
 void main() {
-    mat4 t_model = translate(model, vec3(positions[gl_InstanceID]));
+    vec3 position = vec3(positions[gl_InstanceID]);
+    vec3 scale = vec3(scales[gl_InstanceID]);
+    mat3 rot = quatToMat(quats[gl_InstanceID]);  // Function to convert quaternion to rotation matrix
 
-    gl_Position = projection * view * t_model * vec4(aPos, 1.0f);
-    color = vec3(colors[gl_InstanceID]) * 0.28 + vec3(0.5, 0.5, 0.5);
+    vec3 spherePos = normalize(aPos);
+    // vec3 worldPosition = spherePos * scale * rot + position; // splats -> must be fragement rendered to be a sphere
+    vec3 worldPosition = spherePos + position; // points -> ready to render
+
+    WorldPos = worldPosition;
+    WorldNormal = normalize(worldPosition);
+    instanceRotation = rot;
+    instanceScale = scale;
+
+    gl_Position = projection * view * model * vec4(worldPosition, 1.0f);
+    // color = vec3(colors[gl_InstanceID]) * alpha + vec3(0.5);
+    color = vec3(1.0f); // white
 }

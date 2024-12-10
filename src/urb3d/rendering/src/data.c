@@ -85,18 +85,15 @@ void generateStructureOfArrays(PointCloudData* data, size_t pointCount)
 
         vec4* color = &_colors[i];
         if (splat->sh != NULL) {
-            float avgShX = 0.0f;
-            float avgShY = 0.0f;
-            float avgShZ = 0.0f;
-            for (size_t j = 0; j < splat->sh_count * 3; j++) {
-               avgShX += splat->sh[j++] * splat->a;
-               avgShY += splat->sh[j++] * splat->a;
-               avgShZ += splat->sh[j++] * splat->a;
-            }
-            vec3 avgs = { avgShX * 255, avgShY * 255, avgShZ * 255 };
-            glm_vec4(avgs, 1.0f, *color);
-        } else
+            vec3 temp_color;
+            temp_color[0] = splat->sh[0];
+            temp_color[1] = splat->sh[1];
+            temp_color[2] = splat->sh[2];
+            glm_vec4(temp_color, 1.0f, *color);
+        } else {
+            vec4* color = &_colors[i];
             glm_vec4(splat->color, 1.0f, *color);
+        }
 
         vec4* quaternitions = &_quaternitions[i];
         glm_vec4_copy(splat->quaternition, *quaternitions);

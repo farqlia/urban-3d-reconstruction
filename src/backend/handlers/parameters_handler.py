@@ -40,16 +40,5 @@ class ParametersHandler:
         
     def _handle_status(self, func):
         if self.status.data:
-            for entry in self.params.data:
-                print(entry)
-                # env_name = entry["label"]
-                # env_value = entry["input"]
-                # os.environ[env_name] = env_value
-            print(f"HERE {self.params.data}")
             self.status.data = False
             func()
-    
-    def configure_env_var(self, name, value):
-        curr_env_vars = self.env_vars.data
-        curr_env_vars.append({"label": name, "input": value})
-        self.env_vars.data = curr_env_vars

@@ -5,8 +5,10 @@ from ..config import HEADER_FILE, FOOTER_FILE, LEFT_PANE_FILE, RIGHT_PANE_LB_FIL
 from .sliding_widget import SlidingWidget
 
 class MainWindow(QMainWindow):
-    def __init__(self, engine_manager):
+    def __init__(self, parent, engine_manager, lib):
         super(MainWindow, self).__init__()
+
+        self.parent = parent
 
         self.setWindowTitle("Urb3D - Urban 3D reconstruction and segmentation")
         screen_geometry = QApplication.primaryScreen().geometry()
@@ -16,8 +18,8 @@ class MainWindow(QMainWindow):
 
         self.showMaximized()
 
+        self.rendering_lib = lib
         self._engine_manager = engine_manager
-        self._renderer = None
 
         central_widget = QWidget()
         central_widget.setGeometry(0, 0, self.width(), self.height())
@@ -62,10 +64,7 @@ class MainWindow(QMainWindow):
         return self._engine_manager.load_component(RIGHT_PANE_RB_FILE, parent)
 
     def configure_renderer(self, renderer):
-        # self._renderer.setParent()
-        # self._renderer.hide()
         self.body.update_right_pane(renderer)
-        # self._renderer.show()
     
     def slide_body(self):
         self.body.toggle_widgets()
@@ -74,3 +73,10 @@ class MainWindow(QMainWindow):
         if self.body is not None:
             self.body.update_geometry(self.geometry())
         super().resizeEvent(event)
+
+    def closeEvent(self, event):
+        print("CLOSING")
+        if self.parent.lib_init:
+            self.rendering_lib.close()
+            self.rendering_lib.cleanUp()
+        event.accept()
