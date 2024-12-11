@@ -77,12 +77,15 @@ linewidth=2pt % Width of the border lines around content boxes
 
 \headerbox{Abstrakt}{name=abstract,column=0,span=2, row=0}{
 
-Przedmiotem projektu było wykonanie aplikacji wykorzystującej metody fotogrametrii do modelowania trójwymiarowych scen miejskich. Zaimplementowany program umożliwia użytkownikowi zrekonstruowanie chmury punktów i modelu 3D na podstawie podanych na wejściu zdjęć fotogrametrycznych za pomocą dostosowanych do specyfiki problemu w toku eksperymentów rozwiązań \textit{structure from motion} i \textit{gaussian splatting}. Otrzymana w ten sposób chmura może być przez użytkownika poddana segmentacji semantycznej, przeprowadzanej przez wytrenowany do tego celu model sztucznej inteligencji w postaci sieci neuronowej. Aplikacja oferuje również wizualizację wykonanych obliczeń, która możliwa jest dzięki użyciu przystosowanego dla większej wydajności mechanizmu renderowania.
+\begin{center}
+    \includegraphics[width=0.9\linewidth]{images/kolaz.png}
+\end{center}
 
-    Wytworzony produkt informatyczny ze względu na integrację wielu rozwiązań i efektywną implementację procesu \textit{end-to-end} przejawia potencjał w zastosowaniach biznesowych począwszy od branż takich jak gry wideo, przez architekturę, robotykę, pojazdy autonomiczne, skończywszy na modelowaniu urbanistycznym.
+Projekt obejmował stworzenie aplikacji do modelowania trójwymiarowych scen miejskich na podstawie zdjęć fotogrametrycznych, wykorzystującej metody \textit{structure from motion} i \textit{gaussian splatting} oraz segmentację semantyczną. % Dzięki integracji zaawansowanych rozwiązań i efektywnemu procesowi \textit{end-to-end}, aplikacja ma potencjał zastosowań w takich branżach jak gry wideo, architektura, robotyka, pojazdy autonomiczne i urbanistyka.
+
 \vspace{0.6em}
 
-\textbf{Słowa kluczowe:} reconstruction, 3D modeling, urban modeling, semantic segmentation, structure from motion, gaussian splatting.
+\textbf{Słowa kluczowe:} reconstruction, 3D modeling, urban modeling, semantic segmentation, gaussian splatting.
 
 \vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
 }
@@ -94,7 +97,7 @@ Przedmiotem projektu było wykonanie aplikacji wykorzystującej metody fotograme
 \headerbox{Akwizycja i rekonstrukcja}{name=akwizycja_rekonstrukcja,column=0, span=2, below=abstract}{
 
 \begin{multicols}{2}
-W projekcie zastosowano metody fotogrametryczne do pozyskania zdjęć z drona i gruntu na terenie Politechniki Wrocławskiej, obejmujących budynki C5, C7 oraz Strefę Kultury Studenckiej. Zdjęcia wykonano z wielu kątów, zapewniając odpowiednie nakładanie się ujęć do poprawnej rekonstrukcji 3D. Następnie, przy użyciu techniki \textbf{Structure from Motion} (SfM), wygenerowano chmurę punktów 3D, określając rozmieszczenie punktów w przestrzeni oraz pozycje i orientacje kamer. Uzyskana chmura punktów została dodatkowo poddana filtracji z wykorzystaniem metod opartych na ana\mbox{lizie} sąsiedztwa każdego punktu.
+W projekcie zastosowano metody fotogrametryczne do pozyskania zdjęć z drona i gruntu na terenie Politechniki Wrocławskiej, obejmujących budynki \textbf{C5}, \textbf{C7} oraz \textbf{Strefę Kultury Studenckiej}. Zdjęcia wykonano z wielu kątów, zapewniając odpowiednie nakładanie się ujęć do poprawnej rekonstrukcji 3D. Następnie, przy użyciu techniki \textbf{Structure from Motion} (SfM), wygenerowano chmurę punktów 3D, określając rozmieszczenie punktów w przestrzeni oraz pozycje i orientacje kamer. Uzyskana chmura punktów została dodatkowo poddana filtracji z wykorzystaniem metod opartych na ana\mbox{lizie} sąsiedztwa każdego punktu.
 
 \begin{center}
 \includegraphics[width=1\linewidth]{images/sfm-c.png}
@@ -203,13 +206,14 @@ zieleńF & 0 & 42 \\
 \headerbox{Renderowanie}{name=rendering,column=0, span=2,below=akwizycja_rekonstrukcja,above=block}{ % This block's bottom aligns with the bottom of the conclusion block
 
 \begin{multicols}{2}
-    Zaprojektowano intuicyjny interfejs w \textit{PyQt} i \textit{QML}, zintegrowany z wydajnym systemem renderowania \textit{GPU} opartym na \textit{OpenGL}, \textit{OpenCL} i języku \textit{C}, oferującym także wsparcie dla \textit{VisPy}. Aplikacja zapewnia spójne środowisko do obsługi modeli 3D, obejmujące procesy takie jak generowanie chmury punktów, segmentacja i wizualizacja danych. Rendering wykorzystuje pliki .ply oraz Shader Storage Buffer Object (SSBO), umożliwiając efektywną pracę nawet przy scenach z milionami obiektów.
+    
+    Zaprojektowano intuicyjny interfejs w \textit{PyQt} i \textit{QML}, zintegrowany z wydajnym systemem renderowania \textit{GPU} opartym na \textit{OpenGL}, \textit{OpenCL} i języku \textit{C}, oferującym także wsparcie dla \textit{VisPy}. Aplikacja zapewnia spójne środowisko do obsługi modeli 3D, obejmujące procesy takie jak generowanie chmury punktów, segmentacja i wizualizacja danych. Rendering wykorzystuje pliki .ply oraz Shader Storage Buffer Object (SSBO). Rysunek obok przedstawia główny widok aplikacji, w tym własny renderer.
 
     \begin{center}
-    \includegraphics[width=0.8\linewidth]{images/cloud_rendering.png}
-    \captionof{figure}{Główny widok aplikacji, w tym własny renderer}
+    \includegraphics[width=0.85\linewidth]{images/"cloud-rendering.png"}
+    \label{fig:renderer}
     \end{center}
-    
+
 \end{multicols}
 
 

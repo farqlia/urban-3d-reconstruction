@@ -348,6 +348,13 @@ INPUT C:\Users\julia\AppData\Local\Programs\MiKTeX\tex\latex\amsfonts\umsb.fd
 INPUT C:\Users\julia\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Users\julia\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
 INPUT C:\Users\julia\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
+INPUT .\images\kolaz.png
+INPUT .\images\kolaz.png
+INPUT .\images\kolaz.png
+INPUT .\images\kolaz.png
+INPUT .\images\kolaz.png
+INPUT .\images\kolaz.png
+INPUT .\images\kolaz.png
 INPUT C:\Users\julia\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri8t.tfm
 INPUT C:\Users\julia\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8t.tfm
 INPUT C:\Users\julia\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplbc8t.tfm
@@ -381,13 +388,13 @@ INPUT .\images\SFM (4).png
 INPUT .\images\SFM (4).png
 INPUT .\images\SFM (4).png
 INPUT .\images\SFM (4).png
-INPUT .\images\cloud_rendering.png
-INPUT .\images\cloud_rendering.png
-INPUT .\images\cloud_rendering.png
-INPUT .\images\cloud_rendering.png
-INPUT .\images\cloud_rendering.png
-INPUT .\images\cloud_rendering.png
-INPUT .\images\cloud_rendering.png
+INPUT .\images\cloud-rendering.png
+INPUT .\images\cloud-rendering.png
+INPUT .\images\cloud-rendering.png
+INPUT .\images\cloud-rendering.png
+INPUT .\images\cloud-rendering.png
+INPUT .\images\cloud-rendering.png
+INPUT .\images\cloud-rendering.png
 INPUT C:\Users\julia\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplbc8t.vf
 INPUT C:\Users\julia\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
 INPUT C:\Users\julia\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
