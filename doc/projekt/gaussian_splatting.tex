@@ -1,8 +1,8 @@
 \subsubsection{Gaussian Splatting}
-W celu uruchomienia algorytmu Gaussian Splatting korzystamy z gotowej implementacji którą 
+W celu uruchomienia algorytmu Gaussian Splatting korzystano z gotowej implementacji którą 
 zapewnia biblioteka \href{https://docs.gsplat.studio/main/index.html}{\textit{gsplat}} \cite{ye2024gsplatopensourcelibrarygaussian}. Znajdują się w niej metody które odzwierciedlają wykonywane kroki w teoretycznym opisie algorytmu (np. \textit{rasterization}) a także dodatkowe elementy oparte na nowszych badaniach które usprawniają proces trenowania i renderowania (np. \textit{sparse gradient}, \textit{absgrad}, itp.). Dodatkowym plusem biblioteki jest wsparcie do renderowania dużych scen. Jej użycie wymaga posiadania karty graficznej CUDA.  
 
-Jedną z naszych kontrybucji jest dostosowanie istniejącego skryptu trenującego \href{https://github.com/nerfstudio-project/gsplat/blob/main/examples/simple_trainer.py}{simple\_trainer} tak aby działał on poprawnie i zgodnie z naszymi wymaganiami. Przyjmuje on następujące argumenty:
+Jedną kontrybucji projektu jest dostosowanie istniejącego skryptu trenującego \href{https://github.com/nerfstudio-project/gsplat/blob/main/examples/simple_trainer.py}{simple\_trainer} tak aby działał on poprawnie i zgodnie z naszymi wymaganiami. Przyjmuje on następujące argumenty:
 
 % change style to not highlight python specific words
 \lstset{style=basicstyle}

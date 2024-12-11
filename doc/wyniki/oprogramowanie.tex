@@ -8,7 +8,7 @@
 \subsection{Architektura}
 
 \begin{figure}[!htb]
-    \includegraphics[width=1.0\linewidth]{img/diagramy/diagram_wdrozenia_komponentow.png}
+    \includegraphics[width=1.0\linewidth]{img/diagramy/diagram_wdrozenia_komponentow_3.png}
     \caption{Diagram wdrożenia komponentów}\label{fig:components_diagram}
 \end{figure}
 
@@ -45,21 +45,29 @@ Opis zastosowanych technologii i dokumentów
           [images.bin]
           [cameras.bin]
           [points.bin]
+          [sparse.ply]
       ]
+      [filtered\_model.ply]
       [model.pt]
       [model.ply]
-      [segmentation.ply]
+      [model\_seg.ply]
     ]
+    [pointnet-ckpt.pt]
   ]
+  [scripts]
   [src
     [frontend]
     [backend]
     [urb3d
+      [datasets]
+      [pipeline]
+      [segmentation]
       [rendering]
       [geometry]
       [models]
       [splats]
     ]
   ]
+  [test]
 ]
 \end{forest}
