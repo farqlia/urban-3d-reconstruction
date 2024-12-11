@@ -1,0 +1,24 @@
+\subsection{Testy}
+
+\subsubsection{Testy jednostkowe}
+W ramach przetestowania poprawności kodu zostały wykonane dla części skryptów testy jednostkowe przy pomocy biblioteki \textit{pytest}.
+
+\lstset{style=basicstyle}
+\begin{lstlisting}
+scripts\test_colmap_reconstruction.py::test_colmap_reconstruction_files_exist 
+scripts\test_distance_pcd_filtering.py::test_distance_pcd_filtering_files_exist 
+scripts\test_distance_pcd_filtering.py::test_distance_pcd_filtering_works 
+scripts\test_distance_pcd_filtering.py::test_error_on_wrong_type 
+scripts\test_save_model.py::test_save_model 
+scripts\test_save_model.py::test_fail_on_wrong_path_name 
+scripts\test_segmentation.py::test_segmentation_files_exist 
+scripts\test_segmentation.py::test_segmentation_class_is_added 
+scripts\test_segmentation.py::test_segmentation_classes_are_in_range 
+scripts\test_segmentation.py::test_segmentation_fails_on_corrupted_input 
+scripts\test_simple_trainer.py::test_simple_trainer_files_exist 
+scripts\test_simple_trainer.py::test_simple_trainer_pt_file_is_correct 
+scripts\test_simple_trainer.py::test_training_fails_on_incomplete_input 
+scripts\test_statistical_pcd_filtering.py::test_error_on_wrong_type 
+\end{lstlisting}
+
+Testy obejmowały m. in. sprawdzenie poprawności powstałych plików oraz występowania błędów. 
