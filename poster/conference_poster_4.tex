@@ -67,7 +67,7 @@ linewidth=2pt % Width of the border lines around content boxes
 %
 {\includegraphics[height=6em]{images/logo_white.png}} % First university/lab logo on the left
 {\bf\textsc{Metoda trójwymiarowego modelowania obszarów urbanistycznych z wykorzystaniem metod fotogrametrii}\vspace{0.5em}} % Poster title
-{\textsc{Daniel Borkowski, Julia Farganus, Rafał Mielniczuk, Katarzyna Wochal}}
+{\textsc{Daniel Borkowski, Julia Farganus, Rafał Mielniczuk, Katarzyna Wochal, promotor Marek Krótkiewicz}}
 % Author names and institution
 {\includegraphics[height=6em]{images/zpi-logo.png}} % Second university/lab logo on the right
 
@@ -119,11 +119,57 @@ W projekcie zastosowano metody fotogrametryczne do pozyskania zdjęć z drona i 
 
 }
 
+
+%----------------------------------------------------------------------------------------
+%	GAUSSIAN SPLATTING
+%----------------------------------------------------------------------------------------
+
+\headerbox{Gaussian Splatting}{name=gaussian_splatting,column=2,span=2,below=flow}{
+
+\begin{multicols}{2}
+
+Wykorzystano bibliotekę \textit{gsplat} do testowania różnych hiperparametrów algorytmu \textbf{Gaussian Splatting}, optymalizując trenowanie pod względem czasu i pamięci. Kluczowe były liczba gaussianów, strategia i częstość adaptacji, liczba iteracji i stopień zmiennych harmonicznych.
+
+\begin{center}
+\begin{tabular}{l l l l l l}
+\toprule
+\textbf{scena} & \textbf{PSNR} & \textbf{LPIPS} & \textbf{SSIM} & \textbf{LG} & \textbf{Czas} \\
+\midrule
+SKS & 22.03 & 0.71 & 0.25 & 2,9\text{e+}6 & 2:53 \\
+C5 & 21.98 & 0.71 & 0.26 & 4,5\text{e+}6 & 10:40 \\
+C7 & 22.63 & 0.72 & 0.29 & 3,0\text{e+}6 & 15:15 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Metryki PSNR, SSIM oraz LPIPS, liczba gaussianów oraz czas trenowania dla testowych scen.}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.9\linewidth]{images/gs-examples.png}
+    \captionof{figure}{Przykładowe wizualizacje dla SKS oraz C5 (od lewej do prawej: prawdziwe zdjęcie i widok modelu)}
+\end{center}
+
+\end{multicols}
+
+%------------------------------------------------
+
+}
+
+%----------------------------------------------------------------------------------------
+%	PODSUMOWANIE
+%----------------------------------------------------------------------------------------
+
+\headerbox{Podsumowanie}{name=block,column=0,span=2,above=bottom}{ % This block is as tall as the references block
+Opracowane oprogramowanie umożliwia kompleksowe modelowania obszarów miejskich z wykorzystaniem fotogrametrii. Wśród oferowanych użytkownikowi funkcjonalności znajdują się m.in. dostosowywanie parametrów, wczytywanie zdjęć, uruchamianie poszczególnych etapów oraz przeglądanie rezultatów. Odpowiednio dobrane i dostrojone algorytmy zapewniają jakościowe wyniki, które mogą być wykorzystywane razem lub oddzielnie.
+
+
+}
+
+
 %----------------------------------------------------------------------------------------
 %	SEGMENTACJA
 %----------------------------------------------------------------------------------------
 
-\headerbox{Segmentacja}{name=segmentacja,column=2,span=2,below=flow}{
+\headerbox{Segmentacja}{name=segmentacja,column=2,span=2,below=gaussian_splatting,bottomaligned=block}{
 
 \begin{multicols}{2}
 \vspace{1em}
@@ -150,56 +196,11 @@ zieleńF & 0 & 42 \\
 
 \end{multicols}
 }
-
 %----------------------------------------------------------------------------------------
-%	CONTACT INFORMATION
-%----------------------------------------------------------------------------------------
-
-\headerbox{Podsumowanie}{name=block,column=0,span=2,above=bottom}{ % This block is as tall as the references block
-Opracowane oprogramowanie umożliwia kompleksowe modelowania obszarów miejskich z wykorzystaniem fotogrametrii. Wśród oferowanych użytkownikowi funkcjonalności znajdują się m.in. dostosowywanie parametrów, wczytywanie zdjęć, uruchamianie poszczególnych etapów oraz przeglądanie rezultatów. Odpowiednio dobrane i dostrojone algorytmy zapewniają jakościowe wyniki, które mogą być wykorzystywane razem lub oddzielnie.
-
-
-}
-
-%----------------------------------------------------------------------------------------
-%	CONCLUSION
+%	RENDEROWANIE
 %----------------------------------------------------------------------------------------
 
-\headerbox{Gaussian Splatting}{name=gaussian_splatting,column=2,span=2,below=segmentacja,bottomaligned=block}{
-
-\begin{multicols}{2}
-
-Wykorzystano bibliotekę \textit{gsplat} do testowania różnych hiperparametrów algorytmu \textbf{Gaussian Splatting}, optymalizując trenowanie pod względem czasu i pamięci. Kluczowe były liczba gaussianów, strategia i częstość adaptacji, liczba iteracji i stopień zmiennych harmonicznych.
-
-\begin{center}
-\begin{tabular}{l l l l l l}
-\toprule
-\textbf{scena} & \textbf{PSNR} & \textbf{LPIPS} & \textbf{SSIM} & \textbf{LG (M)} & \textbf{Czas} \\
-\midrule
-SKS & 22.03 & 0.71 & 0.25 & 2,9 & 2:53 \\
-C5 & 21.98 & 0.71 & 0.26 & 4,5 & 10:40 \\
-C7 & 22.63 & 0.72 & 0.29 & 3,0 & 15:15 \\
-\bottomrule
-\end{tabular}
-\captionof{table}{Metryki PSNR, SSIM oraz LPIPS, liczba gaussianów oraz czas trenowania dla testowych scen.}
-\end{center}
-
-\begin{center}
-    \includegraphics[width=0.9\linewidth]{images/gs-examples.png}
-    \captionof{figure}{Przykładowe wizualizacje dla SKS oraz C5 (od lewej do prawej: prawdziwe zdjęcie i widok modelu)}
-\end{center}
-
-\end{multicols}
-
-%------------------------------------------------
-
-}
-
-%----------------------------------------------------------------------------------------
-%	MATERIALS AND METHODS
-%----------------------------------------------------------------------------------------
-
-\headerbox{Renderowanie}{name=rendering,column=0, span=2, below=akwizycja_rekonstrukcja,above=block}{ % This block's bottom aligns with the bottom of the conclusion block
+\headerbox{Renderowanie}{name=rendering,column=0, span=2,below=akwizycja_rekonstrukcja,above=block}{ % This block's bottom aligns with the bottom of the conclusion block
 
 \begin{multicols}{2}
     Zaprojektowano intuicyjny interfejs w \textit{PyQt} i \textit{QML}, zintegrowany z wydajnym systemem renderowania \textit{GPU} opartym na \textit{OpenGL}, \textit{OpenCL} i języku \textit{C}, oferującym także wsparcie dla \textit{VisPy}. Aplikacja zapewnia spójne środowisko do obsługi modeli 3D, obejmujące procesy takie jak generowanie chmury punktów, segmentacja i wizualizacja danych. Rendering wykorzystuje pliki .ply oraz Shader Storage Buffer Object (SSBO), umożliwiając efektywną pracę nawet przy scenach z milionami obiektów.
