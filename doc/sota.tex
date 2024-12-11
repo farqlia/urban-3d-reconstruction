@@ -75,5 +75,16 @@ Najlepszy zbiór splatów opisujący scenę jest znajdowany w procesie optymaliz
 
 Niestety metoda ta nie pozostaje bez wad. W przypadku dużych zbiorów danych zużycie pamięci może wynieść nawet parę GB, co wymaga dobrej jakości karty graficznej. Inną kwestią jest duża liczba hiperparametrów, które często wymagają ręcznego dostosowania do danej sceny. 
 
-\subsection{Segmentacja}
-Warto nadmienić, że nie jest to segmentacja \cite{pointnet}.
+\subsection{Segmentacja semantyczna}
+
+Segmentacja semantyczna jest jednym z zadań uczenia maszynowego zaliczającym się do rodzajów segmentacji. Posiada ona cechy klasyfikacji, polega bowiem na przypisaniu każdemu z punktów w trójwymiarowej chmurze punktów odpowiedniej kategorii semantycznej, \textit{de facto} klasy. Punkty nie są więc traktowane osobno, a łącznie, co umożliwia na rozpoznanie zależności przestrzennych w chmurze punktów. W programie użyto na tym etapie projektu sieci neuronowych, jako rozwiązania szeroko używanego w rozwiązywaniu problemu segmentacji semantycznej obszarów miejskich.
+
+\subsubsection{Architektura}
+
+Istniejące z punktu widzenia architektury wyzwania wynikają ze specyfiki rozpatrywanych danych. Trójwymiarowe chmury punktów są zbiorami nieuporządkowanymi, nierzadko o różnej gęstości punktów w różnych obszarach chmury i różnej wielkości samej chmury. Cechy te wymuszają opracowanie specjalnych architektur adresujących ten problem.
+
+Istniejące architektury sieci neuronowych dla zadania segmentacji semantycznej są przeznaczone głównie dla scen zamkniętych lub pojedynczych obiektów. Popularnym rozwiązaniem jest PointNet\cite{pointnet} oraz jego następca, PointNet++\cite{qi2017pointnetdeephierarchicalfeature} - obydwa oparte na wielowarstwowym perceptronie, jak i również bardziej skomplikowane rozwiązania jak KPConv\cite{thomas2019kpconvflexibledeformableconvolution} implementujące operację konwolucji użyteczną dla trójwymiarowych chmur punktów.
+
+\subsubsection{Zbiór danych}
+
+Ważnym problemem w uczeniu maszynowym jest dobór danych do efektywnego treningu modelu. W opracowywaniu naszego rozwiązania posłużyliśmy się otwartym zbiorem \textit{SensatUrban}\cite{hu2022sensaturban}. Zbiór ten zawiera wiele różnych chmur punktów z obszarami miejskimi w Anglii, o różnej wielkości. Każdemu z punktów przypisana jest jedna z 13 kategorii semantycznych reprezentujacych: podłoże, roślinność, budynek, ścianę, most, parking, tory, drogę, ławkę, samochód, chodnik, rower i obszary wodne. 
