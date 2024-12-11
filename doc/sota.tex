@@ -8,7 +8,7 @@ Wirtualne reprezentacje krajobrazów miejskich są coraz bardziej wykorzystywane
 Istnieje wiele sposobów rekonstrukcji które można podzielić ze względu na dane wejściowe, poziom szczegółowości, automatyzację czy też dane wyjściowe. W naszym projekcie rekonstrukcja zachodzi na dwóch etapach - najpierw jako chmura punktów, następnie jako zbiór splatów. 
 
 \subsubsection{Structure from motion}
-Structure from motion (SfM)\cite{Schonberger_2016_CVPR} to technika fotogrametryczna służąca do szacowania struktur trójwymiarowych na podstawie zbiorów dwuwymiarowych obrazów, opierająca się na odnajdywaniu wspólnych punktów między obrazami. Jednym z wyróżnianych podejść jest inkrementalne SfM\ref{fig:sfm_flow}, zawierające komponent iteracyjnej rekonstrukcji. Proces składa się z kilku kluczowych etapów:
+Structure from motion (SfM)\cite{Schonberger_2016_CVPR} to technika fotogrametryczna służąca do szacowania struktur trójwymiarowych na podstawie zbiorów dwuwymiarowych obrazów, opierająca się na odnajdywaniu wspólnych punktów między obrazami. Jednym z wyróżnianych podejść jest inkrementalne SfM[\ref{fig:sfm_flow}], zawierające komponent iteracyjnej rekonstrukcji. Proces składa się z kilku kluczowych etapów:
 \begin{enumerate}
   \item Ekstrakcja cech - przy wykorzystaniu algorytmów takich jak SIFT czy jego pochodne, zapewniających odporność na zmiany rotacji bądź oświetlenia, na każdym z obrazów wykrywane są punkty charakterystyczne, reprezentowane matematycznie przy pomocy deskryptorów;
   \item Dopasowywanie cech - pary obrazów testowane są pod kątem nakładania się sceny; punkty charakterystyczne z jednego obrazu są dopasowywane do odpowiadających im punktów na innych obrazach na podstawie podobieństwa deskryptorów;
@@ -37,15 +37,15 @@ Popularną techniką rekonstrukcji z chmury punktów jest siatka (ang. mesh), wy
 \begin{figure}[!htb]
     % images need to be the same size
     \minipage{0.32\textwidth}
-      \includegraphics[width=\linewidth]{img/city3dmesh.jpg}
+      \includegraphics[width=\linewidth]{img/sota/city3dmesh.jpg}
       \caption{City3D - siatka}\label{fig:mesh_example}
     \endminipage\hfill
     \minipage{0.32\textwidth}
-      \includegraphics[width=\linewidth]{img/nerfobject.jpg}
+      \includegraphics[width=\linewidth]{img/sota/nerfobject.jpg}
       \caption{Nerf - sieć neuronowa}\label{fig:nerf_example}
     \endminipage\hfill
     \minipage{0.32\textwidth}%
-      \includegraphics[width=\linewidth]{img/gaussiansplattingobject.jpg}
+      \includegraphics[width=\linewidth]{img/sota/gaussiansplattingobject.jpg}
       \caption{Gaussian Splatting - splat'y}\label{fig:gaussplat_example}
     \endminipage
 \end{figure}
@@ -61,7 +61,7 @@ Splat (tłum. punkt rozmyty) jest rozszerzeniem punktu i posiada atrybuty
 Najlepszy zbiór splatów opisujący scenę jest znajdowany w procesie optymalizacji opisanym poniżej schematem
 
 \begin{figure}[!htb]
-    \includegraphics[width=\linewidth]{img/gaussian_splatting_flow.png}
+    \includegraphics[width=\linewidth]{img/sota/gaussian_splatting_flow.png}
     \caption{Optymalizacja zbioru splatów}\label{fig:splatting_algorithm}
 \end{figure}
 

@@ -266,3 +266,24 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks
 /data/
 /output
+.idea/*
+
+models/*
+
+# Ignore everything in the doc folder
+doc/*.aux
+doc/*.pdf
+doc/*.bbl
+doc/*.blg
+doc/*.fdb_latexmk
+doc/*.fls
+doc/*.log
+doc/*.out
+doc/*.synctex.gz
+# Ignore everything in the doc folder
+zpi-template/*
+
+# But do not ignore .tex and .bib files
+!zpi-template/*.tex
+!zpi-template/*.bib
+!*.png
