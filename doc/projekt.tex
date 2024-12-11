@@ -81,6 +81,9 @@ W wyniku działania tak zaimplementowanego procesu powstają pliki binarne zapis
   \caption{Projekcja przykładowej chmury punktów na płaszczyznę porównana do zdjęcia}
 \end{figure}
 
+\subsubsection{Filtracja chmury punktów}
+Ważny i wpływający na jakość wynikowej rekonstrukcji element przetwarzania chmury punktów jakim jest jej filtracja pojawia się na dwóch etapach projektu: po przeprowadzeniu generacji chmury punktów i przed uruchomieniem algorytmu segmentacji. 
+
 \subsubsection{Gaussian Splatting}
 W celu uruchomienia algorytmu Gaussian Splatting korzystamy z gotowej implementacji którą 
 zapewnia biblioteka \href{https://docs.gsplat.studio/main/index.html}{\textit{gsplat}} \cite{ye2024gsplatopensourcelibrarygaussian}. Znajdują się w niej metody które odzwierciedlają wykonywane kroki w teoretycznym opisie algorytmu (np. \textit{rasterization}) a także dodatkowe elementy oparte na nowszych badaniach które usprawniają proces trenowania i renderowania (np. \textit{sparse gradient}, \textit{absgrad}, itp.). Dodatkowym plusem biblioteki jest wsparcie do renderowania dużych scen. Jej użycie wymaga posiadania karty graficznej CUDA.  
