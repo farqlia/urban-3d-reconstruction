@@ -8,7 +8,7 @@ Wirtualne reprezentacje krajobrazów miejskich są coraz bardziej wykorzystywane
 Istnieje wiele sposobów rekonstrukcji które można podzielić ze względu na dane wejściowe, poziom szczegółowości, automatyzację czy też dane wyjściowe. W naszym projekcie rekonstrukcja zachodzi na dwóch etapach - najpierw jako chmura punktów, następnie jako zbiór splatów. 
 
 \subsubsection{Structure from motion}
-Structure from motion (SfM) to technika fotogrametryczna służąca do szacowania struktur trójwymiarowych na podstawie zbiorów dwuwymiarowych obrazów, opierająca się na odnajdywaniu wspólnych punktów między obrazami. Jednym z wyróżnianych podejść jest inkrementalne SfM\ref{fig:sfm_flow}, zawierające komponent iteracyjnej rekonstrukcji. Proces składa się z kilku kluczowych etapów:
+Structure from motion (SfM)\cite{Schonberger_2016_CVPR} to technika fotogrametryczna służąca do szacowania struktur trójwymiarowych na podstawie zbiorów dwuwymiarowych obrazów, opierająca się na odnajdywaniu wspólnych punktów między obrazami. Jednym z wyróżnianych podejść jest inkrementalne SfM\ref{fig:sfm_flow}, zawierające komponent iteracyjnej rekonstrukcji. Proces składa się z kilku kluczowych etapów:
 \begin{enumerate}
   \item Ekstrakcja cech - przy wykorzystaniu algorytmów takich jak SIFT czy jego pochodne, zapewniających odporność na zmiany rotacji bądź oświetlenia, na każdym z obrazów wykrywane są punkty charakterystyczne, reprezentowane matematycznie przy pomocy deskryptorów;
   \item Dopasowywanie cech - pary obrazów testowane są pod kątem nakładania się sceny; punkty charakterystyczne z jednego obrazu są dopasowywane do odpowiadających im punktów na innych obrazach na podstawie podobieństwa deskryptorów;
