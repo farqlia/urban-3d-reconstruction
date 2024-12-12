@@ -12,11 +12,11 @@ Widok graficzny aplikacji został zaimplementowany z wykorzystaniem biblioteki \
 \end{figure}
 
 Główny widok aplikacji składa się z trzech kluczowych komponentów:
-\begin{enumerate}
-    \item \textbf{Pasek zadań (Taskbar)} -- odpowiedzialny za obsługę globalnych akcji i konfiguracji.
-    \item \textbf{Panel renderingu (Rendering Panel)} -- obszar przeznaczony do wizualizacji danych renderowanych.
-    \item \textbf{Panel zarządzania zdjęciami (Image Management Panel)} -- sekcja umożliwiająca obsługę i manipulację zdjęciami w ramach aplikacji.
-\end{enumerate}
+\begin{itemize}
+    \item \textbf{Panel renderingu:} możliwość przybliżania, przesuwania i obracania wizualizowanych obiektów za pomocą myszy i klawiszy WASD.
+    \item \textbf{Pasek zadań:} przyciski pozwalające na wykonywanie globalnych operacji, takich jak zapisywanie ustawień czy uruchamianie procesów.
+    \item \textbf{Panel zarządzania zdjęciami:} dodawanie folderu ze zdjęciami wykorzystywanymi do generowania modelu.
+\end{itemize}
 
 \subsubsection{Funkcjonalności paska zadań}
 \begin{figure}[h!]
@@ -27,13 +27,6 @@ Główny widok aplikacji składa się z trzech kluczowych komponentów:
 
 Pasek zadań zawiera zestaw przycisków umożliwiających użytkownikowi dostosowanie działania aplikacji. 
 
-\textbf{Interakcje użytkownika}
-\begin{itemize}
-    \item \textbf{Panel renderingu:} możliwość przybliżania, przesuwania i obracania wizualizowanych obiektów za pomocą myszy i klawiszy WASD.
-    \item \textbf{Pasek zadań:} przyciski pozwalające na wykonywanie globalnych operacji, takich jak zapisywanie ustawień czy uruchamianie procesów.
-    \item \textbf{Panel zarządzania zdjęciami:} dodawanie folderu ze zdjęciami wykorzystywanymi do generowania modelu.
-\end{itemize}
-
 % \section{Diagram wywołania budowy modelu}
 Poniżej przedstawiono diagram wywołania procesu budowy modelu z głównego okna aplikacji. Ilustruje podstawowy przepływ działania aplikacji, tj. tworzenie modelu.
 
@@ -43,6 +36,8 @@ Poniżej przedstawiono diagram wywołania procesu budowy modelu z głównego okn
     \caption{Diagram komunikacji między komponentami w trakcie budowy modelu.}
 \end{figure}
 
+\clearpage
+
 \subsubsection{Zmiana ustawień aplikacji}
 \begin{figure}[h!]
     \centering
@@ -51,8 +46,6 @@ Poniżej przedstawiono diagram wywołania procesu budowy modelu z głównego okn
 \end{figure}
 
 Funkcja zmiany ustawień pozwala na modyfikację parametrów działania aplikacji, takich jak wybór renderera czy zmiana zmiennych środowiskowych.
-
-\clearpage
 
 \subsubsection{Modyfikacja parametrów}
 \begin{figure}[h!]
