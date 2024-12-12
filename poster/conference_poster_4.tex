@@ -67,7 +67,7 @@ linewidth=2pt % Width of the border lines around content boxes
 %
 {\includegraphics[height=6em]{images/logo_white.png}} % First university/lab logo on the left
 {\bf\textsc{Metoda trójwymiarowego modelowania obszarów urbanistycznych z wykorzystaniem metod fotogrametrii}\vspace{0.5em}} % Poster title
-{\textsc{Daniel Borkowski, Julia Farganus, Rafał Mielniczuk, Katarzyna Wochal, promotor Marek Krótkiewicz}}
+{\textsc{Daniel Borkowski, Julia Farganus, Rafał Mielniczuk, Katarzyna Wochal, promotor dr hab. inż. Marek Krótkiewicz}}
 % Author names and institution
 {\includegraphics[height=6em]{images/zpi-logo.png}} % Second university/lab logo on the right
 
@@ -78,12 +78,12 @@ linewidth=2pt % Width of the border lines around content boxes
 \headerbox{Abstrakt}{name=abstract,column=0,span=2, row=0}{
 
 \begin{center}
-    \includegraphics[width=0.9\linewidth]{images/kolaz.png}
+    \includegraphics[width=0.7\linewidth]{images/kolaz.png}
 \end{center}
 
-Projekt obejmował stworzenie aplikacji do modelowania trójwymiarowych scen miejskich na podstawie zdjęć fotogrametrycznych, wykorzystującej metody \textit{structure from motion} i \textit{gaussian splatting} oraz segmentację semantyczną. % Dzięki integracji zaawansowanych rozwiązań i efektywnemu procesowi \textit{end-to-end}, aplikacja ma potencjał zastosowań w takich branżach jak gry wideo, architektura, robotyka, pojazdy autonomiczne i urbanistyka.
+Projekt obejmował stworzenie aplikacji do modelowania trójwymiarowych scen miejskich na podstawie zdjęć fotogrametrycznych, wykorzystującej metody \textit{structure from motion} i \textit{gaussian splatting} oraz segmentację semantyczną. Dzięki integracji zaawansowanych rozwiązań i efektywnemu procesowi \textit{end-to-end}, aplikacja ma potencjał zastosowań w takich branżach jak gry wideo, architektura, robotyka, pojazdy autonomiczne i urbanistyka.
 
-\vspace{0.6em}
+\vspace{0.3em}
 
 \textbf{Słowa kluczowe:} reconstruction, 3D modeling, urban modeling, semantic segmentation, gaussian splatting.
 
@@ -143,7 +143,7 @@ C5 & 21.98 & 0.71 & 0.26 & 4,5\text{e+}6 & 10:40 \\
 C7 & 22.63 & 0.72 & 0.29 & 3,0\text{e+}6 & 15:15 \\
 \bottomrule
 \end{tabular}
-\captionof{table}{Metryki PSNR, SSIM oraz LPIPS, liczba gaussianów oraz czas trenowania dla testowych scen.}
+\captionof{table}{Metryki PSNR, SSIM oraz LPIPS, liczba gaussianów oraz czas trenowania w godzinach dla testowych scen.}
 \end{center}
 
 \begin{center}
@@ -175,30 +175,33 @@ Opracowane oprogramowanie umożliwia kompleksowe modelowania obszarów miejskich
 \headerbox{Segmentacja}{name=segmentacja,column=2,span=2,below=gaussian_splatting,bottomaligned=block}{
 
 \begin{multicols}{2}
-\vspace{1em}
-Przeprowadzono segmentację semantyczną chmury punktów, przypisując każdemu punktowi kategorię, taką jak budynek, droga czy zieleń miejska. Wykorzystano do tego implementację sieci \textbf{PointNet} w bibliotece \textit{Pytorch} oraz zbiór danych SensatUrban. Kluczowe wyzwania obejmowały próbkowanie danych, radzenie sobie z niezbalansowanymi kategoriami oraz unikanie wycieku danych, co rozwiązano m.in. przez ważenie funkcji straty i odpowiednie przygotowanie zestawów treningowych. Poprzez podział wejściowej chmury na tzw. \textit{chunki} model jest w stanie przeprowadzić inferencję na zbiorze punktów o wielkości nawet paru milionów elementów.
+Z wykorzystaniem biblioteki \textit{PyTorch} i zbioru \textit{SensatUrban} wytrenowano model \textit{PointNet} do segmentacji semantycznej chmury punktów. Jednym z wyzwań była \textbf{niezbalansowana reprezentacja kategorii semantycznych}. Sedno rozwiązania tego problemu opiera się na odpowiednim ważeniu funkcji kosztu podczas treningu. Prowadzi to do lepszego rozpoznawania przez model klas mniej popularnych, np. zieleni miejskiej, kosztem nieco gorszych wyników dla klas dominujących zbiór treningowy, co obrazuje poniższa tabela i co widać na ilustracji, gdzie model błędnie \textit{szuka} zieleni na dachu budynku.
+
 
 \begin{center}
 \begin{tabular}{l l l}
 \toprule
-\textbf{Metryki} & \textbf{Unweighted Model} & \textbf{Weighted Model}  \\
+\textbf{Metryka} & \textbf{Unweighted Model} & \textbf{Weighted Model}  \\
 \midrule
-OwA & 43 & 51 \\
-OwF & 38 & 46 \\
-budynkiF & 87 & 84 \\
-zieleńF & 0 & 42 \\
+mwA & 43 & \textbf{51} \\
+mwF & 38 & \textbf{46} \\
+budynkiF & \textbf{87} & 84 \\
+zieleńF & 0 & \textbf{42} \\
 \bottomrule
 \end{tabular}
 \captionof{table}{Metryki: średnia ważona dokładność, średni ważony F1-score, F1-score dla klas: budynki i zieleń miejska}
 \end{center}
 
 \begin{center}
-\includegraphics[width=1\linewidth]{"images/SFM (4).png"}
-\captionof{figure}{Segmentacja na jednym z bloków ze zbioru SensatUrban}
+\includegraphics[width=0.9\linewidth]{"images/seg_res.png"}
+\captionof{figure}{Zestawienie rezultatów działania modelu nieważącego z modelem ważącym funkcję straty}
+\label{fig:seg_res}
 \end{center}
 
 \end{multicols}
 }
+
+
 %----------------------------------------------------------------------------------------
 %	RENDEROWANIE
 %----------------------------------------------------------------------------------------
