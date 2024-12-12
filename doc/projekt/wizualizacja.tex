@@ -2,10 +2,12 @@
 
 Widok graficzny aplikacji został zaimplementowany z wykorzystaniem biblioteki \textbf{PyQt} oraz języka \textbf{QML}. Zastosowanie QML pozwoliło na deklaratywne definiowanie modułów wizualnych, co znacząco usprawniło proces projektowania i zarządzania interfejsem użytkownika.
 
+\clearpage
+
 \textbf{Widok główny aplikacji}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/wizualizacja/ui_widok_glowny.png}
+    \includegraphics[width=0.8\textwidth]{img/wizualizacja/ui_glowny_widok.png}
     \caption{Widok główny aplikacji.}
 \end{figure}
 
@@ -48,7 +50,9 @@ Poniżej przedstawiono diagram wywołania procesu budowy modelu z głównego okn
     \caption{Interfejs zmiany ustawień aplikacji.}
 \end{figure}
 
-Funkcja zmiany ustawień pozwala na modyfikację parametrów działania aplikacji, takich jak wydajność renderowania, wybór formatów plików czy dostosowanie wyglądu interfejsu.
+Funkcja zmiany ustawień pozwala na modyfikację parametrów działania aplikacji, takich jak wybór renderera czy zmiana zmiennych środowiskowych.
+
+\clearpage
 
 \subsubsection{Modyfikacja parametrów}
 \begin{figure}[h!]
@@ -57,9 +61,9 @@ Funkcja zmiany ustawień pozwala na modyfikację parametrów działania aplikacj
     \caption{Interfejs modyfikacji parametrów.}
 \end{figure}
 
-Panel parametrów umożliwia dynamiczną zmianę wartości związanych z procesem renderowania i manipulacją zdjęciami. Wprowadzone zmiany są natychmiast odzwierciedlane w wizualizacji.
+Panel parametrów umożliwia dynamiczną zmianę wartości związanych z procesem generowania modelu.
 
-\section{Podsumowanie sekcji wizualizacji}
+\subsubsection{Podsumowanie sekcji wizualizacji}
 
 Implementacja interfejsu użytkownika z wykorzystaniem PyQt i QML umożliwiła:
 \begin{itemize}
