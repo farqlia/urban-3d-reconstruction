@@ -1,4 +1,4 @@
-\subsection{Architektura}
+\subsubsection{Architektura}
 Projekt został zrealizowany w oparciu o wzorzec projektowy \textbf{MVVM} (Model-View-ViewModel), który został odpowiednio dostosowany do specyfiki aplikacji w celu zapewnienia modularności oraz uproszczenia procesu modyfikacji i rozbudowy.
 
 \textbf{Adaptacja wzorca MVVM}
@@ -10,14 +10,13 @@ Projekt został zrealizowany w oparciu o wzorzec projektowy \textbf{MVVM} (Model
 
 W zaimplementowanym rozwiązaniu wzorzec \textbf{MVVM} został zmodyfikowany w celu optymalizacji komunikacji między komponentami aplikacji. Dzięki temu możliwe było osiągnięcie spójności architektury oraz jej wysokiej skalowalności.
 
-\subsubsection{Opis komponentów architektury}
+\paragraph{Opis komponentów architektury}
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{img/diagramy/diagram_komp_vm.png}
     \caption{Struktura komponentów ViewModel w projekcie.}
 \end{figure}
 
-\textbf{ViewModel jako centralny element}
 W projekcie klasa \texttt{ViewModel} zastępuje tradycyjny zbiór klas, takich jak:
 \begin{itemize}
     \item \texttt{Controller} -- odpowiadający za sterowanie logiką,
@@ -36,7 +35,7 @@ Klasy \texttt{QObject} i \texttt{Handler} są zintegrowane za pomocą \texttt{Co
 
 Na diagramie widoczny jest dodatkowy komponent \textbf{Backend}, będący zbiorem skryptów, które dostarczają interfejs dla wymaganej funkcjonalności aplikacji. Backend odpowiada za obsługę logiki niezwiązanej bezpośrednio z widokiem oraz wspiera pozostałe komponenty architektury, zapewniając większą modularność.
 
-\subsubsection{Zalety wdrożonego rozwiązania}
+\paragraph{Zalety wdrożonego rozwiązania}
 Przedstawione rozwiązanie zapewnia następujące korzyści:
 \begin{itemize}
     \item \textbf{Modularność} -- możliwość łatwego dodawania i modyfikowania komponentów bez ingerencji w istniejącą strukturę.
@@ -44,7 +43,5 @@ Przedstawione rozwiązanie zapewnia następujące korzyści:
     \item \textbf{Wsparcie dla współbieżności} -- dzięki zastosowaniu mechanizmu sygnałów PyQt implementacja współbieżności jest intuicyjna i efektywna.
 \end{itemize}
 
-\subsubsection{Podsumowanie}
+\paragraph{Podsumowanie}
 Zaimplementowany wzorzec MVVM, w połączeniu z dodatkowymi modyfikacjami, pozwolił osiągnąć elastyczną i skalowalną architekturę aplikacji. Dzięki zastosowanemu podejściu projekt spełnia założenia modularności, umożliwiając łatwą rozbudowę oraz utrzymanie w przyszłości.
-
-\end{document}

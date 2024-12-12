@@ -1,4 +1,4 @@
-\subsection{Rendering}
+\subsubsection{Rendering}
 
 W aplikacji zaimplementowano autorski system renderingu w celu zapewnienia wysokiej wydajności oraz wygody użytkowania przez użytkownika końcowego. Do realizacji tego rozwiązania wykorzystano język C oraz bibliotekę OpenGL z rozszerzeniami GLEW, GLFW i CGLM.
 
@@ -9,7 +9,7 @@ W aplikacji zaimplementowano autorski system renderingu w celu zapewnienia wysok
     \label{fig:widok_glowny}
 \end{figure}
 
-\subsubsection{Integracja z Pythonem}
+\paragraph{Integracja z Pythonem}
 Rendering został udostępniony jako dynamiczna biblioteka współdzielona, co umożliwia jego integrację z aplikacjami napisanymi w języku Python. Dzięki temu, w połączeniu z frameworkiem PyQt, rendering może być efektywnie wykorzystywany w aplikacjach graficznych.
 
 \begin{figure}[h!]
@@ -19,7 +19,7 @@ Rendering został udostępniony jako dynamiczna biblioteka współdzielona, co u
     \label{fig:diagram}
 \end{figure}
 
-\subsubsection{Implementacja systemu renderingu}
+\paragraph{Implementacja systemu renderingu}
 
 \textbf{Reprezentacja punktów i splatów}
 Wizualizacja punktów oraz splatów została zrealizowana za pomocą sześcianów, które są skalowane i rotowane w taki sposób, aby przypominały elipsoidy. Przetworzone w ten sposób sześciany są następnie renderowane przy użyciu shaderów, co pozwala na uzyskanie efektu ich zaokrąglenia.
