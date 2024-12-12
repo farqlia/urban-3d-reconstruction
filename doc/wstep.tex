@@ -20,3 +20,19 @@ Poniżej znajdują się cele, które zostaną zrealizowane w przedsięwzięciu:
     \item adaptacja istniejących bibliotek do wizualizacji wyników, 
     \item implementacja własnego algorytmu do renderowania gaussianów.
 \end{enumerate}
+
+\subsection{Wyzwania i ograniczenia}
+
+Realizacja projektu wiązała się z analizą szeregu wyzwań i ograniczeń, między innymi poniżej przedstawionych kwestii.
+
+\begin{enumerate}
+    \item \textbf{Przetwarzanie dużych zbiorów danych}   
+    
+    Aby sprostać zadaniu przetwarzania setek zdjęć czy milionów punktów, najbardziej kosztowne obliczenia tj. trenowanie modelu podczas Gaussian Splattingu zostały z wykorzystaniem technologii CUDA przeniesione na GPU, a w przypadku segmentacji wykorzystano technikę \textit{chunkowania}. Aplikacja wymaga od użytkownika posiadania systemu z kompatybilnym sprzętem GPU i obsługą CUDA.
+    \item \textbf{Niezbalansowana reprezentacja kategorii semantycznych}    
+    
+    Wybrane podejścia mające na celu poprawę jakości segmentacji zostały opisane w późniejszych sekcjach dokumentacji.
+    \item \textbf{Ograniczona dostępność danych}    
+    
+    Za część prac przyjęto przeprowadzenie akwizycji danych i skompletowanie własnych zbiorów danych odpowiadających potrzebom projektu. 
+\end{enumerate}
