@@ -10,11 +10,11 @@ Widok graficzny aplikacji został zaimplementowany z wykorzystaniem biblioteki \
 \end{figure}
 
 Główny widok aplikacji składa się z trzech kluczowych komponentów:
-\begin{enumerate}
-    \item \textbf{Pasek zadań (Taskbar)} -- odpowiedzialny za obsługę globalnych akcji i konfiguracji.
-    \item \textbf{Panel renderingu (Rendering Panel)} -- obszar przeznaczony do wizualizacji danych renderowanych.
-    \item \textbf{Panel zarządzania zdjęciami (Image Management Panel)} -- sekcja umożliwiająca obsługę i manipulację zdjęciami w ramach aplikacji.
-\end{enumerate}
+\begin{itemize}
+    \item \textbf{Panel renderingu:} możliwość przybliżania, przesuwania i obracania wizualizowanych obiektów za pomocą myszy i klawiszy WASD.
+    \item \textbf{Pasek zadań:} przyciski pozwalające na wykonywanie globalnych operacji, takich jak zapisywanie ustawień czy uruchamianie procesów.
+    \item \textbf{Panel zarządzania zdjęciami:} dodawanie folderu ze zdjęciami wykorzystywanymi do generowania modelu.
+\end{itemize}
 
 \paragraph{Funkcjonalności paska zadań}
 \begin{figure}[h!]
@@ -24,13 +24,6 @@ Główny widok aplikacji składa się z trzech kluczowych komponentów:
 \end{figure}
 
 Pasek zadań zawiera zestaw przycisków umożliwiających użytkownikowi dostosowanie działania aplikacji. 
-
-\textbf{Interakcje użytkownika}
-\begin{itemize}
-    \item \textbf{Panel renderingu:} możliwość przybliżania, przesuwania i obracania wizualizowanych obiektów za pomocą myszy i klawiszy WASD.
-    \item \textbf{Pasek zadań:} przyciski pozwalające na wykonywanie globalnych operacji, takich jak zapisywanie ustawień czy uruchamianie procesów.
-    \item \textbf{Panel zarządzania zdjęciami:} dodawanie folderu ze zdjęciami wykorzystywanych do generowania modelu.
-\end{itemize}
 
 % \section{Diagram wywołania budowy modelu}
 Poniżej przedstawiono diagram wywołania procesu budowy modelu z głównego okna aplikacji. Ilustruje podstawowy przepływ działania aplikacji, tj. tworzenie modelu.
@@ -48,7 +41,7 @@ Poniżej przedstawiono diagram wywołania procesu budowy modelu z głównego okn
     \caption{Interfejs zmiany ustawień aplikacji.}
 \end{figure}
 
-Funkcja zmiany ustawień pozwala na modyfikację parametrów działania aplikacji, takich jak wydajność renderowania, wybór formatów plików czy dostosowanie wyglądu interfejsu.
+Funkcja zmiany ustawień pozwala na modyfikację parametrów działania aplikacji, takich jak wybór renderera czy zmiana zmiennych środowiskowych.
 
 \paragraph{Modyfikacja parametrów}
 \begin{figure}[h!]
@@ -57,7 +50,7 @@ Funkcja zmiany ustawień pozwala na modyfikację parametrów działania aplikacj
     \caption{Interfejs modyfikacji parametrów.}
 \end{figure}
 
-Panel parametrów umożliwia dynamiczną zmianę wartości związanych z procesem renderowania i manipulacją zdjęciami. Wprowadzone zmiany są natychmiast odzwierciedlane w wizualizacji.
+Panel parametrów umożliwia dynamiczną zmianę wartości związanych z procesem generowania modelu.
 
 \paragraph{Podsumowanie}
 
