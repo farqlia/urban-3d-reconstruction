@@ -1,0 +1,65 @@
+\subsection{Specyfikacja wymagań na produkt programowy}
+
+\begin{figure}[!htb]
+    \includegraphics[width=1.0\linewidth]{img/diagramy/diagram_pu_3.png}
+    \caption{Diagram przypadków użycia}\label{fig:use_case_diagram}
+  \end{figure}
+
+\subsection{Architektura}
+
+\begin{figure}[!htb]
+    \includegraphics[width=1.0\linewidth]{img/diagramy/diagram_wdrozenia_komponentow.png}
+    \caption{Diagram wdrożenia komponentów}\label{fig:components_diagram}
+\end{figure}
+
+
+\subsection{Implementacja}
+Opis zastosowanych technologii i dokumentów
+
+\subsubsection{Struktura plikowa projektu}
+
+% millon opcji https://tex.stackexchange.com/questions/5073/making-a-simple-directory-tree
+\begin{forest}
+  for tree={
+    grow'=0,
+    child anchor=west,
+    parent anchor=south,
+    anchor=west,
+    calign=first,
+    edge path={
+      \noexpand\path [draw, \forestoption{edge}] (!u.south west) ++(3pt,0) -- +(-3pt,0) |- (.child anchor)\forestoption{edge label};
+    },
+    before typesetting nodes={
+      if n=1
+        {insert before={[,phantom]}}
+        {}
+    },
+    fit=band,
+    before computing xy={l=15pt},
+  }
+[project
+  [data
+    [city\_model
+      [images]
+      [sparse
+          [images.bin]
+          [cameras.bin]
+          [points.bin]
+      ]
+      [model.pt]
+      [model.ply]
+      [segmentation.ply]
+    ]
+  ]
+  [src
+    [frontend]
+    [backend]
+    [urb3d
+      [rendering]
+      [geometry]
+      [models]
+      [splats]
+    ]
+  ]
+]
+\end{forest}

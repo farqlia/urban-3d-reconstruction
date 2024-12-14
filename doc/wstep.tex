@@ -1,0 +1,22 @@
+\section{Wprowadzenie}
+
+Przedmiotem projektu było wykonanie aplikacji wykorzystującej metody fotogrametrii do modelowania trójwymiarowych scen miejskich. Zaimplementowany program umożliwia użytkownikowi zrekonstruowanie chmury punktów i modelu 3D na podstawie podanych na wejściu zdjęć fotogrametrycznych za pomocą dostosowanych do specyfiki problemu w toku eksperymentów rozwiązań \textit{structure from motion} i \textit{gaussian splatting}. Otrzymana w ten sposób chmura może być przez użytkownika poddana segmentacji semantycznej, przeprowadzanej przez wytrenowany do tego celu model sztucznej inteligencji w postaci sieci neuronowej. Aplikacja oferuje również wizualizację wykonanych obliczeń, która możliwa jest dzięki użyciu przystosowanego dla większej wydajności mechanizmu renderowania.
+
+Wytworzony produkt informatyczny ze względu na integrację wielu rozwiązań i efektywną implementację procesu \textit{end-to-end} przejawia potencjał w zastosowaniach biznesowych począwszy od branż takich jak gry wideo, przez architekturę, robotykę, pojazdy autonomiczne, skończywszy na modelowaniu urbanistycznym.
+
+\subsection{Cel i zakres prac}
+
+Rekonstrukcja, klasyfikacja i wizualizacja scen urbanistycznych to dynamicznie rozwijające się zagadnienie, które zyskało na znaczeniu dzięki rosnącej dostępności nowoczesnych technologii, takich jak LiDAR, oraz postępowi w dziedzinie sztucznej inteligencji. Kluczowym wyzwaniem pozostaje jednak efektywne przetwarzanie ogromnych zbiorów danych – chmur punktów, które nierzadko obejmują miliony elementów. Choć na rynku istnieją liczne programy i algorytmy wspierające tego typu analizy, ich skuteczne wykorzystanie w praktyce bywa problematyczne, głównie z uwagi na skalę i złożoność danych urbanistycznych.
+
+Rozwiązanie będzie umożliwiało przeprowadzenie rekonstrukcji do modelu trójwymiarowego na podstawie odpowiednio przygotowanego zbioru zdjęć, klasyfikację otrzymanej sceny na zbiór pre-definiowanych klas istotnych w kontekście urbanistycznym, oraz wizualizację wykonanych obliczeń. 
+
+Poniżej znajdują się cele, które zostaną zrealizowane w przedsięwzięciu:
+
+\begin{enumerate}
+    \item skomponowanie własnego zbioru danych, 
+    \item wykorzystanie algorytmu Gaussian Splatting do rekonstrukcji sceny 3D,
+    \item filtracja chmury punktów przy użyciu różnych technik, 
+    \item zastosowanie architektur sieci neuronowych takich jak PointNet do klasyfikacji chmury punktów, 
+    \item adaptacja istniejących bibliotek do wizualizacji wyników, 
+    \item implementacja własnego algotymu do renderowania gaussianów.
+\end{enumerate}

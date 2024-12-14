@@ -267,3 +267,6 @@ pyrightconfig.json
 /data/
 /output
 /results/
+.vscode
+/.vscode/
+/lightning_logs/

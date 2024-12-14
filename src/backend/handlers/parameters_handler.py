@@ -11,7 +11,7 @@ class ParametersHandler:
             "default",
             "1000",
             "30000",
-            "100",
+            "10",
             "3"
         ]
     

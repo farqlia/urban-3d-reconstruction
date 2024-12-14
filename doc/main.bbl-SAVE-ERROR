@@ -1,0 +1,291 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{gaussiansplatting}{article}{}
+      \name{author}{4}{}{%
+        {{hash=c73d638ffd25328757379835747302ff}{%
+           family={Kerbl},
+           familyi={K\bibinitperiod},
+           given={Bernhard},
+           giveni={B\bibinitperiod}}}%
+        {{hash=2ab758a425dcd6ed440f4ae0d994dc2c}{%
+           family={Kopanas},
+           familyi={K\bibinitperiod},
+           given={Georgios},
+           giveni={G\bibinitperiod}}}%
+        {{hash=23f06719145b1e18e13a7e436bb8c2fc}{%
+           family={Leimkühler},
+           familyi={L\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=70ecb4c4a672f7c20e4b53b57d5a437e}{%
+           family={Drettakis},
+           familyi={D\bibinitperiod},
+           given={George},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{38ed96775a79b080a25e1e45e0aaa88a}
+      \strng{fullhash}{36d84a8a291db8ba20b3f78b93a2eeee}
+      \strng{bibnamehash}{38ed96775a79b080a25e1e45e0aaa88a}
+      \strng{authorbibnamehash}{38ed96775a79b080a25e1e45e0aaa88a}
+      \strng{authornamehash}{38ed96775a79b080a25e1e45e0aaa88a}
+      \strng{authorfullhash}{36d84a8a291db8ba20b3f78b93a2eeee}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM Transactions on Graphics}
+      \field{month}{7}
+      \field{number}{4}
+      \field{title}{3D Gaussian Splatting for Real-Time Radiance Field Rendering}
+      \field{volume}{42}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/
+      \endverb
+      \verb{url}
+      \verb https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/
+      \endverb
+    \endentry
+    \entry{nerf}{article}{}
+      \name{author}{6}{}{%
+        {{hash=a3567364ab52973659adf74ee0c6e6f3}{%
+           family={Mildenhall},
+           familyi={M\bibinitperiod},
+           given={Ben},
+           giveni={B\bibinitperiod}}}%
+        {{hash=b503d22b8c86fb9dfd477d2f70a59650}{%
+           family={Srinivasan},
+           familyi={S\bibinitperiod},
+           given={Pratul\bibnamedelima P.},
+           giveni={P\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=9a18985a5c8b8be23d0ec9de0a3c87b9}{%
+           family={Tancik},
+           familyi={T\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+        {{hash=562f3254a241932db4a6d44a97473ec5}{%
+           family={Barron},
+           familyi={B\bibinitperiod},
+           given={Jonathan\bibnamedelima T.},
+           giveni={J\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=e7e274981ceb0dd123d44af35cc7bedf}{%
+           family={Ramamoorthi},
+           familyi={R\bibinitperiod},
+           given={Ravi},
+           giveni={R\bibinitperiod}}}%
+        {{hash=96e30bdc2cf905aa1109c46617b16252}{%
+           family={Ng},
+           familyi={N\bibinitperiod},
+           given={Ren},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{094342ecc1d4c7df1a909882dd0a89cd}
+      \strng{fullhash}{9bee638bba28fb3cd739399aa8dc9983}
+      \strng{bibnamehash}{094342ecc1d4c7df1a909882dd0a89cd}
+      \strng{authorbibnamehash}{094342ecc1d4c7df1a909882dd0a89cd}
+      \strng{authornamehash}{094342ecc1d4c7df1a909882dd0a89cd}
+      \strng{authorfullhash}{9bee638bba28fb3cd739399aa8dc9983}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.CV}
+      \field{eprinttype}{arXiv}
+      \field{title}{NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis}
+      \field{year}{2020}
+      \verb{eprint}
+      \verb 2003.08934
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2003.08934
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2003.08934
+      \endverb
+    \endentry
+    \entry{city3D}{article}{}
+      \name{author}{2}{}{%
+        {{hash=33fa61f5a056a10b9fa76d486550b0fd}{%
+           family={Poullis},
+           familyi={P\bibinitperiod},
+           given={Charalambos},
+           giveni={C\bibinitperiod}}}%
+        {{hash=a786168307025cd588ed2503e041a08d}{%
+           family={You},
+           familyi={Y\bibinitperiod},
+           given={Suya},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{b8da5c8e452eea5bd859865414470e78}
+      \strng{fullhash}{b8da5c8e452eea5bd859865414470e78}
+      \strng{bibnamehash}{b8da5c8e452eea5bd859865414470e78}
+      \strng{authorbibnamehash}{b8da5c8e452eea5bd859865414470e78}
+      \strng{authornamehash}{b8da5c8e452eea5bd859865414470e78}
+      \strng{authorfullhash}{b8da5c8e452eea5bd859865414470e78}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2011 International Conference on 3D Imaging, Modeling, Processing, Visualization and Transmission}
+      \field{title}{3D Reconstruction of Urban Areas}
+      \field{year}{2011}
+      \field{pages}{33\bibrangedash 40}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1109/3DIMPVT.2011.14
+      \endverb
+      \keyw{Three dimensional displays;Solid modeling;Cameras;Image reconstruction;Buildings;Geometry;Computational modeling;reconstruction;large-scale;modeling;LiDAR;texturing}
+    \endentry
+    \entry{pointnet}{article}{}
+      \name{author}{4}{}{%
+        {{hash=b2724d6a5941431eaac5fc5257fb5ffb}{%
+           family={Qi},
+           familyi={Q\bibinitperiod},
+           given={Charles\bibnamedelima R.},
+           giveni={C\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=18c26ddba8b9dd77f278213fd4e93ce4}{%
+           family={Su},
+           familyi={S\bibinitperiod},
+           given={Hao},
+           giveni={H\bibinitperiod}}}%
+        {{hash=ce269ba9b32a7c6dcce7eab2ff5efb52}{%
+           family={Mo},
+           familyi={M\bibinitperiod},
+           given={Kaichun},
+           giveni={K\bibinitperiod}}}%
+        {{hash=03578abbf51650fbfaf563c532898f30}{%
+           family={Guibas},
+           familyi={G\bibinitperiod},
+           given={Leonidas\bibnamedelima J.},
+           giveni={L\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{a79790dccdf84fab1d77d87a99d4c31b}
+      \strng{fullhash}{e75740e59eec749c646eb9b3a2d4fc79}
+      \strng{bibnamehash}{a79790dccdf84fab1d77d87a99d4c31b}
+      \strng{authorbibnamehash}{a79790dccdf84fab1d77d87a99d4c31b}
+      \strng{authornamehash}{a79790dccdf84fab1d77d87a99d4c31b}
+      \strng{authorfullhash}{e75740e59eec749c646eb9b3a2d4fc79}
+      \field{sortinit}{Q}
+      \field{sortinithash}{ce69a400a872ddd02ee7fdb3b38c6abd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.CV}
+      \field{eprinttype}{arXiv}
+      \field{title}{PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation}
+      \field{year}{2017}
+      \verb{eprint}
+      \verb 1612.00593
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1612.00593
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1612.00593
+      \endverb
+    \endentry
+    \entry{ye2024gsplatopensourcelibrarygaussian}{article}{}
+      \name{author}{11}{}{%
+        {{hash=8934eb629a707e2d2caaa1878c0a5d82}{%
+           family={Ye},
+           familyi={Y\bibinitperiod},
+           given={Vickie},
+           giveni={V\bibinitperiod}}}%
+        {{hash=b417efc17c6c4f027b621a1f48d8342e}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Ruilong},
+           giveni={R\bibinitperiod}}}%
+        {{hash=ae5c2532f75f911aa15a6a96548086aa}{%
+           family={Kerr},
+           familyi={K\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod}}}%
+        {{hash=5e13121aaa0a379dc1d33440d5e7a42f}{%
+           family={Turkulainen},
+           familyi={T\bibinitperiod},
+           given={Matias},
+           giveni={M\bibinitperiod}}}%
+        {{hash=56cbc9ac360d169bcb3b1ae8a41980fb}{%
+           family={Yi},
+           familyi={Y\bibinitperiod},
+           given={Brent},
+           giveni={B\bibinitperiod}}}%
+        {{hash=58c96563d66bb0c8b6c94fb73e44defe}{%
+           family={Pan},
+           familyi={P\bibinitperiod},
+           given={Zhuoyang},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=999961242e16aac1b9421282f7ed79f3}{%
+           family={Seiskari},
+           familyi={S\bibinitperiod},
+           given={Otto},
+           giveni={O\bibinitperiod}}}%
+        {{hash=c4c8073086370cea6efcf841b0508dab}{%
+           family={Ye},
+           familyi={Y\bibinitperiod},
+           given={Jianbo},
+           giveni={J\bibinitperiod}}}%
+        {{hash=28be05c3ccde18cf3d3f5d36142b4da8}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Jeffrey},
+           giveni={J\bibinitperiod}}}%
+        {{hash=9a18985a5c8b8be23d0ec9de0a3c87b9}{%
+           family={Tancik},
+           familyi={T\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+        {{hash=6739ae1219e43710a65f37e9a5b5e902}{%
+           family={Kanazawa},
+           familyi={K\bibinitperiod},
+           given={Angjoo},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{c59ce882ee14b821fd7f4d67f36d6d2a}
+      \strng{fullhash}{594d1d53787bcf2b07035405f9fcef7e}
+      \strng{bibnamehash}{c59ce882ee14b821fd7f4d67f36d6d2a}
+      \strng{authorbibnamehash}{c59ce882ee14b821fd7f4d67f36d6d2a}
+      \strng{authornamehash}{c59ce882ee14b821fd7f4d67f36d6d2a}
+      \strng{authorfullhash}{594d1d53787bcf2b07035405f9fcef7e}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.CV}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{arXiv preprint arXiv:2409.06765}
+      \field{title}{gsplat: An Open-Source Library for {Gaussian} Splatting}
+      \field{year}{2024}
+      \verb{eprint}
+      \verb 2409.06765
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2409.06765
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2409.06765
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

@@ -34,7 +34,6 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-gui = ["PyQt5"]
 notebooks = [
     'pandas==2.2.3',
     'pyntcloud==0.3.1',

@@ -19,7 +19,7 @@ class ModelProcessor:
             print("Colmap reconstruction running ...")
             run_script_with_env(COLMAP_ENV, "colmap_reconstruction.py", "--input", str(self.input_folder),
                        "--output", str(self.reconstruction_folder / 'sparse'))
-            self._remove_noises_sparse_reconstruction()
+            # self._remove_noises_sparse_reconstruction()
         if not self.point_cloud_sparse.exists():
             print("Create ply file ...")
             run_script_with_env(COLMAP_ENV, "convert_to_ply.py", "--point_cloud", str(self.point_cloud_sparse),

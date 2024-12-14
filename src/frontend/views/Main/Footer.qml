@@ -26,7 +26,7 @@ Rectangle {
     }
     Text {
         id: textLicense
-        text: "TODO: CHOOSE LICENSE"
+        text: "AGPL-3.0 license"
         color: ColorConst.secondaryColor
     }
     Text {
