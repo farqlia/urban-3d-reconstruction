@@ -1,0 +1,11 @@
+module Main
+BodyLeftPane_ 1.0 BodyLeftPane.qml
+Footer_ 1.0 Footer.qml
+Header_ 1.0 Header.qml
+LoadingWindow_ 1.0 LoadingWindow.qml
+ErrorWindow_ 1.0 ErrorWindow.qml
+SuccessWindow_ 1.0 SuccessWindow.qml
+BodyRightPaneLT_ 1.0 BodyRightPaneLT.qml
+BodyRightPaneRT_ 1.0 BodyRightPaneRT.qml
+BodyRightPaneLB_ 1.0 BodyRightPaneLB.qml
+BodyRightPaneRB_ 1.0 BodyRightPaneRB.qml

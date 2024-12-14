@@ -1,12 +1,19 @@
+import argparse
+
 import pycolmap
-from pathlib import Path
 
-# path to a folder with 'cameras.bin images.bin points3D.bin' files
-sparse_model = Path('../data/small_city_road_down_test/sparse/0')
+if __name__ == '__main__':
 
-output_path = Path('../data/small_city_road_down_test/sparse')
+    # Usage examples:
+    # python scripts\neighbor-based_pcd_filtering.py --input "path_to_file.ply" --method statistical --nb_neighbors 50 --std_ratio 0.5
+    # python scripts\neighbor-based_pcd_filtering.py --input "path_to_file.ply" --method radius --output "filtered_pcd.ply"
 
-reconstruction = pycolmap.Reconstruction(sparse_model)
+    parser = argparse.ArgumentParser(description="Convert reconstruction to .ply file")
 
-reconstruction.export_PLY(output_path / 'sparse.ply')
+    parser.add_argument('--point_cloud', type=str, required=True, help='Path to the point cloud file')
+    parser.add_argument('--reconstruction_dir', type=str, required=True, help='Path to the reconstruction directory')
 
+    args = parser.parse_args()
+
+    reconstruction = pycolmap.Reconstruction(args.reconstruction_dir)
+    reconstruction.export_PLY(args.point_cloud)

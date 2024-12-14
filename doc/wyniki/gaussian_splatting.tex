@@ -1,7 +1,7 @@
 \subsection{Rekonstrukcja - Gaussian Splatting}
 
 \subsubsection{Wstęp}
-Jak już wcześniej zostało wspomniane, algorytm posiada wiele hiperparametrów które mogą mieć różne optymalne wartości w zależności od sceny. Ogólnym więc zaleceniem jest uruchomienie algorytmu dla różnych ustawień, a za pomoc mogą posłużyć poniższe wyniki badań. 
+Jak już wcześniej zostało wspomniane, algorytm posiada wiele hiperparametrów które mogą mieć różne optymalne wartości w zależności od sceny. Ogólnym więc zaleceniem jest uruchomienie algorytmu dla różnych wartości, a za pomoc mogą posłużyć poniższe wyniki badań. 
 
 Uwaga: do renderowania została użyta funkcjonalność biblioteki gsplat, więc wyniki mogą się różnić dla naszego własnego renderowania. 
 
@@ -18,46 +18,46 @@ Poniżej zostaną opisane wyniki różnych trenowań dla sceny SKS. W tabeli \re
 
 \begin{table}[!h]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
     \hline
-    i & init\_opa & init\_scale & init\_type & scale\_reg & sh\_degree & strategy & cap\_max & refine\_every \\
+    i & init\_opa & init\_scale & init\_type & scale\_reg & sh\_degree & sh\_interval & strategy & cap\_max & refine\_every \\
     \hline
-    0 & 0.10 & 1.00 & sfm & 0.00 & 3  & default & - & 100 \\
+    0 & 0.10 & 1.00 & sfm & 0.00 & 3 & 5000 & default & - & 100 \\
     \hline
-    1 & 0.10 & 1.00 & sfm & 0.01 & 3 & default & - & 100 \\
+    1 & 0.10 & 1.00 & sfm & 0.01 & 3 & 5000 & default & - & 100 \\
     \hline
-    2 & 0.10 & 1.00 & sfm & 0.01 & 3 & default & - & 500 \\
+    2 & 0.10 & 1.00 & sfm & 0.01 & 3 & 5000 & default & - & 500 \\
     \hline
-    3 & 0.10 & 1.00 & sfm & 0.01 & 3 & default & - & 1000 \\
+    3 & 0.10 & 1.00 & sfm & 0.01 & 3 & 5000 & default & - & 1000 \\
     \hline
-    4 & 0.50 & 0.10 & sfm & 0.01 & 3 & default & - & 1000 \\
+    4 & 0.50 & 0.10 & sfm & 0.01 & 3 & 5000 & default & - & 1000 \\
     \hline
-    5 & 0.10 & 1.00 & sfm & 0.01 & 3 & mcmc & 3e+6 & 100 \\
+    5 & 0.10 & 1.00 & sfm & 0.01 & 3 & 5000 & mcmc & 3000000 & 100 \\
     \hline
-    6 & 0.10 & 1.00 & sfm & 0.01 & 3 & mcmc & 3e+6 & 500 \\
+    6 & 0.10 & 1.00 & sfm & 0.01 & 3 & 5000 & mcmc & 3000000 & 500 \\
     \hline
-    7 & 0.10 & 1.00 & sfm & 0.01 & 3 & mcmc & 3e+6 & 1000 \\
+    7 & 0.10 & 1.00 & sfm & 0.01 & 3 & 5000 & mcmc & 3000000 & 1000 \\
     \hline
-    8 & 0.50 & 0.10 & sfm & 0.01 & 3 & mcmc & 3e+6 & 100 \\
+    8 & 0.50 & 0.10 & sfm & 0.01 & 3 & 5000 & mcmc & 3000000 & 100 \\
     \hline
-    9 & 0.50 & 0.10 & sfm & 0.01 & 1 & mcmc & 3e+6 & 100 \\
+    9 & 0.50 & 0.10 & sfm & 0.01 & 1 & 5000 & mcmc & 3000000 & 100 \\
     \hline
-    10 & 0.50 & 0.10 & sfm & 0.01 & 2 & mcmc & 3e+6 & 100 \\
+    10 & 0.50 & 0.10 & sfm & 0.01 & 2 & 5000 & mcmc & 3000000 & 100 \\
     \hline
-    11 & 0.50 & 0.10 & sfm & 0.01 & 2 & default & - & 500 \\
+    11 & 0.50 & 0.10 & sfm & 0.01 & 2 & 5000 & default & - & 500 \\
     \hline
-    12 & 0.50 & 0.10 & sfm & 0.01 & 1 & default & - & 100 \\
+    12 & 0.50 & 0.10 & sfm & 0.01 & 1 & 5000 & default & - & 100 \\
     \hline
-    13 & 0.50 & 0.10 & sfm & 0.01 & 2 & mcmc & 3e+6 & 500 \\
+    13 & 0.50 & 0.10 & sfm & 0.01 & 2 & 5000 & mcmc & 3000000 & 500 \\
     \hline
-    14 & 0.50 & 0.10 & sfm & 0.01 & 1 & mcmc & 3e+6 & 500 \\
+    14 & 0.50 & 0.10 & sfm & 0.01 & 1 & 5000 & mcmc & 3000000 & 500 \\
     \hline
-    15 & 0.50 & 0.10 & sfm & 0.01 & 2 & default & - & 1000 \\  
+    15 & 0.50 & 0.10 & sfm & 0.01 & 2 & 5000 & default & - & 1000 \\  
     \hline
-    16 & 0.50 & 0.10 & sfm & 0.01 & 2 & mcmc & 3e+6 & 1000 \\
+    16 & 0.50 & 0.10 & sfm & 0.01 & 2 & 5000 & mcmc & 3000000 & 1000 \\
     \hline
     \end{tabular}
-    \caption{Konfiguracja trenowania dla sceny SKS. \textit{sh\_interval}=5000}
+    \caption{Konfiguracja trenowania dla sceny SKS}
     \label{table:tab_conf_sks}
 \end{table}
 
@@ -161,7 +161,7 @@ Wyniki na wykresie \ref{fig:num_gs_metrics} mogą zaprzeczyć oczekiwaniu, że w
     \label{fig:iter_gs_metrics}
 \end{figure}
 
-W przypadku liczby iteracji jak widać na wykresach \ref{fig:iter_gs_metrics} trend polepszania się metryk wraz z większą ilością powtórzeń trenowania. Należy jednak wziąć pod uwagę to, że dla różnych ustawień minimalny czas uczenia może być różny, dlatego najlepiej jest na bieżąco obserwować metryki w trakcie trenowania i przerwać w momencie, gdy już one się nie poprawiają. Najlepiej jest w początkowych iteracjach zagęszczać liczbę gaussianów, a poprzez końcowe iteracje poprawiać już stały zbiór elementów. 
+W przypadku liczby iteracji jak widać na wykresach \ref{fig:iter_gs_metrics} trend polepszania się metryk wraz z większą ilością powtórzeń trenowania. Należy jednak wziąć pod uwagę to, że dla różnych ustawień minimalny czas uczenia może być różny, dlatego najlepiej jest na bieżąco obserwować metryki w trakcie trenowania i przerwać w momencie, gdy już one się nie poprawiają. 
 
 \begin{figure}[!h]
     \centering
@@ -170,7 +170,7 @@ W przypadku liczby iteracji jak widać na wykresach \ref{fig:iter_gs_metrics} tr
     \label{fig:metrics_4}
 \end{figure}
 
-Istotne jest jednak podkreślenie tego, że dla tej samej liczby iteracji czas może być różny, tak jak to pokazuje wykres \ref{fig:metrics_4}, co też wynika od np. przyjętej strategii czy też maszyny. Zwykle przyrost liczby Gaussianów w czasie jest wykładniczy, co też wykładniczo wydłuża czas jednej iteracji. Należy spodziewać się, że algorytm wymaga paru godzin trenowania. 
+Istotne jest jednak podkreślenie tego, że dla tej samej liczby iteracji czas może być różny, tak jak to pokazuje wykres \ref{fig:metrics_4}, co też wynika od np. przyjętej strategii czy też maszyny. Zwykle przyrost liczby Gaussianów w czasie jest wykładniczy, co też wykładniczo wydłuża czas jednej iteracji. 
 
 \textbf{Częstość adaptacji}
 
@@ -229,21 +229,19 @@ Prawie wszystkie eksperymenty zakładały wartość 3, co daje najlepszą jakoś
 
 \subsubsection{Porównanie zdjęć między eksperymentami}
 
-\begin{figure}[htb]
-    \begin{minipage}[c][4.4cm]{\columnwidth}
-        \centering
-        \includegraphics[width=\textwidth]{img/gs_imgs/sks_merged_0010.png}
-    \end{minipage}
-    \vfill
-    \begin{minipage}[c][4.4cm]{\columnwidth}
-        \centering
-        \includegraphics[width=\textwidth]{img/gs_imgs/sks_5_merged_0015.png}
-    \end{minipage} 
-    \caption{Wyniki eksperymentu i = 5}
-    \label{fig:eval_sks}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{img/gs_imgs/sks_merged_0010.png}
+    \caption{Experyment i = 5}\label{fig:eval_1}
 \end{figure}
 
-Pierwsze zdjęcie na \ref{fig:eval_sks} z dobrą jakością pokazuje szczegóły jak np. krzesła, jednak widoczne są w dolnym prawym boku artefakty związane z niewystarczającą ilością zdjęć ujmującą ten obszar sceny. Podobnie na drugim zdjęciu, dlatego odpowiednio wykonana akwizycja danych jest kluczowa dla jakości rekonstrukcji.
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{img/gs_imgs/sks_5_merged_0015.png}
+    \caption{Experyment i = 5}\label{fig:eval_2}
+\end{figure}
+
+Zdjęcie \ref{fig:eval_1} z dobrą jakością pokazuje szczegóły jak np. krzesła, jednak widoczne są w dolnym prawym boku artefakty związane z niewystarczającą ilością zdjęć ujmującą ten obszar sceny. Podobnie na zdjęciu \ref{fig:eval_2}, dlatego odpowiednio wykonana akwizycja danych jest kluczowa dla jakości rekonstrukcji.
 
 \subsubsection{Wyniki dla pozostałych scen}
 

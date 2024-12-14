@@ -84,8 +84,8 @@ if __name__=="__main__":
 
     load_and_filter_cloud(args.input, args.output, args.method, args.alpha, args.threshold)
 
-    inliers = o3d.io.read_point_cloud(args.output)
-    o3d.visualization.draw_geometries([inliers])
+    #inliers = o3d.io.read_point_cloud(args.output)
+    #o3d.visualization.draw_geometries([inliers])
 
     #outliers = o3d.io.read_point_cloud(outliers_path)
     #o3d.visualization.draw_geometries([outliers])

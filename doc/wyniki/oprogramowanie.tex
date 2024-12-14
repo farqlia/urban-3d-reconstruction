@@ -1,36 +1,20 @@
 \subsection{Specyfikacja wymagań na produkt programowy}
 
 \begin{figure}[!htb]
-    \includegraphics[width=1.0\linewidth]{img/diagramy/zpi use case.png}
+    \includegraphics[width=1.0\linewidth]{img/diagramy/diagram_pu_3.png}
     \caption{Diagram przypadków użycia}\label{fig:use_case_diagram}
   \end{figure}
 
 \subsection{Architektura}
 
 \begin{figure}[!htb]
-    \includegraphics[width=1.0\linewidth]{img/diagramy/diagram_wdrozenia_komponentow_3.png}
+    \includegraphics[width=1.0\linewidth]{img/diagramy/diagram_wdrozenia_komponentow.png}
     \caption{Diagram wdrożenia komponentów}\label{fig:components_diagram}
 \end{figure}
 
 
 \subsection{Implementacja}
-
-\subsection{Technologie}
-
-W projekcie wykorzystano następujące technologie
-
-\begin{itemize}
-    \item \textbf{C/C++}: OpenCL, OpenGL
-    \item \textbf{Python}: Pytorch, pycolmap, open3d, pyvista, PyQt (numpy, matplotlib), pytest
-    \item CloudCompare, Meshlab
-    \item \textbf{GPU}
-    \item Jira, Confluence, Github, Discord
-\end{itemize}
-
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.9\linewidth]{img/sota/technologie.png}
-  \end{figure}
+Opis zastosowanych technologii i dokumentów
 
 \subsubsection{Struktura plikowa projektu}
 
@@ -61,29 +45,21 @@ W projekcie wykorzystano następujące technologie
           [images.bin]
           [cameras.bin]
           [points.bin]
-          [sparse.ply]
       ]
-      [filtered\_model.ply]
       [model.pt]
       [model.ply]
-      [model\_seg.ply]
+      [segmentation.ply]
     ]
-    [pointnet-ckpt.pt]
   ]
-  [scripts]
   [src
     [frontend]
     [backend]
     [urb3d
-      [datasets]
-      [pipeline]
-      [segmentation]
       [rendering]
       [geometry]
       [models]
       [splats]
     ]
   ]
-  [test]
 ]
 \end{forest}

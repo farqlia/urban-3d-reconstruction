@@ -1,6 +1,5 @@
 import os
 import json
-from pathlib import Path
 from typing import Any, Dict, List, Optional
 from typing_extensions import assert_never
 
@@ -10,7 +9,7 @@ import numpy as np
 import torch
 from urb3d.pycolmap_utils.scene_manager import SceneManager
 
-from urb3d.datasets.normalize import (
+from .normalize import (
     align_principle_axes,
     similarity_from_cameras,
     transform_cameras,
@@ -42,9 +41,9 @@ class Parser:
         self.normalize = normalize
         self.test_every = test_every
 
-        colmap_dir = os.path.join(data_dir, "sparse/0")
+        colmap_dir = os.path.join(data_dir, "sparse")
         if not os.path.exists(colmap_dir):
-            colmap_dir = os.path.join(data_dir, "sparse")
+            colmap_dir = os.path.join(data_dir, "sparse/0")
         assert os.path.exists(
             colmap_dir
         ), f"COLMAP directory {colmap_dir} does not exist."
@@ -385,7 +384,7 @@ class Dataset:
         return data
 
 
-"""if __name__ == "__main__":
+if __name__ == "__main__":
     import argparse
 
     import imageio.v2 as imageio
@@ -411,7 +410,4 @@ class Dataset:
         for x, y in points:
             cv2.circle(image, (int(x), int(y)), 2, (255, 0, 0), -1)
         writer.append_data(image)
-    writer.close()"""
-
-if __name__ == "__main__":
-    parser = Parser(data_dir=r"C:\Users\julia\PycharmProjects\urban-3d-reconstruction\data\DRON 1\c7_dron_n_ground")
+    writer.close()

@@ -30,9 +30,9 @@ def main(local_rank: int, world_rank, world_size: int, cfg: Config):
             runner.splats[k].data = torch.cat([ckpt["splats"][k] for ckpt in ckpts])
         step = ckpts[0]["step"]
         runner.eval(step=step)
-        runner.render_traj(step=step)
-        if cfg.compression is not None:
-            runner.run_compression(step=step)
+        # runner.render_traj(step=step)
+        # if cfg.compression is not None:
+          #   runner.run_compression(step=step)
     else:
         runner.train()
 
@@ -61,10 +61,21 @@ if __name__ == "__main__":
     parser.add_argument("--data_dir", type=str, help="Path to the data directory.", required=True)
     parser.add_argument("--result_dir", type=str, help="Path to the results directory.", required=True)
 
-    parser.add_argument("--data_factor", type=int, default=1, help="Data factor.")
-    parser.add_argument("--init_type", type=str, default="sfm", help="Initialization type.", choices=["sfm", "random"])
+    # -------------- ARGUMENTS FOR USER ----------------------
     parser.add_argument("--strategy", type=str, default="default", help="Strategy type.", choices=["default", "mcmc"])
     parser.add_argument("--max_steps", type=int, default=100_000, help="Maximum number of steps.")
+    # Only for MCMC
+    parser.add_argument("--cap_max", type=int, default=3_000_000,
+                        help="Maximum cap for MCMC gaussians. [strategy=mcmc]")
+    parser.add_argument("--refine_every", type=int, default=100, help="Refine frequency (iterations).")  # tune?
+
+    parser.add_argument("--sh_degree", type=int, default=3, choices=[1, 2, 3], help="Degree of spherical harmonics.")
+    # -------------- END ARGUMENTS FOR USER ----------------------
+
+    parser.add_argument("--sh_degree_interval", type=int, default=5_000,
+                        help="Add spherical harmonics degree interval.")
+    parser.add_argument("--data_factor", type=int, default=1, help="Data factor.")
+    parser.add_argument("--init_type", type=str, default="sfm", help="Initialization type.", choices=["sfm", "random"])
     parser.add_argument("--init_num_pts", type=int, default=300_000, help="Initial number of points (only for random).")
     parser.add_argument("--delta_steps", type=int, default=2_500, help="Delta steps for evaluation and saving.")
     parser.add_argument("--scale_reg", type=float, default=0.01, help="Scale regularization value.")
@@ -72,23 +83,18 @@ if __name__ == "__main__":
 
     # For default & MCMC strategies
     parser.add_argument("--min_opacity", type=float, default=0.005, help="Minimum opacity.")
-    parser.add_argument("--refine_every", type=int, default=100, help="Refine frequency (iterations).") # tune?
     parser.add_argument("--refine_start_iter", type=int, default=100, help="Refinement start iteration.")
 
     # Only for default
     parser.add_argument("--reset_every", type=int, default=3_000, help="Reset opacities every this steps. [strategy=default]")
     parser.add_argument("--pause_refine_after_reset", type=int, default=0, help="Pause refining GSs until this number of steps after reset. [strategy=default]")
-
-    # Only for MCMC
-    parser.add_argument("--cap_max", type=int, default=3_000_000, help="Maximum cap for MCMC gaussians. [strategy=mcmc]")
-
-    parser.add_argument("--sh_degree_interval", type=int, default=5_000, help="Add spherical harmonics degree interval.")
     parser.add_argument("--init_scale", type=float, default=1.0, help="Initial scale.")
     parser.add_argument("--init_opa", type=float, default=0.5, help="Initial opacity.")
 
     # Set below to true to have optimized rasterization that can make training more efficient
     parser.add_argument("--packed", type=bool, default=False, help="Use packed mode for rasterization.")
     parser.add_argument("--sparse_grad", type=bool, default=False, help="Use sparse gradients for optimization.")
+    parser.add_argument("--ckpt", type=str, default=None, help="Ckpt path, only for evaluation purposes.")
 
     # Parse arguments
     args = parser.parse_args()
@@ -114,8 +120,10 @@ if __name__ == "__main__":
     init_scale = args.init_scale
     init_opa = args.init_opa
     sh_degree_interval = args.sh_degree_interval
+    sh_degree = args.sh_degree
     packed = args.packed
     sparse_grad = args.sparse_grad
+    ckpt = [args.ckpt] if args.ckpt is not None else None
 
     # Define eval_steps and save_steps based on the values of max_steps and delta_steps
     eval_steps: List[int] = [i for i in range(2_000, max_steps + delta_steps, delta_steps)]
@@ -137,6 +145,9 @@ if __name__ == "__main__":
                 scale_reg=scale_reg,
                 packed=packed,
                 sparse_grad=sparse_grad,
+                disable_viewer=True,
+                ckpt=ckpt,
+                sh_degree=sh_degree,
                 sh_degree_interval=sh_degree_interval,
                 strategy=DefaultStrategy(verbose=True, refine_start_iter=refine_start_iter,
                                          refine_every=refine_every, refine_stop_iter=refine_stop_iter,
@@ -159,6 +170,9 @@ if __name__ == "__main__":
                 opacity_reg=opacity_reg,
                 scale_reg=scale_reg,
                 packed=packed,
+                disable_viewer=True,
+                ckpt=ckpt,
+                sh_degree=sh_degree,
                 sparse_grad=sparse_grad,
                 sh_degree_interval=sh_degree_interval,
                 strategy=MCMCStrategy(verbose=True, cap_max=cap_max, refine_every=refine_every,

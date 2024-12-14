@@ -1,11 +1,15 @@
+import argparse
 import os
 import pandas as pd
 import numpy as np
 from pyntcloud import PyntCloud
 
+from urb3d.segmentation.dataset import SAMPLE_SIZE
+
 
 def save_pointcloud_in_chunks_multiple_files(input_files, chunk_size, output_dir):
     last_chunk = 0
+    os.makedirs(output_dir, exist_ok=True)
     # Load points from each file
     for idx, file_path in enumerate(input_files):
         print(f"Loading: {file_path} ({idx+1}/{len(input_files)}) ", end='')
@@ -29,6 +33,16 @@ def save_pointcloud_in_chunks_multiple_files(input_files, chunk_size, output_dir
 
 
 input_files = [
-    '../data/birmingham_blocks/cambridge_block_17.ply',
+    '../data/segmentation_data/cambridge_block_4.ply',
 ]
-save_pointcloud_in_chunks_multiple_files(input_files, 131_072, '../data/birmingham_blocks/test')
+
+
+if __name__=="__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input", type=str, required=True, help="Path to the input .ply file")
+    parser.add_argument("--output", type=str, required=True, help="Path to save the chunked .ply files.")
+
+    args = parser.parse_args()
+
+    save_pointcloud_in_chunks_multiple_files([args.input], 500_000, args.output)

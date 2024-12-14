@@ -58,6 +58,7 @@ class Runner:
         self.stats_dir = f"{cfg.result_dir}/stats"
         os.makedirs(self.stats_dir, exist_ok=True)
         self.render_dir = f"{cfg.result_dir}/renders"
+        print(f"Renders dir {self.render_dir}")
         os.makedirs(self.render_dir, exist_ok=True)
 
         # Tensorboard
@@ -250,8 +251,6 @@ class Runner:
         device = self.device
         world_rank = self.world_rank
         world_size = self.world_size
-
-        cfg.num_init_splats = len(self.splats["means"])
 
         # Dump cfg.
         if world_rank == 0:
