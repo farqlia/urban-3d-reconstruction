@@ -78,11 +78,8 @@ class View:
             self.rendering_lib.cleanUp()
             self.lib_init = False
 
-        # cloud_file = "data/tester2.ply"
-
         if self._controller.viz_type == "reconstruction":
             cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
-            # cloud_file = str(TEST_MODEL_PLY_PATH)
 
             if self._controller.rendering_type == 1:
                 thread_pool = QThreadPool.globalInstance()
@@ -103,10 +100,9 @@ class View:
 
                 self.lib_init = True
 
-                # self.renderer.moveToThread(self._main_view.thread())
-                # self.renderer = QWidget.createWindowContainer(self.renderer)
+                self.renderer.moveToThread(self._main_view.thread())
+                self.renderer = QWidget.createWindowContainer(self.renderer)
             else:
-                cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
                 pc = PyntCloud.from_file(cloud_file)
                 prepare_point_cloud(pc, flip=False, normalize_colors=cloud_file == str(POINT_CLOUD_SPARSE))
                 self.renderer = PointCloudWidget(pc)
@@ -162,7 +158,3 @@ class View:
 
     def wrapper_slidig_widget(self):
         self._main_view.slide_body()
-
-    def _reload(self):
-        # write something to refresh ui after .env changes inside program
-        pass
