@@ -22,13 +22,11 @@ class View:
         QQuickWindow.setGraphicsApi(QSGRendererInterface.GraphicsApi.OpenGL)
         self._controller = controller
         self._engine_manager = EngineManager()
-        self.rendering_lib = lib
         self._configure_engine_properties()
         self._configure_handlers()
         self.popup_on = False
-        self.lib_init = False
 
-        self._main_view = MainWindow(self, self._engine_manager, self.rendering_lib)
+        self._main_view = MainWindow(self, self._engine_manager, None)
         self._loading_window = None
 
     def run(self):
@@ -73,43 +71,16 @@ class View:
 
         print("Rendering ...", self._controller.viz_type)
 
-        if (self.lib_init):
-            self.rendering_lib.close()
-            self.rendering_lib.cleanUp()
-            self.lib_init = False
-
-        # cloud_file = "data/tester2.ply"
-
         if self._controller.viz_type == "reconstruction":
             cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
-            # cloud_file = str(TEST_MODEL_PLY_PATH)
 
-            if self._controller.rendering_type == 1:
-                thread_pool = QThreadPool.globalInstance()
+            if self._controller.rendering_type == 1: # master-rendering -> branch with rendering, rendering checkbox in settings doesnt matter
+                pass
 
-                def bundle():
-                    self.rendering_lib.initWindow()
-                    window_id = self.rendering_lib.getWindowId()
-                    self.renderer = external_window(window_id)
-                    print("Loading shader data")
-                    self.rendering_lib.loadData(cloud_file.encode('utf-8'))
-                    print("Done loading shader data")
-                    self.rendering_lib.run()
-
-                thread_pool.start(BasicThreadScript(bundle, lambda x: None))
-
-                while(self.renderer is None):
-                    continue
-
-                self.lib_init = True
-
-                # self.renderer.moveToThread(self._main_view.thread())
-                # self.renderer = QWidget.createWindowContainer(self.renderer)
-            else:
-                cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
-                pc = PyntCloud.from_file(cloud_file)
-                prepare_point_cloud(pc, flip=False, normalize_colors=cloud_file == str(POINT_CLOUD_SPARSE))
-                self.renderer = PointCloudWidget(pc)
+            cloud_file = str(FILTERED_PRESEG_MODEL) if FILTERED_PRESEG_MODEL.exists() else str(POINT_CLOUD_SPARSE)
+            pc = PyntCloud.from_file(cloud_file)
+            prepare_point_cloud(pc, flip=False, normalize_colors=cloud_file == str(POINT_CLOUD_SPARSE))
+            self.renderer = PointCloudWidget(pc)
 
         elif self._controller.viz_type == "rendering":
             self.renderer = SlideshowWidget(PNG_RENDERS_FOLDER)
@@ -162,7 +133,3 @@ class View:
 
     def wrapper_slidig_widget(self):
         self._main_view.slide_body()
-
-    def _reload(self):
-        # write something to refresh ui after .env changes inside program
-        pass

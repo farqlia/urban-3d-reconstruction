@@ -20,7 +20,6 @@ class MainWindow(QMainWindow):
 
         self.showMaximized()
 
-        self.rendering_lib = lib
         self._engine_manager = engine_manager
 
         central_widget = QWidget()
@@ -79,7 +78,5 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event):
         print("CLOSING")
-        if self.parent.lib_init:
-            self.rendering_lib.close()
-            self.rendering_lib.cleanUp()
+        # No cleaning up lib
         event.accept()
